@@ -23,7 +23,7 @@ pub fn get_api_versions(
 /// Parses the HTTP response of [`get_api_versions`](./fn.get_api_versions.html)
 #[derive(Debug)]
 pub enum GetAPIVersionsResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroupList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroupList),
     Unauthorized,
     Other,
 }
@@ -62,7 +62,7 @@ pub fn get_admissionregistration_api_group(
 /// Parses the HTTP response of [`get_admissionregistration_api_group`](./fn.get_admissionregistration_api_group.html)
 #[derive(Debug)]
 pub enum GetAdmissionregistrationAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -101,7 +101,7 @@ pub fn get_admissionregistration_v1alpha1_api_resources(
 /// Parses the HTTP response of [`get_admissionregistration_v1alpha1_api_resources`](./fn.get_admissionregistration_v1alpha1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAdmissionregistrationV1alpha1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -140,7 +140,7 @@ pub fn get_admissionregistration_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_admissionregistration_v1beta1_api_resources`](./fn.get_admissionregistration_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAdmissionregistrationV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -179,7 +179,7 @@ pub fn get_apiextensions_api_group(
 /// Parses the HTTP response of [`get_apiextensions_api_group`](./fn.get_apiextensions_api_group.html)
 #[derive(Debug)]
 pub enum GetApiextensionsAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -218,7 +218,7 @@ pub fn get_apiextensions_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_apiextensions_v1beta1_api_resources`](./fn.get_apiextensions_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetApiextensionsV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -257,7 +257,7 @@ pub fn get_apiregistration_api_group(
 /// Parses the HTTP response of [`get_apiregistration_api_group`](./fn.get_apiregistration_api_group.html)
 #[derive(Debug)]
 pub enum GetApiregistrationAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -279,6 +279,45 @@ impl ::Response for GetApiregistrationAPIGroupResponse {
     }
 }
 
+// Generated from operation getApiregistrationV1APIResources
+
+/// get available resources
+///
+/// Use [`GetApiregistrationV1APIResourcesResponse`](./enum.GetApiregistrationV1APIResourcesResponse.html) to parse the HTTP response.
+pub fn get_apiregistration_v1_api_resources(
+) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
+    let __url = format!("/apis/apiregistration.k8s.io/v1/");
+
+    let mut __request = ::http::Request::get(__url);
+    let __body = vec![];
+    __request.body(__body).map_err(::RequestError::Http)
+}
+
+/// Parses the HTTP response of [`get_apiregistration_v1_api_resources`](./fn.get_apiregistration_v1_api_resources.html)
+#[derive(Debug)]
+pub enum GetApiregistrationV1APIResourcesResponse {
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Unauthorized,
+    Other,
+}
+
+impl ::Response for GetApiregistrationV1APIResourcesResponse {
+    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
+        match status_code {
+            ::http::StatusCode::OK => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((GetApiregistrationV1APIResourcesResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::UNAUTHORIZED => Ok((GetApiregistrationV1APIResourcesResponse::Unauthorized, 0)),
+            _ => Ok((GetApiregistrationV1APIResourcesResponse::Other, 0)),
+        }
+    }
+}
+
 // Generated from operation getApiregistrationV1beta1APIResources
 
 /// get available resources
@@ -296,7 +335,7 @@ pub fn get_apiregistration_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_apiregistration_v1beta1_api_resources`](./fn.get_apiregistration_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetApiregistrationV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -335,7 +374,7 @@ pub fn get_apps_api_group(
 /// Parses the HTTP response of [`get_apps_api_group`](./fn.get_apps_api_group.html)
 #[derive(Debug)]
 pub enum GetAppsAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -374,7 +413,7 @@ pub fn get_apps_v1_api_resources(
 /// Parses the HTTP response of [`get_apps_v1_api_resources`](./fn.get_apps_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAppsV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -413,7 +452,7 @@ pub fn get_apps_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_apps_v1beta1_api_resources`](./fn.get_apps_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAppsV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -452,7 +491,7 @@ pub fn get_apps_v1beta2_api_resources(
 /// Parses the HTTP response of [`get_apps_v1beta2_api_resources`](./fn.get_apps_v1beta2_api_resources.html)
 #[derive(Debug)]
 pub enum GetAppsV1beta2APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -491,7 +530,7 @@ pub fn get_authentication_api_group(
 /// Parses the HTTP response of [`get_authentication_api_group`](./fn.get_authentication_api_group.html)
 #[derive(Debug)]
 pub enum GetAuthenticationAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -530,7 +569,7 @@ pub fn get_authentication_v1_api_resources(
 /// Parses the HTTP response of [`get_authentication_v1_api_resources`](./fn.get_authentication_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAuthenticationV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -569,7 +608,7 @@ pub fn get_authentication_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_authentication_v1beta1_api_resources`](./fn.get_authentication_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAuthenticationV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -608,7 +647,7 @@ pub fn get_authorization_api_group(
 /// Parses the HTTP response of [`get_authorization_api_group`](./fn.get_authorization_api_group.html)
 #[derive(Debug)]
 pub enum GetAuthorizationAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -647,7 +686,7 @@ pub fn get_authorization_v1_api_resources(
 /// Parses the HTTP response of [`get_authorization_v1_api_resources`](./fn.get_authorization_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAuthorizationV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -686,7 +725,7 @@ pub fn get_authorization_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_authorization_v1beta1_api_resources`](./fn.get_authorization_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAuthorizationV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -725,7 +764,7 @@ pub fn get_autoscaling_api_group(
 /// Parses the HTTP response of [`get_autoscaling_api_group`](./fn.get_autoscaling_api_group.html)
 #[derive(Debug)]
 pub enum GetAutoscalingAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -764,7 +803,7 @@ pub fn get_autoscaling_v1_api_resources(
 /// Parses the HTTP response of [`get_autoscaling_v1_api_resources`](./fn.get_autoscaling_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAutoscalingV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -803,7 +842,7 @@ pub fn get_autoscaling_v2beta1_api_resources(
 /// Parses the HTTP response of [`get_autoscaling_v2beta1_api_resources`](./fn.get_autoscaling_v2beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetAutoscalingV2beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -842,7 +881,7 @@ pub fn get_batch_api_group(
 /// Parses the HTTP response of [`get_batch_api_group`](./fn.get_batch_api_group.html)
 #[derive(Debug)]
 pub enum GetBatchAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -881,7 +920,7 @@ pub fn get_batch_v1_api_resources(
 /// Parses the HTTP response of [`get_batch_v1_api_resources`](./fn.get_batch_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetBatchV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -920,7 +959,7 @@ pub fn get_batch_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_batch_v1beta1_api_resources`](./fn.get_batch_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetBatchV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -959,7 +998,7 @@ pub fn get_batch_v2alpha1_api_resources(
 /// Parses the HTTP response of [`get_batch_v2alpha1_api_resources`](./fn.get_batch_v2alpha1_api_resources.html)
 #[derive(Debug)]
 pub enum GetBatchV2alpha1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -998,7 +1037,7 @@ pub fn get_certificates_api_group(
 /// Parses the HTTP response of [`get_certificates_api_group`](./fn.get_certificates_api_group.html)
 #[derive(Debug)]
 pub enum GetCertificatesAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1037,7 +1076,7 @@ pub fn get_certificates_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_certificates_v1beta1_api_resources`](./fn.get_certificates_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetCertificatesV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1076,7 +1115,7 @@ pub fn get_code_version(
 /// Parses the HTTP response of [`get_code_version`](./fn.get_code_version.html)
 #[derive(Debug)]
 pub enum GetCodeVersionResponse {
-    Ok(::v1_9::apimachinery::pkg::version::Info),
+    Ok(::v1_10::apimachinery::pkg::version::Info),
     Unauthorized,
     Other,
 }
@@ -1115,7 +1154,7 @@ pub fn get_core_api_versions(
 /// Parses the HTTP response of [`get_core_api_versions`](./fn.get_core_api_versions.html)
 #[derive(Debug)]
 pub enum GetCoreAPIVersionsResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIVersions),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIVersions),
     Unauthorized,
     Other,
 }
@@ -1154,7 +1193,7 @@ pub fn get_core_v1_api_resources(
 /// Parses the HTTP response of [`get_core_v1_api_resources`](./fn.get_core_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetCoreV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1193,7 +1232,7 @@ pub fn get_events_api_group(
 /// Parses the HTTP response of [`get_events_api_group`](./fn.get_events_api_group.html)
 #[derive(Debug)]
 pub enum GetEventsAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1232,7 +1271,7 @@ pub fn get_events_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_events_v1beta1_api_resources`](./fn.get_events_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetEventsV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1271,7 +1310,7 @@ pub fn get_extensions_api_group(
 /// Parses the HTTP response of [`get_extensions_api_group`](./fn.get_extensions_api_group.html)
 #[derive(Debug)]
 pub enum GetExtensionsAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1310,7 +1349,7 @@ pub fn get_extensions_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_extensions_v1beta1_api_resources`](./fn.get_extensions_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetExtensionsV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1349,7 +1388,7 @@ pub fn get_networking_api_group(
 /// Parses the HTTP response of [`get_networking_api_group`](./fn.get_networking_api_group.html)
 #[derive(Debug)]
 pub enum GetNetworkingAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1388,7 +1427,7 @@ pub fn get_networking_v1_api_resources(
 /// Parses the HTTP response of [`get_networking_v1_api_resources`](./fn.get_networking_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetNetworkingV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1427,7 +1466,7 @@ pub fn get_policy_api_group(
 /// Parses the HTTP response of [`get_policy_api_group`](./fn.get_policy_api_group.html)
 #[derive(Debug)]
 pub enum GetPolicyAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1466,7 +1505,7 @@ pub fn get_policy_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_policy_v1beta1_api_resources`](./fn.get_policy_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetPolicyV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1505,7 +1544,7 @@ pub fn get_rbac_authorization_api_group(
 /// Parses the HTTP response of [`get_rbac_authorization_api_group`](./fn.get_rbac_authorization_api_group.html)
 #[derive(Debug)]
 pub enum GetRbacAuthorizationAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1544,7 +1583,7 @@ pub fn get_rbac_authorization_v1_api_resources(
 /// Parses the HTTP response of [`get_rbac_authorization_v1_api_resources`](./fn.get_rbac_authorization_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetRbacAuthorizationV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1583,7 +1622,7 @@ pub fn get_rbac_authorization_v1alpha1_api_resources(
 /// Parses the HTTP response of [`get_rbac_authorization_v1alpha1_api_resources`](./fn.get_rbac_authorization_v1alpha1_api_resources.html)
 #[derive(Debug)]
 pub enum GetRbacAuthorizationV1alpha1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1622,7 +1661,7 @@ pub fn get_rbac_authorization_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_rbac_authorization_v1beta1_api_resources`](./fn.get_rbac_authorization_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetRbacAuthorizationV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1661,7 +1700,7 @@ pub fn get_scheduling_api_group(
 /// Parses the HTTP response of [`get_scheduling_api_group`](./fn.get_scheduling_api_group.html)
 #[derive(Debug)]
 pub enum GetSchedulingAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1700,7 +1739,7 @@ pub fn get_scheduling_v1alpha1_api_resources(
 /// Parses the HTTP response of [`get_scheduling_v1alpha1_api_resources`](./fn.get_scheduling_v1alpha1_api_resources.html)
 #[derive(Debug)]
 pub enum GetSchedulingV1alpha1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1739,7 +1778,7 @@ pub fn get_settings_api_group(
 /// Parses the HTTP response of [`get_settings_api_group`](./fn.get_settings_api_group.html)
 #[derive(Debug)]
 pub enum GetSettingsAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1778,7 +1817,7 @@ pub fn get_settings_v1alpha1_api_resources(
 /// Parses the HTTP response of [`get_settings_v1alpha1_api_resources`](./fn.get_settings_v1alpha1_api_resources.html)
 #[derive(Debug)]
 pub enum GetSettingsV1alpha1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1817,7 +1856,7 @@ pub fn get_storage_api_group(
 /// Parses the HTTP response of [`get_storage_api_group`](./fn.get_storage_api_group.html)
 #[derive(Debug)]
 pub enum GetStorageAPIGroupResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIGroup),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIGroup),
     Unauthorized,
     Other,
 }
@@ -1856,7 +1895,7 @@ pub fn get_storage_v1_api_resources(
 /// Parses the HTTP response of [`get_storage_v1_api_resources`](./fn.get_storage_v1_api_resources.html)
 #[derive(Debug)]
 pub enum GetStorageV1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1895,7 +1934,7 @@ pub fn get_storage_v1alpha1_api_resources(
 /// Parses the HTTP response of [`get_storage_v1alpha1_api_resources`](./fn.get_storage_v1alpha1_api_resources.html)
 #[derive(Debug)]
 pub enum GetStorageV1alpha1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }
@@ -1934,7 +1973,7 @@ pub fn get_storage_v1beta1_api_resources(
 /// Parses the HTTP response of [`get_storage_v1beta1_api_resources`](./fn.get_storage_v1beta1_api_resources.html)
 #[derive(Debug)]
 pub enum GetStorageV1beta1APIResourcesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::APIResourceList),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::APIResourceList),
     Unauthorized,
     Other,
 }

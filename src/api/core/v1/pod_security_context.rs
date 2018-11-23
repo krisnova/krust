@@ -10,6 +10,9 @@ pub struct PodSecurityContext {
     /// If unset, the Kubelet will not modify the ownership and permissions of any volume.
     pub fs_group: Option<i64>,
 
+    /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+    pub run_as_group: Option<i64>,
+
     /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
     pub run_as_non_root: Option<bool>,
 
@@ -17,7 +20,7 @@ pub struct PodSecurityContext {
     pub run_as_user: Option<i64>,
 
     /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
-    pub se_linux_options: Option<::v1_9::api::core::v1::SELinuxOptions>,
+    pub se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions>,
 
     /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
     pub supplemental_groups: Option<Vec<i64>>,
@@ -28,6 +31,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
         #[allow(non_camel_case_types)]
         enum Field {
             Key_fs_group,
+            Key_run_as_group,
             Key_run_as_non_root,
             Key_run_as_user,
             Key_se_linux_options,
@@ -49,6 +53,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
                     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> where E: ::serde::de::Error {
                         Ok(match v {
                             "fsGroup" => Field::Key_fs_group,
+                            "runAsGroup" => Field::Key_run_as_group,
                             "runAsNonRoot" => Field::Key_run_as_non_root,
                             "runAsUser" => Field::Key_run_as_user,
                             "seLinuxOptions" => Field::Key_se_linux_options,
@@ -73,14 +78,16 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_fs_group: Option<i64> = None;
+                let mut value_run_as_group: Option<i64> = None;
                 let mut value_run_as_non_root: Option<bool> = None;
                 let mut value_run_as_user: Option<i64> = None;
-                let mut value_se_linux_options: Option<::v1_9::api::core::v1::SELinuxOptions> = None;
+                let mut value_se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions> = None;
                 let mut value_supplemental_groups: Option<Vec<i64>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
                         Field::Key_fs_group => value_fs_group = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_run_as_group => value_run_as_group = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_run_as_non_root => value_run_as_non_root = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_run_as_user => value_run_as_user = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_se_linux_options => value_se_linux_options = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -91,6 +98,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
 
                 Ok(PodSecurityContext {
                     fs_group: value_fs_group,
+                    run_as_group: value_run_as_group,
                     run_as_non_root: value_run_as_non_root,
                     run_as_user: value_run_as_user,
                     se_linux_options: value_se_linux_options,
@@ -103,6 +111,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
             "PodSecurityContext",
             &[
                 "fsGroup",
+                "runAsGroup",
                 "runAsNonRoot",
                 "runAsUser",
                 "seLinuxOptions",
@@ -119,6 +128,7 @@ impl ::serde::Serialize for PodSecurityContext {
             "PodSecurityContext",
             0 +
             self.fs_group.as_ref().map_or(0, |_| 1) +
+            self.run_as_group.as_ref().map_or(0, |_| 1) +
             self.run_as_non_root.as_ref().map_or(0, |_| 1) +
             self.run_as_user.as_ref().map_or(0, |_| 1) +
             self.se_linux_options.as_ref().map_or(0, |_| 1) +
@@ -126,6 +136,9 @@ impl ::serde::Serialize for PodSecurityContext {
         )?;
         if let Some(value) = &self.fs_group {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "fsGroup", value)?;
+        }
+        if let Some(value) = &self.run_as_group {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "runAsGroup", value)?;
         }
         if let Some(value) = &self.run_as_non_root {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "runAsNonRoot", value)?;

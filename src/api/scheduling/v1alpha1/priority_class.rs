@@ -6,11 +6,11 @@ pub struct PriorityClass {
     /// description is an arbitrary string that usually provides guidelines on when this priority class should be used.
     pub description: Option<String>,
 
-    /// globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class.
+    /// globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
     pub global_default: Option<bool>,
 
-    /// Standard object's metadata. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
     pub value: i32,
@@ -33,7 +33,7 @@ impl PriorityClass {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_scheduling_v1alpha1_priority_class(
-        body: &::v1_9::api::scheduling::v1alpha1::PriorityClass,
+        body: &::v1_10::api::scheduling::v1alpha1::PriorityClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses?");
@@ -52,9 +52,9 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::create_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.create_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum CreateSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
-    Created(::v1_9::api::scheduling::v1alpha1::PriorityClass),
-    Accepted(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_10::api::scheduling::v1alpha1::PriorityClass),
+    Created(::v1_10::api::scheduling::v1alpha1::PriorityClass),
+    Accepted(::v1_10::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -133,7 +133,7 @@ impl PriorityClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -189,8 +189,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::delete_scheduling_v1alpha1_collection_priority_class`](./struct.PriorityClass.html#method.delete_scheduling_v1alpha1_collection_priority_class)
 #[derive(Debug)]
 pub enum DeleteSchedulingV1alpha1CollectionPriorityClassResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -287,8 +287,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::delete_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.delete_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum DeleteSchedulingV1alpha1PriorityClassResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -364,7 +364,7 @@ impl PriorityClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -420,7 +420,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::list_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.list_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ListSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClassList),
+    Ok(::v1_10::api::scheduling::v1alpha1::PriorityClassList),
     Unauthorized,
     Other,
 }
@@ -462,7 +462,7 @@ impl PriorityClass {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_scheduling_v1alpha1_priority_class(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses/{name}?", name = name);
@@ -481,7 +481,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::patch_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.patch_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum PatchSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_10::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -555,7 +555,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::read_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.read_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ReadSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_10::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -597,7 +597,7 @@ impl PriorityClass {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_scheduling_v1alpha1_priority_class(
         name: &str,
-        body: &::v1_9::api::scheduling::v1alpha1::PriorityClass,
+        body: &::v1_10::api::scheduling::v1alpha1::PriorityClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses/{name}?", name = name);
@@ -616,8 +616,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::replace_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.replace_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ReplaceSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
-    Created(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_10::api::scheduling::v1alpha1::PriorityClass),
+    Created(::v1_10::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -692,7 +692,7 @@ impl PriorityClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -749,7 +749,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::watch_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.watch_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum WatchSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -814,7 +814,7 @@ impl PriorityClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -870,7 +870,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::watch_scheduling_v1alpha1_priority_class_list`](./struct.PriorityClass.html#method.watch_scheduling_v1alpha1_priority_class_list)
 #[derive(Debug)]
 pub enum WatchSchedulingV1alpha1PriorityClassListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -967,7 +967,7 @@ impl<'de> ::serde::Deserialize<'de> for PriorityClass {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_description: Option<String> = None;
                 let mut value_global_default: Option<bool> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_value: Option<i32> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

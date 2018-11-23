@@ -7,13 +7,16 @@ pub struct SecurityContext {
     pub allow_privilege_escalation: Option<bool>,
 
     /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
-    pub capabilities: Option<::v1_9::api::core::v1::Capabilities>,
+    pub capabilities: Option<::v1_10::api::core::v1::Capabilities>,
 
     /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
     pub privileged: Option<bool>,
 
     /// Whether this container has a read-only root filesystem. Default is false.
     pub read_only_root_filesystem: Option<bool>,
+
+    /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+    pub run_as_group: Option<i64>,
 
     /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
     pub run_as_non_root: Option<bool>,
@@ -22,7 +25,7 @@ pub struct SecurityContext {
     pub run_as_user: Option<i64>,
 
     /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
-    pub se_linux_options: Option<::v1_9::api::core::v1::SELinuxOptions>,
+    pub se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for SecurityContext {
@@ -33,6 +36,7 @@ impl<'de> ::serde::Deserialize<'de> for SecurityContext {
             Key_capabilities,
             Key_privileged,
             Key_read_only_root_filesystem,
+            Key_run_as_group,
             Key_run_as_non_root,
             Key_run_as_user,
             Key_se_linux_options,
@@ -56,6 +60,7 @@ impl<'de> ::serde::Deserialize<'de> for SecurityContext {
                             "capabilities" => Field::Key_capabilities,
                             "privileged" => Field::Key_privileged,
                             "readOnlyRootFilesystem" => Field::Key_read_only_root_filesystem,
+                            "runAsGroup" => Field::Key_run_as_group,
                             "runAsNonRoot" => Field::Key_run_as_non_root,
                             "runAsUser" => Field::Key_run_as_user,
                             "seLinuxOptions" => Field::Key_se_linux_options,
@@ -79,12 +84,13 @@ impl<'de> ::serde::Deserialize<'de> for SecurityContext {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_allow_privilege_escalation: Option<bool> = None;
-                let mut value_capabilities: Option<::v1_9::api::core::v1::Capabilities> = None;
+                let mut value_capabilities: Option<::v1_10::api::core::v1::Capabilities> = None;
                 let mut value_privileged: Option<bool> = None;
                 let mut value_read_only_root_filesystem: Option<bool> = None;
+                let mut value_run_as_group: Option<i64> = None;
                 let mut value_run_as_non_root: Option<bool> = None;
                 let mut value_run_as_user: Option<i64> = None;
-                let mut value_se_linux_options: Option<::v1_9::api::core::v1::SELinuxOptions> = None;
+                let mut value_se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -92,6 +98,7 @@ impl<'de> ::serde::Deserialize<'de> for SecurityContext {
                         Field::Key_capabilities => value_capabilities = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_privileged => value_privileged = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_read_only_root_filesystem => value_read_only_root_filesystem = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_run_as_group => value_run_as_group = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_run_as_non_root => value_run_as_non_root = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_run_as_user => value_run_as_user = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_se_linux_options => value_se_linux_options = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -104,6 +111,7 @@ impl<'de> ::serde::Deserialize<'de> for SecurityContext {
                     capabilities: value_capabilities,
                     privileged: value_privileged,
                     read_only_root_filesystem: value_read_only_root_filesystem,
+                    run_as_group: value_run_as_group,
                     run_as_non_root: value_run_as_non_root,
                     run_as_user: value_run_as_user,
                     se_linux_options: value_se_linux_options,
@@ -118,6 +126,7 @@ impl<'de> ::serde::Deserialize<'de> for SecurityContext {
                 "capabilities",
                 "privileged",
                 "readOnlyRootFilesystem",
+                "runAsGroup",
                 "runAsNonRoot",
                 "runAsUser",
                 "seLinuxOptions",
@@ -136,6 +145,7 @@ impl ::serde::Serialize for SecurityContext {
             self.capabilities.as_ref().map_or(0, |_| 1) +
             self.privileged.as_ref().map_or(0, |_| 1) +
             self.read_only_root_filesystem.as_ref().map_or(0, |_| 1) +
+            self.run_as_group.as_ref().map_or(0, |_| 1) +
             self.run_as_non_root.as_ref().map_or(0, |_| 1) +
             self.run_as_user.as_ref().map_or(0, |_| 1) +
             self.se_linux_options.as_ref().map_or(0, |_| 1),
@@ -151,6 +161,9 @@ impl ::serde::Serialize for SecurityContext {
         }
         if let Some(value) = &self.read_only_root_filesystem {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "readOnlyRootFilesystem", value)?;
+        }
+        if let Some(value) = &self.run_as_group {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "runAsGroup", value)?;
         }
         if let Some(value) = &self.run_as_non_root {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "runAsNonRoot", value)?;

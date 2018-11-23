@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PersistentVolumeList {
     /// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
-    pub items: Vec<::v1_9::api::core::v1::PersistentVolume>,
+    pub items: Vec<::v1_10::api::core::v1::PersistentVolume>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for PersistentVolumeList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_9::api::core::v1::PersistentVolume>> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_10::api::core::v1::PersistentVolume>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

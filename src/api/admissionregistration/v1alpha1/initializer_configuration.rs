@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct InitializerConfiguration {
     /// Initializers is a list of resources and their default initializers Order-sensitive. When merging multiple InitializerConfigurations, we sort the initializers from different InitializerConfigurations by the name of the InitializerConfigurations; the order of the initializers from the same InitializerConfiguration is preserved.
-    pub initializers: Option<Vec<::v1_9::api::admissionregistration::v1alpha1::Initializer>>,
+    pub initializers: Option<Vec<::v1_10::api::admissionregistration::v1alpha1::Initializer>>,
 
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 }
 
 // Begin admissionregistration.k8s.io/v1alpha1/InitializerConfiguration
@@ -27,7 +27,7 @@ impl InitializerConfiguration {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_admissionregistration_v1alpha1_initializer_configuration(
-        body: &::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration,
+        body: &::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations?");
@@ -46,9 +46,9 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::create_admissionregistration_v1alpha1_initializer_configuration`](./struct.InitializerConfiguration.html#method.create_admissionregistration_v1alpha1_initializer_configuration)
 #[derive(Debug)]
 pub enum CreateAdmissionregistrationV1alpha1InitializerConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
-    Created(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
-    Accepted(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    Created(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    Accepted(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
     Unauthorized,
     Other,
 }
@@ -127,7 +127,7 @@ impl InitializerConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -183,8 +183,8 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::delete_admissionregistration_v1alpha1_collection_initializer_configuration`](./struct.InitializerConfiguration.html#method.delete_admissionregistration_v1alpha1_collection_initializer_configuration)
 #[derive(Debug)]
 pub enum DeleteAdmissionregistrationV1alpha1CollectionInitializerConfigurationResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
     Unauthorized,
     Other,
 }
@@ -281,8 +281,8 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::delete_admissionregistration_v1alpha1_initializer_configuration`](./struct.InitializerConfiguration.html#method.delete_admissionregistration_v1alpha1_initializer_configuration)
 #[derive(Debug)]
 pub enum DeleteAdmissionregistrationV1alpha1InitializerConfigurationResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
     Unauthorized,
     Other,
 }
@@ -358,7 +358,7 @@ impl InitializerConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -414,7 +414,7 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::list_admissionregistration_v1alpha1_initializer_configuration`](./struct.InitializerConfiguration.html#method.list_admissionregistration_v1alpha1_initializer_configuration)
 #[derive(Debug)]
 pub enum ListAdmissionregistrationV1alpha1InitializerConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1alpha1::InitializerConfigurationList),
+    Ok(::v1_10::api::admissionregistration::v1alpha1::InitializerConfigurationList),
     Unauthorized,
     Other,
 }
@@ -456,7 +456,7 @@ impl InitializerConfiguration {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_admissionregistration_v1alpha1_initializer_configuration(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations/{name}?", name = name);
@@ -475,7 +475,7 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::patch_admissionregistration_v1alpha1_initializer_configuration`](./struct.InitializerConfiguration.html#method.patch_admissionregistration_v1alpha1_initializer_configuration)
 #[derive(Debug)]
 pub enum PatchAdmissionregistrationV1alpha1InitializerConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
     Unauthorized,
     Other,
 }
@@ -549,7 +549,7 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::read_admissionregistration_v1alpha1_initializer_configuration`](./struct.InitializerConfiguration.html#method.read_admissionregistration_v1alpha1_initializer_configuration)
 #[derive(Debug)]
 pub enum ReadAdmissionregistrationV1alpha1InitializerConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
     Unauthorized,
     Other,
 }
@@ -591,7 +591,7 @@ impl InitializerConfiguration {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_admissionregistration_v1alpha1_initializer_configuration(
         name: &str,
-        body: &::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration,
+        body: &::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations/{name}?", name = name);
@@ -610,8 +610,8 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::replace_admissionregistration_v1alpha1_initializer_configuration`](./struct.InitializerConfiguration.html#method.replace_admissionregistration_v1alpha1_initializer_configuration)
 #[derive(Debug)]
 pub enum ReplaceAdmissionregistrationV1alpha1InitializerConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
-    Created(::v1_9::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
+    Created(::v1_10::api::admissionregistration::v1alpha1::InitializerConfiguration),
     Unauthorized,
     Other,
 }
@@ -686,7 +686,7 @@ impl InitializerConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -743,7 +743,7 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::watch_admissionregistration_v1alpha1_initializer_configuration`](./struct.InitializerConfiguration.html#method.watch_admissionregistration_v1alpha1_initializer_configuration)
 #[derive(Debug)]
 pub enum WatchAdmissionregistrationV1alpha1InitializerConfigurationResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -808,7 +808,7 @@ impl InitializerConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -864,7 +864,7 @@ impl InitializerConfiguration {
 /// Parses the HTTP response of [`InitializerConfiguration::watch_admissionregistration_v1alpha1_initializer_configuration_list`](./struct.InitializerConfiguration.html#method.watch_admissionregistration_v1alpha1_initializer_configuration_list)
 #[derive(Debug)]
 pub enum WatchAdmissionregistrationV1alpha1InitializerConfigurationListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -955,8 +955,8 @@ impl<'de> ::serde::Deserialize<'de> for InitializerConfiguration {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_initializers: Option<Vec<::v1_9::api::admissionregistration::v1alpha1::Initializer>> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_initializers: Option<Vec<::v1_10::api::admissionregistration::v1alpha1::Initializer>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ComponentStatus {
     /// List of component conditions observed
-    pub conditions: Option<Vec<::v1_9::api::core::v1::ComponentCondition>>,
+    pub conditions: Option<Vec<::v1_10::api::core::v1::ComponentCondition>>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 }
 
 // Begin /v1/ComponentStatus
@@ -53,7 +53,7 @@ impl ComponentStatus {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -109,7 +109,7 @@ impl ComponentStatus {
 /// Parses the HTTP response of [`ComponentStatus::list_core_v1_component_status`](./struct.ComponentStatus.html#method.list_core_v1_component_status)
 #[derive(Debug)]
 pub enum ListCoreV1ComponentStatusResponse {
-    Ok(::v1_9::api::core::v1::ComponentStatusList),
+    Ok(::v1_10::api::core::v1::ComponentStatusList),
     Unauthorized,
     Other,
 }
@@ -167,7 +167,7 @@ impl ComponentStatus {
 /// Parses the HTTP response of [`ComponentStatus::read_core_v1_component_status`](./struct.ComponentStatus.html#method.read_core_v1_component_status)
 #[derive(Debug)]
 pub enum ReadCoreV1ComponentStatusResponse {
-    Ok(::v1_9::api::core::v1::ComponentStatus),
+    Ok(::v1_10::api::core::v1::ComponentStatus),
     Unauthorized,
     Other,
 }
@@ -256,8 +256,8 @@ impl<'de> ::serde::Deserialize<'de> for ComponentStatus {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_conditions: Option<Vec<::v1_9::api::core::v1::ComponentCondition>> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_conditions: Option<Vec<::v1_10::api::core::v1::ComponentCondition>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

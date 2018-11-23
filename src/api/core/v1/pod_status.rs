@@ -4,19 +4,22 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PodStatus {
     /// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-    pub conditions: Option<Vec<::v1_9::api::core::v1::PodCondition>>,
+    pub conditions: Option<Vec<::v1_10::api::core::v1::PodCondition>>,
 
     /// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
-    pub container_statuses: Option<Vec<::v1_9::api::core::v1::ContainerStatus>>,
+    pub container_statuses: Option<Vec<::v1_10::api::core::v1::ContainerStatus>>,
 
     /// IP address of the host to which the pod is assigned. Empty if not yet scheduled.
     pub host_ip: Option<String>,
 
     /// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
-    pub init_container_statuses: Option<Vec<::v1_9::api::core::v1::ContainerStatus>>,
+    pub init_container_statuses: Option<Vec<::v1_10::api::core::v1::ContainerStatus>>,
 
     /// A human readable message indicating details about why the pod is in this condition.
     pub message: Option<String>,
+
+    /// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
+    pub nominated_node_name: Option<String>,
 
     /// Current condition of the pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
     pub phase: Option<String>,
@@ -24,14 +27,14 @@ pub struct PodStatus {
     /// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
     pub pod_ip: Option<String>,
 
-    /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://github.com/kubernetes/kubernetes/blob/master/docs/design/resource-qos.md
+    /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
     pub qos_class: Option<String>,
 
     /// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
     pub reason: Option<String>,
 
     /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
-    pub start_time: Option<::v1_9::apimachinery::pkg::apis::meta::v1::Time>,
+    pub start_time: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for PodStatus {
@@ -43,6 +46,7 @@ impl<'de> ::serde::Deserialize<'de> for PodStatus {
             Key_host_ip,
             Key_init_container_statuses,
             Key_message,
+            Key_nominated_node_name,
             Key_phase,
             Key_pod_ip,
             Key_qos_class,
@@ -69,6 +73,7 @@ impl<'de> ::serde::Deserialize<'de> for PodStatus {
                             "hostIP" => Field::Key_host_ip,
                             "initContainerStatuses" => Field::Key_init_container_statuses,
                             "message" => Field::Key_message,
+                            "nominatedNodeName" => Field::Key_nominated_node_name,
                             "phase" => Field::Key_phase,
                             "podIP" => Field::Key_pod_ip,
                             "qosClass" => Field::Key_qos_class,
@@ -93,16 +98,17 @@ impl<'de> ::serde::Deserialize<'de> for PodStatus {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_conditions: Option<Vec<::v1_9::api::core::v1::PodCondition>> = None;
-                let mut value_container_statuses: Option<Vec<::v1_9::api::core::v1::ContainerStatus>> = None;
+                let mut value_conditions: Option<Vec<::v1_10::api::core::v1::PodCondition>> = None;
+                let mut value_container_statuses: Option<Vec<::v1_10::api::core::v1::ContainerStatus>> = None;
                 let mut value_host_ip: Option<String> = None;
-                let mut value_init_container_statuses: Option<Vec<::v1_9::api::core::v1::ContainerStatus>> = None;
+                let mut value_init_container_statuses: Option<Vec<::v1_10::api::core::v1::ContainerStatus>> = None;
                 let mut value_message: Option<String> = None;
+                let mut value_nominated_node_name: Option<String> = None;
                 let mut value_phase: Option<String> = None;
                 let mut value_pod_ip: Option<String> = None;
                 let mut value_qos_class: Option<String> = None;
                 let mut value_reason: Option<String> = None;
-                let mut value_start_time: Option<::v1_9::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_start_time: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -111,6 +117,7 @@ impl<'de> ::serde::Deserialize<'de> for PodStatus {
                         Field::Key_host_ip => value_host_ip = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_init_container_statuses => value_init_container_statuses = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_message => value_message = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_nominated_node_name => value_nominated_node_name = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_phase => value_phase = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_pod_ip => value_pod_ip = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_qos_class => value_qos_class = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -126,6 +133,7 @@ impl<'de> ::serde::Deserialize<'de> for PodStatus {
                     host_ip: value_host_ip,
                     init_container_statuses: value_init_container_statuses,
                     message: value_message,
+                    nominated_node_name: value_nominated_node_name,
                     phase: value_phase,
                     pod_ip: value_pod_ip,
                     qos_class: value_qos_class,
@@ -143,6 +151,7 @@ impl<'de> ::serde::Deserialize<'de> for PodStatus {
                 "hostIP",
                 "initContainerStatuses",
                 "message",
+                "nominatedNodeName",
                 "phase",
                 "podIP",
                 "qosClass",
@@ -164,6 +173,7 @@ impl ::serde::Serialize for PodStatus {
             self.host_ip.as_ref().map_or(0, |_| 1) +
             self.init_container_statuses.as_ref().map_or(0, |_| 1) +
             self.message.as_ref().map_or(0, |_| 1) +
+            self.nominated_node_name.as_ref().map_or(0, |_| 1) +
             self.phase.as_ref().map_or(0, |_| 1) +
             self.pod_ip.as_ref().map_or(0, |_| 1) +
             self.qos_class.as_ref().map_or(0, |_| 1) +
@@ -184,6 +194,9 @@ impl ::serde::Serialize for PodStatus {
         }
         if let Some(value) = &self.message {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "message", value)?;
+        }
+        if let Some(value) = &self.nominated_node_name {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "nominatedNodeName", value)?;
         }
         if let Some(value) = &self.phase {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "phase", value)?;

@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct HorizontalPodAutoscaler {
     /// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-    pub spec: Option<::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscalerSpec>,
+    pub spec: Option<::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscalerSpec>,
 
     /// status is the current information about the autoscaler.
-    pub status: Option<::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscalerStatus>,
+    pub status: Option<::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscalerStatus>,
 }
 
 // Begin autoscaling/v2beta1/HorizontalPodAutoscaler
@@ -35,7 +35,7 @@ impl HorizontalPodAutoscaler {
     ///     If 'true', then the output is pretty printed.
     pub fn create_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler(
         namespace: &str,
-        body: &::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler,
+        body: &::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/autoscaling/v2beta1/namespaces/{namespace}/horizontalpodautoscalers?", namespace = namespace);
@@ -54,9 +54,9 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::create_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.create_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum CreateAutoscalingV2beta1NamespacedHorizontalPodAutoscalerResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
-    Created(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
-    Accepted(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Created(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Accepted(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl HorizontalPodAutoscaler {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::delete_autoscaling_v2beta1_collection_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.delete_autoscaling_v2beta1_collection_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum DeleteAutoscalingV2beta1CollectionNamespacedHorizontalPodAutoscalerResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::delete_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.delete_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum DeleteAutoscalingV2beta1NamespacedHorizontalPodAutoscalerResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -376,7 +376,7 @@ impl HorizontalPodAutoscaler {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -432,7 +432,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::list_autoscaling_v2beta1_horizontal_pod_autoscaler_for_all_namespaces`](./struct.HorizontalPodAutoscaler.html#method.list_autoscaling_v2beta1_horizontal_pod_autoscaler_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAutoscalingV2beta1HorizontalPodAutoscalerForAllNamespacesResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscalerList),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscalerList),
     Unauthorized,
     Other,
 }
@@ -499,7 +499,7 @@ impl HorizontalPodAutoscaler {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::list_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.list_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum ListAutoscalingV2beta1NamespacedHorizontalPodAutoscalerResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscalerList),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscalerList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl HorizontalPodAutoscaler {
     pub fn patch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/autoscaling/v2beta1/namespaces/{namespace}/horizontalpodautoscalers/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::patch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.patch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum PatchAutoscalingV2beta1NamespacedHorizontalPodAutoscalerResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl HorizontalPodAutoscaler {
     pub fn patch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/autoscaling/v2beta1/namespaces/{namespace}/horizontalpodautoscalers/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::patch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status`](./struct.HorizontalPodAutoscaler.html#method.patch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status)
 #[derive(Debug)]
 pub enum PatchAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatusResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::read_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.read_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum ReadAutoscalingV2beta1NamespacedHorizontalPodAutoscalerResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::read_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status`](./struct.HorizontalPodAutoscaler.html#method.read_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status)
 #[derive(Debug)]
 pub enum ReadAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatusResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl HorizontalPodAutoscaler {
     pub fn replace_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler,
+        body: &::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/autoscaling/v2beta1/namespaces/{namespace}/horizontalpodautoscalers/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::replace_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.replace_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum ReplaceAutoscalingV2beta1NamespacedHorizontalPodAutoscalerResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
-    Created(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Created(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl HorizontalPodAutoscaler {
     pub fn replace_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler,
+        body: &::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/autoscaling/v2beta1/namespaces/{namespace}/horizontalpodautoscalers/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::replace_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status`](./struct.HorizontalPodAutoscaler.html#method.replace_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_status)
 #[derive(Debug)]
 pub enum ReplaceAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatusResponse {
-    Ok(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
-    Created(::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Ok(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
+    Created(::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscaler),
     Unauthorized,
     Other,
 }
@@ -1043,7 +1043,7 @@ impl HorizontalPodAutoscaler {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1099,7 +1099,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::watch_autoscaling_v2beta1_horizontal_pod_autoscaler_list_for_all_namespaces`](./struct.HorizontalPodAutoscaler.html#method.watch_autoscaling_v2beta1_horizontal_pod_autoscaler_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAutoscalingV2beta1HorizontalPodAutoscalerListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1172,7 +1172,7 @@ impl HorizontalPodAutoscaler {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1230,7 +1230,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::watch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler`](./struct.HorizontalPodAutoscaler.html#method.watch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler)
 #[derive(Debug)]
 pub enum WatchAutoscalingV2beta1NamespacedHorizontalPodAutoscalerResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1299,7 +1299,7 @@ impl HorizontalPodAutoscaler {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl HorizontalPodAutoscaler {
 /// Parses the HTTP response of [`HorizontalPodAutoscaler::watch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_list`](./struct.HorizontalPodAutoscaler.html#method.watch_autoscaling_v2beta1_namespaced_horizontal_pod_autoscaler_list)
 #[derive(Debug)]
 pub enum WatchAutoscalingV2beta1NamespacedHorizontalPodAutoscalerListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for HorizontalPodAutoscaler {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscalerSpec> = None;
-                let mut value_status: Option<::v1_9::api::autoscaling::v2beta1::HorizontalPodAutoscalerStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscalerSpec> = None;
+                let mut value_status: Option<::v1_10::api::autoscaling::v2beta1::HorizontalPodAutoscalerStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

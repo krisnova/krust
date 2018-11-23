@@ -15,10 +15,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Endpoints {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
-    pub subsets: Vec<::v1_9::api::core::v1::EndpointSubset>,
+    pub subsets: Option<Vec<::v1_10::api::core::v1::EndpointSubset>>,
 }
 
 // Begin /v1/Endpoints
@@ -43,7 +43,7 @@ impl Endpoints {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_endpoints(
         namespace: &str,
-        body: &::v1_9::api::core::v1::Endpoints,
+        body: &::v1_10::api::core::v1::Endpoints,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints?", namespace = namespace);
@@ -62,9 +62,9 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::create_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.create_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_9::api::core::v1::Endpoints),
-    Created(::v1_9::api::core::v1::Endpoints),
-    Accepted(::v1_9::api::core::v1::Endpoints),
+    Ok(::v1_10::api::core::v1::Endpoints),
+    Created(::v1_10::api::core::v1::Endpoints),
+    Accepted(::v1_10::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -147,7 +147,7 @@ impl Endpoints {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -204,8 +204,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::delete_core_v1_collection_namespaced_endpoints`](./struct.Endpoints.html#method.delete_core_v1_collection_namespaced_endpoints)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedEndpointsResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Endpoints),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -307,8 +307,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::delete_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.delete_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedEndpointsResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Endpoints),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -384,7 +384,7 @@ impl Endpoints {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -440,7 +440,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::list_core_v1_endpoints_for_all_namespaces`](./struct.Endpoints.html#method.list_core_v1_endpoints_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1EndpointsForAllNamespacesResponse {
-    Ok(::v1_9::api::core::v1::EndpointsList),
+    Ok(::v1_10::api::core::v1::EndpointsList),
     Unauthorized,
     Other,
 }
@@ -507,7 +507,7 @@ impl Endpoints {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -564,7 +564,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::list_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.list_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_9::api::core::v1::EndpointsList),
+    Ok(::v1_10::api::core::v1::EndpointsList),
     Unauthorized,
     Other,
 }
@@ -611,7 +611,7 @@ impl Endpoints {
     pub fn patch_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints/{name}?", name = name, namespace = namespace);
@@ -630,7 +630,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::patch_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.patch_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_9::api::core::v1::Endpoints),
+    Ok(::v1_10::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -709,7 +709,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::read_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.read_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_9::api::core::v1::Endpoints),
+    Ok(::v1_10::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -756,7 +756,7 @@ impl Endpoints {
     pub fn replace_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::Endpoints,
+        body: &::v1_10::api::core::v1::Endpoints,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints/{name}?", name = name, namespace = namespace);
@@ -775,8 +775,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::replace_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.replace_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_9::api::core::v1::Endpoints),
-    Created(::v1_9::api::core::v1::Endpoints),
+    Ok(::v1_10::api::core::v1::Endpoints),
+    Created(::v1_10::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -847,7 +847,7 @@ impl Endpoints {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -903,7 +903,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_endpoints_list_for_all_namespaces`](./struct.Endpoints.html#method.watch_core_v1_endpoints_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1EndpointsListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -976,7 +976,7 @@ impl Endpoints {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1034,7 +1034,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.watch_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1103,7 +1103,7 @@ impl Endpoints {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1160,7 +1160,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_namespaced_endpoints_list`](./struct.Endpoints.html#method.watch_core_v1_namespaced_endpoints_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEndpointsListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1251,8 +1251,8 @@ impl<'de> ::serde::Deserialize<'de> for Endpoints {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_subsets: Option<Vec<::v1_9::api::core::v1::EndpointSubset>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_subsets: Option<Vec<::v1_10::api::core::v1::EndpointSubset>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -1269,14 +1269,14 @@ impl<'de> ::serde::Deserialize<'de> for Endpoints {
                             }
                         },
                         Field::Key_metadata => value_metadata = ::serde::de::MapAccess::next_value(&mut map)?,
-                        Field::Key_subsets => value_subsets = Some(::serde::de::MapAccess::next_value(&mut map)?),
+                        Field::Key_subsets => value_subsets = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
                 }
 
                 Ok(Endpoints {
                     metadata: value_metadata,
-                    subsets: value_subsets.ok_or_else(|| ::serde::de::Error::missing_field("subsets"))?,
+                    subsets: value_subsets,
                 })
             }
         }
@@ -1301,14 +1301,16 @@ impl ::serde::Serialize for Endpoints {
             0 +
             2 +
             self.metadata.as_ref().map_or(0, |_| 1) +
-            1,
+            self.subsets.as_ref().map_or(0, |_| 1),
         )?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "apiVersion", <Self as ::Resource>::api_version())?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "kind", <Self as ::Resource>::kind())?;
         if let Some(value) = &self.metadata {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "metadata", value)?;
         }
-        ::serde::ser::SerializeStruct::serialize_field(&mut state, "subsets", &self.subsets)?;
+        if let Some(value) = &self.subsets {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "subsets", value)?;
+        }
         ::serde::ser::SerializeStruct::end(state)
     }
 }

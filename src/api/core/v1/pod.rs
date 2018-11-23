@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Pod {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::core::v1::PodSpec>,
+    pub spec: Option<::v1_10::api::core::v1::PodSpec>,
 
     /// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::core::v1::PodStatus>,
+    pub status: Option<::v1_10::api::core::v1::PodStatus>,
 }
 
 // Begin /v1/Pod
@@ -1292,7 +1292,7 @@ impl Pod {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_pod(
         namespace: &str,
-        body: &::v1_9::api::core::v1::Pod,
+        body: &::v1_10::api::core::v1::Pod,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods?", namespace = namespace);
@@ -1311,9 +1311,9 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::create_core_v1_namespaced_pod`](./struct.Pod.html#method.create_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedPodResponse {
-    Ok(::v1_9::api::core::v1::Pod),
-    Created(::v1_9::api::core::v1::Pod),
-    Accepted(::v1_9::api::core::v1::Pod),
+    Ok(::v1_10::api::core::v1::Pod),
+    Created(::v1_10::api::core::v1::Pod),
+    Accepted(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1396,7 +1396,7 @@ impl Pod {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1453,8 +1453,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::delete_core_v1_collection_namespaced_pod`](./struct.Pod.html#method.delete_core_v1_collection_namespaced_pod)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedPodResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Pod),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1556,8 +1556,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::delete_core_v1_namespaced_pod`](./struct.Pod.html#method.delete_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedPodResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Pod),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1637,7 +1637,7 @@ impl Pod {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1694,7 +1694,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::list_core_v1_namespaced_pod`](./struct.Pod.html#method.list_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedPodResponse {
-    Ok(::v1_9::api::core::v1::PodList),
+    Ok(::v1_10::api::core::v1::PodList),
     Unauthorized,
     Other,
 }
@@ -1757,7 +1757,7 @@ impl Pod {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1813,7 +1813,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::list_core_v1_pod_for_all_namespaces`](./struct.Pod.html#method.list_core_v1_pod_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1PodForAllNamespacesResponse {
-    Ok(::v1_9::api::core::v1::PodList),
+    Ok(::v1_10::api::core::v1::PodList),
     Unauthorized,
     Other,
 }
@@ -1860,7 +1860,7 @@ impl Pod {
     pub fn patch_core_v1_namespaced_pod(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}?", name = name, namespace = namespace);
@@ -1879,7 +1879,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::patch_core_v1_namespaced_pod`](./struct.Pod.html#method.patch_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPodResponse {
-    Ok(::v1_9::api::core::v1::Pod),
+    Ok(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1926,7 +1926,7 @@ impl Pod {
     pub fn patch_core_v1_namespaced_pod_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}/status?", name = name, namespace = namespace);
@@ -1945,7 +1945,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::patch_core_v1_namespaced_pod_status`](./struct.Pod.html#method.patch_core_v1_namespaced_pod_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPodStatusResponse {
-    Ok(::v1_9::api::core::v1::Pod),
+    Ok(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1963,611 +1963,6 @@ impl ::Response for PatchCoreV1NamespacedPodStatusResponse {
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((PatchCoreV1NamespacedPodStatusResponse::Unauthorized, 0)),
             _ => Ok((PatchCoreV1NamespacedPodStatusResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1DELETENamespacedPod
-
-impl Pod {
-    /// proxy DELETE requests to Pod
-    ///
-    /// Use [`ProxyCoreV1DELETENamespacedPodResponse`](./enum.ProxyCoreV1DELETENamespacedPodResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_delete_namespaced_pod(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::delete(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_delete_namespaced_pod`](./struct.Pod.html#method.proxy_core_v1_delete_namespaced_pod)
-#[derive(Debug)]
-pub enum ProxyCoreV1DELETENamespacedPodResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1DELETENamespacedPodResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1DELETENamespacedPodResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1DELETENamespacedPodResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1DELETENamespacedPodResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1DELETENamespacedPodWithPath
-
-impl Pod {
-    /// proxy DELETE requests to Pod
-    ///
-    /// Use [`ProxyCoreV1DELETENamespacedPodWithPathResponse`](./enum.ProxyCoreV1DELETENamespacedPodWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_delete_namespaced_pod_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::delete(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_delete_namespaced_pod_with_path`](./struct.Pod.html#method.proxy_core_v1_delete_namespaced_pod_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1DELETENamespacedPodWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1DELETENamespacedPodWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1DELETENamespacedPodWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1DELETENamespacedPodWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1DELETENamespacedPodWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1GETNamespacedPod
-
-impl Pod {
-    /// proxy GET requests to Pod
-    ///
-    /// Use [`ProxyCoreV1GETNamespacedPodResponse`](./enum.ProxyCoreV1GETNamespacedPodResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_get_namespaced_pod(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::get(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_get_namespaced_pod`](./struct.Pod.html#method.proxy_core_v1_get_namespaced_pod)
-#[derive(Debug)]
-pub enum ProxyCoreV1GETNamespacedPodResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1GETNamespacedPodResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1GETNamespacedPodResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1GETNamespacedPodResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1GETNamespacedPodResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1GETNamespacedPodWithPath
-
-impl Pod {
-    /// proxy GET requests to Pod
-    ///
-    /// Use [`ProxyCoreV1GETNamespacedPodWithPathResponse`](./enum.ProxyCoreV1GETNamespacedPodWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_get_namespaced_pod_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::get(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_get_namespaced_pod_with_path`](./struct.Pod.html#method.proxy_core_v1_get_namespaced_pod_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1GETNamespacedPodWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1GETNamespacedPodWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1GETNamespacedPodWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1GETNamespacedPodWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1GETNamespacedPodWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PATCHNamespacedPod
-
-impl Pod {
-    /// proxy PATCH requests to Pod
-    ///
-    /// Use [`ProxyCoreV1PATCHNamespacedPodResponse`](./enum.ProxyCoreV1PATCHNamespacedPodResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_patch_namespaced_pod(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::patch(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_patch_namespaced_pod`](./struct.Pod.html#method.proxy_core_v1_patch_namespaced_pod)
-#[derive(Debug)]
-pub enum ProxyCoreV1PATCHNamespacedPodResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PATCHNamespacedPodResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PATCHNamespacedPodResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PATCHNamespacedPodResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PATCHNamespacedPodResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PATCHNamespacedPodWithPath
-
-impl Pod {
-    /// proxy PATCH requests to Pod
-    ///
-    /// Use [`ProxyCoreV1PATCHNamespacedPodWithPathResponse`](./enum.ProxyCoreV1PATCHNamespacedPodWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_patch_namespaced_pod_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::patch(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_patch_namespaced_pod_with_path`](./struct.Pod.html#method.proxy_core_v1_patch_namespaced_pod_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1PATCHNamespacedPodWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PATCHNamespacedPodWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PATCHNamespacedPodWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PATCHNamespacedPodWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PATCHNamespacedPodWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1POSTNamespacedPod
-
-impl Pod {
-    /// proxy POST requests to Pod
-    ///
-    /// Use [`ProxyCoreV1POSTNamespacedPodResponse`](./enum.ProxyCoreV1POSTNamespacedPodResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_post_namespaced_pod(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::post(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_post_namespaced_pod`](./struct.Pod.html#method.proxy_core_v1_post_namespaced_pod)
-#[derive(Debug)]
-pub enum ProxyCoreV1POSTNamespacedPodResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1POSTNamespacedPodResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1POSTNamespacedPodResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1POSTNamespacedPodResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1POSTNamespacedPodResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1POSTNamespacedPodWithPath
-
-impl Pod {
-    /// proxy POST requests to Pod
-    ///
-    /// Use [`ProxyCoreV1POSTNamespacedPodWithPathResponse`](./enum.ProxyCoreV1POSTNamespacedPodWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_post_namespaced_pod_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::post(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_post_namespaced_pod_with_path`](./struct.Pod.html#method.proxy_core_v1_post_namespaced_pod_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1POSTNamespacedPodWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1POSTNamespacedPodWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1POSTNamespacedPodWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1POSTNamespacedPodWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1POSTNamespacedPodWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PUTNamespacedPod
-
-impl Pod {
-    /// proxy PUT requests to Pod
-    ///
-    /// Use [`ProxyCoreV1PUTNamespacedPodResponse`](./enum.ProxyCoreV1PUTNamespacedPodResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_put_namespaced_pod(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::put(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_put_namespaced_pod`](./struct.Pod.html#method.proxy_core_v1_put_namespaced_pod)
-#[derive(Debug)]
-pub enum ProxyCoreV1PUTNamespacedPodResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PUTNamespacedPodResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PUTNamespacedPodResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PUTNamespacedPodResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PUTNamespacedPodResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PUTNamespacedPodWithPath
-
-impl Pod {
-    /// proxy PUT requests to Pod
-    ///
-    /// Use [`ProxyCoreV1PUTNamespacedPodWithPathResponse`](./enum.ProxyCoreV1PUTNamespacedPodWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Pod
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_put_namespaced_pod_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/pods/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::put(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Pod::proxy_core_v1_put_namespaced_pod_with_path`](./struct.Pod.html#method.proxy_core_v1_put_namespaced_pod_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1PUTNamespacedPodWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PUTNamespacedPodWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PUTNamespacedPodWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PUTNamespacedPodWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PUTNamespacedPodWithPathResponse::Other, 0)),
         }
     }
 }
@@ -2629,7 +2024,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::read_core_v1_namespaced_pod`](./struct.Pod.html#method.read_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPodResponse {
-    Ok(::v1_9::api::core::v1::Pod),
+    Ok(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2816,7 +2211,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::read_core_v1_namespaced_pod_status`](./struct.Pod.html#method.read_core_v1_namespaced_pod_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPodStatusResponse {
-    Ok(::v1_9::api::core::v1::Pod),
+    Ok(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2863,7 +2258,7 @@ impl Pod {
     pub fn replace_core_v1_namespaced_pod(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::Pod,
+        body: &::v1_10::api::core::v1::Pod,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}?", name = name, namespace = namespace);
@@ -2882,8 +2277,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::replace_core_v1_namespaced_pod`](./struct.Pod.html#method.replace_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPodResponse {
-    Ok(::v1_9::api::core::v1::Pod),
-    Created(::v1_9::api::core::v1::Pod),
+    Ok(::v1_10::api::core::v1::Pod),
+    Created(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2938,7 +2333,7 @@ impl Pod {
     pub fn replace_core_v1_namespaced_pod_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::Pod,
+        body: &::v1_10::api::core::v1::Pod,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}/status?", name = name, namespace = namespace);
@@ -2957,8 +2352,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::replace_core_v1_namespaced_pod_status`](./struct.Pod.html#method.replace_core_v1_namespaced_pod_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPodStatusResponse {
-    Ok(::v1_9::api::core::v1::Pod),
-    Created(::v1_9::api::core::v1::Pod),
+    Ok(::v1_10::api::core::v1::Pod),
+    Created(::v1_10::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -3037,7 +2432,7 @@ impl Pod {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -3095,7 +2490,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::watch_core_v1_namespaced_pod`](./struct.Pod.html#method.watch_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPodResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -3164,7 +2559,7 @@ impl Pod {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -3221,7 +2616,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::watch_core_v1_namespaced_pod_list`](./struct.Pod.html#method.watch_core_v1_namespaced_pod_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPodListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -3286,7 +2681,7 @@ impl Pod {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -3342,7 +2737,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::watch_core_v1_pod_list_for_all_namespaces`](./struct.Pod.html#method.watch_core_v1_pod_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1PodListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -3435,9 +2830,9 @@ impl<'de> ::serde::Deserialize<'de> for Pod {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::core::v1::PodSpec> = None;
-                let mut value_status: Option<::v1_9::api::core::v1::PodStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::core::v1::PodSpec> = None;
+                let mut value_status: Option<::v1_10::api::core::v1::PodStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

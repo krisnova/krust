@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ClusterRoleList {
     /// Items is a list of ClusterRoles
-    pub items: Vec<::v1_9::api::rbac::v1::ClusterRole>,
+    pub items: Vec<::v1_10::api::rbac::v1::ClusterRole>,
 
     /// Standard object's metadata.
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for ClusterRoleList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for ClusterRoleList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_9::api::rbac::v1::ClusterRole>> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_10::api::rbac::v1::ClusterRole>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

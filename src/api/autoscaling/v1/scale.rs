@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Scale {
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-    pub spec: Option<::v1_9::api::autoscaling::v1::ScaleSpec>,
+    pub spec: Option<::v1_10::api::autoscaling::v1::ScaleSpec>,
 
     /// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
-    pub status: Option<::v1_9::api::autoscaling::v1::ScaleStatus>,
+    pub status: Option<::v1_10::api::autoscaling::v1::ScaleStatus>,
 }
 
 // Begin autoscaling/v1/Scale
@@ -40,7 +40,7 @@ impl Scale {
     pub fn patch_apps_v1_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
@@ -59,7 +59,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1_namespaced_deployment_scale`](./struct.Scale.html#method.patch_apps_v1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1NamespacedDeploymentScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -106,7 +106,7 @@ impl Scale {
     pub fn patch_apps_v1_namespaced_replica_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/replicasets/{name}/scale?", name = name, namespace = namespace);
@@ -125,7 +125,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1_namespaced_replica_set_scale`](./struct.Scale.html#method.patch_apps_v1_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1NamespacedReplicaSetScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -172,7 +172,7 @@ impl Scale {
     pub fn patch_apps_v1_namespaced_stateful_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/scale?", name = name, namespace = namespace);
@@ -191,7 +191,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1_namespaced_stateful_set_scale`](./struct.Scale.html#method.patch_apps_v1_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1NamespacedStatefulSetScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -238,7 +238,7 @@ impl Scale {
     pub fn patch_core_v1_namespaced_replication_controller_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/replicationcontrollers/{name}/scale?", name = name, namespace = namespace);
@@ -257,7 +257,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_core_v1_namespaced_replication_controller_scale`](./struct.Scale.html#method.patch_core_v1_namespaced_replication_controller_scale)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedReplicationControllerScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -320,7 +320,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1_namespaced_deployment_scale`](./struct.Scale.html#method.read_apps_v1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1NamespacedDeploymentScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -383,7 +383,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1_namespaced_replica_set_scale`](./struct.Scale.html#method.read_apps_v1_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1NamespacedReplicaSetScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -446,7 +446,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1_namespaced_stateful_set_scale`](./struct.Scale.html#method.read_apps_v1_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1NamespacedStatefulSetScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -509,7 +509,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_core_v1_namespaced_replication_controller_scale`](./struct.Scale.html#method.read_core_v1_namespaced_replication_controller_scale)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedReplicationControllerScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -556,7 +556,7 @@ impl Scale {
     pub fn replace_apps_v1_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::autoscaling::v1::Scale,
+        body: &::v1_10::api::autoscaling::v1::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
@@ -575,8 +575,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1_namespaced_deployment_scale`](./struct.Scale.html#method.replace_apps_v1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1NamespacedDeploymentScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
-    Created(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
+    Created(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -631,7 +631,7 @@ impl Scale {
     pub fn replace_apps_v1_namespaced_replica_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::autoscaling::v1::Scale,
+        body: &::v1_10::api::autoscaling::v1::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/replicasets/{name}/scale?", name = name, namespace = namespace);
@@ -650,8 +650,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1_namespaced_replica_set_scale`](./struct.Scale.html#method.replace_apps_v1_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1NamespacedReplicaSetScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
-    Created(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
+    Created(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -706,7 +706,7 @@ impl Scale {
     pub fn replace_apps_v1_namespaced_stateful_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::autoscaling::v1::Scale,
+        body: &::v1_10::api::autoscaling::v1::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/scale?", name = name, namespace = namespace);
@@ -725,8 +725,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1_namespaced_stateful_set_scale`](./struct.Scale.html#method.replace_apps_v1_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1NamespacedStatefulSetScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
-    Created(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
+    Created(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -781,7 +781,7 @@ impl Scale {
     pub fn replace_core_v1_namespaced_replication_controller_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::autoscaling::v1::Scale,
+        body: &::v1_10::api::autoscaling::v1::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/replicationcontrollers/{name}/scale?", name = name, namespace = namespace);
@@ -800,8 +800,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_core_v1_namespaced_replication_controller_scale`](./struct.Scale.html#method.replace_core_v1_namespaced_replication_controller_scale)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedReplicationControllerScaleResponse {
-    Ok(::v1_9::api::autoscaling::v1::Scale),
-    Created(::v1_9::api::autoscaling::v1::Scale),
+    Ok(::v1_10::api::autoscaling::v1::Scale),
+    Created(::v1_10::api::autoscaling::v1::Scale),
     Unauthorized,
     Other,
 }
@@ -900,9 +900,9 @@ impl<'de> ::serde::Deserialize<'de> for Scale {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::autoscaling::v1::ScaleSpec> = None;
-                let mut value_status: Option<::v1_9::api::autoscaling::v1::ScaleStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::autoscaling::v1::ScaleSpec> = None;
+                let mut value_status: Option<::v1_10::api::autoscaling::v1::ScaleStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

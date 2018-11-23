@@ -2,6 +2,12 @@
 mod cross_version_object_reference;
 pub use self::cross_version_object_reference::*;
 
+mod external_metric_source;
+pub use self::external_metric_source::*;
+
+mod external_metric_status;
+pub use self::external_metric_status::*;
+
 mod horizontal_pod_autoscaler;
 pub use self::horizontal_pod_autoscaler::*;
 

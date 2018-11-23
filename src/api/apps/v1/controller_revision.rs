@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ControllerRevision {
     /// Data is the serialized representation of the state.
-    pub data: Option<::v1_9::apimachinery::pkg::runtime::RawExtension>,
+    pub data: Option<::v1_10::apimachinery::pkg::runtime::RawExtension>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Revision indicates the revision of the state represented by Data.
     pub revision: i64,
@@ -35,7 +35,7 @@ impl ControllerRevision {
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1_namespaced_controller_revision(
         namespace: &str,
-        body: &::v1_9::api::apps::v1::ControllerRevision,
+        body: &::v1_10::api::apps::v1::ControllerRevision,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/controllerrevisions?", namespace = namespace);
@@ -54,9 +54,9 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::create_apps_v1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.create_apps_v1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum CreateAppsV1NamespacedControllerRevisionResponse {
-    Ok(::v1_9::api::apps::v1::ControllerRevision),
-    Created(::v1_9::api::apps::v1::ControllerRevision),
-    Accepted(::v1_9::api::apps::v1::ControllerRevision),
+    Ok(::v1_10::api::apps::v1::ControllerRevision),
+    Created(::v1_10::api::apps::v1::ControllerRevision),
+    Accepted(::v1_10::api::apps::v1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl ControllerRevision {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::delete_apps_v1_collection_namespaced_controller_revision`](./struct.ControllerRevision.html#method.delete_apps_v1_collection_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum DeleteAppsV1CollectionNamespacedControllerRevisionResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1::ControllerRevision),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::delete_apps_v1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.delete_apps_v1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum DeleteAppsV1NamespacedControllerRevisionResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1::ControllerRevision),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -376,7 +376,7 @@ impl ControllerRevision {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -432,7 +432,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::list_apps_v1_controller_revision_for_all_namespaces`](./struct.ControllerRevision.html#method.list_apps_v1_controller_revision_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1ControllerRevisionForAllNamespacesResponse {
-    Ok(::v1_9::api::apps::v1::ControllerRevisionList),
+    Ok(::v1_10::api::apps::v1::ControllerRevisionList),
     Unauthorized,
     Other,
 }
@@ -499,7 +499,7 @@ impl ControllerRevision {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::list_apps_v1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.list_apps_v1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum ListAppsV1NamespacedControllerRevisionResponse {
-    Ok(::v1_9::api::apps::v1::ControllerRevisionList),
+    Ok(::v1_10::api::apps::v1::ControllerRevisionList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl ControllerRevision {
     pub fn patch_apps_v1_namespaced_controller_revision(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::patch_apps_v1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.patch_apps_v1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum PatchAppsV1NamespacedControllerRevisionResponse {
-    Ok(::v1_9::api::apps::v1::ControllerRevision),
+    Ok(::v1_10::api::apps::v1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -701,7 +701,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::read_apps_v1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.read_apps_v1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum ReadAppsV1NamespacedControllerRevisionResponse {
-    Ok(::v1_9::api::apps::v1::ControllerRevision),
+    Ok(::v1_10::api::apps::v1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -748,7 +748,7 @@ impl ControllerRevision {
     pub fn replace_apps_v1_namespaced_controller_revision(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::apps::v1::ControllerRevision,
+        body: &::v1_10::api::apps::v1::ControllerRevision,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}?", name = name, namespace = namespace);
@@ -767,8 +767,8 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::replace_apps_v1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.replace_apps_v1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum ReplaceAppsV1NamespacedControllerRevisionResponse {
-    Ok(::v1_9::api::apps::v1::ControllerRevision),
-    Created(::v1_9::api::apps::v1::ControllerRevision),
+    Ok(::v1_10::api::apps::v1::ControllerRevision),
+    Created(::v1_10::api::apps::v1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -839,7 +839,7 @@ impl ControllerRevision {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -895,7 +895,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::watch_apps_v1_controller_revision_list_for_all_namespaces`](./struct.ControllerRevision.html#method.watch_apps_v1_controller_revision_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1ControllerRevisionListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -968,7 +968,7 @@ impl ControllerRevision {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1026,7 +1026,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::watch_apps_v1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.watch_apps_v1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum WatchAppsV1NamespacedControllerRevisionResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1095,7 +1095,7 @@ impl ControllerRevision {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1152,7 +1152,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::watch_apps_v1_namespaced_controller_revision_list`](./struct.ControllerRevision.html#method.watch_apps_v1_namespaced_controller_revision_list)
 #[derive(Debug)]
 pub enum WatchAppsV1NamespacedControllerRevisionListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1245,8 +1245,8 @@ impl<'de> ::serde::Deserialize<'de> for ControllerRevision {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_data: Option<::v1_9::apimachinery::pkg::runtime::RawExtension> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_data: Option<::v1_10::apimachinery::pkg::runtime::RawExtension> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_revision: Option<i64> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

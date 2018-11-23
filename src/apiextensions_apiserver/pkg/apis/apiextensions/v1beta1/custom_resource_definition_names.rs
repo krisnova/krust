@@ -3,6 +3,9 @@
 /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CustomResourceDefinitionNames {
+    /// Categories is a list of grouped resources custom resources belong to (e.g. 'all')
+    pub categories: Option<Vec<String>>,
+
     /// Kind is the serialized kind of the resource.  It is normally CamelCase and singular.
     pub kind: String,
 
@@ -23,6 +26,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinitionNames {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: ::serde::Deserializer<'de> {
         #[allow(non_camel_case_types)]
         enum Field {
+            Key_categories,
             Key_kind,
             Key_list_kind,
             Key_plural,
@@ -44,6 +48,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinitionNames {
 
                     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> where E: ::serde::de::Error {
                         Ok(match v {
+                            "categories" => Field::Key_categories,
                             "kind" => Field::Key_kind,
                             "listKind" => Field::Key_list_kind,
                             "plural" => Field::Key_plural,
@@ -68,6 +73,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinitionNames {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
+                let mut value_categories: Option<Vec<String>> = None;
                 let mut value_kind: Option<String> = None;
                 let mut value_list_kind: Option<String> = None;
                 let mut value_plural: Option<String> = None;
@@ -76,6 +82,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinitionNames {
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
+                        Field::Key_categories => value_categories = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_kind => value_kind = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_list_kind => value_list_kind = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_plural => value_plural = Some(::serde::de::MapAccess::next_value(&mut map)?),
@@ -86,6 +93,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinitionNames {
                 }
 
                 Ok(CustomResourceDefinitionNames {
+                    categories: value_categories,
                     kind: value_kind.ok_or_else(|| ::serde::de::Error::missing_field("kind"))?,
                     list_kind: value_list_kind,
                     plural: value_plural.ok_or_else(|| ::serde::de::Error::missing_field("plural"))?,
@@ -98,6 +106,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinitionNames {
         deserializer.deserialize_struct(
             "CustomResourceDefinitionNames",
             &[
+                "categories",
                 "kind",
                 "listKind",
                 "plural",
@@ -114,12 +123,16 @@ impl ::serde::Serialize for CustomResourceDefinitionNames {
         let mut state = serializer.serialize_struct(
             "CustomResourceDefinitionNames",
             0 +
+            self.categories.as_ref().map_or(0, |_| 1) +
             1 +
             self.list_kind.as_ref().map_or(0, |_| 1) +
             1 +
             self.short_names.as_ref().map_or(0, |_| 1) +
             self.singular.as_ref().map_or(0, |_| 1),
         )?;
+        if let Some(value) = &self.categories {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "categories", value)?;
+        }
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "kind", &self.kind)?;
         if let Some(value) = &self.list_kind {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "listKind", value)?;

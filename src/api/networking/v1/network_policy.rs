@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NetworkPolicy {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior for this NetworkPolicy.
-    pub spec: Option<::v1_9::api::networking::v1::NetworkPolicySpec>,
+    pub spec: Option<::v1_10::api::networking::v1::NetworkPolicySpec>,
 }
 
 // Begin networking.k8s.io/v1/NetworkPolicy
@@ -32,7 +32,7 @@ impl NetworkPolicy {
     ///     If 'true', then the output is pretty printed.
     pub fn create_networking_v1_namespaced_network_policy(
         namespace: &str,
-        body: &::v1_9::api::networking::v1::NetworkPolicy,
+        body: &::v1_10::api::networking::v1::NetworkPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies?", namespace = namespace);
@@ -51,9 +51,9 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::create_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.create_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum CreateNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_9::api::networking::v1::NetworkPolicy),
-    Created(::v1_9::api::networking::v1::NetworkPolicy),
-    Accepted(::v1_9::api::networking::v1::NetworkPolicy),
+    Ok(::v1_10::api::networking::v1::NetworkPolicy),
+    Created(::v1_10::api::networking::v1::NetworkPolicy),
+    Accepted(::v1_10::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -136,7 +136,7 @@ impl NetworkPolicy {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -193,8 +193,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::delete_networking_v1_collection_namespaced_network_policy`](./struct.NetworkPolicy.html#method.delete_networking_v1_collection_namespaced_network_policy)
 #[derive(Debug)]
 pub enum DeleteNetworkingV1CollectionNamespacedNetworkPolicyResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::networking::v1::NetworkPolicy),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -296,8 +296,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::delete_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.delete_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum DeleteNetworkingV1NamespacedNetworkPolicyResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::networking::v1::NetworkPolicy),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -377,7 +377,7 @@ impl NetworkPolicy {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -434,7 +434,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::list_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.list_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ListNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_9::api::networking::v1::NetworkPolicyList),
+    Ok(::v1_10::api::networking::v1::NetworkPolicyList),
     Unauthorized,
     Other,
 }
@@ -497,7 +497,7 @@ impl NetworkPolicy {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -553,7 +553,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::list_networking_v1_network_policy_for_all_namespaces`](./struct.NetworkPolicy.html#method.list_networking_v1_network_policy_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListNetworkingV1NetworkPolicyForAllNamespacesResponse {
-    Ok(::v1_9::api::networking::v1::NetworkPolicyList),
+    Ok(::v1_10::api::networking::v1::NetworkPolicyList),
     Unauthorized,
     Other,
 }
@@ -600,7 +600,7 @@ impl NetworkPolicy {
     pub fn patch_networking_v1_namespaced_network_policy(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}?", name = name, namespace = namespace);
@@ -619,7 +619,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::patch_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.patch_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum PatchNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_9::api::networking::v1::NetworkPolicy),
+    Ok(::v1_10::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -698,7 +698,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::read_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.read_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ReadNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_9::api::networking::v1::NetworkPolicy),
+    Ok(::v1_10::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -745,7 +745,7 @@ impl NetworkPolicy {
     pub fn replace_networking_v1_namespaced_network_policy(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::networking::v1::NetworkPolicy,
+        body: &::v1_10::api::networking::v1::NetworkPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}?", name = name, namespace = namespace);
@@ -764,8 +764,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::replace_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.replace_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ReplaceNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_9::api::networking::v1::NetworkPolicy),
-    Created(::v1_9::api::networking::v1::NetworkPolicy),
+    Ok(::v1_10::api::networking::v1::NetworkPolicy),
+    Created(::v1_10::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -844,7 +844,7 @@ impl NetworkPolicy {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -902,7 +902,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.watch_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum WatchNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -971,7 +971,7 @@ impl NetworkPolicy {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1028,7 +1028,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_networking_v1_namespaced_network_policy_list`](./struct.NetworkPolicy.html#method.watch_networking_v1_namespaced_network_policy_list)
 #[derive(Debug)]
 pub enum WatchNetworkingV1NamespacedNetworkPolicyListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1093,7 +1093,7 @@ impl NetworkPolicy {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1149,7 +1149,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_networking_v1_network_policy_list_for_all_namespaces`](./struct.NetworkPolicy.html#method.watch_networking_v1_network_policy_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchNetworkingV1NetworkPolicyListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1240,8 +1240,8 @@ impl<'de> ::serde::Deserialize<'de> for NetworkPolicy {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::networking::v1::NetworkPolicySpec> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::networking::v1::NetworkPolicySpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

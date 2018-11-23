@@ -9,7 +9,7 @@ pub struct StorageClass {
     pub allow_volume_expansion: Option<bool>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. \["ro", "soft"\]. Not validated - mount of the PVs will simply fail if one is invalid.
     pub mount_options: Option<Vec<String>>,
@@ -44,7 +44,7 @@ impl StorageClass {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_storage_v1beta1_storage_class(
-        body: &::v1_9::api::storage::v1beta1::StorageClass,
+        body: &::v1_10::api::storage::v1beta1::StorageClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1beta1/storageclasses?");
@@ -63,9 +63,9 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::create_storage_v1beta1_storage_class`](./struct.StorageClass.html#method.create_storage_v1beta1_storage_class)
 #[derive(Debug)]
 pub enum CreateStorageV1beta1StorageClassResponse {
-    Ok(::v1_9::api::storage::v1beta1::StorageClass),
-    Created(::v1_9::api::storage::v1beta1::StorageClass),
-    Accepted(::v1_9::api::storage::v1beta1::StorageClass),
+    Ok(::v1_10::api::storage::v1beta1::StorageClass),
+    Created(::v1_10::api::storage::v1beta1::StorageClass),
+    Accepted(::v1_10::api::storage::v1beta1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -144,7 +144,7 @@ impl StorageClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -200,8 +200,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::delete_storage_v1beta1_collection_storage_class`](./struct.StorageClass.html#method.delete_storage_v1beta1_collection_storage_class)
 #[derive(Debug)]
 pub enum DeleteStorageV1beta1CollectionStorageClassResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::storage::v1beta1::StorageClass),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::storage::v1beta1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -298,8 +298,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::delete_storage_v1beta1_storage_class`](./struct.StorageClass.html#method.delete_storage_v1beta1_storage_class)
 #[derive(Debug)]
 pub enum DeleteStorageV1beta1StorageClassResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::storage::v1beta1::StorageClass),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::storage::v1beta1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -375,7 +375,7 @@ impl StorageClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -431,7 +431,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::list_storage_v1beta1_storage_class`](./struct.StorageClass.html#method.list_storage_v1beta1_storage_class)
 #[derive(Debug)]
 pub enum ListStorageV1beta1StorageClassResponse {
-    Ok(::v1_9::api::storage::v1beta1::StorageClassList),
+    Ok(::v1_10::api::storage::v1beta1::StorageClassList),
     Unauthorized,
     Other,
 }
@@ -473,7 +473,7 @@ impl StorageClass {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_storage_v1beta1_storage_class(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1beta1/storageclasses/{name}?", name = name);
@@ -492,7 +492,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::patch_storage_v1beta1_storage_class`](./struct.StorageClass.html#method.patch_storage_v1beta1_storage_class)
 #[derive(Debug)]
 pub enum PatchStorageV1beta1StorageClassResponse {
-    Ok(::v1_9::api::storage::v1beta1::StorageClass),
+    Ok(::v1_10::api::storage::v1beta1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -566,7 +566,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::read_storage_v1beta1_storage_class`](./struct.StorageClass.html#method.read_storage_v1beta1_storage_class)
 #[derive(Debug)]
 pub enum ReadStorageV1beta1StorageClassResponse {
-    Ok(::v1_9::api::storage::v1beta1::StorageClass),
+    Ok(::v1_10::api::storage::v1beta1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -608,7 +608,7 @@ impl StorageClass {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_storage_v1beta1_storage_class(
         name: &str,
-        body: &::v1_9::api::storage::v1beta1::StorageClass,
+        body: &::v1_10::api::storage::v1beta1::StorageClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1beta1/storageclasses/{name}?", name = name);
@@ -627,8 +627,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::replace_storage_v1beta1_storage_class`](./struct.StorageClass.html#method.replace_storage_v1beta1_storage_class)
 #[derive(Debug)]
 pub enum ReplaceStorageV1beta1StorageClassResponse {
-    Ok(::v1_9::api::storage::v1beta1::StorageClass),
-    Created(::v1_9::api::storage::v1beta1::StorageClass),
+    Ok(::v1_10::api::storage::v1beta1::StorageClass),
+    Created(::v1_10::api::storage::v1beta1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -703,7 +703,7 @@ impl StorageClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -760,7 +760,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::watch_storage_v1beta1_storage_class`](./struct.StorageClass.html#method.watch_storage_v1beta1_storage_class)
 #[derive(Debug)]
 pub enum WatchStorageV1beta1StorageClassResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -825,7 +825,7 @@ impl StorageClass {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -881,7 +881,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::watch_storage_v1beta1_storage_class_list`](./struct.StorageClass.html#method.watch_storage_v1beta1_storage_class_list)
 #[derive(Debug)]
 pub enum WatchStorageV1beta1StorageClassListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -983,7 +983,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_allow_volume_expansion: Option<bool> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_mount_options: Option<Vec<String>> = None;
                 let mut value_parameters: Option<::std::collections::BTreeMap<String, String>> = None;
                 let mut value_provisioner: Option<String> = None;

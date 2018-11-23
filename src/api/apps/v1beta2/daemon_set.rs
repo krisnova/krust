@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct DaemonSet {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::apps::v1beta2::DaemonSetSpec>,
+    pub spec: Option<::v1_10::api::apps::v1beta2::DaemonSetSpec>,
 
     /// The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::apps::v1beta2::DaemonSetStatus>,
+    pub status: Option<::v1_10::api::apps::v1beta2::DaemonSetStatus>,
 }
 
 // Begin apps/v1beta2/DaemonSet
@@ -35,7 +35,7 @@ impl DaemonSet {
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1beta2_namespaced_daemon_set(
         namespace: &str,
-        body: &::v1_9::api::apps::v1beta2::DaemonSet,
+        body: &::v1_10::api::apps::v1beta2::DaemonSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/daemonsets?", namespace = namespace);
@@ -54,9 +54,9 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::create_apps_v1beta2_namespaced_daemon_set`](./struct.DaemonSet.html#method.create_apps_v1beta2_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum CreateAppsV1beta2NamespacedDaemonSetResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSet),
-    Created(::v1_9::api::apps::v1beta2::DaemonSet),
-    Accepted(::v1_9::api::apps::v1beta2::DaemonSet),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSet),
+    Created(::v1_10::api::apps::v1beta2::DaemonSet),
+    Accepted(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl DaemonSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::delete_apps_v1beta2_collection_namespaced_daemon_set`](./struct.DaemonSet.html#method.delete_apps_v1beta2_collection_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta2CollectionNamespacedDaemonSetResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1beta2::DaemonSet),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::delete_apps_v1beta2_namespaced_daemon_set`](./struct.DaemonSet.html#method.delete_apps_v1beta2_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta2NamespacedDaemonSetResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1beta2::DaemonSet),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -376,7 +376,7 @@ impl DaemonSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -432,7 +432,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::list_apps_v1beta2_daemon_set_for_all_namespaces`](./struct.DaemonSet.html#method.list_apps_v1beta2_daemon_set_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1beta2DaemonSetForAllNamespacesResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSetList),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSetList),
     Unauthorized,
     Other,
 }
@@ -499,7 +499,7 @@ impl DaemonSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::list_apps_v1beta2_namespaced_daemon_set`](./struct.DaemonSet.html#method.list_apps_v1beta2_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ListAppsV1beta2NamespacedDaemonSetResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSetList),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSetList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl DaemonSet {
     pub fn patch_apps_v1beta2_namespaced_daemon_set(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/daemonsets/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::patch_apps_v1beta2_namespaced_daemon_set`](./struct.DaemonSet.html#method.patch_apps_v1beta2_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedDaemonSetResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSet),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl DaemonSet {
     pub fn patch_apps_v1beta2_namespaced_daemon_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/daemonsets/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::patch_apps_v1beta2_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.patch_apps_v1beta2_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedDaemonSetStatusResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSet),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::read_apps_v1beta2_namespaced_daemon_set`](./struct.DaemonSet.html#method.read_apps_v1beta2_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedDaemonSetResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSet),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::read_apps_v1beta2_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.read_apps_v1beta2_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedDaemonSetStatusResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSet),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl DaemonSet {
     pub fn replace_apps_v1beta2_namespaced_daemon_set(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::apps::v1beta2::DaemonSet,
+        body: &::v1_10::api::apps::v1beta2::DaemonSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/daemonsets/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::replace_apps_v1beta2_namespaced_daemon_set`](./struct.DaemonSet.html#method.replace_apps_v1beta2_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedDaemonSetResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSet),
-    Created(::v1_9::api::apps::v1beta2::DaemonSet),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSet),
+    Created(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl DaemonSet {
     pub fn replace_apps_v1beta2_namespaced_daemon_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::apps::v1beta2::DaemonSet,
+        body: &::v1_10::api::apps::v1beta2::DaemonSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/daemonsets/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::replace_apps_v1beta2_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.replace_apps_v1beta2_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedDaemonSetStatusResponse {
-    Ok(::v1_9::api::apps::v1beta2::DaemonSet),
-    Created(::v1_9::api::apps::v1beta2::DaemonSet),
+    Ok(::v1_10::api::apps::v1beta2::DaemonSet),
+    Created(::v1_10::api::apps::v1beta2::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -1043,7 +1043,7 @@ impl DaemonSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1099,7 +1099,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_apps_v1beta2_daemon_set_list_for_all_namespaces`](./struct.DaemonSet.html#method.watch_apps_v1beta2_daemon_set_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2DaemonSetListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1172,7 +1172,7 @@ impl DaemonSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1230,7 +1230,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_apps_v1beta2_namespaced_daemon_set`](./struct.DaemonSet.html#method.watch_apps_v1beta2_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2NamespacedDaemonSetResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1299,7 +1299,7 @@ impl DaemonSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_apps_v1beta2_namespaced_daemon_set_list`](./struct.DaemonSet.html#method.watch_apps_v1beta2_namespaced_daemon_set_list)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2NamespacedDaemonSetListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSet {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::apps::v1beta2::DaemonSetSpec> = None;
-                let mut value_status: Option<::v1_9::api::apps::v1beta2::DaemonSetStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::apps::v1beta2::DaemonSetSpec> = None;
+                let mut value_status: Option<::v1_10::api::apps::v1beta2::DaemonSetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

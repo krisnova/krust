@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Namespace {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::core::v1::NamespaceSpec>,
+    pub spec: Option<::v1_10::api::core::v1::NamespaceSpec>,
 
     /// Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::core::v1::NamespaceStatus>,
+    pub status: Option<::v1_10::api::core::v1::NamespaceStatus>,
 }
 
 // Begin /v1/Namespace
@@ -30,7 +30,7 @@ impl Namespace {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespace(
-        body: &::v1_9::api::core::v1::Namespace,
+        body: &::v1_10::api::core::v1::Namespace,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces?");
@@ -49,9 +49,9 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::create_core_v1_namespace`](./struct.Namespace.html#method.create_core_v1_namespace)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespaceResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
-    Created(::v1_9::api::core::v1::Namespace),
-    Accepted(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
+    Created(::v1_10::api::core::v1::Namespace),
+    Accepted(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -151,8 +151,8 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::delete_core_v1_namespace`](./struct.Namespace.html#method.delete_core_v1_namespace)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespaceResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Namespace),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -228,7 +228,7 @@ impl Namespace {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -284,7 +284,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::list_core_v1_namespace`](./struct.Namespace.html#method.list_core_v1_namespace)
 #[derive(Debug)]
 pub enum ListCoreV1NamespaceResponse {
-    Ok(::v1_9::api::core::v1::NamespaceList),
+    Ok(::v1_10::api::core::v1::NamespaceList),
     Unauthorized,
     Other,
 }
@@ -326,7 +326,7 @@ impl Namespace {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_namespace(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}?", name = name);
@@ -345,7 +345,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::patch_core_v1_namespace`](./struct.Namespace.html#method.patch_core_v1_namespace)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespaceResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -387,7 +387,7 @@ impl Namespace {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_namespace_status(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}/status?", name = name);
@@ -406,7 +406,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::patch_core_v1_namespace_status`](./struct.Namespace.html#method.patch_core_v1_namespace_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespaceStatusResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -480,7 +480,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::read_core_v1_namespace`](./struct.Namespace.html#method.read_core_v1_namespace)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespaceResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -538,7 +538,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::read_core_v1_namespace_status`](./struct.Namespace.html#method.read_core_v1_namespace_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespaceStatusResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -580,7 +580,7 @@ impl Namespace {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespace(
         name: &str,
-        body: &::v1_9::api::core::v1::Namespace,
+        body: &::v1_10::api::core::v1::Namespace,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}?", name = name);
@@ -599,8 +599,8 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::replace_core_v1_namespace`](./struct.Namespace.html#method.replace_core_v1_namespace)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespaceResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
-    Created(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
+    Created(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -650,7 +650,7 @@ impl Namespace {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespace_finalize(
         name: &str,
-        body: &::v1_9::api::core::v1::Namespace,
+        body: &::v1_10::api::core::v1::Namespace,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}/finalize?", name = name);
@@ -669,8 +669,8 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::replace_core_v1_namespace_finalize`](./struct.Namespace.html#method.replace_core_v1_namespace_finalize)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespaceFinalizeResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
-    Created(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
+    Created(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -720,7 +720,7 @@ impl Namespace {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespace_status(
         name: &str,
-        body: &::v1_9::api::core::v1::Namespace,
+        body: &::v1_10::api::core::v1::Namespace,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}/status?", name = name);
@@ -739,8 +739,8 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::replace_core_v1_namespace_status`](./struct.Namespace.html#method.replace_core_v1_namespace_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespaceStatusResponse {
-    Ok(::v1_9::api::core::v1::Namespace),
-    Created(::v1_9::api::core::v1::Namespace),
+    Ok(::v1_10::api::core::v1::Namespace),
+    Created(::v1_10::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -815,7 +815,7 @@ impl Namespace {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -872,7 +872,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::watch_core_v1_namespace`](./struct.Namespace.html#method.watch_core_v1_namespace)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespaceResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -937,7 +937,7 @@ impl Namespace {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -993,7 +993,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::watch_core_v1_namespace_list`](./struct.Namespace.html#method.watch_core_v1_namespace_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespaceListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1086,9 +1086,9 @@ impl<'de> ::serde::Deserialize<'de> for Namespace {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::core::v1::NamespaceSpec> = None;
-                let mut value_status: Option<::v1_9::api::core::v1::NamespaceStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::core::v1::NamespaceSpec> = None;
+                let mut value_status: Option<::v1_10::api::core::v1::NamespaceStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

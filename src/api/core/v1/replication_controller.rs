@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ReplicationController {
     /// If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::core::v1::ReplicationControllerSpec>,
+    pub spec: Option<::v1_10::api::core::v1::ReplicationControllerSpec>,
 
     /// Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::core::v1::ReplicationControllerStatus>,
+    pub status: Option<::v1_10::api::core::v1::ReplicationControllerStatus>,
 }
 
 // Begin /v1/ReplicationController
@@ -35,7 +35,7 @@ impl ReplicationController {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_replication_controller(
         namespace: &str,
-        body: &::v1_9::api::core::v1::ReplicationController,
+        body: &::v1_10::api::core::v1::ReplicationController,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/replicationcontrollers?", namespace = namespace);
@@ -54,9 +54,9 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::create_core_v1_namespaced_replication_controller`](./struct.ReplicationController.html#method.create_core_v1_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedReplicationControllerResponse {
-    Ok(::v1_9::api::core::v1::ReplicationController),
-    Created(::v1_9::api::core::v1::ReplicationController),
-    Accepted(::v1_9::api::core::v1::ReplicationController),
+    Ok(::v1_10::api::core::v1::ReplicationController),
+    Created(::v1_10::api::core::v1::ReplicationController),
+    Accepted(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl ReplicationController {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::delete_core_v1_collection_namespaced_replication_controller`](./struct.ReplicationController.html#method.delete_core_v1_collection_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedReplicationControllerResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::ReplicationController),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::delete_core_v1_namespaced_replication_controller`](./struct.ReplicationController.html#method.delete_core_v1_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedReplicationControllerResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::ReplicationController),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -380,7 +380,7 @@ impl ReplicationController {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -437,7 +437,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::list_core_v1_namespaced_replication_controller`](./struct.ReplicationController.html#method.list_core_v1_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedReplicationControllerResponse {
-    Ok(::v1_9::api::core::v1::ReplicationControllerList),
+    Ok(::v1_10::api::core::v1::ReplicationControllerList),
     Unauthorized,
     Other,
 }
@@ -500,7 +500,7 @@ impl ReplicationController {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::list_core_v1_replication_controller_for_all_namespaces`](./struct.ReplicationController.html#method.list_core_v1_replication_controller_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ReplicationControllerForAllNamespacesResponse {
-    Ok(::v1_9::api::core::v1::ReplicationControllerList),
+    Ok(::v1_10::api::core::v1::ReplicationControllerList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl ReplicationController {
     pub fn patch_core_v1_namespaced_replication_controller(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/replicationcontrollers/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::patch_core_v1_namespaced_replication_controller`](./struct.ReplicationController.html#method.patch_core_v1_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedReplicationControllerResponse {
-    Ok(::v1_9::api::core::v1::ReplicationController),
+    Ok(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl ReplicationController {
     pub fn patch_core_v1_namespaced_replication_controller_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::patch_core_v1_namespaced_replication_controller_status`](./struct.ReplicationController.html#method.patch_core_v1_namespaced_replication_controller_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedReplicationControllerStatusResponse {
-    Ok(::v1_9::api::core::v1::ReplicationController),
+    Ok(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::read_core_v1_namespaced_replication_controller`](./struct.ReplicationController.html#method.read_core_v1_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedReplicationControllerResponse {
-    Ok(::v1_9::api::core::v1::ReplicationController),
+    Ok(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::read_core_v1_namespaced_replication_controller_status`](./struct.ReplicationController.html#method.read_core_v1_namespaced_replication_controller_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedReplicationControllerStatusResponse {
-    Ok(::v1_9::api::core::v1::ReplicationController),
+    Ok(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl ReplicationController {
     pub fn replace_core_v1_namespaced_replication_controller(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::ReplicationController,
+        body: &::v1_10::api::core::v1::ReplicationController,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/replicationcontrollers/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::replace_core_v1_namespaced_replication_controller`](./struct.ReplicationController.html#method.replace_core_v1_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedReplicationControllerResponse {
-    Ok(::v1_9::api::core::v1::ReplicationController),
-    Created(::v1_9::api::core::v1::ReplicationController),
+    Ok(::v1_10::api::core::v1::ReplicationController),
+    Created(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl ReplicationController {
     pub fn replace_core_v1_namespaced_replication_controller_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::ReplicationController,
+        body: &::v1_10::api::core::v1::ReplicationController,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::replace_core_v1_namespaced_replication_controller_status`](./struct.ReplicationController.html#method.replace_core_v1_namespaced_replication_controller_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedReplicationControllerStatusResponse {
-    Ok(::v1_9::api::core::v1::ReplicationController),
-    Created(::v1_9::api::core::v1::ReplicationController),
+    Ok(::v1_10::api::core::v1::ReplicationController),
+    Created(::v1_10::api::core::v1::ReplicationController),
     Unauthorized,
     Other,
 }
@@ -1051,7 +1051,7 @@ impl ReplicationController {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1109,7 +1109,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::watch_core_v1_namespaced_replication_controller`](./struct.ReplicationController.html#method.watch_core_v1_namespaced_replication_controller)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedReplicationControllerResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1178,7 +1178,7 @@ impl ReplicationController {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1235,7 +1235,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::watch_core_v1_namespaced_replication_controller_list`](./struct.ReplicationController.html#method.watch_core_v1_namespaced_replication_controller_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedReplicationControllerListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1300,7 +1300,7 @@ impl ReplicationController {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl ReplicationController {
 /// Parses the HTTP response of [`ReplicationController::watch_core_v1_replication_controller_list_for_all_namespaces`](./struct.ReplicationController.html#method.watch_core_v1_replication_controller_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ReplicationControllerListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for ReplicationController {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::core::v1::ReplicationControllerSpec> = None;
-                let mut value_status: Option<::v1_9::api::core::v1::ReplicationControllerStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::core::v1::ReplicationControllerSpec> = None;
+                let mut value_status: Option<::v1_10::api::core::v1::ReplicationControllerStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

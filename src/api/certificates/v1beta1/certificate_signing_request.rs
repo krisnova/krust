@@ -3,13 +3,13 @@
 /// Describes a certificate signing request
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CertificateSigningRequest {
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The certificate request itself and any additional information.
-    pub spec: Option<::v1_9::api::certificates::v1beta1::CertificateSigningRequestSpec>,
+    pub spec: Option<::v1_10::api::certificates::v1beta1::CertificateSigningRequestSpec>,
 
     /// Derived information about the request.
-    pub status: Option<::v1_9::api::certificates::v1beta1::CertificateSigningRequestStatus>,
+    pub status: Option<::v1_10::api::certificates::v1beta1::CertificateSigningRequestStatus>,
 }
 
 // Begin certificates.k8s.io/v1beta1/CertificateSigningRequest
@@ -29,7 +29,7 @@ impl CertificateSigningRequest {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_certificates_v1beta1_certificate_signing_request(
-        body: &::v1_9::api::certificates::v1beta1::CertificateSigningRequest,
+        body: &::v1_10::api::certificates::v1beta1::CertificateSigningRequest,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/certificates.k8s.io/v1beta1/certificatesigningrequests?");
@@ -48,9 +48,9 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::create_certificates_v1beta1_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.create_certificates_v1beta1_certificate_signing_request)
 #[derive(Debug)]
 pub enum CreateCertificatesV1beta1CertificateSigningRequestResponse {
-    Ok(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
-    Created(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
-    Accepted(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    Ok(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
+    Created(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
+    Accepted(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -150,8 +150,8 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::delete_certificates_v1beta1_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.delete_certificates_v1beta1_certificate_signing_request)
 #[derive(Debug)]
 pub enum DeleteCertificatesV1beta1CertificateSigningRequestResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -227,7 +227,7 @@ impl CertificateSigningRequest {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -283,8 +283,8 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::delete_certificates_v1beta1_collection_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.delete_certificates_v1beta1_collection_certificate_signing_request)
 #[derive(Debug)]
 pub enum DeleteCertificatesV1beta1CollectionCertificateSigningRequestResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -360,7 +360,7 @@ impl CertificateSigningRequest {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -416,7 +416,7 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::list_certificates_v1beta1_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.list_certificates_v1beta1_certificate_signing_request)
 #[derive(Debug)]
 pub enum ListCertificatesV1beta1CertificateSigningRequestResponse {
-    Ok(::v1_9::api::certificates::v1beta1::CertificateSigningRequestList),
+    Ok(::v1_10::api::certificates::v1beta1::CertificateSigningRequestList),
     Unauthorized,
     Other,
 }
@@ -458,7 +458,7 @@ impl CertificateSigningRequest {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_certificates_v1beta1_certificate_signing_request(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}?", name = name);
@@ -477,7 +477,7 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::patch_certificates_v1beta1_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.patch_certificates_v1beta1_certificate_signing_request)
 #[derive(Debug)]
 pub enum PatchCertificatesV1beta1CertificateSigningRequestResponse {
-    Ok(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    Ok(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -551,7 +551,7 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::read_certificates_v1beta1_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.read_certificates_v1beta1_certificate_signing_request)
 #[derive(Debug)]
 pub enum ReadCertificatesV1beta1CertificateSigningRequestResponse {
-    Ok(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    Ok(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -593,7 +593,7 @@ impl CertificateSigningRequest {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_certificates_v1beta1_certificate_signing_request(
         name: &str,
-        body: &::v1_9::api::certificates::v1beta1::CertificateSigningRequest,
+        body: &::v1_10::api::certificates::v1beta1::CertificateSigningRequest,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}?", name = name);
@@ -612,8 +612,8 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::replace_certificates_v1beta1_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.replace_certificates_v1beta1_certificate_signing_request)
 #[derive(Debug)]
 pub enum ReplaceCertificatesV1beta1CertificateSigningRequestResponse {
-    Ok(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
-    Created(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    Ok(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
+    Created(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -663,7 +663,7 @@ impl CertificateSigningRequest {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_certificates_v1beta1_certificate_signing_request_approval(
         name: &str,
-        body: &::v1_9::api::certificates::v1beta1::CertificateSigningRequest,
+        body: &::v1_10::api::certificates::v1beta1::CertificateSigningRequest,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/approval?", name = name);
@@ -682,8 +682,8 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::replace_certificates_v1beta1_certificate_signing_request_approval`](./struct.CertificateSigningRequest.html#method.replace_certificates_v1beta1_certificate_signing_request_approval)
 #[derive(Debug)]
 pub enum ReplaceCertificatesV1beta1CertificateSigningRequestApprovalResponse {
-    Ok(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
-    Created(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    Ok(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
+    Created(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -733,7 +733,7 @@ impl CertificateSigningRequest {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_certificates_v1beta1_certificate_signing_request_status(
         name: &str,
-        body: &::v1_9::api::certificates::v1beta1::CertificateSigningRequest,
+        body: &::v1_10::api::certificates::v1beta1::CertificateSigningRequest,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status?", name = name);
@@ -752,8 +752,8 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::replace_certificates_v1beta1_certificate_signing_request_status`](./struct.CertificateSigningRequest.html#method.replace_certificates_v1beta1_certificate_signing_request_status)
 #[derive(Debug)]
 pub enum ReplaceCertificatesV1beta1CertificateSigningRequestStatusResponse {
-    Ok(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
-    Created(::v1_9::api::certificates::v1beta1::CertificateSigningRequest),
+    Ok(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
+    Created(::v1_10::api::certificates::v1beta1::CertificateSigningRequest),
     Unauthorized,
     Other,
 }
@@ -828,7 +828,7 @@ impl CertificateSigningRequest {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -885,7 +885,7 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::watch_certificates_v1beta1_certificate_signing_request`](./struct.CertificateSigningRequest.html#method.watch_certificates_v1beta1_certificate_signing_request)
 #[derive(Debug)]
 pub enum WatchCertificatesV1beta1CertificateSigningRequestResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -950,7 +950,7 @@ impl CertificateSigningRequest {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1006,7 +1006,7 @@ impl CertificateSigningRequest {
 /// Parses the HTTP response of [`CertificateSigningRequest::watch_certificates_v1beta1_certificate_signing_request_list`](./struct.CertificateSigningRequest.html#method.watch_certificates_v1beta1_certificate_signing_request_list)
 #[derive(Debug)]
 pub enum WatchCertificatesV1beta1CertificateSigningRequestListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1099,9 +1099,9 @@ impl<'de> ::serde::Deserialize<'de> for CertificateSigningRequest {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::certificates::v1beta1::CertificateSigningRequestSpec> = None;
-                let mut value_status: Option<::v1_9::api::certificates::v1beta1::CertificateSigningRequestStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::certificates::v1beta1::CertificateSigningRequestSpec> = None;
+                let mut value_status: Option<::v1_10::api::certificates::v1beta1::CertificateSigningRequestStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

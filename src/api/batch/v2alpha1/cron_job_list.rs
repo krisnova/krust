@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CronJobList {
     /// items is the list of CronJobs.
-    pub items: Vec<::v1_9::api::batch::v2alpha1::CronJob>,
+    pub items: Vec<::v1_10::api::batch::v2alpha1::CronJob>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for CronJobList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for CronJobList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_9::api::batch::v2alpha1::CronJob>> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_10::api::batch::v2alpha1::CronJob>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

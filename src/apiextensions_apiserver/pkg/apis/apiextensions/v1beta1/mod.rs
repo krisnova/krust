@@ -17,6 +17,15 @@ pub use self::custom_resource_definition_spec::*;
 mod custom_resource_definition_status;
 pub use self::custom_resource_definition_status::*;
 
+mod custom_resource_subresource_scale;
+pub use self::custom_resource_subresource_scale::*;
+
+mod custom_resource_subresource_status;
+pub use self::custom_resource_subresource_status::*;
+
+mod custom_resource_subresources;
+pub use self::custom_resource_subresources::*;
+
 mod custom_resource_validation;
 pub use self::custom_resource_validation::*;
 

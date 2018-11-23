@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct RoleBinding {
     /// Standard object's metadata.
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-    pub role_ref: ::v1_9::api::rbac::v1beta1::RoleRef,
+    pub role_ref: ::v1_10::api::rbac::v1beta1::RoleRef,
 
     /// Subjects holds references to the objects the role applies to.
-    pub subjects: Vec<::v1_9::api::rbac::v1beta1::Subject>,
+    pub subjects: Vec<::v1_10::api::rbac::v1beta1::Subject>,
 }
 
 // Begin rbac.authorization.k8s.io/v1beta1/RoleBinding
@@ -35,7 +35,7 @@ impl RoleBinding {
     ///     If 'true', then the output is pretty printed.
     pub fn create_rbac_authorization_v1beta1_namespaced_role_binding(
         namespace: &str,
-        body: &::v1_9::api::rbac::v1beta1::RoleBinding,
+        body: &::v1_10::api::rbac::v1beta1::RoleBinding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/rolebindings?", namespace = namespace);
@@ -54,9 +54,9 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::create_rbac_authorization_v1beta1_namespaced_role_binding`](./struct.RoleBinding.html#method.create_rbac_authorization_v1beta1_namespaced_role_binding)
 #[derive(Debug)]
 pub enum CreateRbacAuthorizationV1beta1NamespacedRoleBindingResponse {
-    Ok(::v1_9::api::rbac::v1beta1::RoleBinding),
-    Created(::v1_9::api::rbac::v1beta1::RoleBinding),
-    Accepted(::v1_9::api::rbac::v1beta1::RoleBinding),
+    Ok(::v1_10::api::rbac::v1beta1::RoleBinding),
+    Created(::v1_10::api::rbac::v1beta1::RoleBinding),
+    Accepted(::v1_10::api::rbac::v1beta1::RoleBinding),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl RoleBinding {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::delete_rbac_authorization_v1beta1_collection_namespaced_role_binding`](./struct.RoleBinding.html#method.delete_rbac_authorization_v1beta1_collection_namespaced_role_binding)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1beta1CollectionNamespacedRoleBindingResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::rbac::v1beta1::RoleBinding),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::rbac::v1beta1::RoleBinding),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::delete_rbac_authorization_v1beta1_namespaced_role_binding`](./struct.RoleBinding.html#method.delete_rbac_authorization_v1beta1_namespaced_role_binding)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1beta1NamespacedRoleBindingResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::rbac::v1beta1::RoleBinding),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::rbac::v1beta1::RoleBinding),
     Unauthorized,
     Other,
 }
@@ -380,7 +380,7 @@ impl RoleBinding {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -437,7 +437,7 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::list_rbac_authorization_v1beta1_namespaced_role_binding`](./struct.RoleBinding.html#method.list_rbac_authorization_v1beta1_namespaced_role_binding)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1beta1NamespacedRoleBindingResponse {
-    Ok(::v1_9::api::rbac::v1beta1::RoleBindingList),
+    Ok(::v1_10::api::rbac::v1beta1::RoleBindingList),
     Unauthorized,
     Other,
 }
@@ -500,7 +500,7 @@ impl RoleBinding {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::list_rbac_authorization_v1beta1_role_binding_for_all_namespaces`](./struct.RoleBinding.html#method.list_rbac_authorization_v1beta1_role_binding_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1beta1RoleBindingForAllNamespacesResponse {
-    Ok(::v1_9::api::rbac::v1beta1::RoleBindingList),
+    Ok(::v1_10::api::rbac::v1beta1::RoleBindingList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl RoleBinding {
     pub fn patch_rbac_authorization_v1beta1_namespaced_role_binding(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/rolebindings/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::patch_rbac_authorization_v1beta1_namespaced_role_binding`](./struct.RoleBinding.html#method.patch_rbac_authorization_v1beta1_namespaced_role_binding)
 #[derive(Debug)]
 pub enum PatchRbacAuthorizationV1beta1NamespacedRoleBindingResponse {
-    Ok(::v1_9::api::rbac::v1beta1::RoleBinding),
+    Ok(::v1_10::api::rbac::v1beta1::RoleBinding),
     Unauthorized,
     Other,
 }
@@ -685,7 +685,7 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::read_rbac_authorization_v1beta1_namespaced_role_binding`](./struct.RoleBinding.html#method.read_rbac_authorization_v1beta1_namespaced_role_binding)
 #[derive(Debug)]
 pub enum ReadRbacAuthorizationV1beta1NamespacedRoleBindingResponse {
-    Ok(::v1_9::api::rbac::v1beta1::RoleBinding),
+    Ok(::v1_10::api::rbac::v1beta1::RoleBinding),
     Unauthorized,
     Other,
 }
@@ -732,7 +732,7 @@ impl RoleBinding {
     pub fn replace_rbac_authorization_v1beta1_namespaced_role_binding(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::rbac::v1beta1::RoleBinding,
+        body: &::v1_10::api::rbac::v1beta1::RoleBinding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/rolebindings/{name}?", name = name, namespace = namespace);
@@ -751,8 +751,8 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::replace_rbac_authorization_v1beta1_namespaced_role_binding`](./struct.RoleBinding.html#method.replace_rbac_authorization_v1beta1_namespaced_role_binding)
 #[derive(Debug)]
 pub enum ReplaceRbacAuthorizationV1beta1NamespacedRoleBindingResponse {
-    Ok(::v1_9::api::rbac::v1beta1::RoleBinding),
-    Created(::v1_9::api::rbac::v1beta1::RoleBinding),
+    Ok(::v1_10::api::rbac::v1beta1::RoleBinding),
+    Created(::v1_10::api::rbac::v1beta1::RoleBinding),
     Unauthorized,
     Other,
 }
@@ -831,7 +831,7 @@ impl RoleBinding {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -889,7 +889,7 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::watch_rbac_authorization_v1beta1_namespaced_role_binding`](./struct.RoleBinding.html#method.watch_rbac_authorization_v1beta1_namespaced_role_binding)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1NamespacedRoleBindingResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -958,7 +958,7 @@ impl RoleBinding {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1015,7 +1015,7 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::watch_rbac_authorization_v1beta1_namespaced_role_binding_list`](./struct.RoleBinding.html#method.watch_rbac_authorization_v1beta1_namespaced_role_binding_list)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1NamespacedRoleBindingListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1080,7 +1080,7 @@ impl RoleBinding {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1136,7 +1136,7 @@ impl RoleBinding {
 /// Parses the HTTP response of [`RoleBinding::watch_rbac_authorization_v1beta1_role_binding_list_for_all_namespaces`](./struct.RoleBinding.html#method.watch_rbac_authorization_v1beta1_role_binding_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1RoleBindingListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1229,9 +1229,9 @@ impl<'de> ::serde::Deserialize<'de> for RoleBinding {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_role_ref: Option<::v1_9::api::rbac::v1beta1::RoleRef> = None;
-                let mut value_subjects: Option<Vec<::v1_9::api::rbac::v1beta1::Subject>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_role_ref: Option<::v1_10::api::rbac::v1beta1::RoleRef> = None;
+                let mut value_subjects: Option<Vec<::v1_10::api::rbac::v1beta1::Subject>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

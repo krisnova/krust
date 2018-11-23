@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ReplicaSet {
     /// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::apps::v1::ReplicaSetSpec>,
+    pub spec: Option<::v1_10::api::apps::v1::ReplicaSetSpec>,
 
     /// Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::apps::v1::ReplicaSetStatus>,
+    pub status: Option<::v1_10::api::apps::v1::ReplicaSetStatus>,
 }
 
 // Begin apps/v1/ReplicaSet
@@ -35,7 +35,7 @@ impl ReplicaSet {
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1_namespaced_replica_set(
         namespace: &str,
-        body: &::v1_9::api::apps::v1::ReplicaSet,
+        body: &::v1_10::api::apps::v1::ReplicaSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/replicasets?", namespace = namespace);
@@ -54,9 +54,9 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::create_apps_v1_namespaced_replica_set`](./struct.ReplicaSet.html#method.create_apps_v1_namespaced_replica_set)
 #[derive(Debug)]
 pub enum CreateAppsV1NamespacedReplicaSetResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSet),
-    Created(::v1_9::api::apps::v1::ReplicaSet),
-    Accepted(::v1_9::api::apps::v1::ReplicaSet),
+    Ok(::v1_10::api::apps::v1::ReplicaSet),
+    Created(::v1_10::api::apps::v1::ReplicaSet),
+    Accepted(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl ReplicaSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::delete_apps_v1_collection_namespaced_replica_set`](./struct.ReplicaSet.html#method.delete_apps_v1_collection_namespaced_replica_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1CollectionNamespacedReplicaSetResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1::ReplicaSet),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::delete_apps_v1_namespaced_replica_set`](./struct.ReplicaSet.html#method.delete_apps_v1_namespaced_replica_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1NamespacedReplicaSetResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1::ReplicaSet),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -380,7 +380,7 @@ impl ReplicaSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -437,7 +437,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::list_apps_v1_namespaced_replica_set`](./struct.ReplicaSet.html#method.list_apps_v1_namespaced_replica_set)
 #[derive(Debug)]
 pub enum ListAppsV1NamespacedReplicaSetResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSetList),
+    Ok(::v1_10::api::apps::v1::ReplicaSetList),
     Unauthorized,
     Other,
 }
@@ -500,7 +500,7 @@ impl ReplicaSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::list_apps_v1_replica_set_for_all_namespaces`](./struct.ReplicaSet.html#method.list_apps_v1_replica_set_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1ReplicaSetForAllNamespacesResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSetList),
+    Ok(::v1_10::api::apps::v1::ReplicaSetList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl ReplicaSet {
     pub fn patch_apps_v1_namespaced_replica_set(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/replicasets/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::patch_apps_v1_namespaced_replica_set`](./struct.ReplicaSet.html#method.patch_apps_v1_namespaced_replica_set)
 #[derive(Debug)]
 pub enum PatchAppsV1NamespacedReplicaSetResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSet),
+    Ok(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl ReplicaSet {
     pub fn patch_apps_v1_namespaced_replica_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::patch_apps_v1_namespaced_replica_set_status`](./struct.ReplicaSet.html#method.patch_apps_v1_namespaced_replica_set_status)
 #[derive(Debug)]
 pub enum PatchAppsV1NamespacedReplicaSetStatusResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSet),
+    Ok(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::read_apps_v1_namespaced_replica_set`](./struct.ReplicaSet.html#method.read_apps_v1_namespaced_replica_set)
 #[derive(Debug)]
 pub enum ReadAppsV1NamespacedReplicaSetResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSet),
+    Ok(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::read_apps_v1_namespaced_replica_set_status`](./struct.ReplicaSet.html#method.read_apps_v1_namespaced_replica_set_status)
 #[derive(Debug)]
 pub enum ReadAppsV1NamespacedReplicaSetStatusResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSet),
+    Ok(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl ReplicaSet {
     pub fn replace_apps_v1_namespaced_replica_set(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::apps::v1::ReplicaSet,
+        body: &::v1_10::api::apps::v1::ReplicaSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/replicasets/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::replace_apps_v1_namespaced_replica_set`](./struct.ReplicaSet.html#method.replace_apps_v1_namespaced_replica_set)
 #[derive(Debug)]
 pub enum ReplaceAppsV1NamespacedReplicaSetResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSet),
-    Created(::v1_9::api::apps::v1::ReplicaSet),
+    Ok(::v1_10::api::apps::v1::ReplicaSet),
+    Created(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl ReplicaSet {
     pub fn replace_apps_v1_namespaced_replica_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::apps::v1::ReplicaSet,
+        body: &::v1_10::api::apps::v1::ReplicaSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::replace_apps_v1_namespaced_replica_set_status`](./struct.ReplicaSet.html#method.replace_apps_v1_namespaced_replica_set_status)
 #[derive(Debug)]
 pub enum ReplaceAppsV1NamespacedReplicaSetStatusResponse {
-    Ok(::v1_9::api::apps::v1::ReplicaSet),
-    Created(::v1_9::api::apps::v1::ReplicaSet),
+    Ok(::v1_10::api::apps::v1::ReplicaSet),
+    Created(::v1_10::api::apps::v1::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -1051,7 +1051,7 @@ impl ReplicaSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1109,7 +1109,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::watch_apps_v1_namespaced_replica_set`](./struct.ReplicaSet.html#method.watch_apps_v1_namespaced_replica_set)
 #[derive(Debug)]
 pub enum WatchAppsV1NamespacedReplicaSetResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1178,7 +1178,7 @@ impl ReplicaSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1235,7 +1235,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::watch_apps_v1_namespaced_replica_set_list`](./struct.ReplicaSet.html#method.watch_apps_v1_namespaced_replica_set_list)
 #[derive(Debug)]
 pub enum WatchAppsV1NamespacedReplicaSetListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1300,7 +1300,7 @@ impl ReplicaSet {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::watch_apps_v1_replica_set_list_for_all_namespaces`](./struct.ReplicaSet.html#method.watch_apps_v1_replica_set_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1ReplicaSetListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for ReplicaSet {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::apps::v1::ReplicaSetSpec> = None;
-                let mut value_status: Option<::v1_9::api::apps::v1::ReplicaSetStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::apps::v1::ReplicaSetSpec> = None;
+                let mut value_status: Option<::v1_10::api::apps::v1::ReplicaSetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

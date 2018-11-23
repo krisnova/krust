@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ValidatingWebhookConfiguration {
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Webhooks is a list of webhooks and the affected resources and operations.
-    pub webhooks: Option<Vec<::v1_9::api::admissionregistration::v1beta1::Webhook>>,
+    pub webhooks: Option<Vec<::v1_10::api::admissionregistration::v1beta1::Webhook>>,
 }
 
 // Begin admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration
@@ -27,7 +27,7 @@ impl ValidatingWebhookConfiguration {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_admissionregistration_v1beta1_validating_webhook_configuration(
-        body: &::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration,
+        body: &::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1beta1/validatingwebhookconfigurations?");
@@ -46,9 +46,9 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::create_admissionregistration_v1beta1_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.create_admissionregistration_v1beta1_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum CreateAdmissionregistrationV1beta1ValidatingWebhookConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
-    Created(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
-    Accepted(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    Created(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    Accepted(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -127,7 +127,7 @@ impl ValidatingWebhookConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -183,8 +183,8 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::delete_admissionregistration_v1beta1_collection_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.delete_admissionregistration_v1beta1_collection_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum DeleteAdmissionregistrationV1beta1CollectionValidatingWebhookConfigurationResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -281,8 +281,8 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::delete_admissionregistration_v1beta1_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.delete_admissionregistration_v1beta1_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum DeleteAdmissionregistrationV1beta1ValidatingWebhookConfigurationResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -358,7 +358,7 @@ impl ValidatingWebhookConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -414,7 +414,7 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::list_admissionregistration_v1beta1_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.list_admissionregistration_v1beta1_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum ListAdmissionregistrationV1beta1ValidatingWebhookConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfigurationList),
+    Ok(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfigurationList),
     Unauthorized,
     Other,
 }
@@ -456,7 +456,7 @@ impl ValidatingWebhookConfiguration {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_admissionregistration_v1beta1_validating_webhook_configuration(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1beta1/validatingwebhookconfigurations/{name}?", name = name);
@@ -475,7 +475,7 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::patch_admissionregistration_v1beta1_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.patch_admissionregistration_v1beta1_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum PatchAdmissionregistrationV1beta1ValidatingWebhookConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -549,7 +549,7 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::read_admissionregistration_v1beta1_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.read_admissionregistration_v1beta1_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum ReadAdmissionregistrationV1beta1ValidatingWebhookConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -591,7 +591,7 @@ impl ValidatingWebhookConfiguration {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_admissionregistration_v1beta1_validating_webhook_configuration(
         name: &str,
-        body: &::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration,
+        body: &::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1beta1/validatingwebhookconfigurations/{name}?", name = name);
@@ -610,8 +610,8 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::replace_admissionregistration_v1beta1_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.replace_admissionregistration_v1beta1_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum ReplaceAdmissionregistrationV1beta1ValidatingWebhookConfigurationResponse {
-    Ok(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
-    Created(::v1_9::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    Ok(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
+    Created(::v1_10::api::admissionregistration::v1beta1::ValidatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -686,7 +686,7 @@ impl ValidatingWebhookConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -743,7 +743,7 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::watch_admissionregistration_v1beta1_validating_webhook_configuration`](./struct.ValidatingWebhookConfiguration.html#method.watch_admissionregistration_v1beta1_validating_webhook_configuration)
 #[derive(Debug)]
 pub enum WatchAdmissionregistrationV1beta1ValidatingWebhookConfigurationResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -808,7 +808,7 @@ impl ValidatingWebhookConfiguration {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -864,7 +864,7 @@ impl ValidatingWebhookConfiguration {
 /// Parses the HTTP response of [`ValidatingWebhookConfiguration::watch_admissionregistration_v1beta1_validating_webhook_configuration_list`](./struct.ValidatingWebhookConfiguration.html#method.watch_admissionregistration_v1beta1_validating_webhook_configuration_list)
 #[derive(Debug)]
 pub enum WatchAdmissionregistrationV1beta1ValidatingWebhookConfigurationListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -955,8 +955,8 @@ impl<'de> ::serde::Deserialize<'de> for ValidatingWebhookConfiguration {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_webhooks: Option<Vec<::v1_9::api::admissionregistration::v1beta1::Webhook>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_webhooks: Option<Vec<::v1_10::api::admissionregistration::v1beta1::Webhook>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

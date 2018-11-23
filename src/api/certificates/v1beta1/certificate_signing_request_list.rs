@@ -2,9 +2,9 @@
 
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CertificateSigningRequestList {
-    pub items: Vec<::v1_9::api::certificates::v1beta1::CertificateSigningRequest>,
+    pub items: Vec<::v1_10::api::certificates::v1beta1::CertificateSigningRequest>,
 
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for CertificateSigningRequestList {
@@ -72,8 +72,8 @@ impl<'de> ::serde::Deserialize<'de> for CertificateSigningRequestList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_9::api::certificates::v1beta1::CertificateSigningRequest>> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_10::api::certificates::v1beta1::CertificateSigningRequest>> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

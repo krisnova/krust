@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Ingress {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::extensions::v1beta1::IngressSpec>,
+    pub spec: Option<::v1_10::api::extensions::v1beta1::IngressSpec>,
 
     /// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::extensions::v1beta1::IngressStatus>,
+    pub status: Option<::v1_10::api::extensions::v1beta1::IngressStatus>,
 }
 
 // Begin extensions/v1beta1/Ingress
@@ -35,7 +35,7 @@ impl Ingress {
     ///     If 'true', then the output is pretty printed.
     pub fn create_extensions_v1beta1_namespaced_ingress(
         namespace: &str,
-        body: &::v1_9::api::extensions::v1beta1::Ingress,
+        body: &::v1_10::api::extensions::v1beta1::Ingress,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/ingresses?", namespace = namespace);
@@ -54,9 +54,9 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::create_extensions_v1beta1_namespaced_ingress`](./struct.Ingress.html#method.create_extensions_v1beta1_namespaced_ingress)
 #[derive(Debug)]
 pub enum CreateExtensionsV1beta1NamespacedIngressResponse {
-    Ok(::v1_9::api::extensions::v1beta1::Ingress),
-    Created(::v1_9::api::extensions::v1beta1::Ingress),
-    Accepted(::v1_9::api::extensions::v1beta1::Ingress),
+    Ok(::v1_10::api::extensions::v1beta1::Ingress),
+    Created(::v1_10::api::extensions::v1beta1::Ingress),
+    Accepted(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl Ingress {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::delete_extensions_v1beta1_collection_namespaced_ingress`](./struct.Ingress.html#method.delete_extensions_v1beta1_collection_namespaced_ingress)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1CollectionNamespacedIngressResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::extensions::v1beta1::Ingress),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::delete_extensions_v1beta1_namespaced_ingress`](./struct.Ingress.html#method.delete_extensions_v1beta1_namespaced_ingress)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1NamespacedIngressResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::extensions::v1beta1::Ingress),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -376,7 +376,7 @@ impl Ingress {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -432,7 +432,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::list_extensions_v1beta1_ingress_for_all_namespaces`](./struct.Ingress.html#method.list_extensions_v1beta1_ingress_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1IngressForAllNamespacesResponse {
-    Ok(::v1_9::api::extensions::v1beta1::IngressList),
+    Ok(::v1_10::api::extensions::v1beta1::IngressList),
     Unauthorized,
     Other,
 }
@@ -499,7 +499,7 @@ impl Ingress {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::list_extensions_v1beta1_namespaced_ingress`](./struct.Ingress.html#method.list_extensions_v1beta1_namespaced_ingress)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1NamespacedIngressResponse {
-    Ok(::v1_9::api::extensions::v1beta1::IngressList),
+    Ok(::v1_10::api::extensions::v1beta1::IngressList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl Ingress {
     pub fn patch_extensions_v1beta1_namespaced_ingress(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::patch_extensions_v1beta1_namespaced_ingress`](./struct.Ingress.html#method.patch_extensions_v1beta1_namespaced_ingress)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedIngressResponse {
-    Ok(::v1_9::api::extensions::v1beta1::Ingress),
+    Ok(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl Ingress {
     pub fn patch_extensions_v1beta1_namespaced_ingress_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::patch_extensions_v1beta1_namespaced_ingress_status`](./struct.Ingress.html#method.patch_extensions_v1beta1_namespaced_ingress_status)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedIngressStatusResponse {
-    Ok(::v1_9::api::extensions::v1beta1::Ingress),
+    Ok(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::read_extensions_v1beta1_namespaced_ingress`](./struct.Ingress.html#method.read_extensions_v1beta1_namespaced_ingress)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedIngressResponse {
-    Ok(::v1_9::api::extensions::v1beta1::Ingress),
+    Ok(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::read_extensions_v1beta1_namespaced_ingress_status`](./struct.Ingress.html#method.read_extensions_v1beta1_namespaced_ingress_status)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedIngressStatusResponse {
-    Ok(::v1_9::api::extensions::v1beta1::Ingress),
+    Ok(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl Ingress {
     pub fn replace_extensions_v1beta1_namespaced_ingress(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::extensions::v1beta1::Ingress,
+        body: &::v1_10::api::extensions::v1beta1::Ingress,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::replace_extensions_v1beta1_namespaced_ingress`](./struct.Ingress.html#method.replace_extensions_v1beta1_namespaced_ingress)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedIngressResponse {
-    Ok(::v1_9::api::extensions::v1beta1::Ingress),
-    Created(::v1_9::api::extensions::v1beta1::Ingress),
+    Ok(::v1_10::api::extensions::v1beta1::Ingress),
+    Created(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl Ingress {
     pub fn replace_extensions_v1beta1_namespaced_ingress_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::extensions::v1beta1::Ingress,
+        body: &::v1_10::api::extensions::v1beta1::Ingress,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::replace_extensions_v1beta1_namespaced_ingress_status`](./struct.Ingress.html#method.replace_extensions_v1beta1_namespaced_ingress_status)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedIngressStatusResponse {
-    Ok(::v1_9::api::extensions::v1beta1::Ingress),
-    Created(::v1_9::api::extensions::v1beta1::Ingress),
+    Ok(::v1_10::api::extensions::v1beta1::Ingress),
+    Created(::v1_10::api::extensions::v1beta1::Ingress),
     Unauthorized,
     Other,
 }
@@ -1043,7 +1043,7 @@ impl Ingress {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1099,7 +1099,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::watch_extensions_v1beta1_ingress_list_for_all_namespaces`](./struct.Ingress.html#method.watch_extensions_v1beta1_ingress_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1IngressListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1172,7 +1172,7 @@ impl Ingress {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1230,7 +1230,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::watch_extensions_v1beta1_namespaced_ingress`](./struct.Ingress.html#method.watch_extensions_v1beta1_namespaced_ingress)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedIngressResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1299,7 +1299,7 @@ impl Ingress {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl Ingress {
 /// Parses the HTTP response of [`Ingress::watch_extensions_v1beta1_namespaced_ingress_list`](./struct.Ingress.html#method.watch_extensions_v1beta1_namespaced_ingress_list)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedIngressListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for Ingress {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::extensions::v1beta1::IngressSpec> = None;
-                let mut value_status: Option<::v1_9::api::extensions::v1beta1::IngressStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::extensions::v1beta1::IngressSpec> = None;
+                let mut value_status: Option<::v1_10::api::extensions::v1beta1::IngressStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

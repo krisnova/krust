@@ -8,7 +8,7 @@ pub struct WatchEvent {
     ///  * If Type is Deleted: the state of the object immediately before deletion.
     ///  * If Type is Error: *Status is recommended; other types may make sense
     ///    depending on context.
-    pub object: ::v1_9::apimachinery::pkg::runtime::RawExtension,
+    pub object: ::v1_10::apimachinery::pkg::runtime::RawExtension,
 
     pub type_: String,
 }
@@ -56,7 +56,7 @@ impl<'de> ::serde::Deserialize<'de> for WatchEvent {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_object: Option<::v1_9::apimachinery::pkg::runtime::RawExtension> = None;
+                let mut value_object: Option<::v1_10::apimachinery::pkg::runtime::RawExtension> = None;
                 let mut value_type_: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

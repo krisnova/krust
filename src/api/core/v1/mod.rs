@@ -146,6 +146,9 @@ pub use self::exec_action::*;
 mod fc_volume_source;
 pub use self::fc_volume_source::*;
 
+mod flex_persistent_volume_source;
+pub use self::flex_persistent_volume_source::*;
+
 mod flex_volume_source;
 pub use self::flex_volume_source::*;
 
@@ -481,6 +484,9 @@ pub use self::volume_device::*;
 
 mod volume_mount;
 pub use self::volume_mount::*;
+
+mod volume_node_affinity;
+pub use self::volume_node_affinity::*;
 
 mod volume_projection;
 pub use self::volume_projection::*;

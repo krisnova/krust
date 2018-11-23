@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PersistentVolumeClaim {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-    pub spec: Option<::v1_9::api::core::v1::PersistentVolumeClaimSpec>,
+    pub spec: Option<::v1_10::api::core::v1::PersistentVolumeClaimSpec>,
 
     /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-    pub status: Option<::v1_9::api::core::v1::PersistentVolumeClaimStatus>,
+    pub status: Option<::v1_10::api::core::v1::PersistentVolumeClaimStatus>,
 }
 
 // Begin /v1/PersistentVolumeClaim
@@ -35,7 +35,7 @@ impl PersistentVolumeClaim {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_persistent_volume_claim(
         namespace: &str,
-        body: &::v1_9::api::core::v1::PersistentVolumeClaim,
+        body: &::v1_10::api::core::v1::PersistentVolumeClaim,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims?", namespace = namespace);
@@ -54,9 +54,9 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::create_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.create_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
-    Created(::v1_9::api::core::v1::PersistentVolumeClaim),
-    Accepted(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaim),
+    Created(::v1_10::api::core::v1::PersistentVolumeClaim),
+    Accepted(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl PersistentVolumeClaim {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::delete_core_v1_collection_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.delete_core_v1_collection_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedPersistentVolumeClaimResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::PersistentVolumeClaim),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::delete_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.delete_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedPersistentVolumeClaimResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::PersistentVolumeClaim),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -380,7 +380,7 @@ impl PersistentVolumeClaim {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -437,7 +437,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::list_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.list_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaimList),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaimList),
     Unauthorized,
     Other,
 }
@@ -500,7 +500,7 @@ impl PersistentVolumeClaim {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::list_core_v1_persistent_volume_claim_for_all_namespaces`](./struct.PersistentVolumeClaim.html#method.list_core_v1_persistent_volume_claim_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1PersistentVolumeClaimForAllNamespacesResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaimList),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaimList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl PersistentVolumeClaim {
     pub fn patch_core_v1_namespaced_persistent_volume_claim(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::patch_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.patch_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl PersistentVolumeClaim {
     pub fn patch_core_v1_namespaced_persistent_volume_claim_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::patch_core_v1_namespaced_persistent_volume_claim_status`](./struct.PersistentVolumeClaim.html#method.patch_core_v1_namespaced_persistent_volume_claim_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPersistentVolumeClaimStatusResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::read_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.read_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::read_core_v1_namespaced_persistent_volume_claim_status`](./struct.PersistentVolumeClaim.html#method.read_core_v1_namespaced_persistent_volume_claim_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPersistentVolumeClaimStatusResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl PersistentVolumeClaim {
     pub fn replace_core_v1_namespaced_persistent_volume_claim(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::PersistentVolumeClaim,
+        body: &::v1_10::api::core::v1::PersistentVolumeClaim,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::replace_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.replace_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
-    Created(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaim),
+    Created(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl PersistentVolumeClaim {
     pub fn replace_core_v1_namespaced_persistent_volume_claim_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::PersistentVolumeClaim,
+        body: &::v1_10::api::core::v1::PersistentVolumeClaim,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::replace_core_v1_namespaced_persistent_volume_claim_status`](./struct.PersistentVolumeClaim.html#method.replace_core_v1_namespaced_persistent_volume_claim_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPersistentVolumeClaimStatusResponse {
-    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
-    Created(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_10::api::core::v1::PersistentVolumeClaim),
+    Created(::v1_10::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -1051,7 +1051,7 @@ impl PersistentVolumeClaim {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1109,7 +1109,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::watch_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.watch_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1178,7 +1178,7 @@ impl PersistentVolumeClaim {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1235,7 +1235,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::watch_core_v1_namespaced_persistent_volume_claim_list`](./struct.PersistentVolumeClaim.html#method.watch_core_v1_namespaced_persistent_volume_claim_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPersistentVolumeClaimListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1300,7 +1300,7 @@ impl PersistentVolumeClaim {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::watch_core_v1_persistent_volume_claim_list_for_all_namespaces`](./struct.PersistentVolumeClaim.html#method.watch_core_v1_persistent_volume_claim_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1PersistentVolumeClaimListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaim {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::core::v1::PersistentVolumeClaimSpec> = None;
-                let mut value_status: Option<::v1_9::api::core::v1::PersistentVolumeClaimStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::core::v1::PersistentVolumeClaimSpec> = None;
+                let mut value_status: Option<::v1_10::api::core::v1::PersistentVolumeClaimStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

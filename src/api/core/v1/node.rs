@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Node {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::core::v1::NodeSpec>,
+    pub spec: Option<::v1_10::api::core::v1::NodeSpec>,
 
     /// Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::core::v1::NodeStatus>,
+    pub status: Option<::v1_10::api::core::v1::NodeStatus>,
 }
 
 // Begin /v1/Node
@@ -685,7 +685,7 @@ impl Node {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_node(
-        body: &::v1_9::api::core::v1::Node,
+        body: &::v1_10::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes?");
@@ -704,9 +704,9 @@ impl Node {
 /// Parses the HTTP response of [`Node::create_core_v1_node`](./struct.Node.html#method.create_core_v1_node)
 #[derive(Debug)]
 pub enum CreateCoreV1NodeResponse {
-    Ok(::v1_9::api::core::v1::Node),
-    Created(::v1_9::api::core::v1::Node),
-    Accepted(::v1_9::api::core::v1::Node),
+    Ok(::v1_10::api::core::v1::Node),
+    Created(::v1_10::api::core::v1::Node),
+    Accepted(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -785,7 +785,7 @@ impl Node {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -841,8 +841,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::delete_core_v1_collection_node`](./struct.Node.html#method.delete_core_v1_collection_node)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNodeResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Node),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -939,8 +939,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::delete_core_v1_node`](./struct.Node.html#method.delete_core_v1_node)
 #[derive(Debug)]
 pub enum DeleteCoreV1NodeResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Node),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1016,7 +1016,7 @@ impl Node {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1072,7 +1072,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::list_core_v1_node`](./struct.Node.html#method.list_core_v1_node)
 #[derive(Debug)]
 pub enum ListCoreV1NodeResponse {
-    Ok(::v1_9::api::core::v1::NodeList),
+    Ok(::v1_10::api::core::v1::NodeList),
     Unauthorized,
     Other,
 }
@@ -1114,7 +1114,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_node(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}?", name = name);
@@ -1133,7 +1133,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::patch_core_v1_node`](./struct.Node.html#method.patch_core_v1_node)
 #[derive(Debug)]
 pub enum PatchCoreV1NodeResponse {
-    Ok(::v1_9::api::core::v1::Node),
+    Ok(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1175,7 +1175,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_node_status(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}/status?", name = name);
@@ -1194,7 +1194,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::patch_core_v1_node_status`](./struct.Node.html#method.patch_core_v1_node_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NodeStatusResponse {
-    Ok(::v1_9::api::core::v1::Node),
+    Ok(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1212,561 +1212,6 @@ impl ::Response for PatchCoreV1NodeStatusResponse {
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((PatchCoreV1NodeStatusResponse::Unauthorized, 0)),
             _ => Ok((PatchCoreV1NodeStatusResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1DELETENode
-
-impl Node {
-    /// proxy DELETE requests to Node
-    ///
-    /// Use [`ProxyCoreV1DELETENodeResponse`](./enum.ProxyCoreV1DELETENodeResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    pub fn proxy_core_v1_delete_node(
-        name: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}", name = name);
-
-        let mut __request = ::http::Request::delete(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_delete_node`](./struct.Node.html#method.proxy_core_v1_delete_node)
-#[derive(Debug)]
-pub enum ProxyCoreV1DELETENodeResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1DELETENodeResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1DELETENodeResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1DELETENodeResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1DELETENodeResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1DELETENodeWithPath
-
-impl Node {
-    /// proxy DELETE requests to Node
-    ///
-    /// Use [`ProxyCoreV1DELETENodeWithPathResponse`](./enum.ProxyCoreV1DELETENodeWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_delete_node_with_path(
-        name: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}/{path}", name = name, path = path);
-
-        let mut __request = ::http::Request::delete(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_delete_node_with_path`](./struct.Node.html#method.proxy_core_v1_delete_node_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1DELETENodeWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1DELETENodeWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1DELETENodeWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1DELETENodeWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1DELETENodeWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1GETNode
-
-impl Node {
-    /// proxy GET requests to Node
-    ///
-    /// Use [`ProxyCoreV1GETNodeResponse`](./enum.ProxyCoreV1GETNodeResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    pub fn proxy_core_v1_get_node(
-        name: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}", name = name);
-
-        let mut __request = ::http::Request::get(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_get_node`](./struct.Node.html#method.proxy_core_v1_get_node)
-#[derive(Debug)]
-pub enum ProxyCoreV1GETNodeResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1GETNodeResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1GETNodeResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1GETNodeResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1GETNodeResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1GETNodeWithPath
-
-impl Node {
-    /// proxy GET requests to Node
-    ///
-    /// Use [`ProxyCoreV1GETNodeWithPathResponse`](./enum.ProxyCoreV1GETNodeWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_get_node_with_path(
-        name: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}/{path}", name = name, path = path);
-
-        let mut __request = ::http::Request::get(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_get_node_with_path`](./struct.Node.html#method.proxy_core_v1_get_node_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1GETNodeWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1GETNodeWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1GETNodeWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1GETNodeWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1GETNodeWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PATCHNode
-
-impl Node {
-    /// proxy PATCH requests to Node
-    ///
-    /// Use [`ProxyCoreV1PATCHNodeResponse`](./enum.ProxyCoreV1PATCHNodeResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    pub fn proxy_core_v1_patch_node(
-        name: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}", name = name);
-
-        let mut __request = ::http::Request::patch(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_patch_node`](./struct.Node.html#method.proxy_core_v1_patch_node)
-#[derive(Debug)]
-pub enum ProxyCoreV1PATCHNodeResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PATCHNodeResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PATCHNodeResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PATCHNodeResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PATCHNodeResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PATCHNodeWithPath
-
-impl Node {
-    /// proxy PATCH requests to Node
-    ///
-    /// Use [`ProxyCoreV1PATCHNodeWithPathResponse`](./enum.ProxyCoreV1PATCHNodeWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_patch_node_with_path(
-        name: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}/{path}", name = name, path = path);
-
-        let mut __request = ::http::Request::patch(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_patch_node_with_path`](./struct.Node.html#method.proxy_core_v1_patch_node_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1PATCHNodeWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PATCHNodeWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PATCHNodeWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PATCHNodeWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PATCHNodeWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1POSTNode
-
-impl Node {
-    /// proxy POST requests to Node
-    ///
-    /// Use [`ProxyCoreV1POSTNodeResponse`](./enum.ProxyCoreV1POSTNodeResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    pub fn proxy_core_v1_post_node(
-        name: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}", name = name);
-
-        let mut __request = ::http::Request::post(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_post_node`](./struct.Node.html#method.proxy_core_v1_post_node)
-#[derive(Debug)]
-pub enum ProxyCoreV1POSTNodeResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1POSTNodeResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1POSTNodeResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1POSTNodeResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1POSTNodeResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1POSTNodeWithPath
-
-impl Node {
-    /// proxy POST requests to Node
-    ///
-    /// Use [`ProxyCoreV1POSTNodeWithPathResponse`](./enum.ProxyCoreV1POSTNodeWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_post_node_with_path(
-        name: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}/{path}", name = name, path = path);
-
-        let mut __request = ::http::Request::post(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_post_node_with_path`](./struct.Node.html#method.proxy_core_v1_post_node_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1POSTNodeWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1POSTNodeWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1POSTNodeWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1POSTNodeWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1POSTNodeWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PUTNode
-
-impl Node {
-    /// proxy PUT requests to Node
-    ///
-    /// Use [`ProxyCoreV1PUTNodeResponse`](./enum.ProxyCoreV1PUTNodeResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    pub fn proxy_core_v1_put_node(
-        name: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}", name = name);
-
-        let mut __request = ::http::Request::put(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_put_node`](./struct.Node.html#method.proxy_core_v1_put_node)
-#[derive(Debug)]
-pub enum ProxyCoreV1PUTNodeResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PUTNodeResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PUTNodeResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PUTNodeResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PUTNodeResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PUTNodeWithPath
-
-impl Node {
-    /// proxy PUT requests to Node
-    ///
-    /// Use [`ProxyCoreV1PUTNodeWithPathResponse`](./enum.ProxyCoreV1PUTNodeWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Node
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_put_node_with_path(
-        name: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/nodes/{name}/{path}", name = name, path = path);
-
-        let mut __request = ::http::Request::put(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Node::proxy_core_v1_put_node_with_path`](./struct.Node.html#method.proxy_core_v1_put_node_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1PUTNodeWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PUTNodeWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PUTNodeWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PUTNodeWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PUTNodeWithPathResponse::Other, 0)),
         }
     }
 }
@@ -1823,7 +1268,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::read_core_v1_node`](./struct.Node.html#method.read_core_v1_node)
 #[derive(Debug)]
 pub enum ReadCoreV1NodeResponse {
-    Ok(::v1_9::api::core::v1::Node),
+    Ok(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1881,7 +1326,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::read_core_v1_node_status`](./struct.Node.html#method.read_core_v1_node_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NodeStatusResponse {
-    Ok(::v1_9::api::core::v1::Node),
+    Ok(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1923,7 +1368,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_node(
         name: &str,
-        body: &::v1_9::api::core::v1::Node,
+        body: &::v1_10::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}?", name = name);
@@ -1942,8 +1387,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::replace_core_v1_node`](./struct.Node.html#method.replace_core_v1_node)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NodeResponse {
-    Ok(::v1_9::api::core::v1::Node),
-    Created(::v1_9::api::core::v1::Node),
+    Ok(::v1_10::api::core::v1::Node),
+    Created(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1993,7 +1438,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_node_status(
         name: &str,
-        body: &::v1_9::api::core::v1::Node,
+        body: &::v1_10::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}/status?", name = name);
@@ -2012,8 +1457,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::replace_core_v1_node_status`](./struct.Node.html#method.replace_core_v1_node_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NodeStatusResponse {
-    Ok(::v1_9::api::core::v1::Node),
-    Created(::v1_9::api::core::v1::Node),
+    Ok(::v1_10::api::core::v1::Node),
+    Created(::v1_10::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -2088,7 +1533,7 @@ impl Node {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -2145,7 +1590,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::watch_core_v1_node`](./struct.Node.html#method.watch_core_v1_node)
 #[derive(Debug)]
 pub enum WatchCoreV1NodeResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2210,7 +1655,7 @@ impl Node {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -2266,7 +1711,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::watch_core_v1_node_list`](./struct.Node.html#method.watch_core_v1_node_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NodeListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2359,9 +1804,9 @@ impl<'de> ::serde::Deserialize<'de> for Node {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::core::v1::NodeSpec> = None;
-                let mut value_status: Option<::v1_9::api::core::v1::NodeStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::core::v1::NodeSpec> = None;
+                let mut value_status: Option<::v1_10::api::core::v1::NodeStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

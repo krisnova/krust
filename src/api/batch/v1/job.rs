@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Job {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::batch::v1::JobSpec>,
+    pub spec: Option<::v1_10::api::batch::v1::JobSpec>,
 
     /// Current status of a job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::batch::v1::JobStatus>,
+    pub status: Option<::v1_10::api::batch::v1::JobStatus>,
 }
 
 // Begin batch/v1/Job
@@ -35,7 +35,7 @@ impl Job {
     ///     If 'true', then the output is pretty printed.
     pub fn create_batch_v1_namespaced_job(
         namespace: &str,
-        body: &::v1_9::api::batch::v1::Job,
+        body: &::v1_10::api::batch::v1::Job,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1/namespaces/{namespace}/jobs?", namespace = namespace);
@@ -54,9 +54,9 @@ impl Job {
 /// Parses the HTTP response of [`Job::create_batch_v1_namespaced_job`](./struct.Job.html#method.create_batch_v1_namespaced_job)
 #[derive(Debug)]
 pub enum CreateBatchV1NamespacedJobResponse {
-    Ok(::v1_9::api::batch::v1::Job),
-    Created(::v1_9::api::batch::v1::Job),
-    Accepted(::v1_9::api::batch::v1::Job),
+    Ok(::v1_10::api::batch::v1::Job),
+    Created(::v1_10::api::batch::v1::Job),
+    Accepted(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl Job {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl Job {
 /// Parses the HTTP response of [`Job::delete_batch_v1_collection_namespaced_job`](./struct.Job.html#method.delete_batch_v1_collection_namespaced_job)
 #[derive(Debug)]
 pub enum DeleteBatchV1CollectionNamespacedJobResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::batch::v1::Job),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl Job {
 /// Parses the HTTP response of [`Job::delete_batch_v1_namespaced_job`](./struct.Job.html#method.delete_batch_v1_namespaced_job)
 #[derive(Debug)]
 pub enum DeleteBatchV1NamespacedJobResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::batch::v1::Job),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -376,7 +376,7 @@ impl Job {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -432,7 +432,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::list_batch_v1_job_for_all_namespaces`](./struct.Job.html#method.list_batch_v1_job_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListBatchV1JobForAllNamespacesResponse {
-    Ok(::v1_9::api::batch::v1::JobList),
+    Ok(::v1_10::api::batch::v1::JobList),
     Unauthorized,
     Other,
 }
@@ -499,7 +499,7 @@ impl Job {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::list_batch_v1_namespaced_job`](./struct.Job.html#method.list_batch_v1_namespaced_job)
 #[derive(Debug)]
 pub enum ListBatchV1NamespacedJobResponse {
-    Ok(::v1_9::api::batch::v1::JobList),
+    Ok(::v1_10::api::batch::v1::JobList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl Job {
     pub fn patch_batch_v1_namespaced_job(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1/namespaces/{namespace}/jobs/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::patch_batch_v1_namespaced_job`](./struct.Job.html#method.patch_batch_v1_namespaced_job)
 #[derive(Debug)]
 pub enum PatchBatchV1NamespacedJobResponse {
-    Ok(::v1_9::api::batch::v1::Job),
+    Ok(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl Job {
     pub fn patch_batch_v1_namespaced_job_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::patch_batch_v1_namespaced_job_status`](./struct.Job.html#method.patch_batch_v1_namespaced_job_status)
 #[derive(Debug)]
 pub enum PatchBatchV1NamespacedJobStatusResponse {
-    Ok(::v1_9::api::batch::v1::Job),
+    Ok(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::read_batch_v1_namespaced_job`](./struct.Job.html#method.read_batch_v1_namespaced_job)
 #[derive(Debug)]
 pub enum ReadBatchV1NamespacedJobResponse {
-    Ok(::v1_9::api::batch::v1::Job),
+    Ok(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::read_batch_v1_namespaced_job_status`](./struct.Job.html#method.read_batch_v1_namespaced_job_status)
 #[derive(Debug)]
 pub enum ReadBatchV1NamespacedJobStatusResponse {
-    Ok(::v1_9::api::batch::v1::Job),
+    Ok(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl Job {
     pub fn replace_batch_v1_namespaced_job(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::batch::v1::Job,
+        body: &::v1_10::api::batch::v1::Job,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1/namespaces/{namespace}/jobs/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl Job {
 /// Parses the HTTP response of [`Job::replace_batch_v1_namespaced_job`](./struct.Job.html#method.replace_batch_v1_namespaced_job)
 #[derive(Debug)]
 pub enum ReplaceBatchV1NamespacedJobResponse {
-    Ok(::v1_9::api::batch::v1::Job),
-    Created(::v1_9::api::batch::v1::Job),
+    Ok(::v1_10::api::batch::v1::Job),
+    Created(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl Job {
     pub fn replace_batch_v1_namespaced_job_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::batch::v1::Job,
+        body: &::v1_10::api::batch::v1::Job,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl Job {
 /// Parses the HTTP response of [`Job::replace_batch_v1_namespaced_job_status`](./struct.Job.html#method.replace_batch_v1_namespaced_job_status)
 #[derive(Debug)]
 pub enum ReplaceBatchV1NamespacedJobStatusResponse {
-    Ok(::v1_9::api::batch::v1::Job),
-    Created(::v1_9::api::batch::v1::Job),
+    Ok(::v1_10::api::batch::v1::Job),
+    Created(::v1_10::api::batch::v1::Job),
     Unauthorized,
     Other,
 }
@@ -1043,7 +1043,7 @@ impl Job {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1099,7 +1099,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::watch_batch_v1_job_list_for_all_namespaces`](./struct.Job.html#method.watch_batch_v1_job_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchBatchV1JobListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1172,7 +1172,7 @@ impl Job {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1230,7 +1230,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::watch_batch_v1_namespaced_job`](./struct.Job.html#method.watch_batch_v1_namespaced_job)
 #[derive(Debug)]
 pub enum WatchBatchV1NamespacedJobResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1299,7 +1299,7 @@ impl Job {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl Job {
 /// Parses the HTTP response of [`Job::watch_batch_v1_namespaced_job_list`](./struct.Job.html#method.watch_batch_v1_namespaced_job_list)
 #[derive(Debug)]
 pub enum WatchBatchV1NamespacedJobListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for Job {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::batch::v1::JobSpec> = None;
-                let mut value_status: Option<::v1_9::api::batch::v1::JobStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::batch::v1::JobSpec> = None;
+                let mut value_status: Option<::v1_10::api::batch::v1::JobStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

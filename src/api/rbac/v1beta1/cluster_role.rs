@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ClusterRole {
     /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
-    pub aggregation_rule: Option<::v1_9::api::rbac::v1beta1::AggregationRule>,
+    pub aggregation_rule: Option<::v1_10::api::rbac::v1beta1::AggregationRule>,
 
     /// Standard object's metadata.
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Rules holds all the PolicyRules for this ClusterRole
-    pub rules: Vec<::v1_9::api::rbac::v1beta1::PolicyRule>,
+    pub rules: Vec<::v1_10::api::rbac::v1beta1::PolicyRule>,
 }
 
 // Begin rbac.authorization.k8s.io/v1beta1/ClusterRole
@@ -30,7 +30,7 @@ impl ClusterRole {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_rbac_authorization_v1beta1_cluster_role(
-        body: &::v1_9::api::rbac::v1beta1::ClusterRole,
+        body: &::v1_10::api::rbac::v1beta1::ClusterRole,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/clusterroles?");
@@ -49,9 +49,9 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::create_rbac_authorization_v1beta1_cluster_role`](./struct.ClusterRole.html#method.create_rbac_authorization_v1beta1_cluster_role)
 #[derive(Debug)]
 pub enum CreateRbacAuthorizationV1beta1ClusterRoleResponse {
-    Ok(::v1_9::api::rbac::v1beta1::ClusterRole),
-    Created(::v1_9::api::rbac::v1beta1::ClusterRole),
-    Accepted(::v1_9::api::rbac::v1beta1::ClusterRole),
+    Ok(::v1_10::api::rbac::v1beta1::ClusterRole),
+    Created(::v1_10::api::rbac::v1beta1::ClusterRole),
+    Accepted(::v1_10::api::rbac::v1beta1::ClusterRole),
     Unauthorized,
     Other,
 }
@@ -151,8 +151,8 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::delete_rbac_authorization_v1beta1_cluster_role`](./struct.ClusterRole.html#method.delete_rbac_authorization_v1beta1_cluster_role)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1beta1ClusterRoleResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::rbac::v1beta1::ClusterRole),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::rbac::v1beta1::ClusterRole),
     Unauthorized,
     Other,
 }
@@ -228,7 +228,7 @@ impl ClusterRole {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -284,8 +284,8 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::delete_rbac_authorization_v1beta1_collection_cluster_role`](./struct.ClusterRole.html#method.delete_rbac_authorization_v1beta1_collection_cluster_role)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1beta1CollectionClusterRoleResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::rbac::v1beta1::ClusterRole),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::rbac::v1beta1::ClusterRole),
     Unauthorized,
     Other,
 }
@@ -361,7 +361,7 @@ impl ClusterRole {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -417,7 +417,7 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::list_rbac_authorization_v1beta1_cluster_role`](./struct.ClusterRole.html#method.list_rbac_authorization_v1beta1_cluster_role)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1beta1ClusterRoleResponse {
-    Ok(::v1_9::api::rbac::v1beta1::ClusterRoleList),
+    Ok(::v1_10::api::rbac::v1beta1::ClusterRoleList),
     Unauthorized,
     Other,
 }
@@ -459,7 +459,7 @@ impl ClusterRole {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_rbac_authorization_v1beta1_cluster_role(
         name: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/clusterroles/{name}?", name = name);
@@ -478,7 +478,7 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::patch_rbac_authorization_v1beta1_cluster_role`](./struct.ClusterRole.html#method.patch_rbac_authorization_v1beta1_cluster_role)
 #[derive(Debug)]
 pub enum PatchRbacAuthorizationV1beta1ClusterRoleResponse {
-    Ok(::v1_9::api::rbac::v1beta1::ClusterRole),
+    Ok(::v1_10::api::rbac::v1beta1::ClusterRole),
     Unauthorized,
     Other,
 }
@@ -536,7 +536,7 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::read_rbac_authorization_v1beta1_cluster_role`](./struct.ClusterRole.html#method.read_rbac_authorization_v1beta1_cluster_role)
 #[derive(Debug)]
 pub enum ReadRbacAuthorizationV1beta1ClusterRoleResponse {
-    Ok(::v1_9::api::rbac::v1beta1::ClusterRole),
+    Ok(::v1_10::api::rbac::v1beta1::ClusterRole),
     Unauthorized,
     Other,
 }
@@ -578,7 +578,7 @@ impl ClusterRole {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_rbac_authorization_v1beta1_cluster_role(
         name: &str,
-        body: &::v1_9::api::rbac::v1beta1::ClusterRole,
+        body: &::v1_10::api::rbac::v1beta1::ClusterRole,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/clusterroles/{name}?", name = name);
@@ -597,8 +597,8 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::replace_rbac_authorization_v1beta1_cluster_role`](./struct.ClusterRole.html#method.replace_rbac_authorization_v1beta1_cluster_role)
 #[derive(Debug)]
 pub enum ReplaceRbacAuthorizationV1beta1ClusterRoleResponse {
-    Ok(::v1_9::api::rbac::v1beta1::ClusterRole),
-    Created(::v1_9::api::rbac::v1beta1::ClusterRole),
+    Ok(::v1_10::api::rbac::v1beta1::ClusterRole),
+    Created(::v1_10::api::rbac::v1beta1::ClusterRole),
     Unauthorized,
     Other,
 }
@@ -673,7 +673,7 @@ impl ClusterRole {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -730,7 +730,7 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::watch_rbac_authorization_v1beta1_cluster_role`](./struct.ClusterRole.html#method.watch_rbac_authorization_v1beta1_cluster_role)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1ClusterRoleResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -795,7 +795,7 @@ impl ClusterRole {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -851,7 +851,7 @@ impl ClusterRole {
 /// Parses the HTTP response of [`ClusterRole::watch_rbac_authorization_v1beta1_cluster_role_list`](./struct.ClusterRole.html#method.watch_rbac_authorization_v1beta1_cluster_role_list)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1ClusterRoleListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -944,9 +944,9 @@ impl<'de> ::serde::Deserialize<'de> for ClusterRole {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_aggregation_rule: Option<::v1_9::api::rbac::v1beta1::AggregationRule> = None;
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_rules: Option<Vec<::v1_9::api::rbac::v1beta1::PolicyRule>> = None;
+                let mut value_aggregation_rule: Option<::v1_10::api::rbac::v1beta1::AggregationRule> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_rules: Option<Vec<::v1_10::api::rbac::v1beta1::PolicyRule>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

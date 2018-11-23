@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Service {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_9::api::core::v1::ServiceSpec>,
+    pub spec: Option<::v1_10::api::core::v1::ServiceSpec>,
 
     /// Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_9::api::core::v1::ServiceStatus>,
+    pub status: Option<::v1_10::api::core::v1::ServiceStatus>,
 }
 
 // Begin /v1/Service
@@ -740,7 +740,7 @@ impl Service {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_service(
         namespace: &str,
-        body: &::v1_9::api::core::v1::Service,
+        body: &::v1_10::api::core::v1::Service,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services?", namespace = namespace);
@@ -759,9 +759,9 @@ impl Service {
 /// Parses the HTTP response of [`Service::create_core_v1_namespaced_service`](./struct.Service.html#method.create_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedServiceResponse {
-    Ok(::v1_9::api::core::v1::Service),
-    Created(::v1_9::api::core::v1::Service),
-    Accepted(::v1_9::api::core::v1::Service),
+    Ok(::v1_10::api::core::v1::Service),
+    Created(::v1_10::api::core::v1::Service),
+    Accepted(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -816,18 +816,44 @@ impl Service {
     ///
     ///     object name and auth scope, such as for teams and projects
     ///
+    /// * `body`
+    ///
+    /// * `grace_period_seconds`
+    ///
+    ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+    ///
+    /// * `orphan_dependents`
+    ///
+    ///     Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
+    ///
+    /// * `propagation_policy`
+    ///
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespaced_service(
         name: &str,
         namespace: &str,
+        grace_period_seconds: Option<i64>,
+        orphan_dependents: Option<bool>,
         pretty: Option<&str>,
+        propagation_policy: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(grace_period_seconds) = grace_period_seconds {
+            __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
+        }
+        if let Some(orphan_dependents) = orphan_dependents {
+            __query_pairs.append_pair("orphanDependents", &orphan_dependents.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
+        }
+        if let Some(propagation_policy) = propagation_policy {
+            __query_pairs.append_pair("propagationPolicy", propagation_policy);
         }
         let __url = __query_pairs.finish();
 
@@ -840,8 +866,8 @@ impl Service {
 /// Parses the HTTP response of [`Service::delete_core_v1_namespaced_service`](./struct.Service.html#method.delete_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedServiceResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::core::v1::Service),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -921,7 +947,7 @@ impl Service {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -978,7 +1004,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::list_core_v1_namespaced_service`](./struct.Service.html#method.list_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedServiceResponse {
-    Ok(::v1_9::api::core::v1::ServiceList),
+    Ok(::v1_10::api::core::v1::ServiceList),
     Unauthorized,
     Other,
 }
@@ -1041,7 +1067,7 @@ impl Service {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1097,7 +1123,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::list_core_v1_service_for_all_namespaces`](./struct.Service.html#method.list_core_v1_service_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ServiceForAllNamespacesResponse {
-    Ok(::v1_9::api::core::v1::ServiceList),
+    Ok(::v1_10::api::core::v1::ServiceList),
     Unauthorized,
     Other,
 }
@@ -1144,7 +1170,7 @@ impl Service {
     pub fn patch_core_v1_namespaced_service(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}?", name = name, namespace = namespace);
@@ -1163,7 +1189,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::patch_core_v1_namespaced_service`](./struct.Service.html#method.patch_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedServiceResponse {
-    Ok(::v1_9::api::core::v1::Service),
+    Ok(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1210,7 +1236,7 @@ impl Service {
     pub fn patch_core_v1_namespaced_service_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}/status?", name = name, namespace = namespace);
@@ -1229,7 +1255,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::patch_core_v1_namespaced_service_status`](./struct.Service.html#method.patch_core_v1_namespaced_service_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedServiceStatusResponse {
-    Ok(::v1_9::api::core::v1::Service),
+    Ok(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1247,611 +1273,6 @@ impl ::Response for PatchCoreV1NamespacedServiceStatusResponse {
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((PatchCoreV1NamespacedServiceStatusResponse::Unauthorized, 0)),
             _ => Ok((PatchCoreV1NamespacedServiceStatusResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1DELETENamespacedService
-
-impl Service {
-    /// proxy DELETE requests to Service
-    ///
-    /// Use [`ProxyCoreV1DELETENamespacedServiceResponse`](./enum.ProxyCoreV1DELETENamespacedServiceResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_delete_namespaced_service(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::delete(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_delete_namespaced_service`](./struct.Service.html#method.proxy_core_v1_delete_namespaced_service)
-#[derive(Debug)]
-pub enum ProxyCoreV1DELETENamespacedServiceResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1DELETENamespacedServiceResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1DELETENamespacedServiceResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1DELETENamespacedServiceResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1DELETENamespacedServiceResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1DELETENamespacedServiceWithPath
-
-impl Service {
-    /// proxy DELETE requests to Service
-    ///
-    /// Use [`ProxyCoreV1DELETENamespacedServiceWithPathResponse`](./enum.ProxyCoreV1DELETENamespacedServiceWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_delete_namespaced_service_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::delete(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_delete_namespaced_service_with_path`](./struct.Service.html#method.proxy_core_v1_delete_namespaced_service_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1DELETENamespacedServiceWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1DELETENamespacedServiceWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1DELETENamespacedServiceWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1DELETENamespacedServiceWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1DELETENamespacedServiceWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1GETNamespacedService
-
-impl Service {
-    /// proxy GET requests to Service
-    ///
-    /// Use [`ProxyCoreV1GETNamespacedServiceResponse`](./enum.ProxyCoreV1GETNamespacedServiceResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_get_namespaced_service(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::get(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_get_namespaced_service`](./struct.Service.html#method.proxy_core_v1_get_namespaced_service)
-#[derive(Debug)]
-pub enum ProxyCoreV1GETNamespacedServiceResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1GETNamespacedServiceResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1GETNamespacedServiceResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1GETNamespacedServiceResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1GETNamespacedServiceResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1GETNamespacedServiceWithPath
-
-impl Service {
-    /// proxy GET requests to Service
-    ///
-    /// Use [`ProxyCoreV1GETNamespacedServiceWithPathResponse`](./enum.ProxyCoreV1GETNamespacedServiceWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_get_namespaced_service_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::get(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_get_namespaced_service_with_path`](./struct.Service.html#method.proxy_core_v1_get_namespaced_service_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1GETNamespacedServiceWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1GETNamespacedServiceWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1GETNamespacedServiceWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1GETNamespacedServiceWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1GETNamespacedServiceWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PATCHNamespacedService
-
-impl Service {
-    /// proxy PATCH requests to Service
-    ///
-    /// Use [`ProxyCoreV1PATCHNamespacedServiceResponse`](./enum.ProxyCoreV1PATCHNamespacedServiceResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_patch_namespaced_service(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::patch(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_patch_namespaced_service`](./struct.Service.html#method.proxy_core_v1_patch_namespaced_service)
-#[derive(Debug)]
-pub enum ProxyCoreV1PATCHNamespacedServiceResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PATCHNamespacedServiceResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PATCHNamespacedServiceResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PATCHNamespacedServiceResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PATCHNamespacedServiceResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PATCHNamespacedServiceWithPath
-
-impl Service {
-    /// proxy PATCH requests to Service
-    ///
-    /// Use [`ProxyCoreV1PATCHNamespacedServiceWithPathResponse`](./enum.ProxyCoreV1PATCHNamespacedServiceWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_patch_namespaced_service_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::patch(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_patch_namespaced_service_with_path`](./struct.Service.html#method.proxy_core_v1_patch_namespaced_service_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1PATCHNamespacedServiceWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PATCHNamespacedServiceWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PATCHNamespacedServiceWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PATCHNamespacedServiceWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PATCHNamespacedServiceWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1POSTNamespacedService
-
-impl Service {
-    /// proxy POST requests to Service
-    ///
-    /// Use [`ProxyCoreV1POSTNamespacedServiceResponse`](./enum.ProxyCoreV1POSTNamespacedServiceResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_post_namespaced_service(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::post(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_post_namespaced_service`](./struct.Service.html#method.proxy_core_v1_post_namespaced_service)
-#[derive(Debug)]
-pub enum ProxyCoreV1POSTNamespacedServiceResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1POSTNamespacedServiceResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1POSTNamespacedServiceResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1POSTNamespacedServiceResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1POSTNamespacedServiceResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1POSTNamespacedServiceWithPath
-
-impl Service {
-    /// proxy POST requests to Service
-    ///
-    /// Use [`ProxyCoreV1POSTNamespacedServiceWithPathResponse`](./enum.ProxyCoreV1POSTNamespacedServiceWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_post_namespaced_service_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::post(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_post_namespaced_service_with_path`](./struct.Service.html#method.proxy_core_v1_post_namespaced_service_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1POSTNamespacedServiceWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1POSTNamespacedServiceWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1POSTNamespacedServiceWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1POSTNamespacedServiceWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1POSTNamespacedServiceWithPathResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PUTNamespacedService
-
-impl Service {
-    /// proxy PUT requests to Service
-    ///
-    /// Use [`ProxyCoreV1PUTNamespacedServiceResponse`](./enum.ProxyCoreV1PUTNamespacedServiceResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    pub fn proxy_core_v1_put_namespaced_service(
-        name: &str,
-        namespace: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}", name = name, namespace = namespace);
-
-        let mut __request = ::http::Request::put(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_put_namespaced_service`](./struct.Service.html#method.proxy_core_v1_put_namespaced_service)
-#[derive(Debug)]
-pub enum ProxyCoreV1PUTNamespacedServiceResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PUTNamespacedServiceResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PUTNamespacedServiceResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PUTNamespacedServiceResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PUTNamespacedServiceResponse::Other, 0)),
-        }
-    }
-}
-
-// Generated from operation proxyCoreV1PUTNamespacedServiceWithPath
-
-impl Service {
-    /// proxy PUT requests to Service
-    ///
-    /// Use [`ProxyCoreV1PUTNamespacedServiceWithPathResponse`](./enum.ProxyCoreV1PUTNamespacedServiceWithPathResponse.html) to parse the HTTP response.
-    ///
-    /// # Arguments
-    ///
-    /// * `name`
-    ///
-    ///     name of the Service
-    ///
-    /// * `namespace`
-    ///
-    ///     object name and auth scope, such as for teams and projects
-    ///
-    /// * `path`
-    ///
-    ///     path to the resource
-    pub fn proxy_core_v1_put_namespaced_service_with_path(
-        name: &str,
-        namespace: &str,
-        path: &str,
-    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
-        let __url = format!("/api/v1/proxy/namespaces/{namespace}/services/{name}/{path}", name = name, namespace = namespace, path = path);
-
-        let mut __request = ::http::Request::put(__url);
-        let __body = vec![];
-        __request.body(__body).map_err(::RequestError::Http)
-    }
-}
-
-/// Parses the HTTP response of [`Service::proxy_core_v1_put_namespaced_service_with_path`](./struct.Service.html#method.proxy_core_v1_put_namespaced_service_with_path)
-#[derive(Debug)]
-pub enum ProxyCoreV1PUTNamespacedServiceWithPathResponse {
-    Ok(String),
-    Unauthorized,
-    Other,
-}
-
-impl ::Response for ProxyCoreV1PUTNamespacedServiceWithPathResponse {
-    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
-        match status_code {
-            ::http::StatusCode::OK => {
-                let result = match ::std::str::from_utf8(buf) {
-                    Ok(s) => s,
-                    Err(err) if err.error_len().is_none() => {
-                        let valid_up_to = err.valid_up_to();
-                        unsafe { ::std::str::from_utf8_unchecked(&buf[..valid_up_to]) }
-                    },
-                    Err(err) => return Err(::ResponseError::Utf8(err)),
-                };
-                let result = result.to_string();
-                let len = result.len();
-                Ok((ProxyCoreV1PUTNamespacedServiceWithPathResponse::Ok(result), len))
-            },
-            ::http::StatusCode::UNAUTHORIZED => Ok((ProxyCoreV1PUTNamespacedServiceWithPathResponse::Unauthorized, 0)),
-            _ => Ok((ProxyCoreV1PUTNamespacedServiceWithPathResponse::Other, 0)),
         }
     }
 }
@@ -1913,7 +1334,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::read_core_v1_namespaced_service`](./struct.Service.html#method.read_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedServiceResponse {
-    Ok(::v1_9::api::core::v1::Service),
+    Ok(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1976,7 +1397,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::read_core_v1_namespaced_service_status`](./struct.Service.html#method.read_core_v1_namespaced_service_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedServiceStatusResponse {
-    Ok(::v1_9::api::core::v1::Service),
+    Ok(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -2023,7 +1444,7 @@ impl Service {
     pub fn replace_core_v1_namespaced_service(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::Service,
+        body: &::v1_10::api::core::v1::Service,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}?", name = name, namespace = namespace);
@@ -2042,8 +1463,8 @@ impl Service {
 /// Parses the HTTP response of [`Service::replace_core_v1_namespaced_service`](./struct.Service.html#method.replace_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedServiceResponse {
-    Ok(::v1_9::api::core::v1::Service),
-    Created(::v1_9::api::core::v1::Service),
+    Ok(::v1_10::api::core::v1::Service),
+    Created(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -2098,7 +1519,7 @@ impl Service {
     pub fn replace_core_v1_namespaced_service_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::core::v1::Service,
+        body: &::v1_10::api::core::v1::Service,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}/status?", name = name, namespace = namespace);
@@ -2117,8 +1538,8 @@ impl Service {
 /// Parses the HTTP response of [`Service::replace_core_v1_namespaced_service_status`](./struct.Service.html#method.replace_core_v1_namespaced_service_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedServiceStatusResponse {
-    Ok(::v1_9::api::core::v1::Service),
-    Created(::v1_9::api::core::v1::Service),
+    Ok(::v1_10::api::core::v1::Service),
+    Created(::v1_10::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -2197,7 +1618,7 @@ impl Service {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -2255,7 +1676,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::watch_core_v1_namespaced_service`](./struct.Service.html#method.watch_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2324,7 +1745,7 @@ impl Service {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -2381,7 +1802,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::watch_core_v1_namespaced_service_list`](./struct.Service.html#method.watch_core_v1_namespaced_service_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2446,7 +1867,7 @@ impl Service {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -2502,7 +1923,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::watch_core_v1_service_list_for_all_namespaces`](./struct.Service.html#method.watch_core_v1_service_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ServiceListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2595,9 +2016,9 @@ impl<'de> ::serde::Deserialize<'de> for Service {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::core::v1::ServiceSpec> = None;
-                let mut value_status: Option<::v1_9::api::core::v1::ServiceStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::core::v1::ServiceSpec> = None;
+                let mut value_status: Option<::v1_10::api::core::v1::ServiceStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

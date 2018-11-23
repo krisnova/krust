@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Deployment {
     /// Standard object metadata.
-    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of the Deployment.
-    pub spec: Option<::v1_9::api::apps::v1beta1::DeploymentSpec>,
+    pub spec: Option<::v1_10::api::apps::v1beta1::DeploymentSpec>,
 
     /// Most recently observed status of the Deployment.
-    pub status: Option<::v1_9::api::apps::v1beta1::DeploymentStatus>,
+    pub status: Option<::v1_10::api::apps::v1beta1::DeploymentStatus>,
 }
 
 // Begin apps/v1beta1/Deployment
@@ -35,7 +35,7 @@ impl Deployment {
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1beta1_namespaced_deployment(
         namespace: &str,
-        body: &::v1_9::api::apps::v1beta1::Deployment,
+        body: &::v1_10::api::apps::v1beta1::Deployment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments?", namespace = namespace);
@@ -54,9 +54,9 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::create_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.create_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum CreateAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_9::api::apps::v1beta1::Deployment),
-    Created(::v1_9::api::apps::v1beta1::Deployment),
-    Accepted(::v1_9::api::apps::v1beta1::Deployment),
+    Ok(::v1_10::api::apps::v1beta1::Deployment),
+    Created(::v1_10::api::apps::v1beta1::Deployment),
+    Accepted(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -139,7 +139,7 @@ impl Deployment {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -196,8 +196,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::delete_apps_v1beta1_collection_namespaced_deployment`](./struct.Deployment.html#method.delete_apps_v1beta1_collection_namespaced_deployment)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1CollectionNamespacedDeploymentResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1beta1::Deployment),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::delete_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.delete_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1NamespacedDeploymentResponse {
-    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_9::api::apps::v1beta1::Deployment),
+    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -376,7 +376,7 @@ impl Deployment {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -432,7 +432,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::list_apps_v1beta1_deployment_for_all_namespaces`](./struct.Deployment.html#method.list_apps_v1beta1_deployment_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1beta1DeploymentForAllNamespacesResponse {
-    Ok(::v1_9::api::apps::v1beta1::DeploymentList),
+    Ok(::v1_10::api::apps::v1beta1::DeploymentList),
     Unauthorized,
     Other,
 }
@@ -499,7 +499,7 @@ impl Deployment {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -556,7 +556,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::list_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.list_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ListAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_9::api::apps::v1beta1::DeploymentList),
+    Ok(::v1_10::api::apps::v1beta1::DeploymentList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl Deployment {
     pub fn patch_apps_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::patch_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.patch_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_9::api::apps::v1beta1::Deployment),
+    Ok(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl Deployment {
     pub fn patch_apps_v1beta1_namespaced_deployment_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::patch_apps_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.patch_apps_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_9::api::apps::v1beta1::Deployment),
+    Ok(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::read_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.read_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_9::api::apps::v1beta1::Deployment),
+    Ok(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::read_apps_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.read_apps_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_9::api::apps::v1beta1::Deployment),
+    Ok(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl Deployment {
     pub fn replace_apps_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::apps::v1beta1::Deployment,
+        body: &::v1_10::api::apps::v1beta1::Deployment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::replace_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.replace_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_9::api::apps::v1beta1::Deployment),
-    Created(::v1_9::api::apps::v1beta1::Deployment),
+    Ok(::v1_10::api::apps::v1beta1::Deployment),
+    Created(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl Deployment {
     pub fn replace_apps_v1beta1_namespaced_deployment_status(
         name: &str,
         namespace: &str,
-        body: &::v1_9::api::apps::v1beta1::Deployment,
+        body: &::v1_10::api::apps::v1beta1::Deployment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::replace_apps_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.replace_apps_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_9::api::apps::v1beta1::Deployment),
-    Created(::v1_9::api::apps::v1beta1::Deployment),
+    Ok(::v1_10::api::apps::v1beta1::Deployment),
+    Created(::v1_10::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -1043,7 +1043,7 @@ impl Deployment {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1099,7 +1099,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_apps_v1beta1_deployment_list_for_all_namespaces`](./struct.Deployment.html#method.watch_apps_v1beta1_deployment_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1DeploymentListForAllNamespacesResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1172,7 +1172,7 @@ impl Deployment {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1230,7 +1230,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.watch_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1299,7 +1299,7 @@ impl Deployment {
     ///
     /// * `timeout_seconds`
     ///
-    ///     Timeout for the list/watch call.
+    ///     Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
     ///
     /// * `watch`
     ///
@@ -1356,7 +1356,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_apps_v1beta1_namespaced_deployment_list`](./struct.Deployment.html#method.watch_apps_v1beta1_namespaced_deployment_list)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedDeploymentListResponse {
-    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for Deployment {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_9::api::apps::v1beta1::DeploymentSpec> = None;
-                let mut value_status: Option<::v1_9::api::apps::v1beta1::DeploymentStatus> = None;
+                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_10::api::apps::v1beta1::DeploymentSpec> = None;
+                let mut value_status: Option<::v1_10::api::apps::v1beta1::DeploymentStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

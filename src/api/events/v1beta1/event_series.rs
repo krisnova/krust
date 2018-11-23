@@ -1,13 +1,13 @@
 // Generated from definition io.k8s.api.events.v1beta1.EventSeries
 
-/// EventSeries contain information on series of events, i.e. thing that was/is happening continously for some time.
+/// EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
 #[derive(Clone, Debug, PartialEq)]
 pub struct EventSeries {
     /// Number of occurrences in this series up to the last heartbeat time
     pub count: i32,
 
     /// Time when last Event from the series was seen before last heartbeat.
-    pub last_observed_time: ::v1_9::apimachinery::pkg::apis::meta::v1::MicroTime,
+    pub last_observed_time: ::v1_10::apimachinery::pkg::apis::meta::v1::MicroTime,
 
     /// Information whether this series is ongoing or finished.
     pub state: String,
@@ -59,7 +59,7 @@ impl<'de> ::serde::Deserialize<'de> for EventSeries {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_count: Option<i32> = None;
-                let mut value_last_observed_time: Option<::v1_9::apimachinery::pkg::apis::meta::v1::MicroTime> = None;
+                let mut value_last_observed_time: Option<::v1_10::apimachinery::pkg::apis::meta::v1::MicroTime> = None;
                 let mut value_state: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
