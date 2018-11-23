@@ -6,13 +6,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct VolumeAttachment {
     /// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-    pub spec: ::v1_11::api::storage::v1alpha1::VolumeAttachmentSpec,
+    pub spec: ::v1_12::api::storage::v1alpha1::VolumeAttachmentSpec,
 
     /// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-    pub status: Option<::v1_11::api::storage::v1alpha1::VolumeAttachmentStatus>,
+    pub status: Option<::v1_12::api::storage::v1alpha1::VolumeAttachmentStatus>,
 }
 
 // Begin storage.k8s.io/v1alpha1/VolumeAttachment
@@ -28,15 +28,31 @@ impl VolumeAttachment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_storage_v1alpha1_volume_attachment(
-        body: &::v1_11::api::storage::v1alpha1::VolumeAttachment,
+        body: &::v1_12::api::storage::v1alpha1::VolumeAttachment,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1alpha1/volumeattachments?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -51,9 +67,9 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::create_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.create_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum CreateStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
-    Created(::v1_11::api::storage::v1alpha1::VolumeAttachment),
-    Accepted(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_12::api::storage::v1alpha1::VolumeAttachment),
+    Created(::v1_12::api::storage::v1alpha1::VolumeAttachment),
+    Accepted(::v1_12::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -102,7 +118,9 @@ impl VolumeAttachment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -188,8 +206,8 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::delete_storage_v1alpha1_collection_volume_attachment`](./struct.VolumeAttachment.html#method.delete_storage_v1alpha1_collection_volume_attachment)
 #[derive(Debug)]
 pub enum DeleteStorageV1alpha1CollectionVolumeAttachmentResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -239,6 +257,10 @@ impl VolumeAttachment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -256,6 +278,7 @@ impl VolumeAttachment {
     ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_storage_v1alpha1_volume_attachment(
         name: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -263,6 +286,9 @@ impl VolumeAttachment {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1alpha1/volumeattachments/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -286,8 +312,9 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::delete_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.delete_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum DeleteStorageV1alpha1VolumeAttachmentResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::storage::v1alpha1::VolumeAttachment),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -316,6 +343,14 @@ impl ::Response for DeleteStorageV1alpha1VolumeAttachmentResponse {
                     Ok((DeleteStorageV1alpha1VolumeAttachmentResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteStorageV1alpha1VolumeAttachmentResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteStorageV1alpha1VolumeAttachmentResponse::Unauthorized, 0)),
             _ => Ok((DeleteStorageV1alpha1VolumeAttachmentResponse::Other, 0)),
         }
@@ -333,7 +368,9 @@ impl VolumeAttachment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -419,7 +456,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::list_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.list_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum ListStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachmentList),
+    Ok(::v1_12::api::storage::v1alpha1::VolumeAttachmentList),
     Unauthorized,
     Other,
 }
@@ -456,16 +493,24 @@ impl VolumeAttachment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_storage_v1alpha1_volume_attachment(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1alpha1/volumeattachments/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -480,7 +525,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::patch_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.patch_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum PatchStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_12::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -554,7 +599,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::read_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.read_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum ReadStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_12::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -591,16 +636,24 @@ impl VolumeAttachment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_storage_v1alpha1_volume_attachment(
         name: &str,
-        body: &::v1_11::api::storage::v1alpha1::VolumeAttachment,
+        body: &::v1_12::api::storage::v1alpha1::VolumeAttachment,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1alpha1/volumeattachments/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -615,8 +668,8 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::replace_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.replace_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum ReplaceStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
-    Created(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_12::api::storage::v1alpha1::VolumeAttachment),
+    Created(::v1_12::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -649,7 +702,7 @@ impl ::Response for ReplaceStorageV1alpha1VolumeAttachmentResponse {
 // Generated from operation watchStorageV1alpha1VolumeAttachment
 
 impl VolumeAttachment {
-    /// watch changes to an object of kind VolumeAttachment
+    /// watch changes to an object of kind VolumeAttachment. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchStorageV1alpha1VolumeAttachmentResponse`](./enum.WatchStorageV1alpha1VolumeAttachmentResponse.html) to parse the HTTP response.
     ///
@@ -661,7 +714,9 @@ impl VolumeAttachment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -748,7 +803,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::watch_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.watch_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum WatchStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -775,7 +830,7 @@ impl ::Response for WatchStorageV1alpha1VolumeAttachmentResponse {
 // Generated from operation watchStorageV1alpha1VolumeAttachmentList
 
 impl VolumeAttachment {
-    /// watch individual changes to a list of VolumeAttachment
+    /// watch individual changes to a list of VolumeAttachment. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchStorageV1alpha1VolumeAttachmentListResponse`](./enum.WatchStorageV1alpha1VolumeAttachmentListResponse.html) to parse the HTTP response.
     ///
@@ -783,7 +838,9 @@ impl VolumeAttachment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -869,7 +926,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::watch_storage_v1alpha1_volume_attachment_list`](./struct.VolumeAttachment.html#method.watch_storage_v1alpha1_volume_attachment_list)
 #[derive(Debug)]
 pub enum WatchStorageV1alpha1VolumeAttachmentListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -962,9 +1019,9 @@ impl<'de> ::serde::Deserialize<'de> for VolumeAttachment {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::storage::v1alpha1::VolumeAttachmentSpec> = None;
-                let mut value_status: Option<::v1_11::api::storage::v1alpha1::VolumeAttachmentStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::storage::v1alpha1::VolumeAttachmentSpec> = None;
+                let mut value_status: Option<::v1_12::api::storage::v1alpha1::VolumeAttachmentStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

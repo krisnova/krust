@@ -9,7 +9,7 @@ pub struct EndpointPort {
     /// The port number of the endpoint.
     pub port: i32,
 
-    /// The IP protocol for this port. Must be UDP or TCP. Default is TCP.
+    /// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
     pub protocol: Option<String>,
 }
 

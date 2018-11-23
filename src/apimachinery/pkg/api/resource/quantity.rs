@@ -26,10 +26,6 @@
 ///   1.5 will be serialized as "1500m"
 ///   1.5Gi will be serialized as "1536Mi"
 ///
-/// NOTE: We reserve the right to amend this canonical format, perhaps to
-///   allow 1.5 to be canonical.
-///   or after March 2015.
-///
 /// Note that the quantity will NEVER be internally represented by a floating point number. That is the whole point of this exercise.
 ///
 /// Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)

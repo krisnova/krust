@@ -4,9 +4,9 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CustomResourceDefinitionList {
     /// Items individual CustomResourceDefinitions
-    pub items: Vec<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition>,
+    pub items: Vec<::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition>,
 
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for CustomResourceDefinitionList {
@@ -74,8 +74,8 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinitionList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

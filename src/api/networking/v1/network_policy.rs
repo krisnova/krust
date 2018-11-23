@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NetworkPolicy {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior for this NetworkPolicy.
-    pub spec: Option<::v1_11::api::networking::v1::NetworkPolicySpec>,
+    pub spec: Option<::v1_12::api::networking::v1::NetworkPolicySpec>,
 }
 
 // Begin networking.k8s.io/v1/NetworkPolicy
@@ -27,16 +27,32 @@ impl NetworkPolicy {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_networking_v1_namespaced_network_policy(
         namespace: &str,
-        body: &::v1_11::api::networking::v1::NetworkPolicy,
+        body: &::v1_12::api::networking::v1::NetworkPolicy,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -51,9 +67,9 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::create_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.create_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum CreateNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_11::api::networking::v1::NetworkPolicy),
-    Created(::v1_11::api::networking::v1::NetworkPolicy),
-    Accepted(::v1_11::api::networking::v1::NetworkPolicy),
+    Ok(::v1_12::api::networking::v1::NetworkPolicy),
+    Created(::v1_12::api::networking::v1::NetworkPolicy),
+    Accepted(::v1_12::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -106,7 +122,9 @@ impl NetworkPolicy {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -193,8 +211,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::delete_networking_v1_collection_namespaced_network_policy`](./struct.NetworkPolicy.html#method.delete_networking_v1_collection_namespaced_network_policy)
 #[derive(Debug)]
 pub enum DeleteNetworkingV1CollectionNamespacedNetworkPolicyResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::networking::v1::NetworkPolicy),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -248,6 +266,10 @@ impl NetworkPolicy {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -266,6 +288,7 @@ impl NetworkPolicy {
     pub fn delete_networking_v1_namespaced_network_policy(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -273,6 +296,9 @@ impl NetworkPolicy {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -296,8 +322,9 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::delete_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.delete_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum DeleteNetworkingV1NamespacedNetworkPolicyResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::networking::v1::NetworkPolicy),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::networking::v1::NetworkPolicy),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -326,6 +353,14 @@ impl ::Response for DeleteNetworkingV1NamespacedNetworkPolicyResponse {
                     Ok((DeleteNetworkingV1NamespacedNetworkPolicyResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteNetworkingV1NamespacedNetworkPolicyResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteNetworkingV1NamespacedNetworkPolicyResponse::Unauthorized, 0)),
             _ => Ok((DeleteNetworkingV1NamespacedNetworkPolicyResponse::Other, 0)),
         }
@@ -347,7 +382,9 @@ impl NetworkPolicy {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -434,7 +471,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::list_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.list_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ListNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_11::api::networking::v1::NetworkPolicyList),
+    Ok(::v1_12::api::networking::v1::NetworkPolicyList),
     Unauthorized,
     Other,
 }
@@ -467,7 +504,9 @@ impl NetworkPolicy {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -553,7 +592,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::list_networking_v1_network_policy_for_all_namespaces`](./struct.NetworkPolicy.html#method.list_networking_v1_network_policy_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListNetworkingV1NetworkPolicyForAllNamespacesResponse {
-    Ok(::v1_11::api::networking::v1::NetworkPolicyList),
+    Ok(::v1_12::api::networking::v1::NetworkPolicyList),
     Unauthorized,
     Other,
 }
@@ -594,17 +633,25 @@ impl NetworkPolicy {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_networking_v1_namespaced_network_policy(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -619,7 +666,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::patch_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.patch_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum PatchNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_11::api::networking::v1::NetworkPolicy),
+    Ok(::v1_12::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -698,7 +745,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::read_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.read_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ReadNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_11::api::networking::v1::NetworkPolicy),
+    Ok(::v1_12::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -739,17 +786,25 @@ impl NetworkPolicy {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_networking_v1_namespaced_network_policy(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::networking::v1::NetworkPolicy,
+        body: &::v1_12::api::networking::v1::NetworkPolicy,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -764,8 +819,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::replace_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.replace_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ReplaceNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_11::api::networking::v1::NetworkPolicy),
-    Created(::v1_11::api::networking::v1::NetworkPolicy),
+    Ok(::v1_12::api::networking::v1::NetworkPolicy),
+    Created(::v1_12::api::networking::v1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -798,7 +853,7 @@ impl ::Response for ReplaceNetworkingV1NamespacedNetworkPolicyResponse {
 // Generated from operation watchNetworkingV1NamespacedNetworkPolicy
 
 impl NetworkPolicy {
-    /// watch changes to an object of kind NetworkPolicy
+    /// watch changes to an object of kind NetworkPolicy. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchNetworkingV1NamespacedNetworkPolicyResponse`](./enum.WatchNetworkingV1NamespacedNetworkPolicyResponse.html) to parse the HTTP response.
     ///
@@ -814,7 +869,9 @@ impl NetworkPolicy {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -902,7 +959,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_networking_v1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.watch_networking_v1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum WatchNetworkingV1NamespacedNetworkPolicyResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -929,7 +986,7 @@ impl ::Response for WatchNetworkingV1NamespacedNetworkPolicyResponse {
 // Generated from operation watchNetworkingV1NamespacedNetworkPolicyList
 
 impl NetworkPolicy {
-    /// watch individual changes to a list of NetworkPolicy
+    /// watch individual changes to a list of NetworkPolicy. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchNetworkingV1NamespacedNetworkPolicyListResponse`](./enum.WatchNetworkingV1NamespacedNetworkPolicyListResponse.html) to parse the HTTP response.
     ///
@@ -941,7 +998,9 @@ impl NetworkPolicy {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1028,7 +1087,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_networking_v1_namespaced_network_policy_list`](./struct.NetworkPolicy.html#method.watch_networking_v1_namespaced_network_policy_list)
 #[derive(Debug)]
 pub enum WatchNetworkingV1NamespacedNetworkPolicyListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1055,7 +1114,7 @@ impl ::Response for WatchNetworkingV1NamespacedNetworkPolicyListResponse {
 // Generated from operation watchNetworkingV1NetworkPolicyListForAllNamespaces
 
 impl NetworkPolicy {
-    /// watch individual changes to a list of NetworkPolicy
+    /// watch individual changes to a list of NetworkPolicy. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchNetworkingV1NetworkPolicyListForAllNamespacesResponse`](./enum.WatchNetworkingV1NetworkPolicyListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -1063,7 +1122,9 @@ impl NetworkPolicy {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1149,7 +1210,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_networking_v1_network_policy_list_for_all_namespaces`](./struct.NetworkPolicy.html#method.watch_networking_v1_network_policy_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchNetworkingV1NetworkPolicyListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1240,8 +1301,8 @@ impl<'de> ::serde::Deserialize<'de> for NetworkPolicy {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::networking::v1::NetworkPolicySpec> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::networking::v1::NetworkPolicySpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

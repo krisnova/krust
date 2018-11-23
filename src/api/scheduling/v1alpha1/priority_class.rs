@@ -10,7 +10,7 @@ pub struct PriorityClass {
     pub global_default: Option<bool>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
     pub value: i32,
@@ -29,15 +29,31 @@ impl PriorityClass {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_scheduling_v1alpha1_priority_class(
-        body: &::v1_11::api::scheduling::v1alpha1::PriorityClass,
+        body: &::v1_12::api::scheduling::v1alpha1::PriorityClass,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -52,9 +68,9 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::create_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.create_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum CreateSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_11::api::scheduling::v1alpha1::PriorityClass),
-    Created(::v1_11::api::scheduling::v1alpha1::PriorityClass),
-    Accepted(::v1_11::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_12::api::scheduling::v1alpha1::PriorityClass),
+    Created(::v1_12::api::scheduling::v1alpha1::PriorityClass),
+    Accepted(::v1_12::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -103,7 +119,9 @@ impl PriorityClass {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -189,8 +207,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::delete_scheduling_v1alpha1_collection_priority_class`](./struct.PriorityClass.html#method.delete_scheduling_v1alpha1_collection_priority_class)
 #[derive(Debug)]
 pub enum DeleteSchedulingV1alpha1CollectionPriorityClassResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::scheduling::v1alpha1::PriorityClass),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -240,6 +258,10 @@ impl PriorityClass {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -257,6 +279,7 @@ impl PriorityClass {
     ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_scheduling_v1alpha1_priority_class(
         name: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -264,6 +287,9 @@ impl PriorityClass {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -287,8 +313,9 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::delete_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.delete_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum DeleteSchedulingV1alpha1PriorityClassResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::scheduling::v1alpha1::PriorityClass),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::scheduling::v1alpha1::PriorityClass),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -317,6 +344,14 @@ impl ::Response for DeleteSchedulingV1alpha1PriorityClassResponse {
                     Ok((DeleteSchedulingV1alpha1PriorityClassResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteSchedulingV1alpha1PriorityClassResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteSchedulingV1alpha1PriorityClassResponse::Unauthorized, 0)),
             _ => Ok((DeleteSchedulingV1alpha1PriorityClassResponse::Other, 0)),
         }
@@ -334,7 +369,9 @@ impl PriorityClass {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -420,7 +457,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::list_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.list_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ListSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_11::api::scheduling::v1alpha1::PriorityClassList),
+    Ok(::v1_12::api::scheduling::v1alpha1::PriorityClassList),
     Unauthorized,
     Other,
 }
@@ -457,16 +494,24 @@ impl PriorityClass {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_scheduling_v1alpha1_priority_class(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -481,7 +526,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::patch_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.patch_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum PatchSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_11::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_12::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -555,7 +600,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::read_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.read_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ReadSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_11::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_12::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -592,16 +637,24 @@ impl PriorityClass {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_scheduling_v1alpha1_priority_class(
         name: &str,
-        body: &::v1_11::api::scheduling::v1alpha1::PriorityClass,
+        body: &::v1_12::api::scheduling::v1alpha1::PriorityClass,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -616,8 +669,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::replace_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.replace_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ReplaceSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_11::api::scheduling::v1alpha1::PriorityClass),
-    Created(::v1_11::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_12::api::scheduling::v1alpha1::PriorityClass),
+    Created(::v1_12::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -650,7 +703,7 @@ impl ::Response for ReplaceSchedulingV1alpha1PriorityClassResponse {
 // Generated from operation watchSchedulingV1alpha1PriorityClass
 
 impl PriorityClass {
-    /// watch changes to an object of kind PriorityClass
+    /// watch changes to an object of kind PriorityClass. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchSchedulingV1alpha1PriorityClassResponse`](./enum.WatchSchedulingV1alpha1PriorityClassResponse.html) to parse the HTTP response.
     ///
@@ -662,7 +715,9 @@ impl PriorityClass {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -749,7 +804,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::watch_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.watch_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum WatchSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -776,7 +831,7 @@ impl ::Response for WatchSchedulingV1alpha1PriorityClassResponse {
 // Generated from operation watchSchedulingV1alpha1PriorityClassList
 
 impl PriorityClass {
-    /// watch individual changes to a list of PriorityClass
+    /// watch individual changes to a list of PriorityClass. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchSchedulingV1alpha1PriorityClassListResponse`](./enum.WatchSchedulingV1alpha1PriorityClassListResponse.html) to parse the HTTP response.
     ///
@@ -784,7 +839,9 @@ impl PriorityClass {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -870,7 +927,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::watch_scheduling_v1alpha1_priority_class_list`](./struct.PriorityClass.html#method.watch_scheduling_v1alpha1_priority_class_list)
 #[derive(Debug)]
 pub enum WatchSchedulingV1alpha1PriorityClassListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -967,7 +1024,7 @@ impl<'de> ::serde::Deserialize<'de> for PriorityClass {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_description: Option<String> = None;
                 let mut value_global_default: Option<bool> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_value: Option<i32> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

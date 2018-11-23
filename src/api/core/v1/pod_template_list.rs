@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PodTemplateList {
     /// List of pod templates
-    pub items: Vec<::v1_11::api::core::v1::PodTemplate>,
+    pub items: Vec<::v1_12::api::core::v1::PodTemplate>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for PodTemplateList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for PodTemplateList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_11::api::core::v1::PodTemplate>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_12::api::core::v1::PodTemplate>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

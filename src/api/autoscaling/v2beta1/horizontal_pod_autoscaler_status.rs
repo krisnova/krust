@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct HorizontalPodAutoscalerStatus {
     /// conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
-    pub conditions: Vec<::v1_11::api::autoscaling::v2beta1::HorizontalPodAutoscalerCondition>,
+    pub conditions: Vec<::v1_12::api::autoscaling::v2beta1::HorizontalPodAutoscalerCondition>,
 
     /// currentMetrics is the last read state of the metrics used by this autoscaler.
-    pub current_metrics: Vec<::v1_11::api::autoscaling::v2beta1::MetricStatus>,
+    pub current_metrics: Option<Vec<::v1_12::api::autoscaling::v2beta1::MetricStatus>>,
 
     /// currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
     pub current_replicas: i32,
@@ -16,7 +16,7 @@ pub struct HorizontalPodAutoscalerStatus {
     pub desired_replicas: i32,
 
     /// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
-    pub last_scale_time: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time>,
+    pub last_scale_time: Option<::v1_12::apimachinery::pkg::apis::meta::v1::Time>,
 
     /// observedGeneration is the most recent generation observed by this autoscaler.
     pub observed_generation: Option<i64>,
@@ -73,17 +73,17 @@ impl<'de> ::serde::Deserialize<'de> for HorizontalPodAutoscalerStatus {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_conditions: Option<Vec<::v1_11::api::autoscaling::v2beta1::HorizontalPodAutoscalerCondition>> = None;
-                let mut value_current_metrics: Option<Vec<::v1_11::api::autoscaling::v2beta1::MetricStatus>> = None;
+                let mut value_conditions: Option<Vec<::v1_12::api::autoscaling::v2beta1::HorizontalPodAutoscalerCondition>> = None;
+                let mut value_current_metrics: Option<Vec<::v1_12::api::autoscaling::v2beta1::MetricStatus>> = None;
                 let mut value_current_replicas: Option<i32> = None;
                 let mut value_desired_replicas: Option<i32> = None;
-                let mut value_last_scale_time: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_last_scale_time: Option<::v1_12::apimachinery::pkg::apis::meta::v1::Time> = None;
                 let mut value_observed_generation: Option<i64> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
                         Field::Key_conditions => value_conditions = Some(::serde::de::MapAccess::next_value(&mut map)?),
-                        Field::Key_current_metrics => value_current_metrics = Some(::serde::de::MapAccess::next_value(&mut map)?),
+                        Field::Key_current_metrics => value_current_metrics = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_current_replicas => value_current_replicas = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_desired_replicas => value_desired_replicas = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_last_scale_time => value_last_scale_time = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -94,7 +94,7 @@ impl<'de> ::serde::Deserialize<'de> for HorizontalPodAutoscalerStatus {
 
                 Ok(HorizontalPodAutoscalerStatus {
                     conditions: value_conditions.ok_or_else(|| ::serde::de::Error::missing_field("conditions"))?,
-                    current_metrics: value_current_metrics.ok_or_else(|| ::serde::de::Error::missing_field("currentMetrics"))?,
+                    current_metrics: value_current_metrics,
                     current_replicas: value_current_replicas.ok_or_else(|| ::serde::de::Error::missing_field("currentReplicas"))?,
                     desired_replicas: value_desired_replicas.ok_or_else(|| ::serde::de::Error::missing_field("desiredReplicas"))?,
                     last_scale_time: value_last_scale_time,
@@ -124,14 +124,16 @@ impl ::serde::Serialize for HorizontalPodAutoscalerStatus {
             "HorizontalPodAutoscalerStatus",
             0 +
             1 +
-            1 +
+            self.current_metrics.as_ref().map_or(0, |_| 1) +
             1 +
             1 +
             self.last_scale_time.as_ref().map_or(0, |_| 1) +
             self.observed_generation.as_ref().map_or(0, |_| 1),
         )?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "conditions", &self.conditions)?;
-        ::serde::ser::SerializeStruct::serialize_field(&mut state, "currentMetrics", &self.current_metrics)?;
+        if let Some(value) = &self.current_metrics {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "currentMetrics", value)?;
+        }
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "currentReplicas", &self.current_replicas)?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "desiredReplicas", &self.desired_replicas)?;
         if let Some(value) = &self.last_scale_time {

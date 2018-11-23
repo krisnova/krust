@@ -506,6 +506,9 @@ pub use self::topology_selector_label_requirement::*;
 mod topology_selector_term;
 pub use self::topology_selector_term::*;
 
+mod typed_local_object_reference;
+pub use self::typed_local_object_reference::*;
+
 mod volume;
 pub use self::volume::*;
 

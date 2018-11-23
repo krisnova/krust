@@ -3,13 +3,13 @@
 /// SubjectAccessReview checks whether or not a user or group can perform an action.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SubjectAccessReview {
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec holds information about the request being evaluated
-    pub spec: ::v1_11::api::authorization::v1beta1::SubjectAccessReviewSpec,
+    pub spec: ::v1_12::api::authorization::v1beta1::SubjectAccessReviewSpec,
 
     /// Status is filled in by the server and indicates whether the request is allowed or not
-    pub status: Option<::v1_11::api::authorization::v1beta1::SubjectAccessReviewStatus>,
+    pub status: Option<::v1_12::api::authorization::v1beta1::SubjectAccessReviewStatus>,
 }
 
 // Begin authorization.k8s.io/v1beta1/SubjectAccessReview
@@ -25,15 +25,31 @@ impl SubjectAccessReview {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If IncludeUninitialized is specified, the object may be returned without completing initialization.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_authorization_v1beta1_subject_access_review(
-        body: &::v1_11::api::authorization::v1beta1::SubjectAccessReview,
+        body: &::v1_12::api::authorization::v1beta1::SubjectAccessReview,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/authorization.k8s.io/v1beta1/subjectaccessreviews?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -48,9 +64,9 @@ impl SubjectAccessReview {
 /// Parses the HTTP response of [`SubjectAccessReview::create_authorization_v1beta1_subject_access_review`](./struct.SubjectAccessReview.html#method.create_authorization_v1beta1_subject_access_review)
 #[derive(Debug)]
 pub enum CreateAuthorizationV1beta1SubjectAccessReviewResponse {
-    Ok(::v1_11::api::authorization::v1beta1::SubjectAccessReview),
-    Created(::v1_11::api::authorization::v1beta1::SubjectAccessReview),
-    Accepted(::v1_11::api::authorization::v1beta1::SubjectAccessReview),
+    Ok(::v1_12::api::authorization::v1beta1::SubjectAccessReview),
+    Created(::v1_12::api::authorization::v1beta1::SubjectAccessReview),
+    Accepted(::v1_12::api::authorization::v1beta1::SubjectAccessReview),
     Unauthorized,
     Other,
 }
@@ -157,9 +173,9 @@ impl<'de> ::serde::Deserialize<'de> for SubjectAccessReview {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::authorization::v1beta1::SubjectAccessReviewSpec> = None;
-                let mut value_status: Option<::v1_11::api::authorization::v1beta1::SubjectAccessReviewStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::authorization::v1beta1::SubjectAccessReviewSpec> = None;
+                let mut value_status: Option<::v1_12::api::authorization::v1beta1::SubjectAccessReviewStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

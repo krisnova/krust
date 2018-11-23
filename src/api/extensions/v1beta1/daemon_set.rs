@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct DaemonSet {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_11::api::extensions::v1beta1::DaemonSetSpec>,
+    pub spec: Option<::v1_12::api::extensions::v1beta1::DaemonSetSpec>,
 
     /// The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_11::api::extensions::v1beta1::DaemonSetStatus>,
+    pub status: Option<::v1_12::api::extensions::v1beta1::DaemonSetStatus>,
 }
 
 // Begin extensions/v1beta1/DaemonSet
@@ -30,16 +30,32 @@ impl DaemonSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_extensions_v1beta1_namespaced_daemon_set(
         namespace: &str,
-        body: &::v1_11::api::extensions::v1beta1::DaemonSet,
+        body: &::v1_12::api::extensions::v1beta1::DaemonSet,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -54,9 +70,9 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::create_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.create_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum CreateExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSet),
-    Created(::v1_11::api::extensions::v1beta1::DaemonSet),
-    Accepted(::v1_11::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSet),
+    Created(::v1_12::api::extensions::v1beta1::DaemonSet),
+    Accepted(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -109,7 +125,9 @@ impl DaemonSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -196,8 +214,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::delete_extensions_v1beta1_collection_namespaced_daemon_set`](./struct.DaemonSet.html#method.delete_extensions_v1beta1_collection_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1CollectionNamespacedDaemonSetResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::extensions::v1beta1::DaemonSet),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -251,6 +269,10 @@ impl DaemonSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -269,6 +291,7 @@ impl DaemonSet {
     pub fn delete_extensions_v1beta1_namespaced_daemon_set(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -276,6 +299,9 @@ impl DaemonSet {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -299,8 +325,9 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::delete_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.delete_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1NamespacedDaemonSetResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::extensions::v1beta1::DaemonSet),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::extensions::v1beta1::DaemonSet),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -329,6 +356,14 @@ impl ::Response for DeleteExtensionsV1beta1NamespacedDaemonSetResponse {
                     Ok((DeleteExtensionsV1beta1NamespacedDaemonSetResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteExtensionsV1beta1NamespacedDaemonSetResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteExtensionsV1beta1NamespacedDaemonSetResponse::Unauthorized, 0)),
             _ => Ok((DeleteExtensionsV1beta1NamespacedDaemonSetResponse::Other, 0)),
         }
@@ -346,7 +381,9 @@ impl DaemonSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -432,7 +469,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::list_extensions_v1beta1_daemon_set_for_all_namespaces`](./struct.DaemonSet.html#method.list_extensions_v1beta1_daemon_set_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1DaemonSetForAllNamespacesResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSetList),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSetList),
     Unauthorized,
     Other,
 }
@@ -469,7 +506,9 @@ impl DaemonSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -556,7 +595,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::list_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.list_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSetList),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSetList),
     Unauthorized,
     Other,
 }
@@ -597,17 +636,25 @@ impl DaemonSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_extensions_v1beta1_namespaced_daemon_set(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -622,7 +669,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::patch_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.patch_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -663,17 +710,25 @@ impl DaemonSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_extensions_v1beta1_namespaced_daemon_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -688,7 +743,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::patch_extensions_v1beta1_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.patch_extensions_v1beta1_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedDaemonSetStatusResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -767,7 +822,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::read_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.read_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -830,7 +885,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::read_extensions_v1beta1_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.read_extensions_v1beta1_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedDaemonSetStatusResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -871,17 +926,25 @@ impl DaemonSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_extensions_v1beta1_namespaced_daemon_set(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::extensions::v1beta1::DaemonSet,
+        body: &::v1_12::api::extensions::v1beta1::DaemonSet,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -896,8 +959,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::replace_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.replace_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSet),
-    Created(::v1_11::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSet),
+    Created(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -946,17 +1009,25 @@ impl DaemonSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_extensions_v1beta1_namespaced_daemon_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::extensions::v1beta1::DaemonSet,
+        body: &::v1_12::api::extensions::v1beta1::DaemonSet,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -971,8 +1042,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::replace_extensions_v1beta1_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.replace_extensions_v1beta1_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DaemonSet),
-    Created(::v1_11::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_12::api::extensions::v1beta1::DaemonSet),
+    Created(::v1_12::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -1005,7 +1076,7 @@ impl ::Response for ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse {
 // Generated from operation watchExtensionsV1beta1DaemonSetListForAllNamespaces
 
 impl DaemonSet {
-    /// watch individual changes to a list of DaemonSet
+    /// watch individual changes to a list of DaemonSet. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchExtensionsV1beta1DaemonSetListForAllNamespacesResponse`](./enum.WatchExtensionsV1beta1DaemonSetListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -1013,7 +1084,9 @@ impl DaemonSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1099,7 +1172,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_extensions_v1beta1_daemon_set_list_for_all_namespaces`](./struct.DaemonSet.html#method.watch_extensions_v1beta1_daemon_set_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1DaemonSetListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1126,7 +1199,7 @@ impl ::Response for WatchExtensionsV1beta1DaemonSetListForAllNamespacesResponse 
 // Generated from operation watchExtensionsV1beta1NamespacedDaemonSet
 
 impl DaemonSet {
-    /// watch changes to an object of kind DaemonSet
+    /// watch changes to an object of kind DaemonSet. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchExtensionsV1beta1NamespacedDaemonSetResponse`](./enum.WatchExtensionsV1beta1NamespacedDaemonSetResponse.html) to parse the HTTP response.
     ///
@@ -1142,7 +1215,9 @@ impl DaemonSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1230,7 +1305,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.watch_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1257,7 +1332,7 @@ impl ::Response for WatchExtensionsV1beta1NamespacedDaemonSetResponse {
 // Generated from operation watchExtensionsV1beta1NamespacedDaemonSetList
 
 impl DaemonSet {
-    /// watch individual changes to a list of DaemonSet
+    /// watch individual changes to a list of DaemonSet. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchExtensionsV1beta1NamespacedDaemonSetListResponse`](./enum.WatchExtensionsV1beta1NamespacedDaemonSetListResponse.html) to parse the HTTP response.
     ///
@@ -1269,7 +1344,9 @@ impl DaemonSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1356,7 +1433,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_extensions_v1beta1_namespaced_daemon_set_list`](./struct.DaemonSet.html#method.watch_extensions_v1beta1_namespaced_daemon_set_list)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedDaemonSetListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1526,9 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSet {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::extensions::v1beta1::DaemonSetSpec> = None;
-                let mut value_status: Option<::v1_11::api::extensions::v1beta1::DaemonSetStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::extensions::v1beta1::DaemonSetSpec> = None;
+                let mut value_status: Option<::v1_12::api::extensions::v1beta1::DaemonSetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

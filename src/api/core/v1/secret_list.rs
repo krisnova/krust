@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SecretList {
     /// Items is a list of secret objects. More info: https://kubernetes.io/docs/concepts/configuration/secret
-    pub items: Vec<::v1_11::api::core::v1::Secret>,
+    pub items: Vec<::v1_12::api::core::v1::Secret>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for SecretList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for SecretList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_11::api::core::v1::Secret>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_12::api::core::v1::Secret>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

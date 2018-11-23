@@ -19,10 +19,13 @@ pub struct JobSpec {
     pub parallelism: Option<i32>,
 
     /// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-    pub selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector>,
+    pub selector: Option<::v1_12::apimachinery::pkg::apis::meta::v1::LabelSelector>,
 
     /// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-    pub template: ::v1_11::api::core::v1::PodTemplateSpec,
+    pub template: ::v1_12::api::core::v1::PodTemplateSpec,
+
+    /// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+    pub ttl_seconds_after_finished: Option<i32>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for JobSpec {
@@ -36,6 +39,7 @@ impl<'de> ::serde::Deserialize<'de> for JobSpec {
             Key_parallelism,
             Key_selector,
             Key_template,
+            Key_ttl_seconds_after_finished,
             Other,
         }
 
@@ -59,6 +63,7 @@ impl<'de> ::serde::Deserialize<'de> for JobSpec {
                             "parallelism" => Field::Key_parallelism,
                             "selector" => Field::Key_selector,
                             "template" => Field::Key_template,
+                            "ttlSecondsAfterFinished" => Field::Key_ttl_seconds_after_finished,
                             _ => Field::Other,
                         })
                     }
@@ -83,8 +88,9 @@ impl<'de> ::serde::Deserialize<'de> for JobSpec {
                 let mut value_completions: Option<i32> = None;
                 let mut value_manual_selector: Option<bool> = None;
                 let mut value_parallelism: Option<i32> = None;
-                let mut value_selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
-                let mut value_template: Option<::v1_11::api::core::v1::PodTemplateSpec> = None;
+                let mut value_selector: Option<::v1_12::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
+                let mut value_template: Option<::v1_12::api::core::v1::PodTemplateSpec> = None;
+                let mut value_ttl_seconds_after_finished: Option<i32> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -95,6 +101,7 @@ impl<'de> ::serde::Deserialize<'de> for JobSpec {
                         Field::Key_parallelism => value_parallelism = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_selector => value_selector = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_template => value_template = Some(::serde::de::MapAccess::next_value(&mut map)?),
+                        Field::Key_ttl_seconds_after_finished => value_ttl_seconds_after_finished = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
                 }
@@ -107,6 +114,7 @@ impl<'de> ::serde::Deserialize<'de> for JobSpec {
                     parallelism: value_parallelism,
                     selector: value_selector,
                     template: value_template.ok_or_else(|| ::serde::de::Error::missing_field("template"))?,
+                    ttl_seconds_after_finished: value_ttl_seconds_after_finished,
                 })
             }
         }
@@ -121,6 +129,7 @@ impl<'de> ::serde::Deserialize<'de> for JobSpec {
                 "parallelism",
                 "selector",
                 "template",
+                "ttlSecondsAfterFinished",
             ],
             Visitor,
         )
@@ -138,7 +147,8 @@ impl ::serde::Serialize for JobSpec {
             self.manual_selector.as_ref().map_or(0, |_| 1) +
             self.parallelism.as_ref().map_or(0, |_| 1) +
             self.selector.as_ref().map_or(0, |_| 1) +
-            1,
+            1 +
+            self.ttl_seconds_after_finished.as_ref().map_or(0, |_| 1),
         )?;
         if let Some(value) = &self.active_deadline_seconds {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "activeDeadlineSeconds", value)?;
@@ -159,6 +169,9 @@ impl ::serde::Serialize for JobSpec {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "selector", value)?;
         }
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "template", &self.template)?;
+        if let Some(value) = &self.ttl_seconds_after_finished {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "ttlSecondsAfterFinished", value)?;
+        }
         ::serde::ser::SerializeStruct::end(state)
     }
 }

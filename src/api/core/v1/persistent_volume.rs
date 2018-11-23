@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PersistentVolume {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-    pub spec: Option<::v1_11::api::core::v1::PersistentVolumeSpec>,
+    pub spec: Option<::v1_12::api::core::v1::PersistentVolumeSpec>,
 
     /// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-    pub status: Option<::v1_11::api::core::v1::PersistentVolumeStatus>,
+    pub status: Option<::v1_12::api::core::v1::PersistentVolumeStatus>,
 }
 
 // Begin /v1/PersistentVolume
@@ -26,15 +26,31 @@ impl PersistentVolume {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_persistent_volume(
-        body: &::v1_11::api::core::v1::PersistentVolume,
+        body: &::v1_12::api::core::v1::PersistentVolume,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -49,9 +65,9 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::create_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.create_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum CreateCoreV1PersistentVolumeResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolume),
-    Created(::v1_11::api::core::v1::PersistentVolume),
-    Accepted(::v1_11::api::core::v1::PersistentVolume),
+    Ok(::v1_12::api::core::v1::PersistentVolume),
+    Created(::v1_12::api::core::v1::PersistentVolume),
+    Accepted(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -100,7 +116,9 @@ impl PersistentVolume {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -186,8 +204,8 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::delete_core_v1_collection_persistent_volume`](./struct.PersistentVolume.html#method.delete_core_v1_collection_persistent_volume)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionPersistentVolumeResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::PersistentVolume),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -237,6 +255,10 @@ impl PersistentVolume {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -254,6 +276,7 @@ impl PersistentVolume {
     ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_persistent_volume(
         name: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -261,6 +284,9 @@ impl PersistentVolume {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -284,8 +310,9 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::delete_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.delete_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum DeleteCoreV1PersistentVolumeResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::PersistentVolume),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::PersistentVolume),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -314,6 +341,14 @@ impl ::Response for DeleteCoreV1PersistentVolumeResponse {
                     Ok((DeleteCoreV1PersistentVolumeResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteCoreV1PersistentVolumeResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteCoreV1PersistentVolumeResponse::Unauthorized, 0)),
             _ => Ok((DeleteCoreV1PersistentVolumeResponse::Other, 0)),
         }
@@ -331,7 +366,9 @@ impl PersistentVolume {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -417,7 +454,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::list_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.list_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum ListCoreV1PersistentVolumeResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolumeList),
+    Ok(::v1_12::api::core::v1::PersistentVolumeList),
     Unauthorized,
     Other,
 }
@@ -454,16 +491,24 @@ impl PersistentVolume {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_persistent_volume(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -478,7 +523,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::patch_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.patch_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum PatchCoreV1PersistentVolumeResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolume),
+    Ok(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -515,16 +560,24 @@ impl PersistentVolume {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_persistent_volume_status(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}/status?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -539,7 +592,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::patch_core_v1_persistent_volume_status`](./struct.PersistentVolume.html#method.patch_core_v1_persistent_volume_status)
 #[derive(Debug)]
 pub enum PatchCoreV1PersistentVolumeStatusResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolume),
+    Ok(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -613,7 +666,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::read_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.read_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum ReadCoreV1PersistentVolumeResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolume),
+    Ok(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -671,7 +724,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::read_core_v1_persistent_volume_status`](./struct.PersistentVolume.html#method.read_core_v1_persistent_volume_status)
 #[derive(Debug)]
 pub enum ReadCoreV1PersistentVolumeStatusResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolume),
+    Ok(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -708,16 +761,24 @@ impl PersistentVolume {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_persistent_volume(
         name: &str,
-        body: &::v1_11::api::core::v1::PersistentVolume,
+        body: &::v1_12::api::core::v1::PersistentVolume,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -732,8 +793,8 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::replace_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.replace_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum ReplaceCoreV1PersistentVolumeResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolume),
-    Created(::v1_11::api::core::v1::PersistentVolume),
+    Ok(::v1_12::api::core::v1::PersistentVolume),
+    Created(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -778,16 +839,24 @@ impl PersistentVolume {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_persistent_volume_status(
         name: &str,
-        body: &::v1_11::api::core::v1::PersistentVolume,
+        body: &::v1_12::api::core::v1::PersistentVolume,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}/status?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -802,8 +871,8 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::replace_core_v1_persistent_volume_status`](./struct.PersistentVolume.html#method.replace_core_v1_persistent_volume_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1PersistentVolumeStatusResponse {
-    Ok(::v1_11::api::core::v1::PersistentVolume),
-    Created(::v1_11::api::core::v1::PersistentVolume),
+    Ok(::v1_12::api::core::v1::PersistentVolume),
+    Created(::v1_12::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -836,7 +905,7 @@ impl ::Response for ReplaceCoreV1PersistentVolumeStatusResponse {
 // Generated from operation watchCoreV1PersistentVolume
 
 impl PersistentVolume {
-    /// watch changes to an object of kind PersistentVolume
+    /// watch changes to an object of kind PersistentVolume. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchCoreV1PersistentVolumeResponse`](./enum.WatchCoreV1PersistentVolumeResponse.html) to parse the HTTP response.
     ///
@@ -848,7 +917,9 @@ impl PersistentVolume {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -935,7 +1006,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::watch_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.watch_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum WatchCoreV1PersistentVolumeResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -962,7 +1033,7 @@ impl ::Response for WatchCoreV1PersistentVolumeResponse {
 // Generated from operation watchCoreV1PersistentVolumeList
 
 impl PersistentVolume {
-    /// watch individual changes to a list of PersistentVolume
+    /// watch individual changes to a list of PersistentVolume. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1PersistentVolumeListResponse`](./enum.WatchCoreV1PersistentVolumeListResponse.html) to parse the HTTP response.
     ///
@@ -970,7 +1041,9 @@ impl PersistentVolume {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1056,7 +1129,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::watch_core_v1_persistent_volume_list`](./struct.PersistentVolume.html#method.watch_core_v1_persistent_volume_list)
 #[derive(Debug)]
 pub enum WatchCoreV1PersistentVolumeListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1149,9 +1222,9 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolume {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::core::v1::PersistentVolumeSpec> = None;
-                let mut value_status: Option<::v1_11::api::core::v1::PersistentVolumeStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::core::v1::PersistentVolumeSpec> = None;
+                let mut value_status: Option<::v1_12::api::core::v1::PersistentVolumeStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ComponentStatus {
     /// List of component conditions observed
-    pub conditions: Option<Vec<::v1_11::api::core::v1::ComponentCondition>>,
+    pub conditions: Option<Vec<::v1_12::api::core::v1::ComponentCondition>>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 }
 
 // Begin /v1/ComponentStatus
@@ -23,7 +23,9 @@ impl ComponentStatus {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -109,7 +111,7 @@ impl ComponentStatus {
 /// Parses the HTTP response of [`ComponentStatus::list_core_v1_component_status`](./struct.ComponentStatus.html#method.list_core_v1_component_status)
 #[derive(Debug)]
 pub enum ListCoreV1ComponentStatusResponse {
-    Ok(::v1_11::api::core::v1::ComponentStatusList),
+    Ok(::v1_12::api::core::v1::ComponentStatusList),
     Unauthorized,
     Other,
 }
@@ -167,7 +169,7 @@ impl ComponentStatus {
 /// Parses the HTTP response of [`ComponentStatus::read_core_v1_component_status`](./struct.ComponentStatus.html#method.read_core_v1_component_status)
 #[derive(Debug)]
 pub enum ReadCoreV1ComponentStatusResponse {
-    Ok(::v1_11::api::core::v1::ComponentStatus),
+    Ok(::v1_12::api::core::v1::ComponentStatus),
     Unauthorized,
     Other,
 }
@@ -256,8 +258,8 @@ impl<'de> ::serde::Deserialize<'de> for ComponentStatus {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_conditions: Option<Vec<::v1_11::api::core::v1::ComponentCondition>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_conditions: Option<Vec<::v1_12::api::core::v1::ComponentCondition>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

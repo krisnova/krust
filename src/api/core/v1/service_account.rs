@@ -7,13 +7,13 @@ pub struct ServiceAccount {
     pub automount_service_account_token: Option<bool>,
 
     /// ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
-    pub image_pull_secrets: Option<Vec<::v1_11::api::core::v1::LocalObjectReference>>,
+    pub image_pull_secrets: Option<Vec<::v1_12::api::core::v1::LocalObjectReference>>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
-    pub secrets: Option<Vec<::v1_11::api::core::v1::ObjectReference>>,
+    pub secrets: Option<Vec<::v1_12::api::core::v1::ObjectReference>>,
 }
 
 // Begin /v1/ServiceAccount
@@ -33,16 +33,32 @@ impl ServiceAccount {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_service_account(
         namespace: &str,
-        body: &::v1_11::api::core::v1::ServiceAccount,
+        body: &::v1_12::api::core::v1::ServiceAccount,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/serviceaccounts?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -57,9 +73,9 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::create_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.create_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_11::api::core::v1::ServiceAccount),
-    Created(::v1_11::api::core::v1::ServiceAccount),
-    Accepted(::v1_11::api::core::v1::ServiceAccount),
+    Ok(::v1_12::api::core::v1::ServiceAccount),
+    Created(::v1_12::api::core::v1::ServiceAccount),
+    Accepted(::v1_12::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -112,7 +128,9 @@ impl ServiceAccount {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -199,8 +217,8 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::delete_core_v1_collection_namespaced_service_account`](./struct.ServiceAccount.html#method.delete_core_v1_collection_namespaced_service_account)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedServiceAccountResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::ServiceAccount),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -254,6 +272,10 @@ impl ServiceAccount {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -272,6 +294,7 @@ impl ServiceAccount {
     pub fn delete_core_v1_namespaced_service_account(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -279,6 +302,9 @@ impl ServiceAccount {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/serviceaccounts/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -302,8 +328,9 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::delete_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.delete_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedServiceAccountResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::ServiceAccount),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::ServiceAccount),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -332,6 +359,14 @@ impl ::Response for DeleteCoreV1NamespacedServiceAccountResponse {
                     Ok((DeleteCoreV1NamespacedServiceAccountResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteCoreV1NamespacedServiceAccountResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteCoreV1NamespacedServiceAccountResponse::Unauthorized, 0)),
             _ => Ok((DeleteCoreV1NamespacedServiceAccountResponse::Other, 0)),
         }
@@ -353,7 +388,9 @@ impl ServiceAccount {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -440,7 +477,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::list_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.list_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_11::api::core::v1::ServiceAccountList),
+    Ok(::v1_12::api::core::v1::ServiceAccountList),
     Unauthorized,
     Other,
 }
@@ -473,7 +510,9 @@ impl ServiceAccount {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -559,7 +598,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::list_core_v1_service_account_for_all_namespaces`](./struct.ServiceAccount.html#method.list_core_v1_service_account_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ServiceAccountForAllNamespacesResponse {
-    Ok(::v1_11::api::core::v1::ServiceAccountList),
+    Ok(::v1_12::api::core::v1::ServiceAccountList),
     Unauthorized,
     Other,
 }
@@ -600,17 +639,25 @@ impl ServiceAccount {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_namespaced_service_account(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/serviceaccounts/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -625,7 +672,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::patch_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.patch_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_11::api::core::v1::ServiceAccount),
+    Ok(::v1_12::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -704,7 +751,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::read_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.read_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_11::api::core::v1::ServiceAccount),
+    Ok(::v1_12::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -745,17 +792,25 @@ impl ServiceAccount {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespaced_service_account(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::core::v1::ServiceAccount,
+        body: &::v1_12::api::core::v1::ServiceAccount,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/serviceaccounts/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -770,8 +825,8 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::replace_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.replace_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_11::api::core::v1::ServiceAccount),
-    Created(::v1_11::api::core::v1::ServiceAccount),
+    Ok(::v1_12::api::core::v1::ServiceAccount),
+    Created(::v1_12::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -804,7 +859,7 @@ impl ::Response for ReplaceCoreV1NamespacedServiceAccountResponse {
 // Generated from operation watchCoreV1NamespacedServiceAccount
 
 impl ServiceAccount {
-    /// watch changes to an object of kind ServiceAccount
+    /// watch changes to an object of kind ServiceAccount. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchCoreV1NamespacedServiceAccountResponse`](./enum.WatchCoreV1NamespacedServiceAccountResponse.html) to parse the HTTP response.
     ///
@@ -820,7 +875,9 @@ impl ServiceAccount {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -908,7 +965,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::watch_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.watch_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -935,7 +992,7 @@ impl ::Response for WatchCoreV1NamespacedServiceAccountResponse {
 // Generated from operation watchCoreV1NamespacedServiceAccountList
 
 impl ServiceAccount {
-    /// watch individual changes to a list of ServiceAccount
+    /// watch individual changes to a list of ServiceAccount. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1NamespacedServiceAccountListResponse`](./enum.WatchCoreV1NamespacedServiceAccountListResponse.html) to parse the HTTP response.
     ///
@@ -947,7 +1004,9 @@ impl ServiceAccount {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1034,7 +1093,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::watch_core_v1_namespaced_service_account_list`](./struct.ServiceAccount.html#method.watch_core_v1_namespaced_service_account_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceAccountListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1061,7 +1120,7 @@ impl ::Response for WatchCoreV1NamespacedServiceAccountListResponse {
 // Generated from operation watchCoreV1ServiceAccountListForAllNamespaces
 
 impl ServiceAccount {
-    /// watch individual changes to a list of ServiceAccount
+    /// watch individual changes to a list of ServiceAccount. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1ServiceAccountListForAllNamespacesResponse`](./enum.WatchCoreV1ServiceAccountListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -1069,7 +1128,9 @@ impl ServiceAccount {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1155,7 +1216,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::watch_core_v1_service_account_list_for_all_namespaces`](./struct.ServiceAccount.html#method.watch_core_v1_service_account_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ServiceAccountListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1251,9 +1312,9 @@ impl<'de> ::serde::Deserialize<'de> for ServiceAccount {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_automount_service_account_token: Option<bool> = None;
-                let mut value_image_pull_secrets: Option<Vec<::v1_11::api::core::v1::LocalObjectReference>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_secrets: Option<Vec<::v1_11::api::core::v1::ObjectReference>> = None;
+                let mut value_image_pull_secrets: Option<Vec<::v1_12::api::core::v1::LocalObjectReference>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_secrets: Option<Vec<::v1_12::api::core::v1::ObjectReference>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

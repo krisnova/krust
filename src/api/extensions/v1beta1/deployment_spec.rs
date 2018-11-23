@@ -9,7 +9,7 @@ pub struct DeploymentSpec {
     /// Indicates that the deployment is paused and will not be processed by the deployment controller.
     pub paused: Option<bool>,
 
-    /// The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. This is not set by default.
+    /// The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. This is set to the max value of int32 (i.e. 2147483647) by default, which means "no deadline".
     pub progress_deadline_seconds: Option<i32>,
 
     /// Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
@@ -19,16 +19,16 @@ pub struct DeploymentSpec {
     pub revision_history_limit: Option<i32>,
 
     /// DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
-    pub rollback_to: Option<::v1_11::api::extensions::v1beta1::RollbackConfig>,
+    pub rollback_to: Option<::v1_12::api::extensions::v1beta1::RollbackConfig>,
 
     /// Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-    pub selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector>,
+    pub selector: Option<::v1_12::apimachinery::pkg::apis::meta::v1::LabelSelector>,
 
     /// The deployment strategy to use to replace existing pods with new ones.
-    pub strategy: Option<::v1_11::api::extensions::v1beta1::DeploymentStrategy>,
+    pub strategy: Option<::v1_12::api::extensions::v1beta1::DeploymentStrategy>,
 
     /// Template describes the pods that will be created.
-    pub template: ::v1_11::api::core::v1::PodTemplateSpec,
+    pub template: ::v1_12::api::core::v1::PodTemplateSpec,
 }
 
 impl<'de> ::serde::Deserialize<'de> for DeploymentSpec {
@@ -93,10 +93,10 @@ impl<'de> ::serde::Deserialize<'de> for DeploymentSpec {
                 let mut value_progress_deadline_seconds: Option<i32> = None;
                 let mut value_replicas: Option<i32> = None;
                 let mut value_revision_history_limit: Option<i32> = None;
-                let mut value_rollback_to: Option<::v1_11::api::extensions::v1beta1::RollbackConfig> = None;
-                let mut value_selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
-                let mut value_strategy: Option<::v1_11::api::extensions::v1beta1::DeploymentStrategy> = None;
-                let mut value_template: Option<::v1_11::api::core::v1::PodTemplateSpec> = None;
+                let mut value_rollback_to: Option<::v1_12::api::extensions::v1beta1::RollbackConfig> = None;
+                let mut value_selector: Option<::v1_12::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
+                let mut value_strategy: Option<::v1_12::api::extensions::v1beta1::DeploymentStrategy> = None;
+                let mut value_template: Option<::v1_12::api::core::v1::PodTemplateSpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

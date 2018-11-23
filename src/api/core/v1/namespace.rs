@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Namespace {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_11::api::core::v1::NamespaceSpec>,
+    pub spec: Option<::v1_12::api::core::v1::NamespaceSpec>,
 
     /// Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_11::api::core::v1::NamespaceStatus>,
+    pub status: Option<::v1_12::api::core::v1::NamespaceStatus>,
 }
 
 // Begin /v1/Namespace
@@ -26,15 +26,31 @@ impl Namespace {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If IncludeUninitialized is specified, the object may be returned without completing initialization.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespace(
-        body: &::v1_11::api::core::v1::Namespace,
+        body: &::v1_12::api::core::v1::Namespace,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -49,9 +65,9 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::create_core_v1_namespace`](./struct.Namespace.html#method.create_core_v1_namespace)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespaceResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
-    Created(::v1_11::api::core::v1::Namespace),
-    Accepted(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
+    Created(::v1_12::api::core::v1::Namespace),
+    Accepted(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -104,6 +120,10 @@ impl Namespace {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -121,6 +141,7 @@ impl Namespace {
     ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespace(
         name: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -128,6 +149,9 @@ impl Namespace {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -151,8 +175,9 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::delete_core_v1_namespace`](./struct.Namespace.html#method.delete_core_v1_namespace)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespaceResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::Namespace),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::Namespace),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -181,6 +206,14 @@ impl ::Response for DeleteCoreV1NamespaceResponse {
                     Ok((DeleteCoreV1NamespaceResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteCoreV1NamespaceResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteCoreV1NamespaceResponse::Unauthorized, 0)),
             _ => Ok((DeleteCoreV1NamespaceResponse::Other, 0)),
         }
@@ -198,7 +231,9 @@ impl Namespace {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -206,7 +241,7 @@ impl Namespace {
     ///
     /// * `include_uninitialized`
     ///
-    ///     If true, partially initialized resources are included in the response.
+    ///     If IncludeUninitialized is specified, the object may be returned without completing initialization.
     ///
     /// * `label_selector`
     ///
@@ -284,7 +319,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::list_core_v1_namespace`](./struct.Namespace.html#method.list_core_v1_namespace)
 #[derive(Debug)]
 pub enum ListCoreV1NamespaceResponse {
-    Ok(::v1_11::api::core::v1::NamespaceList),
+    Ok(::v1_12::api::core::v1::NamespaceList),
     Unauthorized,
     Other,
 }
@@ -321,16 +356,24 @@ impl Namespace {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_namespace(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -345,7 +388,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::patch_core_v1_namespace`](./struct.Namespace.html#method.patch_core_v1_namespace)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespaceResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -382,16 +425,24 @@ impl Namespace {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_namespace_status(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}/status?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -406,7 +457,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::patch_core_v1_namespace_status`](./struct.Namespace.html#method.patch_core_v1_namespace_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespaceStatusResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -480,7 +531,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::read_core_v1_namespace`](./struct.Namespace.html#method.read_core_v1_namespace)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespaceResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -538,7 +589,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::read_core_v1_namespace_status`](./struct.Namespace.html#method.read_core_v1_namespace_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespaceStatusResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -575,16 +626,24 @@ impl Namespace {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespace(
         name: &str,
-        body: &::v1_11::api::core::v1::Namespace,
+        body: &::v1_12::api::core::v1::Namespace,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -599,8 +658,8 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::replace_core_v1_namespace`](./struct.Namespace.html#method.replace_core_v1_namespace)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespaceResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
-    Created(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
+    Created(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -645,16 +704,24 @@ impl Namespace {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespace_finalize(
         name: &str,
-        body: &::v1_11::api::core::v1::Namespace,
+        body: &::v1_12::api::core::v1::Namespace,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}/finalize?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -669,8 +736,8 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::replace_core_v1_namespace_finalize`](./struct.Namespace.html#method.replace_core_v1_namespace_finalize)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespaceFinalizeResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
-    Created(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
+    Created(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -715,16 +782,24 @@ impl Namespace {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespace_status(
         name: &str,
-        body: &::v1_11::api::core::v1::Namespace,
+        body: &::v1_12::api::core::v1::Namespace,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{name}/status?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -739,8 +814,8 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::replace_core_v1_namespace_status`](./struct.Namespace.html#method.replace_core_v1_namespace_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespaceStatusResponse {
-    Ok(::v1_11::api::core::v1::Namespace),
-    Created(::v1_11::api::core::v1::Namespace),
+    Ok(::v1_12::api::core::v1::Namespace),
+    Created(::v1_12::api::core::v1::Namespace),
     Unauthorized,
     Other,
 }
@@ -773,7 +848,7 @@ impl ::Response for ReplaceCoreV1NamespaceStatusResponse {
 // Generated from operation watchCoreV1Namespace
 
 impl Namespace {
-    /// watch changes to an object of kind Namespace
+    /// watch changes to an object of kind Namespace. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchCoreV1NamespaceResponse`](./enum.WatchCoreV1NamespaceResponse.html) to parse the HTTP response.
     ///
@@ -785,7 +860,9 @@ impl Namespace {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -872,7 +949,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::watch_core_v1_namespace`](./struct.Namespace.html#method.watch_core_v1_namespace)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespaceResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -899,7 +976,7 @@ impl ::Response for WatchCoreV1NamespaceResponse {
 // Generated from operation watchCoreV1NamespaceList
 
 impl Namespace {
-    /// watch individual changes to a list of Namespace
+    /// watch individual changes to a list of Namespace. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1NamespaceListResponse`](./enum.WatchCoreV1NamespaceListResponse.html) to parse the HTTP response.
     ///
@@ -907,7 +984,9 @@ impl Namespace {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -993,7 +1072,7 @@ impl Namespace {
 /// Parses the HTTP response of [`Namespace::watch_core_v1_namespace_list`](./struct.Namespace.html#method.watch_core_v1_namespace_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespaceListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1086,9 +1165,9 @@ impl<'de> ::serde::Deserialize<'de> for Namespace {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::core::v1::NamespaceSpec> = None;
-                let mut value_status: Option<::v1_11::api::core::v1::NamespaceStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::core::v1::NamespaceSpec> = None;
+                let mut value_status: Option<::v1_12::api::core::v1::NamespaceStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

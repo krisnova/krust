@@ -10,7 +10,7 @@ pub struct ConfigMap {
     pub data: Option<::std::collections::BTreeMap<String, String>>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 }
 
 // Begin /v1/ConfigMap
@@ -30,16 +30,32 @@ impl ConfigMap {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_config_map(
         namespace: &str,
-        body: &::v1_11::api::core::v1::ConfigMap,
+        body: &::v1_12::api::core::v1::ConfigMap,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/configmaps?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -54,9 +70,9 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::create_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.create_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_11::api::core::v1::ConfigMap),
-    Created(::v1_11::api::core::v1::ConfigMap),
-    Accepted(::v1_11::api::core::v1::ConfigMap),
+    Ok(::v1_12::api::core::v1::ConfigMap),
+    Created(::v1_12::api::core::v1::ConfigMap),
+    Accepted(::v1_12::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -109,7 +125,9 @@ impl ConfigMap {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -196,8 +214,8 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::delete_core_v1_collection_namespaced_config_map`](./struct.ConfigMap.html#method.delete_core_v1_collection_namespaced_config_map)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedConfigMapResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::ConfigMap),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -251,6 +269,10 @@ impl ConfigMap {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -269,6 +291,7 @@ impl ConfigMap {
     pub fn delete_core_v1_namespaced_config_map(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -276,6 +299,9 @@ impl ConfigMap {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/configmaps/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -299,8 +325,9 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::delete_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.delete_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedConfigMapResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::ConfigMap),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::ConfigMap),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -329,6 +356,14 @@ impl ::Response for DeleteCoreV1NamespacedConfigMapResponse {
                     Ok((DeleteCoreV1NamespacedConfigMapResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteCoreV1NamespacedConfigMapResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteCoreV1NamespacedConfigMapResponse::Unauthorized, 0)),
             _ => Ok((DeleteCoreV1NamespacedConfigMapResponse::Other, 0)),
         }
@@ -346,7 +381,9 @@ impl ConfigMap {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -432,7 +469,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::list_core_v1_config_map_for_all_namespaces`](./struct.ConfigMap.html#method.list_core_v1_config_map_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ConfigMapForAllNamespacesResponse {
-    Ok(::v1_11::api::core::v1::ConfigMapList),
+    Ok(::v1_12::api::core::v1::ConfigMapList),
     Unauthorized,
     Other,
 }
@@ -469,7 +506,9 @@ impl ConfigMap {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -556,7 +595,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::list_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.list_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_11::api::core::v1::ConfigMapList),
+    Ok(::v1_12::api::core::v1::ConfigMapList),
     Unauthorized,
     Other,
 }
@@ -597,17 +636,25 @@ impl ConfigMap {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_namespaced_config_map(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/configmaps/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -622,7 +669,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::patch_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.patch_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_11::api::core::v1::ConfigMap),
+    Ok(::v1_12::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -701,7 +748,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::read_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.read_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_11::api::core::v1::ConfigMap),
+    Ok(::v1_12::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -742,17 +789,25 @@ impl ConfigMap {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespaced_config_map(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::core::v1::ConfigMap,
+        body: &::v1_12::api::core::v1::ConfigMap,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/configmaps/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -767,8 +822,8 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::replace_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.replace_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_11::api::core::v1::ConfigMap),
-    Created(::v1_11::api::core::v1::ConfigMap),
+    Ok(::v1_12::api::core::v1::ConfigMap),
+    Created(::v1_12::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -801,7 +856,7 @@ impl ::Response for ReplaceCoreV1NamespacedConfigMapResponse {
 // Generated from operation watchCoreV1ConfigMapListForAllNamespaces
 
 impl ConfigMap {
-    /// watch individual changes to a list of ConfigMap
+    /// watch individual changes to a list of ConfigMap. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1ConfigMapListForAllNamespacesResponse`](./enum.WatchCoreV1ConfigMapListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -809,7 +864,9 @@ impl ConfigMap {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -895,7 +952,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::watch_core_v1_config_map_list_for_all_namespaces`](./struct.ConfigMap.html#method.watch_core_v1_config_map_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ConfigMapListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -922,7 +979,7 @@ impl ::Response for WatchCoreV1ConfigMapListForAllNamespacesResponse {
 // Generated from operation watchCoreV1NamespacedConfigMap
 
 impl ConfigMap {
-    /// watch changes to an object of kind ConfigMap
+    /// watch changes to an object of kind ConfigMap. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchCoreV1NamespacedConfigMapResponse`](./enum.WatchCoreV1NamespacedConfigMapResponse.html) to parse the HTTP response.
     ///
@@ -938,7 +995,9 @@ impl ConfigMap {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1026,7 +1085,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::watch_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.watch_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1053,7 +1112,7 @@ impl ::Response for WatchCoreV1NamespacedConfigMapResponse {
 // Generated from operation watchCoreV1NamespacedConfigMapList
 
 impl ConfigMap {
-    /// watch individual changes to a list of ConfigMap
+    /// watch individual changes to a list of ConfigMap. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1NamespacedConfigMapListResponse`](./enum.WatchCoreV1NamespacedConfigMapListResponse.html) to parse the HTTP response.
     ///
@@ -1065,7 +1124,9 @@ impl ConfigMap {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1152,7 +1213,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::watch_core_v1_namespaced_config_map_list`](./struct.ConfigMap.html#method.watch_core_v1_namespaced_config_map_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedConfigMapListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1247,7 +1308,7 @@ impl<'de> ::serde::Deserialize<'de> for ConfigMap {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_binary_data: Option<::std::collections::BTreeMap<String, ::ByteString>> = None;
                 let mut value_data: Option<::std::collections::BTreeMap<String, String>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

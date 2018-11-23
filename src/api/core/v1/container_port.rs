@@ -15,7 +15,7 @@ pub struct ContainerPort {
     /// If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
     pub name: Option<String>,
 
-    /// Protocol for port. Must be UDP or TCP. Defaults to "TCP".
+    /// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
     pub protocol: Option<String>,
 }
 

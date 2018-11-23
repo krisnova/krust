@@ -3,13 +3,13 @@
 /// SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SelfSubjectRulesReview {
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec holds information about the request being evaluated.
-    pub spec: ::v1_11::api::authorization::v1beta1::SelfSubjectRulesReviewSpec,
+    pub spec: ::v1_12::api::authorization::v1beta1::SelfSubjectRulesReviewSpec,
 
     /// Status is filled in by the server and indicates the set of actions a user can perform.
-    pub status: Option<::v1_11::api::authorization::v1beta1::SubjectRulesReviewStatus>,
+    pub status: Option<::v1_12::api::authorization::v1beta1::SubjectRulesReviewStatus>,
 }
 
 // Begin authorization.k8s.io/v1beta1/SelfSubjectRulesReview
@@ -25,15 +25,31 @@ impl SelfSubjectRulesReview {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If IncludeUninitialized is specified, the object may be returned without completing initialization.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_authorization_v1beta1_self_subject_rules_review(
-        body: &::v1_11::api::authorization::v1beta1::SelfSubjectRulesReview,
+        body: &::v1_12::api::authorization::v1beta1::SelfSubjectRulesReview,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/authorization.k8s.io/v1beta1/selfsubjectrulesreviews?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -48,9 +64,9 @@ impl SelfSubjectRulesReview {
 /// Parses the HTTP response of [`SelfSubjectRulesReview::create_authorization_v1beta1_self_subject_rules_review`](./struct.SelfSubjectRulesReview.html#method.create_authorization_v1beta1_self_subject_rules_review)
 #[derive(Debug)]
 pub enum CreateAuthorizationV1beta1SelfSubjectRulesReviewResponse {
-    Ok(::v1_11::api::authorization::v1beta1::SelfSubjectRulesReview),
-    Created(::v1_11::api::authorization::v1beta1::SelfSubjectRulesReview),
-    Accepted(::v1_11::api::authorization::v1beta1::SelfSubjectRulesReview),
+    Ok(::v1_12::api::authorization::v1beta1::SelfSubjectRulesReview),
+    Created(::v1_12::api::authorization::v1beta1::SelfSubjectRulesReview),
+    Accepted(::v1_12::api::authorization::v1beta1::SelfSubjectRulesReview),
     Unauthorized,
     Other,
 }
@@ -157,9 +173,9 @@ impl<'de> ::serde::Deserialize<'de> for SelfSubjectRulesReview {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::authorization::v1beta1::SelfSubjectRulesReviewSpec> = None;
-                let mut value_status: Option<::v1_11::api::authorization::v1beta1::SubjectRulesReviewStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::authorization::v1beta1::SelfSubjectRulesReviewSpec> = None;
+                let mut value_status: Option<::v1_12::api::authorization::v1beta1::SubjectRulesReviewStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

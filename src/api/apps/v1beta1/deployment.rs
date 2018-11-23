@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Deployment {
     /// Standard object metadata.
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of the Deployment.
-    pub spec: Option<::v1_11::api::apps::v1beta1::DeploymentSpec>,
+    pub spec: Option<::v1_12::api::apps::v1beta1::DeploymentSpec>,
 
     /// Most recently observed status of the Deployment.
-    pub status: Option<::v1_11::api::apps::v1beta1::DeploymentStatus>,
+    pub status: Option<::v1_12::api::apps::v1beta1::DeploymentStatus>,
 }
 
 // Begin apps/v1beta1/Deployment
@@ -30,16 +30,32 @@ impl Deployment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1beta1_namespaced_deployment(
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::Deployment,
+        body: &::v1_12::api::apps::v1beta1::Deployment,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -54,9 +70,9 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::create_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.create_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum CreateAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_11::api::apps::v1beta1::Deployment),
-    Created(::v1_11::api::apps::v1beta1::Deployment),
-    Accepted(::v1_11::api::apps::v1beta1::Deployment),
+    Ok(::v1_12::api::apps::v1beta1::Deployment),
+    Created(::v1_12::api::apps::v1beta1::Deployment),
+    Accepted(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -109,7 +125,9 @@ impl Deployment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -196,8 +214,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::delete_apps_v1beta1_collection_namespaced_deployment`](./struct.Deployment.html#method.delete_apps_v1beta1_collection_namespaced_deployment)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1CollectionNamespacedDeploymentResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::apps::v1beta1::Deployment),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -251,6 +269,10 @@ impl Deployment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -269,6 +291,7 @@ impl Deployment {
     pub fn delete_apps_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -276,6 +299,9 @@ impl Deployment {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -299,8 +325,9 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::delete_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.delete_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1NamespacedDeploymentResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::apps::v1beta1::Deployment),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::apps::v1beta1::Deployment),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -329,6 +356,14 @@ impl ::Response for DeleteAppsV1beta1NamespacedDeploymentResponse {
                     Ok((DeleteAppsV1beta1NamespacedDeploymentResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteAppsV1beta1NamespacedDeploymentResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteAppsV1beta1NamespacedDeploymentResponse::Unauthorized, 0)),
             _ => Ok((DeleteAppsV1beta1NamespacedDeploymentResponse::Other, 0)),
         }
@@ -346,7 +381,9 @@ impl Deployment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -432,7 +469,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::list_apps_v1beta1_deployment_for_all_namespaces`](./struct.Deployment.html#method.list_apps_v1beta1_deployment_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1beta1DeploymentForAllNamespacesResponse {
-    Ok(::v1_11::api::apps::v1beta1::DeploymentList),
+    Ok(::v1_12::api::apps::v1beta1::DeploymentList),
     Unauthorized,
     Other,
 }
@@ -469,7 +506,9 @@ impl Deployment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -556,7 +595,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::list_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.list_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ListAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_11::api::apps::v1beta1::DeploymentList),
+    Ok(::v1_12::api::apps::v1beta1::DeploymentList),
     Unauthorized,
     Other,
 }
@@ -597,17 +636,25 @@ impl Deployment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apps_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -622,7 +669,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::patch_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.patch_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_11::api::apps::v1beta1::Deployment),
+    Ok(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -663,17 +710,25 @@ impl Deployment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apps_v1beta1_namespaced_deployment_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -688,7 +743,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::patch_apps_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.patch_apps_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_11::api::apps::v1beta1::Deployment),
+    Ok(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -767,7 +822,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::read_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.read_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_11::api::apps::v1beta1::Deployment),
+    Ok(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -830,7 +885,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::read_apps_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.read_apps_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_11::api::apps::v1beta1::Deployment),
+    Ok(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -871,17 +926,25 @@ impl Deployment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apps_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::Deployment,
+        body: &::v1_12::api::apps::v1beta1::Deployment,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -896,8 +959,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::replace_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.replace_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_11::api::apps::v1beta1::Deployment),
-    Created(::v1_11::api::apps::v1beta1::Deployment),
+    Ok(::v1_12::api::apps::v1beta1::Deployment),
+    Created(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -946,17 +1009,25 @@ impl Deployment {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apps_v1beta1_namespaced_deployment_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::Deployment,
+        body: &::v1_12::api::apps::v1beta1::Deployment,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -971,8 +1042,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::replace_apps_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.replace_apps_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_11::api::apps::v1beta1::Deployment),
-    Created(::v1_11::api::apps::v1beta1::Deployment),
+    Ok(::v1_12::api::apps::v1beta1::Deployment),
+    Created(::v1_12::api::apps::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -1005,7 +1076,7 @@ impl ::Response for ReplaceAppsV1beta1NamespacedDeploymentStatusResponse {
 // Generated from operation watchAppsV1beta1DeploymentListForAllNamespaces
 
 impl Deployment {
-    /// watch individual changes to a list of Deployment
+    /// watch individual changes to a list of Deployment. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchAppsV1beta1DeploymentListForAllNamespacesResponse`](./enum.WatchAppsV1beta1DeploymentListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -1013,7 +1084,9 @@ impl Deployment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1099,7 +1172,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_apps_v1beta1_deployment_list_for_all_namespaces`](./struct.Deployment.html#method.watch_apps_v1beta1_deployment_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1DeploymentListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1126,7 +1199,7 @@ impl ::Response for WatchAppsV1beta1DeploymentListForAllNamespacesResponse {
 // Generated from operation watchAppsV1beta1NamespacedDeployment
 
 impl Deployment {
-    /// watch changes to an object of kind Deployment
+    /// watch changes to an object of kind Deployment. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchAppsV1beta1NamespacedDeploymentResponse`](./enum.WatchAppsV1beta1NamespacedDeploymentResponse.html) to parse the HTTP response.
     ///
@@ -1142,7 +1215,9 @@ impl Deployment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1230,7 +1305,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_apps_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.watch_apps_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1257,7 +1332,7 @@ impl ::Response for WatchAppsV1beta1NamespacedDeploymentResponse {
 // Generated from operation watchAppsV1beta1NamespacedDeploymentList
 
 impl Deployment {
-    /// watch individual changes to a list of Deployment
+    /// watch individual changes to a list of Deployment. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchAppsV1beta1NamespacedDeploymentListResponse`](./enum.WatchAppsV1beta1NamespacedDeploymentListResponse.html) to parse the HTTP response.
     ///
@@ -1269,7 +1344,9 @@ impl Deployment {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1356,7 +1433,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_apps_v1beta1_namespaced_deployment_list`](./struct.Deployment.html#method.watch_apps_v1beta1_namespaced_deployment_list)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedDeploymentListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1526,9 @@ impl<'de> ::serde::Deserialize<'de> for Deployment {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::apps::v1beta1::DeploymentSpec> = None;
-                let mut value_status: Option<::v1_11::api::apps::v1beta1::DeploymentStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::apps::v1beta1::DeploymentSpec> = None;
+                let mut value_status: Option<::v1_12::api::apps::v1beta1::DeploymentStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

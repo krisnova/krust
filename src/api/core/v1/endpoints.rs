@@ -15,10 +15,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Endpoints {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
-    pub subsets: Option<Vec<::v1_11::api::core::v1::EndpointSubset>>,
+    pub subsets: Option<Vec<::v1_12::api::core::v1::EndpointSubset>>,
 }
 
 // Begin /v1/Endpoints
@@ -38,16 +38,32 @@ impl Endpoints {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_endpoints(
         namespace: &str,
-        body: &::v1_11::api::core::v1::Endpoints,
+        body: &::v1_12::api::core::v1::Endpoints,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -62,9 +78,9 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::create_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.create_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_11::api::core::v1::Endpoints),
-    Created(::v1_11::api::core::v1::Endpoints),
-    Accepted(::v1_11::api::core::v1::Endpoints),
+    Ok(::v1_12::api::core::v1::Endpoints),
+    Created(::v1_12::api::core::v1::Endpoints),
+    Accepted(::v1_12::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -117,7 +133,9 @@ impl Endpoints {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -204,8 +222,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::delete_core_v1_collection_namespaced_endpoints`](./struct.Endpoints.html#method.delete_core_v1_collection_namespaced_endpoints)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedEndpointsResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::Endpoints),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -259,6 +277,10 @@ impl Endpoints {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -277,6 +299,7 @@ impl Endpoints {
     pub fn delete_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -284,6 +307,9 @@ impl Endpoints {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -307,8 +333,9 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::delete_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.delete_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedEndpointsResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::core::v1::Endpoints),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::core::v1::Endpoints),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -337,6 +364,14 @@ impl ::Response for DeleteCoreV1NamespacedEndpointsResponse {
                     Ok((DeleteCoreV1NamespacedEndpointsResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteCoreV1NamespacedEndpointsResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteCoreV1NamespacedEndpointsResponse::Unauthorized, 0)),
             _ => Ok((DeleteCoreV1NamespacedEndpointsResponse::Other, 0)),
         }
@@ -354,7 +389,9 @@ impl Endpoints {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -440,7 +477,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::list_core_v1_endpoints_for_all_namespaces`](./struct.Endpoints.html#method.list_core_v1_endpoints_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1EndpointsForAllNamespacesResponse {
-    Ok(::v1_11::api::core::v1::EndpointsList),
+    Ok(::v1_12::api::core::v1::EndpointsList),
     Unauthorized,
     Other,
 }
@@ -477,7 +514,9 @@ impl Endpoints {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -564,7 +603,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::list_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.list_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_11::api::core::v1::EndpointsList),
+    Ok(::v1_12::api::core::v1::EndpointsList),
     Unauthorized,
     Other,
 }
@@ -605,17 +644,25 @@ impl Endpoints {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -630,7 +677,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::patch_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.patch_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_11::api::core::v1::Endpoints),
+    Ok(::v1_12::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -709,7 +756,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::read_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.read_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_11::api::core::v1::Endpoints),
+    Ok(::v1_12::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -750,17 +797,25 @@ impl Endpoints {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::core::v1::Endpoints,
+        body: &::v1_12::api::core::v1::Endpoints,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -775,8 +830,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::replace_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.replace_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_11::api::core::v1::Endpoints),
-    Created(::v1_11::api::core::v1::Endpoints),
+    Ok(::v1_12::api::core::v1::Endpoints),
+    Created(::v1_12::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -809,7 +864,7 @@ impl ::Response for ReplaceCoreV1NamespacedEndpointsResponse {
 // Generated from operation watchCoreV1EndpointsListForAllNamespaces
 
 impl Endpoints {
-    /// watch individual changes to a list of Endpoints
+    /// watch individual changes to a list of Endpoints. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1EndpointsListForAllNamespacesResponse`](./enum.WatchCoreV1EndpointsListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -817,7 +872,9 @@ impl Endpoints {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -903,7 +960,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_endpoints_list_for_all_namespaces`](./struct.Endpoints.html#method.watch_core_v1_endpoints_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1EndpointsListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -930,7 +987,7 @@ impl ::Response for WatchCoreV1EndpointsListForAllNamespacesResponse {
 // Generated from operation watchCoreV1NamespacedEndpoints
 
 impl Endpoints {
-    /// watch changes to an object of kind Endpoints
+    /// watch changes to an object of kind Endpoints. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchCoreV1NamespacedEndpointsResponse`](./enum.WatchCoreV1NamespacedEndpointsResponse.html) to parse the HTTP response.
     ///
@@ -946,7 +1003,9 @@ impl Endpoints {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1034,7 +1093,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.watch_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1061,7 +1120,7 @@ impl ::Response for WatchCoreV1NamespacedEndpointsResponse {
 // Generated from operation watchCoreV1NamespacedEndpointsList
 
 impl Endpoints {
-    /// watch individual changes to a list of Endpoints
+    /// watch individual changes to a list of Endpoints. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchCoreV1NamespacedEndpointsListResponse`](./enum.WatchCoreV1NamespacedEndpointsListResponse.html) to parse the HTTP response.
     ///
@@ -1073,7 +1132,9 @@ impl Endpoints {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1160,7 +1221,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_namespaced_endpoints_list`](./struct.Endpoints.html#method.watch_core_v1_namespaced_endpoints_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEndpointsListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1251,8 +1312,8 @@ impl<'de> ::serde::Deserialize<'de> for Endpoints {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_subsets: Option<Vec<::v1_11::api::core::v1::EndpointSubset>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_subsets: Option<Vec<::v1_12::api::core::v1::EndpointSubset>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

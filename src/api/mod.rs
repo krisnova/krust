@@ -12,6 +12,8 @@ pub mod batch;
 
 pub mod certificates;
 
+pub mod coordination;
+
 pub mod core;
 
 pub mod events;

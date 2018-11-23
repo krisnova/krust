@@ -6,13 +6,13 @@
 /// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct StatefulSet {
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the desired identities of pods in this set.
-    pub spec: Option<::v1_11::api::apps::v1beta1::StatefulSetSpec>,
+    pub spec: Option<::v1_12::api::apps::v1beta1::StatefulSetSpec>,
 
     /// Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
-    pub status: Option<::v1_11::api::apps::v1beta1::StatefulSetStatus>,
+    pub status: Option<::v1_12::api::apps::v1beta1::StatefulSetStatus>,
 }
 
 // Begin apps/v1beta1/StatefulSet
@@ -32,16 +32,32 @@ impl StatefulSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1beta1_namespaced_stateful_set(
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::StatefulSet,
+        body: &::v1_12::api::apps::v1beta1::StatefulSet,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -56,9 +72,9 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::create_apps_v1beta1_namespaced_stateful_set`](./struct.StatefulSet.html#method.create_apps_v1beta1_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum CreateAppsV1beta1NamespacedStatefulSetResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSet),
-    Created(::v1_11::api::apps::v1beta1::StatefulSet),
-    Accepted(::v1_11::api::apps::v1beta1::StatefulSet),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSet),
+    Created(::v1_12::api::apps::v1beta1::StatefulSet),
+    Accepted(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -111,7 +127,9 @@ impl StatefulSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -198,8 +216,8 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::delete_apps_v1beta1_collection_namespaced_stateful_set`](./struct.StatefulSet.html#method.delete_apps_v1beta1_collection_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1CollectionNamespacedStatefulSetResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::apps::v1beta1::StatefulSet),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -253,6 +271,10 @@ impl StatefulSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -271,6 +293,7 @@ impl StatefulSet {
     pub fn delete_apps_v1beta1_namespaced_stateful_set(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -278,6 +301,9 @@ impl StatefulSet {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -301,8 +327,9 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::delete_apps_v1beta1_namespaced_stateful_set`](./struct.StatefulSet.html#method.delete_apps_v1beta1_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1NamespacedStatefulSetResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::apps::v1beta1::StatefulSet),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::apps::v1beta1::StatefulSet),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -331,6 +358,14 @@ impl ::Response for DeleteAppsV1beta1NamespacedStatefulSetResponse {
                     Ok((DeleteAppsV1beta1NamespacedStatefulSetResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteAppsV1beta1NamespacedStatefulSetResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteAppsV1beta1NamespacedStatefulSetResponse::Unauthorized, 0)),
             _ => Ok((DeleteAppsV1beta1NamespacedStatefulSetResponse::Other, 0)),
         }
@@ -352,7 +387,9 @@ impl StatefulSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -439,7 +476,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::list_apps_v1beta1_namespaced_stateful_set`](./struct.StatefulSet.html#method.list_apps_v1beta1_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum ListAppsV1beta1NamespacedStatefulSetResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSetList),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSetList),
     Unauthorized,
     Other,
 }
@@ -472,7 +509,9 @@ impl StatefulSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -558,7 +597,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::list_apps_v1beta1_stateful_set_for_all_namespaces`](./struct.StatefulSet.html#method.list_apps_v1beta1_stateful_set_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1beta1StatefulSetForAllNamespacesResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSetList),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSetList),
     Unauthorized,
     Other,
 }
@@ -599,17 +638,25 @@ impl StatefulSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apps_v1beta1_namespaced_stateful_set(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -624,7 +671,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::patch_apps_v1beta1_namespaced_stateful_set`](./struct.StatefulSet.html#method.patch_apps_v1beta1_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedStatefulSetResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSet),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -665,17 +712,25 @@ impl StatefulSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apps_v1beta1_namespaced_stateful_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -690,7 +745,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::patch_apps_v1beta1_namespaced_stateful_set_status`](./struct.StatefulSet.html#method.patch_apps_v1beta1_namespaced_stateful_set_status)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedStatefulSetStatusResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSet),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -769,7 +824,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::read_apps_v1beta1_namespaced_stateful_set`](./struct.StatefulSet.html#method.read_apps_v1beta1_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedStatefulSetResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSet),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -832,7 +887,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::read_apps_v1beta1_namespaced_stateful_set_status`](./struct.StatefulSet.html#method.read_apps_v1beta1_namespaced_stateful_set_status)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedStatefulSetStatusResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSet),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -873,17 +928,25 @@ impl StatefulSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apps_v1beta1_namespaced_stateful_set(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::StatefulSet,
+        body: &::v1_12::api::apps::v1beta1::StatefulSet,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -898,8 +961,8 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::replace_apps_v1beta1_namespaced_stateful_set`](./struct.StatefulSet.html#method.replace_apps_v1beta1_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedStatefulSetResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSet),
-    Created(::v1_11::api::apps::v1beta1::StatefulSet),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSet),
+    Created(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -948,17 +1011,25 @@ impl StatefulSet {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apps_v1beta1_namespaced_stateful_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::StatefulSet,
+        body: &::v1_12::api::apps::v1beta1::StatefulSet,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -973,8 +1044,8 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::replace_apps_v1beta1_namespaced_stateful_set_status`](./struct.StatefulSet.html#method.replace_apps_v1beta1_namespaced_stateful_set_status)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedStatefulSetStatusResponse {
-    Ok(::v1_11::api::apps::v1beta1::StatefulSet),
-    Created(::v1_11::api::apps::v1beta1::StatefulSet),
+    Ok(::v1_12::api::apps::v1beta1::StatefulSet),
+    Created(::v1_12::api::apps::v1beta1::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -1007,7 +1078,7 @@ impl ::Response for ReplaceAppsV1beta1NamespacedStatefulSetStatusResponse {
 // Generated from operation watchAppsV1beta1NamespacedStatefulSet
 
 impl StatefulSet {
-    /// watch changes to an object of kind StatefulSet
+    /// watch changes to an object of kind StatefulSet. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchAppsV1beta1NamespacedStatefulSetResponse`](./enum.WatchAppsV1beta1NamespacedStatefulSetResponse.html) to parse the HTTP response.
     ///
@@ -1023,7 +1094,9 @@ impl StatefulSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1111,7 +1184,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::watch_apps_v1beta1_namespaced_stateful_set`](./struct.StatefulSet.html#method.watch_apps_v1beta1_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedStatefulSetResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1138,7 +1211,7 @@ impl ::Response for WatchAppsV1beta1NamespacedStatefulSetResponse {
 // Generated from operation watchAppsV1beta1NamespacedStatefulSetList
 
 impl StatefulSet {
-    /// watch individual changes to a list of StatefulSet
+    /// watch individual changes to a list of StatefulSet. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchAppsV1beta1NamespacedStatefulSetListResponse`](./enum.WatchAppsV1beta1NamespacedStatefulSetListResponse.html) to parse the HTTP response.
     ///
@@ -1150,7 +1223,9 @@ impl StatefulSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1237,7 +1312,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::watch_apps_v1beta1_namespaced_stateful_set_list`](./struct.StatefulSet.html#method.watch_apps_v1beta1_namespaced_stateful_set_list)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedStatefulSetListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1264,7 +1339,7 @@ impl ::Response for WatchAppsV1beta1NamespacedStatefulSetListResponse {
 // Generated from operation watchAppsV1beta1StatefulSetListForAllNamespaces
 
 impl StatefulSet {
-    /// watch individual changes to a list of StatefulSet
+    /// watch individual changes to a list of StatefulSet. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchAppsV1beta1StatefulSetListForAllNamespacesResponse`](./enum.WatchAppsV1beta1StatefulSetListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -1272,7 +1347,9 @@ impl StatefulSet {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1358,7 +1435,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::watch_apps_v1beta1_stateful_set_list_for_all_namespaces`](./struct.StatefulSet.html#method.watch_apps_v1beta1_stateful_set_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1StatefulSetListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1451,9 +1528,9 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSet {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::apps::v1beta1::StatefulSetSpec> = None;
-                let mut value_status: Option<::v1_11::api::apps::v1beta1::StatefulSetStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::apps::v1beta1::StatefulSetSpec> = None;
+                let mut value_status: Option<::v1_12::api::apps::v1beta1::StatefulSetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ClusterRoleBinding {
     /// Standard object's metadata.
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-    pub role_ref: ::v1_11::api::rbac::v1alpha1::RoleRef,
+    pub role_ref: ::v1_12::api::rbac::v1alpha1::RoleRef,
 
     /// Subjects holds references to the objects the role applies to.
-    pub subjects: Option<Vec<::v1_11::api::rbac::v1alpha1::Subject>>,
+    pub subjects: Option<Vec<::v1_12::api::rbac::v1alpha1::Subject>>,
 }
 
 // Begin rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding
@@ -26,15 +26,31 @@ impl ClusterRoleBinding {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_rbac_authorization_v1alpha1_cluster_role_binding(
-        body: &::v1_11::api::rbac::v1alpha1::ClusterRoleBinding,
+        body: &::v1_12::api::rbac::v1alpha1::ClusterRoleBinding,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -49,9 +65,9 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::create_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.create_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
-    Created(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
-    Accepted(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
+    Created(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
+    Accepted(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -104,6 +120,10 @@ impl ClusterRoleBinding {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -121,6 +141,7 @@ impl ClusterRoleBinding {
     ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_rbac_authorization_v1alpha1_cluster_role_binding(
         name: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -128,6 +149,9 @@ impl ClusterRoleBinding {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -151,8 +175,9 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::delete_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.delete_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -181,6 +206,14 @@ impl ::Response for DeleteRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
                     Ok((DeleteRbacAuthorizationV1alpha1ClusterRoleBindingResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Unauthorized, 0)),
             _ => Ok((DeleteRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Other, 0)),
         }
@@ -198,7 +231,9 @@ impl ClusterRoleBinding {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -284,8 +319,8 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::delete_rbac_authorization_v1alpha1_collection_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.delete_rbac_authorization_v1alpha1_collection_cluster_role_binding)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1alpha1CollectionClusterRoleBindingResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -331,7 +366,9 @@ impl ClusterRoleBinding {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -417,7 +454,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::list_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.list_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_11::api::rbac::v1alpha1::ClusterRoleBindingList),
+    Ok(::v1_12::api::rbac::v1alpha1::ClusterRoleBindingList),
     Unauthorized,
     Other,
 }
@@ -454,16 +491,24 @@ impl ClusterRoleBinding {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_rbac_authorization_v1alpha1_cluster_role_binding(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -478,7 +523,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::patch_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.patch_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum PatchRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -536,7 +581,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::read_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.read_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum ReadRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -573,16 +618,24 @@ impl ClusterRoleBinding {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_rbac_authorization_v1alpha1_cluster_role_binding(
         name: &str,
-        body: &::v1_11::api::rbac::v1alpha1::ClusterRoleBinding,
+        body: &::v1_12::api::rbac::v1alpha1::ClusterRoleBinding,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -597,8 +650,8 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::replace_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.replace_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
-    Created(::v1_11::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
+    Created(::v1_12::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -631,7 +684,7 @@ impl ::Response for ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
 // Generated from operation watchRbacAuthorizationV1alpha1ClusterRoleBinding
 
 impl ClusterRoleBinding {
-    /// watch changes to an object of kind ClusterRoleBinding
+    /// watch changes to an object of kind ClusterRoleBinding. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchRbacAuthorizationV1alpha1ClusterRoleBindingResponse`](./enum.WatchRbacAuthorizationV1alpha1ClusterRoleBindingResponse.html) to parse the HTTP response.
     ///
@@ -643,7 +696,9 @@ impl ClusterRoleBinding {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -730,7 +785,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::watch_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.watch_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -757,7 +812,7 @@ impl ::Response for WatchRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
 // Generated from operation watchRbacAuthorizationV1alpha1ClusterRoleBindingList
 
 impl ClusterRoleBinding {
-    /// watch individual changes to a list of ClusterRoleBinding
+    /// watch individual changes to a list of ClusterRoleBinding. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchRbacAuthorizationV1alpha1ClusterRoleBindingListResponse`](./enum.WatchRbacAuthorizationV1alpha1ClusterRoleBindingListResponse.html) to parse the HTTP response.
     ///
@@ -765,7 +820,9 @@ impl ClusterRoleBinding {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -851,7 +908,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::watch_rbac_authorization_v1alpha1_cluster_role_binding_list`](./struct.ClusterRoleBinding.html#method.watch_rbac_authorization_v1alpha1_cluster_role_binding_list)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1alpha1ClusterRoleBindingListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -944,9 +1001,9 @@ impl<'de> ::serde::Deserialize<'de> for ClusterRoleBinding {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_role_ref: Option<::v1_11::api::rbac::v1alpha1::RoleRef> = None;
-                let mut value_subjects: Option<Vec<::v1_11::api::rbac::v1alpha1::Subject>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_role_ref: Option<::v1_12::api::rbac::v1alpha1::RoleRef> = None;
+                let mut value_subjects: Option<Vec<::v1_12::api::rbac::v1alpha1::Subject>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

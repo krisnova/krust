@@ -3,13 +3,13 @@
 /// PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PodDisruptionBudget {
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of the PodDisruptionBudget.
-    pub spec: Option<::v1_11::api::policy::v1beta1::PodDisruptionBudgetSpec>,
+    pub spec: Option<::v1_12::api::policy::v1beta1::PodDisruptionBudgetSpec>,
 
     /// Most recently observed status of the PodDisruptionBudget.
-    pub status: Option<::v1_11::api::policy::v1beta1::PodDisruptionBudgetStatus>,
+    pub status: Option<::v1_12::api::policy::v1beta1::PodDisruptionBudgetStatus>,
 }
 
 // Begin policy/v1beta1/PodDisruptionBudget
@@ -29,16 +29,32 @@ impl PodDisruptionBudget {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_policy_v1beta1_namespaced_pod_disruption_budget(
         namespace: &str,
-        body: &::v1_11::api::policy::v1beta1::PodDisruptionBudget,
+        body: &::v1_12::api::policy::v1beta1::PodDisruptionBudget,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -53,9 +69,9 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::create_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.create_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
-    Created(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
-    Accepted(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
+    Created(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
+    Accepted(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -108,7 +124,9 @@ impl PodDisruptionBudget {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -195,8 +213,8 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::delete_policy_v1beta1_collection_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.delete_policy_v1beta1_collection_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum DeletePolicyV1beta1CollectionNamespacedPodDisruptionBudgetResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -250,6 +268,10 @@ impl PodDisruptionBudget {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -268,6 +290,7 @@ impl PodDisruptionBudget {
     pub fn delete_policy_v1beta1_namespaced_pod_disruption_budget(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -275,6 +298,9 @@ impl PodDisruptionBudget {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -298,8 +324,9 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::delete_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.delete_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum DeletePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -328,6 +355,14 @@ impl ::Response for DeletePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
                     Ok((DeletePolicyV1beta1NamespacedPodDisruptionBudgetResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeletePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeletePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Unauthorized, 0)),
             _ => Ok((DeletePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Other, 0)),
         }
@@ -349,7 +384,9 @@ impl PodDisruptionBudget {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -436,7 +473,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::list_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.list_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum ListPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudgetList),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudgetList),
     Unauthorized,
     Other,
 }
@@ -469,7 +506,9 @@ impl PodDisruptionBudget {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -555,7 +594,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::list_policy_v1beta1_pod_disruption_budget_for_all_namespaces`](./struct.PodDisruptionBudget.html#method.list_policy_v1beta1_pod_disruption_budget_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListPolicyV1beta1PodDisruptionBudgetForAllNamespacesResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudgetList),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudgetList),
     Unauthorized,
     Other,
 }
@@ -596,17 +635,25 @@ impl PodDisruptionBudget {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_policy_v1beta1_namespaced_pod_disruption_budget(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -621,7 +668,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::patch_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.patch_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum PatchPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -662,17 +709,25 @@ impl PodDisruptionBudget {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_policy_v1beta1_namespaced_pod_disruption_budget_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -687,7 +742,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::patch_policy_v1beta1_namespaced_pod_disruption_budget_status`](./struct.PodDisruptionBudget.html#method.patch_policy_v1beta1_namespaced_pod_disruption_budget_status)
 #[derive(Debug)]
 pub enum PatchPolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -766,7 +821,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::read_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.read_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum ReadPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -829,7 +884,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::read_policy_v1beta1_namespaced_pod_disruption_budget_status`](./struct.PodDisruptionBudget.html#method.read_policy_v1beta1_namespaced_pod_disruption_budget_status)
 #[derive(Debug)]
 pub enum ReadPolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -870,17 +925,25 @@ impl PodDisruptionBudget {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_policy_v1beta1_namespaced_pod_disruption_budget(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::policy::v1beta1::PodDisruptionBudget,
+        body: &::v1_12::api::policy::v1beta1::PodDisruptionBudget,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -895,8 +958,8 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::replace_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.replace_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum ReplacePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
-    Created(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
+    Created(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -945,17 +1008,25 @@ impl PodDisruptionBudget {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_policy_v1beta1_namespaced_pod_disruption_budget_status(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::policy::v1beta1::PodDisruptionBudget,
+        body: &::v1_12::api::policy::v1beta1::PodDisruptionBudget,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -970,8 +1041,8 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::replace_policy_v1beta1_namespaced_pod_disruption_budget_status`](./struct.PodDisruptionBudget.html#method.replace_policy_v1beta1_namespaced_pod_disruption_budget_status)
 #[derive(Debug)]
 pub enum ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse {
-    Ok(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
-    Created(::v1_11::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
+    Created(::v1_12::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -1004,7 +1075,7 @@ impl ::Response for ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusRespo
 // Generated from operation watchPolicyV1beta1NamespacedPodDisruptionBudget
 
 impl PodDisruptionBudget {
-    /// watch changes to an object of kind PodDisruptionBudget
+    /// watch changes to an object of kind PodDisruptionBudget. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchPolicyV1beta1NamespacedPodDisruptionBudgetResponse`](./enum.WatchPolicyV1beta1NamespacedPodDisruptionBudgetResponse.html) to parse the HTTP response.
     ///
@@ -1020,7 +1091,9 @@ impl PodDisruptionBudget {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1108,7 +1181,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::watch_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.watch_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1135,7 +1208,7 @@ impl ::Response for WatchPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
 // Generated from operation watchPolicyV1beta1NamespacedPodDisruptionBudgetList
 
 impl PodDisruptionBudget {
-    /// watch individual changes to a list of PodDisruptionBudget
+    /// watch individual changes to a list of PodDisruptionBudget. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchPolicyV1beta1NamespacedPodDisruptionBudgetListResponse`](./enum.WatchPolicyV1beta1NamespacedPodDisruptionBudgetListResponse.html) to parse the HTTP response.
     ///
@@ -1147,7 +1220,9 @@ impl PodDisruptionBudget {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1234,7 +1309,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::watch_policy_v1beta1_namespaced_pod_disruption_budget_list`](./struct.PodDisruptionBudget.html#method.watch_policy_v1beta1_namespaced_pod_disruption_budget_list)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1NamespacedPodDisruptionBudgetListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1261,7 +1336,7 @@ impl ::Response for WatchPolicyV1beta1NamespacedPodDisruptionBudgetListResponse 
 // Generated from operation watchPolicyV1beta1PodDisruptionBudgetListForAllNamespaces
 
 impl PodDisruptionBudget {
-    /// watch individual changes to a list of PodDisruptionBudget
+    /// watch individual changes to a list of PodDisruptionBudget. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchPolicyV1beta1PodDisruptionBudgetListForAllNamespacesResponse`](./enum.WatchPolicyV1beta1PodDisruptionBudgetListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -1269,7 +1344,9 @@ impl PodDisruptionBudget {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1355,7 +1432,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::watch_policy_v1beta1_pod_disruption_budget_list_for_all_namespaces`](./struct.PodDisruptionBudget.html#method.watch_policy_v1beta1_pod_disruption_budget_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1PodDisruptionBudgetListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1448,9 +1525,9 @@ impl<'de> ::serde::Deserialize<'de> for PodDisruptionBudget {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::policy::v1beta1::PodDisruptionBudgetSpec> = None;
-                let mut value_status: Option<::v1_11::api::policy::v1beta1::PodDisruptionBudgetStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::policy::v1beta1::PodDisruptionBudgetSpec> = None;
+                let mut value_status: Option<::v1_12::api::policy::v1beta1::PodDisruptionBudgetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

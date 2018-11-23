@@ -3,9 +3,9 @@
 /// StatefulSetList is a collection of StatefulSets.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct StatefulSetList {
-    pub items: Vec<::v1_11::api::apps::v1beta2::StatefulSet>,
+    pub items: Vec<::v1_12::api::apps::v1beta2::StatefulSet>,
 
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for StatefulSetList {
@@ -73,8 +73,8 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSetList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_11::api::apps::v1beta2::StatefulSet>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_12::api::apps::v1beta2::StatefulSet>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

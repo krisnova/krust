@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Scale {
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-    pub spec: Option<::v1_11::api::apps::v1beta1::ScaleSpec>,
+    pub spec: Option<::v1_12::api::apps::v1beta1::ScaleSpec>,
 
     /// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
-    pub status: Option<::v1_11::api::apps::v1beta1::ScaleStatus>,
+    pub status: Option<::v1_12::api::apps::v1beta1::ScaleStatus>,
 }
 
 // Begin apps/v1beta1/Scale
@@ -34,17 +34,25 @@ impl Scale {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apps_v1beta1_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -59,7 +67,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1beta1_namespaced_deployment_scale`](./struct.Scale.html#method.patch_apps_v1beta1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedDeploymentScaleResponse {
-    Ok(::v1_11::api::apps::v1beta1::Scale),
+    Ok(::v1_12::api::apps::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -100,17 +108,25 @@ impl Scale {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apps_v1beta1_namespaced_stateful_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}/scale?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -125,7 +141,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1beta1_namespaced_stateful_set_scale`](./struct.Scale.html#method.patch_apps_v1beta1_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedStatefulSetScaleResponse {
-    Ok(::v1_11::api::apps::v1beta1::Scale),
+    Ok(::v1_12::api::apps::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -188,7 +204,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1beta1_namespaced_deployment_scale`](./struct.Scale.html#method.read_apps_v1beta1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedDeploymentScaleResponse {
-    Ok(::v1_11::api::apps::v1beta1::Scale),
+    Ok(::v1_12::api::apps::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -251,7 +267,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1beta1_namespaced_stateful_set_scale`](./struct.Scale.html#method.read_apps_v1beta1_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedStatefulSetScaleResponse {
-    Ok(::v1_11::api::apps::v1beta1::Scale),
+    Ok(::v1_12::api::apps::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -292,17 +308,25 @@ impl Scale {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apps_v1beta1_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::Scale,
+        body: &::v1_12::api::apps::v1beta1::Scale,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -317,8 +341,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1beta1_namespaced_deployment_scale`](./struct.Scale.html#method.replace_apps_v1beta1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedDeploymentScaleResponse {
-    Ok(::v1_11::api::apps::v1beta1::Scale),
-    Created(::v1_11::api::apps::v1beta1::Scale),
+    Ok(::v1_12::api::apps::v1beta1::Scale),
+    Created(::v1_12::api::apps::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -367,17 +391,25 @@ impl Scale {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apps_v1beta1_namespaced_stateful_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::apps::v1beta1::Scale,
+        body: &::v1_12::api::apps::v1beta1::Scale,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}/scale?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -392,8 +424,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1beta1_namespaced_stateful_set_scale`](./struct.Scale.html#method.replace_apps_v1beta1_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedStatefulSetScaleResponse {
-    Ok(::v1_11::api::apps::v1beta1::Scale),
-    Created(::v1_11::api::apps::v1beta1::Scale),
+    Ok(::v1_12::api::apps::v1beta1::Scale),
+    Created(::v1_12::api::apps::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -492,9 +524,9 @@ impl<'de> ::serde::Deserialize<'de> for Scale {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::api::apps::v1beta1::ScaleSpec> = None;
-                let mut value_status: Option<::v1_11::api::apps::v1beta1::ScaleStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::api::apps::v1beta1::ScaleSpec> = None;
+                let mut value_status: Option<::v1_12::api::apps::v1beta1::ScaleStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

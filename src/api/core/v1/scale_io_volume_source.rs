@@ -3,7 +3,7 @@
 /// ScaleIOVolumeSource represents a persistent ScaleIO volume
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ScaleIOVolumeSource {
-    /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+    /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
     pub fs_type: Option<String>,
 
     /// The host address of the ScaleIO API Gateway.
@@ -16,12 +16,12 @@ pub struct ScaleIOVolumeSource {
     pub read_only: Option<bool>,
 
     /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-    pub secret_ref: ::v1_11::api::core::v1::LocalObjectReference,
+    pub secret_ref: ::v1_12::api::core::v1::LocalObjectReference,
 
     /// Flag to enable/disable SSL communication with Gateway, default false
     pub ssl_enabled: Option<bool>,
 
-    /// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned.
+    /// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
     pub storage_mode: Option<String>,
 
     /// The ScaleIO Storage Pool associated with the protection domain.
@@ -97,7 +97,7 @@ impl<'de> ::serde::Deserialize<'de> for ScaleIOVolumeSource {
                 let mut value_gateway: Option<String> = None;
                 let mut value_protection_domain: Option<String> = None;
                 let mut value_read_only: Option<bool> = None;
-                let mut value_secret_ref: Option<::v1_11::api::core::v1::LocalObjectReference> = None;
+                let mut value_secret_ref: Option<::v1_12::api::core::v1::LocalObjectReference> = None;
                 let mut value_ssl_enabled: Option<bool> = None;
                 let mut value_storage_mode: Option<String> = None;
                 let mut value_storage_pool: Option<String> = None;

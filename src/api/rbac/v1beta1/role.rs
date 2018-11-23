@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Role {
     /// Standard object's metadata.
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Rules holds all the PolicyRules for this Role
-    pub rules: Vec<::v1_11::api::rbac::v1beta1::PolicyRule>,
+    pub rules: Vec<::v1_12::api::rbac::v1beta1::PolicyRule>,
 }
 
 // Begin rbac.authorization.k8s.io/v1beta1/Role
@@ -27,16 +27,32 @@ impl Role {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_rbac_authorization_v1beta1_namespaced_role(
         namespace: &str,
-        body: &::v1_11::api::rbac::v1beta1::Role,
+        body: &::v1_12::api::rbac::v1beta1::Role,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/roles?", namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -51,9 +67,9 @@ impl Role {
 /// Parses the HTTP response of [`Role::create_rbac_authorization_v1beta1_namespaced_role`](./struct.Role.html#method.create_rbac_authorization_v1beta1_namespaced_role)
 #[derive(Debug)]
 pub enum CreateRbacAuthorizationV1beta1NamespacedRoleResponse {
-    Ok(::v1_11::api::rbac::v1beta1::Role),
-    Created(::v1_11::api::rbac::v1beta1::Role),
-    Accepted(::v1_11::api::rbac::v1beta1::Role),
+    Ok(::v1_12::api::rbac::v1beta1::Role),
+    Created(::v1_12::api::rbac::v1beta1::Role),
+    Accepted(::v1_12::api::rbac::v1beta1::Role),
     Unauthorized,
     Other,
 }
@@ -106,7 +122,9 @@ impl Role {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -193,8 +211,8 @@ impl Role {
 /// Parses the HTTP response of [`Role::delete_rbac_authorization_v1beta1_collection_namespaced_role`](./struct.Role.html#method.delete_rbac_authorization_v1beta1_collection_namespaced_role)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1beta1CollectionNamespacedRoleResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::rbac::v1beta1::Role),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::rbac::v1beta1::Role),
     Unauthorized,
     Other,
 }
@@ -248,6 +266,10 @@ impl Role {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -266,6 +288,7 @@ impl Role {
     pub fn delete_rbac_authorization_v1beta1_namespaced_role(
         name: &str,
         namespace: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -273,6 +296,9 @@ impl Role {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/roles/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -296,8 +322,9 @@ impl Role {
 /// Parses the HTTP response of [`Role::delete_rbac_authorization_v1beta1_namespaced_role`](./struct.Role.html#method.delete_rbac_authorization_v1beta1_namespaced_role)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1beta1NamespacedRoleResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::api::rbac::v1beta1::Role),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::api::rbac::v1beta1::Role),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -326,6 +353,14 @@ impl ::Response for DeleteRbacAuthorizationV1beta1NamespacedRoleResponse {
                     Ok((DeleteRbacAuthorizationV1beta1NamespacedRoleResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteRbacAuthorizationV1beta1NamespacedRoleResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteRbacAuthorizationV1beta1NamespacedRoleResponse::Unauthorized, 0)),
             _ => Ok((DeleteRbacAuthorizationV1beta1NamespacedRoleResponse::Other, 0)),
         }
@@ -347,7 +382,9 @@ impl Role {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -434,7 +471,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::list_rbac_authorization_v1beta1_namespaced_role`](./struct.Role.html#method.list_rbac_authorization_v1beta1_namespaced_role)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1beta1NamespacedRoleResponse {
-    Ok(::v1_11::api::rbac::v1beta1::RoleList),
+    Ok(::v1_12::api::rbac::v1beta1::RoleList),
     Unauthorized,
     Other,
 }
@@ -467,7 +504,9 @@ impl Role {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -553,7 +592,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::list_rbac_authorization_v1beta1_role_for_all_namespaces`](./struct.Role.html#method.list_rbac_authorization_v1beta1_role_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1beta1RoleForAllNamespacesResponse {
-    Ok(::v1_11::api::rbac::v1beta1::RoleList),
+    Ok(::v1_12::api::rbac::v1beta1::RoleList),
     Unauthorized,
     Other,
 }
@@ -594,17 +633,25 @@ impl Role {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_rbac_authorization_v1beta1_namespaced_role(
         name: &str,
         namespace: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/roles/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -619,7 +666,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::patch_rbac_authorization_v1beta1_namespaced_role`](./struct.Role.html#method.patch_rbac_authorization_v1beta1_namespaced_role)
 #[derive(Debug)]
 pub enum PatchRbacAuthorizationV1beta1NamespacedRoleResponse {
-    Ok(::v1_11::api::rbac::v1beta1::Role),
+    Ok(::v1_12::api::rbac::v1beta1::Role),
     Unauthorized,
     Other,
 }
@@ -682,7 +729,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::read_rbac_authorization_v1beta1_namespaced_role`](./struct.Role.html#method.read_rbac_authorization_v1beta1_namespaced_role)
 #[derive(Debug)]
 pub enum ReadRbacAuthorizationV1beta1NamespacedRoleResponse {
-    Ok(::v1_11::api::rbac::v1beta1::Role),
+    Ok(::v1_12::api::rbac::v1beta1::Role),
     Unauthorized,
     Other,
 }
@@ -723,17 +770,25 @@ impl Role {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_rbac_authorization_v1beta1_namespaced_role(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::rbac::v1beta1::Role,
+        body: &::v1_12::api::rbac::v1beta1::Role,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/roles/{name}?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -748,8 +803,8 @@ impl Role {
 /// Parses the HTTP response of [`Role::replace_rbac_authorization_v1beta1_namespaced_role`](./struct.Role.html#method.replace_rbac_authorization_v1beta1_namespaced_role)
 #[derive(Debug)]
 pub enum ReplaceRbacAuthorizationV1beta1NamespacedRoleResponse {
-    Ok(::v1_11::api::rbac::v1beta1::Role),
-    Created(::v1_11::api::rbac::v1beta1::Role),
+    Ok(::v1_12::api::rbac::v1beta1::Role),
+    Created(::v1_12::api::rbac::v1beta1::Role),
     Unauthorized,
     Other,
 }
@@ -782,7 +837,7 @@ impl ::Response for ReplaceRbacAuthorizationV1beta1NamespacedRoleResponse {
 // Generated from operation watchRbacAuthorizationV1beta1NamespacedRole
 
 impl Role {
-    /// watch changes to an object of kind Role
+    /// watch changes to an object of kind Role. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchRbacAuthorizationV1beta1NamespacedRoleResponse`](./enum.WatchRbacAuthorizationV1beta1NamespacedRoleResponse.html) to parse the HTTP response.
     ///
@@ -798,7 +853,9 @@ impl Role {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -886,7 +943,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::watch_rbac_authorization_v1beta1_namespaced_role`](./struct.Role.html#method.watch_rbac_authorization_v1beta1_namespaced_role)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1NamespacedRoleResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -913,7 +970,7 @@ impl ::Response for WatchRbacAuthorizationV1beta1NamespacedRoleResponse {
 // Generated from operation watchRbacAuthorizationV1beta1NamespacedRoleList
 
 impl Role {
-    /// watch individual changes to a list of Role
+    /// watch individual changes to a list of Role. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchRbacAuthorizationV1beta1NamespacedRoleListResponse`](./enum.WatchRbacAuthorizationV1beta1NamespacedRoleListResponse.html) to parse the HTTP response.
     ///
@@ -925,7 +982,9 @@ impl Role {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1012,7 +1071,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::watch_rbac_authorization_v1beta1_namespaced_role_list`](./struct.Role.html#method.watch_rbac_authorization_v1beta1_namespaced_role_list)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1NamespacedRoleListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1039,7 +1098,7 @@ impl ::Response for WatchRbacAuthorizationV1beta1NamespacedRoleListResponse {
 // Generated from operation watchRbacAuthorizationV1beta1RoleListForAllNamespaces
 
 impl Role {
-    /// watch individual changes to a list of Role
+    /// watch individual changes to a list of Role. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchRbacAuthorizationV1beta1RoleListForAllNamespacesResponse`](./enum.WatchRbacAuthorizationV1beta1RoleListForAllNamespacesResponse.html) to parse the HTTP response.
     ///
@@ -1047,7 +1106,9 @@ impl Role {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1133,7 +1194,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::watch_rbac_authorization_v1beta1_role_list_for_all_namespaces`](./struct.Role.html#method.watch_rbac_authorization_v1beta1_role_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1beta1RoleListForAllNamespacesResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1224,8 +1285,8 @@ impl<'de> ::serde::Deserialize<'de> for Role {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_rules: Option<Vec<::v1_11::api::rbac::v1beta1::PolicyRule>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_rules: Option<Vec<::v1_12::api::rbac::v1beta1::PolicyRule>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

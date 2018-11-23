@@ -3,13 +3,13 @@
 /// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CustomResourceDefinition {
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec describes how the user wants the resources to appear
-    pub spec: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec>,
+    pub spec: ::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec,
 
     /// Status indicates the actual state of the CustomResourceDefinition
-    pub status: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus>,
+    pub status: Option<::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus>,
 }
 
 // Begin apiextensions.k8s.io/v1beta1/CustomResourceDefinition
@@ -25,15 +25,31 @@ impl CustomResourceDefinition {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If true, partially initialized resources are included in the response.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_apiextensions_v1beta1_custom_resource_definition(
-        body: &::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        body: &::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -48,9 +64,9 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::create_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.create_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum CreateApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Created(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Accepted(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Created(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Accepted(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -99,7 +115,9 @@ impl CustomResourceDefinition {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -185,8 +203,8 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::delete_apiextensions_v1beta1_collection_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.delete_apiextensions_v1beta1_collection_custom_resource_definition)
 #[derive(Debug)]
 pub enum DeleteApiextensionsV1beta1CollectionCustomResourceDefinitionResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -236,6 +254,10 @@ impl CustomResourceDefinition {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `grace_period_seconds`
     ///
     ///     The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
@@ -253,6 +275,7 @@ impl CustomResourceDefinition {
     ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_apiextensions_v1beta1_custom_resource_definition(
         name: &str,
+        dry_run: Option<&str>,
         grace_period_seconds: Option<i64>,
         orphan_dependents: Option<bool>,
         pretty: Option<&str>,
@@ -260,6 +283,9 @@ impl CustomResourceDefinition {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(grace_period_seconds) = grace_period_seconds {
             __query_pairs.append_pair("gracePeriodSeconds", &grace_period_seconds.to_string());
         }
@@ -283,8 +309,9 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::delete_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.delete_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum DeleteApiextensionsV1beta1CustomResourceDefinitionResponse {
-    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    OkStatus(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -313,6 +340,14 @@ impl ::Response for DeleteApiextensionsV1beta1CustomResourceDefinitionResponse {
                     Ok((DeleteApiextensionsV1beta1CustomResourceDefinitionResponse::OkValue(result), buf.len()))
                 }
             },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((DeleteApiextensionsV1beta1CustomResourceDefinitionResponse::Accepted(result), buf.len()))
+            },
             ::http::StatusCode::UNAUTHORIZED => Ok((DeleteApiextensionsV1beta1CustomResourceDefinitionResponse::Unauthorized, 0)),
             _ => Ok((DeleteApiextensionsV1beta1CustomResourceDefinitionResponse::Other, 0)),
         }
@@ -330,7 +365,9 @@ impl CustomResourceDefinition {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -416,7 +453,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::list_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.list_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum ListApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionList),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionList),
     Unauthorized,
     Other,
 }
@@ -453,16 +490,24 @@ impl CustomResourceDefinition {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apiextensions_v1beta1_custom_resource_definition(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -477,7 +522,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::patch_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.patch_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum PatchApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -514,16 +559,24 @@ impl CustomResourceDefinition {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apiextensions_v1beta1_custom_resource_definition_status(
         name: &str,
-        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_12::apimachinery::pkg::apis::meta::v1::Patch,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -538,7 +591,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::patch_apiextensions_v1beta1_custom_resource_definition_status`](./struct.CustomResourceDefinition.html#method.patch_apiextensions_v1beta1_custom_resource_definition_status)
 #[derive(Debug)]
 pub enum PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -612,7 +665,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::read_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.read_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum ReadApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -670,7 +723,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::read_apiextensions_v1beta1_custom_resource_definition_status`](./struct.CustomResourceDefinition.html#method.read_apiextensions_v1beta1_custom_resource_definition_status)
 #[derive(Debug)]
 pub enum ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -707,16 +760,24 @@ impl CustomResourceDefinition {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiextensions_v1beta1_custom_resource_definition(
         name: &str,
-        body: &::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        body: &::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -731,8 +792,8 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::replace_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.replace_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum ReplaceApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Created(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Created(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -777,16 +838,24 @@ impl CustomResourceDefinition {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiextensions_v1beta1_custom_resource_definition_status(
         name: &str,
-        body: &::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        body: &::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        dry_run: Option<&str>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -801,8 +870,8 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::replace_apiextensions_v1beta1_custom_resource_definition_status`](./struct.CustomResourceDefinition.html#method.replace_apiextensions_v1beta1_custom_resource_definition_status)
 #[derive(Debug)]
 pub enum ReplaceApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
-    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Created(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Created(::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -835,7 +904,7 @@ impl ::Response for ReplaceApiextensionsV1beta1CustomResourceDefinitionStatusRes
 // Generated from operation watchApiextensionsV1beta1CustomResourceDefinition
 
 impl CustomResourceDefinition {
-    /// watch changes to an object of kind CustomResourceDefinition
+    /// watch changes to an object of kind CustomResourceDefinition. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.
     ///
     /// Use [`WatchApiextensionsV1beta1CustomResourceDefinitionResponse`](./enum.WatchApiextensionsV1beta1CustomResourceDefinitionResponse.html) to parse the HTTP response.
     ///
@@ -847,7 +916,9 @@ impl CustomResourceDefinition {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -934,7 +1005,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::watch_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.watch_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum WatchApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -961,7 +1032,7 @@ impl ::Response for WatchApiextensionsV1beta1CustomResourceDefinitionResponse {
 // Generated from operation watchApiextensionsV1beta1CustomResourceDefinitionList
 
 impl CustomResourceDefinition {
-    /// watch individual changes to a list of CustomResourceDefinition
+    /// watch individual changes to a list of CustomResourceDefinition. deprecated: use the 'watch' parameter with a list operation instead.
     ///
     /// Use [`WatchApiextensionsV1beta1CustomResourceDefinitionListResponse`](./enum.WatchApiextensionsV1beta1CustomResourceDefinitionListResponse.html) to parse the HTTP response.
     ///
@@ -969,7 +1040,9 @@ impl CustomResourceDefinition {
     ///
     /// * `continue_`
     ///
-    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
+    ///
+    ///     This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
     ///
     /// * `field_selector`
     ///
@@ -1055,7 +1128,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::watch_apiextensions_v1beta1_custom_resource_definition_list`](./struct.CustomResourceDefinition.html#method.watch_apiextensions_v1beta1_custom_resource_definition_list)
 #[derive(Debug)]
 pub enum WatchApiextensionsV1beta1CustomResourceDefinitionListResponse {
-    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1148,9 +1221,9 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinition {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec> = None;
-                let mut value_status: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec> = None;
+                let mut value_status: Option<::v1_12::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -1167,7 +1240,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinition {
                             }
                         },
                         Field::Key_metadata => value_metadata = ::serde::de::MapAccess::next_value(&mut map)?,
-                        Field::Key_spec => value_spec = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_spec => value_spec = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_status => value_status = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
@@ -1175,7 +1248,7 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinition {
 
                 Ok(CustomResourceDefinition {
                     metadata: value_metadata,
-                    spec: value_spec,
+                    spec: value_spec.ok_or_else(|| ::serde::de::Error::missing_field("spec"))?,
                     status: value_status,
                 })
             }
@@ -1202,7 +1275,7 @@ impl ::serde::Serialize for CustomResourceDefinition {
             0 +
             2 +
             self.metadata.as_ref().map_or(0, |_| 1) +
-            self.spec.as_ref().map_or(0, |_| 1) +
+            1 +
             self.status.as_ref().map_or(0, |_| 1),
         )?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "apiVersion", <Self as ::Resource>::api_version())?;
@@ -1210,9 +1283,7 @@ impl ::serde::Serialize for CustomResourceDefinition {
         if let Some(value) = &self.metadata {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "metadata", value)?;
         }
-        if let Some(value) = &self.spec {
-            ::serde::ser::SerializeStruct::serialize_field(&mut state, "spec", value)?;
-        }
+        ::serde::ser::SerializeStruct::serialize_field(&mut state, "spec", &self.spec)?;
         if let Some(value) = &self.status {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "status", value)?;
         }

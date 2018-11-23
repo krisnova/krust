@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct DeploymentList {
     /// Items is the list of Deployments.
-    pub items: Vec<::v1_11::api::apps::v1::Deployment>,
+    pub items: Vec<::v1_12::api::apps::v1::Deployment>,
 
     /// Standard list metadata.
-    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for DeploymentList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for DeploymentList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_11::api::apps::v1::Deployment>> = None;
-                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_12::api::apps::v1::Deployment>> = None;
+                let mut value_metadata: Option<::v1_12::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

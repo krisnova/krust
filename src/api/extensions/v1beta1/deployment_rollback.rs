@@ -7,7 +7,7 @@ pub struct DeploymentRollback {
     pub name: String,
 
     /// The config of this deployment rollback.
-    pub rollback_to: ::v1_11::api::extensions::v1beta1::RollbackConfig,
+    pub rollback_to: ::v1_12::api::extensions::v1beta1::RollbackConfig,
 
     /// The annotations to be updated to a deployment
     pub updated_annotations: Option<::std::collections::BTreeMap<String, String>>,
@@ -34,17 +34,33 @@ impl DeploymentRollback {
     ///
     /// * `body`
     ///
+    /// * `dry_run`
+    ///
+    ///     When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+    ///
+    /// * `include_uninitialized`
+    ///
+    ///     If IncludeUninitialized is specified, the object may be returned without completing initialization.
+    ///
     /// * `pretty`
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_extensions_v1beta1_namespaced_deployment_rollback(
         name: &str,
         namespace: &str,
-        body: &::v1_11::api::extensions::v1beta1::DeploymentRollback,
+        body: &::v1_12::api::extensions::v1beta1::DeploymentRollback,
+        dry_run: Option<&str>,
+        include_uninitialized: Option<bool>,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/rollback?", name = name, namespace = namespace);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(dry_run) = dry_run {
+            __query_pairs.append_pair("dryRun", dry_run);
+        }
+        if let Some(include_uninitialized) = include_uninitialized {
+            __query_pairs.append_pair("includeUninitialized", &include_uninitialized.to_string());
+        }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
         }
@@ -59,9 +75,9 @@ impl DeploymentRollback {
 /// Parses the HTTP response of [`DeploymentRollback::create_extensions_v1beta1_namespaced_deployment_rollback`](./struct.DeploymentRollback.html#method.create_extensions_v1beta1_namespaced_deployment_rollback)
 #[derive(Debug)]
 pub enum CreateExtensionsV1beta1NamespacedDeploymentRollbackResponse {
-    Ok(::v1_11::api::extensions::v1beta1::DeploymentRollback),
-    Created(::v1_11::api::extensions::v1beta1::DeploymentRollback),
-    Accepted(::v1_11::api::extensions::v1beta1::DeploymentRollback),
+    Ok(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    Created(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
+    Accepted(::v1_12::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -169,7 +185,7 @@ impl<'de> ::serde::Deserialize<'de> for DeploymentRollback {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_name: Option<String> = None;
-                let mut value_rollback_to: Option<::v1_11::api::extensions::v1beta1::RollbackConfig> = None;
+                let mut value_rollback_to: Option<::v1_12::api::extensions::v1beta1::RollbackConfig> = None;
                 let mut value_updated_annotations: Option<::std::collections::BTreeMap<String, String>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
