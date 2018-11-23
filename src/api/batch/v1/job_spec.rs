@@ -12,17 +12,17 @@ pub struct JobSpec {
     /// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
     pub completions: Option<i32>,
 
-    /// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://git.k8s.io/community/contributors/design-proposals/selector-generation.md
+    /// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
     pub manual_selector: Option<bool>,
 
     /// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
     pub parallelism: Option<i32>,
 
     /// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-    pub selector: Option<::v1_8::apimachinery::pkg::apis::meta::v1::LabelSelector>,
+    pub selector: Option<::v1_9::apimachinery::pkg::apis::meta::v1::LabelSelector>,
 
     /// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-    pub template: ::v1_8::api::core::v1::PodTemplateSpec,
+    pub template: ::v1_9::api::core::v1::PodTemplateSpec,
 }
 
 impl<'de> ::serde::Deserialize<'de> for JobSpec {
@@ -83,8 +83,8 @@ impl<'de> ::serde::Deserialize<'de> for JobSpec {
                 let mut value_completions: Option<i32> = None;
                 let mut value_manual_selector: Option<bool> = None;
                 let mut value_parallelism: Option<i32> = None;
-                let mut value_selector: Option<::v1_8::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
-                let mut value_template: Option<::v1_8::api::core::v1::PodTemplateSpec> = None;
+                let mut value_selector: Option<::v1_9::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
+                let mut value_template: Option<::v1_9::api::core::v1::PodTemplateSpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

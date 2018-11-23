@@ -6,8 +6,8 @@ pub struct SELinuxStrategyOptions {
     /// type is the strategy that will dictate the allowable labels that may be set.
     pub rule: String,
 
-    /// seLinuxOptions required to run as; required for MustRunAs More info: https://git.k8s.io/community/contributors/design-proposals/security_context.md
-    pub se_linux_options: Option<::v1_8::api::core::v1::SELinuxOptions>,
+    /// seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    pub se_linux_options: Option<::v1_9::api::core::v1::SELinuxOptions>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for SELinuxStrategyOptions {
@@ -54,7 +54,7 @@ impl<'de> ::serde::Deserialize<'de> for SELinuxStrategyOptions {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_rule: Option<String> = None;
-                let mut value_se_linux_options: Option<::v1_8::api::core::v1::SELinuxOptions> = None;
+                let mut value_se_linux_options: Option<::v1_9::api::core::v1::SELinuxOptions> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

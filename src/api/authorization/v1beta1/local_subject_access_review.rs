@@ -3,13 +3,13 @@
 /// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct LocalSubjectAccessReview {
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-    pub spec: ::v1_8::api::authorization::v1beta1::SubjectAccessReviewSpec,
+    pub spec: ::v1_9::api::authorization::v1beta1::SubjectAccessReviewSpec,
 
     /// Status is filled in by the server and indicates whether the request is allowed or not
-    pub status: Option<::v1_8::api::authorization::v1beta1::SubjectAccessReviewStatus>,
+    pub status: Option<::v1_9::api::authorization::v1beta1::SubjectAccessReviewStatus>,
 }
 
 // Begin authorization.k8s.io/v1beta1/LocalSubjectAccessReview
@@ -34,7 +34,7 @@ impl LocalSubjectAccessReview {
     ///     If 'true', then the output is pretty printed.
     pub fn create_authorization_v1beta1_namespaced_local_subject_access_review(
         namespace: &str,
-        body: &::v1_8::api::authorization::v1beta1::LocalSubjectAccessReview,
+        body: &::v1_9::api::authorization::v1beta1::LocalSubjectAccessReview,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/authorization.k8s.io/v1beta1/namespaces/{namespace}/localsubjectaccessreviews?", namespace = namespace);
@@ -53,7 +53,9 @@ impl LocalSubjectAccessReview {
 /// Parses the HTTP response of [`LocalSubjectAccessReview::create_authorization_v1beta1_namespaced_local_subject_access_review`](./struct.LocalSubjectAccessReview.html#method.create_authorization_v1beta1_namespaced_local_subject_access_review)
 #[derive(Debug)]
 pub enum CreateAuthorizationV1beta1NamespacedLocalSubjectAccessReviewResponse {
-    Ok(::v1_8::api::authorization::v1beta1::LocalSubjectAccessReview),
+    Ok(::v1_9::api::authorization::v1beta1::LocalSubjectAccessReview),
+    Created(::v1_9::api::authorization::v1beta1::LocalSubjectAccessReview),
+    Accepted(::v1_9::api::authorization::v1beta1::LocalSubjectAccessReview),
     Unauthorized,
     Other,
 }
@@ -68,6 +70,22 @@ impl ::Response for CreateAuthorizationV1beta1NamespacedLocalSubjectAccessReview
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateAuthorizationV1beta1NamespacedLocalSubjectAccessReviewResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAuthorizationV1beta1NamespacedLocalSubjectAccessReviewResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAuthorizationV1beta1NamespacedLocalSubjectAccessReviewResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateAuthorizationV1beta1NamespacedLocalSubjectAccessReviewResponse::Unauthorized, 0)),
             _ => Ok((CreateAuthorizationV1beta1NamespacedLocalSubjectAccessReviewResponse::Other, 0)),
@@ -144,9 +162,9 @@ impl<'de> ::serde::Deserialize<'de> for LocalSubjectAccessReview {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::authorization::v1beta1::SubjectAccessReviewSpec> = None;
-                let mut value_status: Option<::v1_8::api::authorization::v1beta1::SubjectAccessReviewStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::authorization::v1beta1::SubjectAccessReviewSpec> = None;
+                let mut value_status: Option<::v1_9::api::authorization::v1beta1::SubjectAccessReviewStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

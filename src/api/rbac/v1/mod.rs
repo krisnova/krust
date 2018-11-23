@@ -1,4 +1,7 @@
 
+mod aggregation_rule;
+pub use self::aggregation_rule::*;
+
 mod cluster_role;
 pub use self::cluster_role::*;
 

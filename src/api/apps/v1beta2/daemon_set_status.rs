@@ -6,6 +6,9 @@ pub struct DaemonSetStatus {
     /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
     pub collision_count: Option<i32>,
 
+    /// Represents the latest available observations of a DaemonSet's current state.
+    pub conditions: Option<Vec<::v1_9::api::apps::v1beta2::DaemonSetCondition>>,
+
     /// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
     pub current_number_scheduled: i32,
 
@@ -36,6 +39,7 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSetStatus {
         #[allow(non_camel_case_types)]
         enum Field {
             Key_collision_count,
+            Key_conditions,
             Key_current_number_scheduled,
             Key_desired_number_scheduled,
             Key_number_available,
@@ -61,6 +65,7 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSetStatus {
                     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> where E: ::serde::de::Error {
                         Ok(match v {
                             "collisionCount" => Field::Key_collision_count,
+                            "conditions" => Field::Key_conditions,
                             "currentNumberScheduled" => Field::Key_current_number_scheduled,
                             "desiredNumberScheduled" => Field::Key_desired_number_scheduled,
                             "numberAvailable" => Field::Key_number_available,
@@ -89,6 +94,7 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSetStatus {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_collision_count: Option<i32> = None;
+                let mut value_conditions: Option<Vec<::v1_9::api::apps::v1beta2::DaemonSetCondition>> = None;
                 let mut value_current_number_scheduled: Option<i32> = None;
                 let mut value_desired_number_scheduled: Option<i32> = None;
                 let mut value_number_available: Option<i32> = None;
@@ -101,6 +107,7 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSetStatus {
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
                         Field::Key_collision_count => value_collision_count = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_conditions => value_conditions = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_current_number_scheduled => value_current_number_scheduled = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_desired_number_scheduled => value_desired_number_scheduled = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_number_available => value_number_available = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -115,6 +122,7 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSetStatus {
 
                 Ok(DaemonSetStatus {
                     collision_count: value_collision_count,
+                    conditions: value_conditions,
                     current_number_scheduled: value_current_number_scheduled.ok_or_else(|| ::serde::de::Error::missing_field("currentNumberScheduled"))?,
                     desired_number_scheduled: value_desired_number_scheduled.ok_or_else(|| ::serde::de::Error::missing_field("desiredNumberScheduled"))?,
                     number_available: value_number_available,
@@ -131,6 +139,7 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSetStatus {
             "DaemonSetStatus",
             &[
                 "collisionCount",
+                "conditions",
                 "currentNumberScheduled",
                 "desiredNumberScheduled",
                 "numberAvailable",
@@ -151,6 +160,7 @@ impl ::serde::Serialize for DaemonSetStatus {
             "DaemonSetStatus",
             0 +
             self.collision_count.as_ref().map_or(0, |_| 1) +
+            self.conditions.as_ref().map_or(0, |_| 1) +
             1 +
             1 +
             self.number_available.as_ref().map_or(0, |_| 1) +
@@ -162,6 +172,9 @@ impl ::serde::Serialize for DaemonSetStatus {
         )?;
         if let Some(value) = &self.collision_count {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "collisionCount", value)?;
+        }
+        if let Some(value) = &self.conditions {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "conditions", value)?;
         }
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "currentNumberScheduled", &self.current_number_scheduled)?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "desiredNumberScheduled", &self.desired_number_scheduled)?;

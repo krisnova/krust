@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Node {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_8::api::core::v1::NodeSpec>,
+    pub spec: Option<::v1_9::api::core::v1::NodeSpec>,
 
     /// Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_8::api::core::v1::NodeStatus>,
+    pub status: Option<::v1_9::api::core::v1::NodeStatus>,
 }
 
 // Begin /v1/Node
@@ -685,7 +685,7 @@ impl Node {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_node(
-        body: &::v1_8::api::core::v1::Node,
+        body: &::v1_9::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes?");
@@ -704,7 +704,9 @@ impl Node {
 /// Parses the HTTP response of [`Node::create_core_v1_node`](./struct.Node.html#method.create_core_v1_node)
 #[derive(Debug)]
 pub enum CreateCoreV1NodeResponse {
-    Ok(::v1_8::api::core::v1::Node),
+    Ok(::v1_9::api::core::v1::Node),
+    Created(::v1_9::api::core::v1::Node),
+    Accepted(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -719,6 +721,22 @@ impl ::Response for CreateCoreV1NodeResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NodeResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NodeResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NodeResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NodeResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NodeResponse::Other, 0)),
@@ -823,8 +841,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::delete_core_v1_collection_node`](./struct.Node.html#method.delete_core_v1_collection_node)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNodeResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Node),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -888,7 +906,7 @@ impl Node {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_node(
         name: &str,
         grace_period_seconds: Option<i64>,
@@ -921,8 +939,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::delete_core_v1_node`](./struct.Node.html#method.delete_core_v1_node)
 #[derive(Debug)]
 pub enum DeleteCoreV1NodeResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Node),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1054,7 +1072,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::list_core_v1_node`](./struct.Node.html#method.list_core_v1_node)
 #[derive(Debug)]
 pub enum ListCoreV1NodeResponse {
-    Ok(::v1_8::api::core::v1::NodeList),
+    Ok(::v1_9::api::core::v1::NodeList),
     Unauthorized,
     Other,
 }
@@ -1096,7 +1114,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_node(
         name: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}?", name = name);
@@ -1115,7 +1133,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::patch_core_v1_node`](./struct.Node.html#method.patch_core_v1_node)
 #[derive(Debug)]
 pub enum PatchCoreV1NodeResponse {
-    Ok(::v1_8::api::core::v1::Node),
+    Ok(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1157,7 +1175,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_node_status(
         name: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}/status?", name = name);
@@ -1176,7 +1194,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::patch_core_v1_node_status`](./struct.Node.html#method.patch_core_v1_node_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NodeStatusResponse {
-    Ok(::v1_8::api::core::v1::Node),
+    Ok(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1805,7 +1823,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::read_core_v1_node`](./struct.Node.html#method.read_core_v1_node)
 #[derive(Debug)]
 pub enum ReadCoreV1NodeResponse {
-    Ok(::v1_8::api::core::v1::Node),
+    Ok(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1863,7 +1881,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::read_core_v1_node_status`](./struct.Node.html#method.read_core_v1_node_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NodeStatusResponse {
-    Ok(::v1_8::api::core::v1::Node),
+    Ok(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1905,7 +1923,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_node(
         name: &str,
-        body: &::v1_8::api::core::v1::Node,
+        body: &::v1_9::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}?", name = name);
@@ -1924,7 +1942,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::replace_core_v1_node`](./struct.Node.html#method.replace_core_v1_node)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NodeResponse {
-    Ok(::v1_8::api::core::v1::Node),
+    Ok(::v1_9::api::core::v1::Node),
+    Created(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1939,6 +1958,14 @@ impl ::Response for ReplaceCoreV1NodeResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NodeResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NodeResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NodeResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NodeResponse::Other, 0)),
@@ -1966,7 +1993,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_node_status(
         name: &str,
-        body: &::v1_8::api::core::v1::Node,
+        body: &::v1_9::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}/status?", name = name);
@@ -1985,7 +2012,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::replace_core_v1_node_status`](./struct.Node.html#method.replace_core_v1_node_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NodeStatusResponse {
-    Ok(::v1_8::api::core::v1::Node),
+    Ok(::v1_9::api::core::v1::Node),
+    Created(::v1_9::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -2000,6 +2028,14 @@ impl ::Response for ReplaceCoreV1NodeStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NodeStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NodeStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NodeStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NodeStatusResponse::Other, 0)),
@@ -2109,7 +2145,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::watch_core_v1_node`](./struct.Node.html#method.watch_core_v1_node)
 #[derive(Debug)]
 pub enum WatchCoreV1NodeResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2230,7 +2266,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::watch_core_v1_node_list`](./struct.Node.html#method.watch_core_v1_node_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NodeListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2323,9 +2359,9 @@ impl<'de> ::serde::Deserialize<'de> for Node {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::core::v1::NodeSpec> = None;
-                let mut value_status: Option<::v1_8::api::core::v1::NodeStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::core::v1::NodeSpec> = None;
+                let mut value_status: Option<::v1_9::api::core::v1::NodeStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

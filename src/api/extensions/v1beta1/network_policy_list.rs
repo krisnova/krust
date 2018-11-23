@@ -1,13 +1,13 @@
 // Generated from definition io.k8s.api.extensions.v1beta1.NetworkPolicyList
 
-/// Network Policy List is a list of NetworkPolicy objects.
+/// DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NetworkPolicyList {
     /// Items is a list of schema objects.
-    pub items: Vec<::v1_8::api::extensions::v1beta1::NetworkPolicy>,
+    pub items: Vec<::v1_9::api::extensions::v1beta1::NetworkPolicy>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for NetworkPolicyList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for NetworkPolicyList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_8::api::extensions::v1beta1::NetworkPolicy>> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_9::api::extensions::v1beta1::NetworkPolicy>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

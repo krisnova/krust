@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ClusterRoleBinding {
     /// Standard object's metadata.
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-    pub role_ref: ::v1_8::api::rbac::v1alpha1::RoleRef,
+    pub role_ref: ::v1_9::api::rbac::v1alpha1::RoleRef,
 
     /// Subjects holds references to the objects the role applies to.
-    pub subjects: Vec<::v1_8::api::rbac::v1alpha1::Subject>,
+    pub subjects: Vec<::v1_9::api::rbac::v1alpha1::Subject>,
 }
 
 // Begin rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding
@@ -30,7 +30,7 @@ impl ClusterRoleBinding {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_rbac_authorization_v1alpha1_cluster_role_binding(
-        body: &::v1_8::api::rbac::v1alpha1::ClusterRoleBinding,
+        body: &::v1_9::api::rbac::v1alpha1::ClusterRoleBinding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings?");
@@ -49,7 +49,9 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::create_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.create_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_8::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
+    Created(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
+    Accepted(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -64,6 +66,22 @@ impl ::Response for CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Unauthorized, 0)),
             _ => Ok((CreateRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Other, 0)),
@@ -100,7 +118,7 @@ impl ClusterRoleBinding {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_rbac_authorization_v1alpha1_cluster_role_binding(
         name: &str,
         grace_period_seconds: Option<i64>,
@@ -133,8 +151,8 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::delete_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.delete_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::rbac::v1alpha1::ClusterRoleBinding),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -266,8 +284,8 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::delete_rbac_authorization_v1alpha1_collection_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.delete_rbac_authorization_v1alpha1_collection_cluster_role_binding)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1alpha1CollectionClusterRoleBindingResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::rbac::v1alpha1::ClusterRoleBinding),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -399,7 +417,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::list_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.list_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_8::api::rbac::v1alpha1::ClusterRoleBindingList),
+    Ok(::v1_9::api::rbac::v1alpha1::ClusterRoleBindingList),
     Unauthorized,
     Other,
 }
@@ -441,7 +459,7 @@ impl ClusterRoleBinding {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_rbac_authorization_v1alpha1_cluster_role_binding(
         name: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/{name}?", name = name);
@@ -460,7 +478,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::patch_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.patch_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum PatchRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_8::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -518,7 +536,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::read_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.read_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum ReadRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_8::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -560,7 +578,7 @@ impl ClusterRoleBinding {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_rbac_authorization_v1alpha1_cluster_role_binding(
         name: &str,
-        body: &::v1_8::api::rbac::v1alpha1::ClusterRoleBinding,
+        body: &::v1_9::api::rbac::v1alpha1::ClusterRoleBinding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/{name}?", name = name);
@@ -579,7 +597,8 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::replace_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.replace_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_8::api::rbac::v1alpha1::ClusterRoleBinding),
+    Ok(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
+    Created(::v1_9::api::rbac::v1alpha1::ClusterRoleBinding),
     Unauthorized,
     Other,
 }
@@ -594,6 +613,14 @@ impl ::Response for ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Unauthorized, 0)),
             _ => Ok((ReplaceRbacAuthorizationV1alpha1ClusterRoleBindingResponse::Other, 0)),
@@ -703,7 +730,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::watch_rbac_authorization_v1alpha1_cluster_role_binding`](./struct.ClusterRoleBinding.html#method.watch_rbac_authorization_v1alpha1_cluster_role_binding)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1alpha1ClusterRoleBindingResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -824,7 +851,7 @@ impl ClusterRoleBinding {
 /// Parses the HTTP response of [`ClusterRoleBinding::watch_rbac_authorization_v1alpha1_cluster_role_binding_list`](./struct.ClusterRoleBinding.html#method.watch_rbac_authorization_v1alpha1_cluster_role_binding_list)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1alpha1ClusterRoleBindingListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -917,9 +944,9 @@ impl<'de> ::serde::Deserialize<'de> for ClusterRoleBinding {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_role_ref: Option<::v1_8::api::rbac::v1alpha1::RoleRef> = None;
-                let mut value_subjects: Option<Vec<::v1_8::api::rbac::v1alpha1::Subject>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_role_ref: Option<::v1_9::api::rbac::v1alpha1::RoleRef> = None;
+                let mut value_subjects: Option<Vec<::v1_9::api::rbac::v1alpha1::Subject>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -15,10 +15,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Endpoints {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
-    pub subsets: Vec<::v1_8::api::core::v1::EndpointSubset>,
+    pub subsets: Vec<::v1_9::api::core::v1::EndpointSubset>,
 }
 
 // Begin /v1/Endpoints
@@ -43,7 +43,7 @@ impl Endpoints {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_endpoints(
         namespace: &str,
-        body: &::v1_8::api::core::v1::Endpoints,
+        body: &::v1_9::api::core::v1::Endpoints,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints?", namespace = namespace);
@@ -62,7 +62,9 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::create_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.create_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_8::api::core::v1::Endpoints),
+    Ok(::v1_9::api::core::v1::Endpoints),
+    Created(::v1_9::api::core::v1::Endpoints),
+    Accepted(::v1_9::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -77,6 +79,22 @@ impl ::Response for CreateCoreV1NamespacedEndpointsResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedEndpointsResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedEndpointsResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedEndpointsResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedEndpointsResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedEndpointsResponse::Other, 0)),
@@ -186,8 +204,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::delete_core_v1_collection_namespaced_endpoints`](./struct.Endpoints.html#method.delete_core_v1_collection_namespaced_endpoints)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedEndpointsResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Endpoints),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -255,7 +273,7 @@ impl Endpoints {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
@@ -289,8 +307,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::delete_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.delete_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedEndpointsResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Endpoints),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -422,7 +440,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::list_core_v1_endpoints_for_all_namespaces`](./struct.Endpoints.html#method.list_core_v1_endpoints_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1EndpointsForAllNamespacesResponse {
-    Ok(::v1_8::api::core::v1::EndpointsList),
+    Ok(::v1_9::api::core::v1::EndpointsList),
     Unauthorized,
     Other,
 }
@@ -546,7 +564,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::list_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.list_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_8::api::core::v1::EndpointsList),
+    Ok(::v1_9::api::core::v1::EndpointsList),
     Unauthorized,
     Other,
 }
@@ -593,7 +611,7 @@ impl Endpoints {
     pub fn patch_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints/{name}?", name = name, namespace = namespace);
@@ -612,7 +630,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::patch_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.patch_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_8::api::core::v1::Endpoints),
+    Ok(::v1_9::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -691,7 +709,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::read_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.read_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_8::api::core::v1::Endpoints),
+    Ok(::v1_9::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -738,7 +756,7 @@ impl Endpoints {
     pub fn replace_core_v1_namespaced_endpoints(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::Endpoints,
+        body: &::v1_9::api::core::v1::Endpoints,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/endpoints/{name}?", name = name, namespace = namespace);
@@ -757,7 +775,8 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::replace_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.replace_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_8::api::core::v1::Endpoints),
+    Ok(::v1_9::api::core::v1::Endpoints),
+    Created(::v1_9::api::core::v1::Endpoints),
     Unauthorized,
     Other,
 }
@@ -772,6 +791,14 @@ impl ::Response for ReplaceCoreV1NamespacedEndpointsResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedEndpointsResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedEndpointsResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedEndpointsResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedEndpointsResponse::Other, 0)),
@@ -876,7 +903,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_endpoints_list_for_all_namespaces`](./struct.Endpoints.html#method.watch_core_v1_endpoints_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1EndpointsListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1007,7 +1034,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_namespaced_endpoints`](./struct.Endpoints.html#method.watch_core_v1_namespaced_endpoints)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEndpointsResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1133,7 +1160,7 @@ impl Endpoints {
 /// Parses the HTTP response of [`Endpoints::watch_core_v1_namespaced_endpoints_list`](./struct.Endpoints.html#method.watch_core_v1_namespaced_endpoints_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEndpointsListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1224,8 +1251,8 @@ impl<'de> ::serde::Deserialize<'de> for Endpoints {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_subsets: Option<Vec<::v1_8::api::core::v1::EndpointSubset>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_subsets: Option<Vec<::v1_9::api::core::v1::EndpointSubset>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -1,4 +1,4 @@
-// Generated from definition io.k8s.api.admissionregistration.v1alpha1.RuleWithOperations
+// Generated from definition io.k8s.api.admissionregistration.v1beta1.RuleWithOperations
 
 /// RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
 #[derive(Clone, Debug, Default, PartialEq)]

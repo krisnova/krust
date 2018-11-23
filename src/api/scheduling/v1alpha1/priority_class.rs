@@ -10,7 +10,7 @@ pub struct PriorityClass {
     pub global_default: Option<bool>,
 
     /// Standard object's metadata. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
     pub value: i32,
@@ -33,7 +33,7 @@ impl PriorityClass {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_scheduling_v1alpha1_priority_class(
-        body: &::v1_8::api::scheduling::v1alpha1::PriorityClass,
+        body: &::v1_9::api::scheduling::v1alpha1::PriorityClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses?");
@@ -52,7 +52,9 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::create_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.create_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum CreateSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_8::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    Created(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    Accepted(::v1_9::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -67,6 +69,22 @@ impl ::Response for CreateSchedulingV1alpha1PriorityClassResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateSchedulingV1alpha1PriorityClassResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateSchedulingV1alpha1PriorityClassResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateSchedulingV1alpha1PriorityClassResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateSchedulingV1alpha1PriorityClassResponse::Unauthorized, 0)),
             _ => Ok((CreateSchedulingV1alpha1PriorityClassResponse::Other, 0)),
@@ -171,8 +189,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::delete_scheduling_v1alpha1_collection_priority_class`](./struct.PriorityClass.html#method.delete_scheduling_v1alpha1_collection_priority_class)
 #[derive(Debug)]
 pub enum DeleteSchedulingV1alpha1CollectionPriorityClassResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::scheduling::v1alpha1::PriorityClass),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -236,7 +254,7 @@ impl PriorityClass {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_scheduling_v1alpha1_priority_class(
         name: &str,
         grace_period_seconds: Option<i64>,
@@ -269,8 +287,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::delete_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.delete_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum DeleteSchedulingV1alpha1PriorityClassResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::scheduling::v1alpha1::PriorityClass),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -402,7 +420,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::list_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.list_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ListSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_8::api::scheduling::v1alpha1::PriorityClassList),
+    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClassList),
     Unauthorized,
     Other,
 }
@@ -444,7 +462,7 @@ impl PriorityClass {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_scheduling_v1alpha1_priority_class(
         name: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses/{name}?", name = name);
@@ -463,7 +481,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::patch_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.patch_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum PatchSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_8::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -537,7 +555,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::read_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.read_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ReadSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_8::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -579,7 +597,7 @@ impl PriorityClass {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_scheduling_v1alpha1_priority_class(
         name: &str,
-        body: &::v1_8::api::scheduling::v1alpha1::PriorityClass,
+        body: &::v1_9::api::scheduling::v1alpha1::PriorityClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/scheduling.k8s.io/v1alpha1/priorityclasses/{name}?", name = name);
@@ -598,7 +616,8 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::replace_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.replace_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum ReplaceSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_8::api::scheduling::v1alpha1::PriorityClass),
+    Ok(::v1_9::api::scheduling::v1alpha1::PriorityClass),
+    Created(::v1_9::api::scheduling::v1alpha1::PriorityClass),
     Unauthorized,
     Other,
 }
@@ -613,6 +632,14 @@ impl ::Response for ReplaceSchedulingV1alpha1PriorityClassResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceSchedulingV1alpha1PriorityClassResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceSchedulingV1alpha1PriorityClassResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceSchedulingV1alpha1PriorityClassResponse::Unauthorized, 0)),
             _ => Ok((ReplaceSchedulingV1alpha1PriorityClassResponse::Other, 0)),
@@ -722,7 +749,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::watch_scheduling_v1alpha1_priority_class`](./struct.PriorityClass.html#method.watch_scheduling_v1alpha1_priority_class)
 #[derive(Debug)]
 pub enum WatchSchedulingV1alpha1PriorityClassResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -843,7 +870,7 @@ impl PriorityClass {
 /// Parses the HTTP response of [`PriorityClass::watch_scheduling_v1alpha1_priority_class_list`](./struct.PriorityClass.html#method.watch_scheduling_v1alpha1_priority_class_list)
 #[derive(Debug)]
 pub enum WatchSchedulingV1alpha1PriorityClassListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -940,7 +967,7 @@ impl<'de> ::serde::Deserialize<'de> for PriorityClass {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_description: Option<String> = None;
                 let mut value_global_default: Option<bool> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_value: Option<i32> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

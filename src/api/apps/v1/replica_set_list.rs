@@ -1,34 +1,34 @@
-// Generated from definition io.k8s.api.admissionregistration.v1alpha1.ExternalAdmissionHookConfigurationList
+// Generated from definition io.k8s.api.apps.v1.ReplicaSetList
 
-/// ExternalAdmissionHookConfigurationList is a list of ExternalAdmissionHookConfiguration.
+/// ReplicaSetList is a collection of ReplicaSets.
 #[derive(Clone, Debug, Default, PartialEq)]
-pub struct ExternalAdmissionHookConfigurationList {
-    /// List of ExternalAdmissionHookConfiguration.
-    pub items: Vec<::v1_8::api::admissionregistration::v1alpha1::ExternalAdmissionHookConfiguration>,
+pub struct ReplicaSetList {
+    /// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+    pub items: Vec<::v1_9::api::apps::v1::ReplicaSet>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
-impl ::Resource for ExternalAdmissionHookConfigurationList {
+impl ::Resource for ReplicaSetList {
     fn api_version() -> &'static str {
-        "admissionregistration.k8s.io/v1alpha1"
+        "apps/v1"
     }
 
     fn group() -> &'static str {
-        "admissionregistration.k8s.io"
+        "apps"
     }
 
     fn kind() -> &'static str {
-        "ExternalAdmissionHookConfigurationList"
+        "ReplicaSetList"
     }
 
     fn version() -> &'static str {
-        "v1alpha1"
+        "v1"
     }
 }
 
-impl<'de> ::serde::Deserialize<'de> for ExternalAdmissionHookConfigurationList {
+impl<'de> ::serde::Deserialize<'de> for ReplicaSetList {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: ::serde::Deserializer<'de> {
         #[allow(non_camel_case_types)]
         enum Field {
@@ -68,15 +68,15 @@ impl<'de> ::serde::Deserialize<'de> for ExternalAdmissionHookConfigurationList {
         struct Visitor;
 
         impl<'de> ::serde::de::Visitor<'de> for Visitor {
-            type Value = ExternalAdmissionHookConfigurationList;
+            type Value = ReplicaSetList;
 
             fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                write!(f, "struct ExternalAdmissionHookConfigurationList")
+                write!(f, "struct ReplicaSetList")
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_8::api::admissionregistration::v1alpha1::ExternalAdmissionHookConfiguration>> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_9::api::apps::v1::ReplicaSet>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -98,7 +98,7 @@ impl<'de> ::serde::Deserialize<'de> for ExternalAdmissionHookConfigurationList {
                     }
                 }
 
-                Ok(ExternalAdmissionHookConfigurationList {
+                Ok(ReplicaSetList {
                     items: value_items.ok_or_else(|| ::serde::de::Error::missing_field("items"))?,
                     metadata: value_metadata,
                 })
@@ -106,7 +106,7 @@ impl<'de> ::serde::Deserialize<'de> for ExternalAdmissionHookConfigurationList {
         }
 
         deserializer.deserialize_struct(
-            "ExternalAdmissionHookConfigurationList",
+            "ReplicaSetList",
             &[
                 "apiVersion",
                 "kind",
@@ -118,10 +118,10 @@ impl<'de> ::serde::Deserialize<'de> for ExternalAdmissionHookConfigurationList {
     }
 }
 
-impl ::serde::Serialize for ExternalAdmissionHookConfigurationList {
+impl ::serde::Serialize for ReplicaSetList {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: ::serde::Serializer {
         let mut state = serializer.serialize_struct(
-            "ExternalAdmissionHookConfigurationList",
+            "ReplicaSetList",
             0 +
             2 +
             1 +

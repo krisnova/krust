@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Binding {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The target object that you want to bind to the standard object.
-    pub target: ::v1_8::api::core::v1::ObjectReference,
+    pub target: ::v1_9::api::core::v1::ObjectReference,
 }
 
 // Begin /v1/Binding
@@ -32,7 +32,7 @@ impl Binding {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_binding(
         namespace: &str,
-        body: &::v1_8::api::core::v1::Binding,
+        body: &::v1_9::api::core::v1::Binding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/bindings?", namespace = namespace);
@@ -51,7 +51,9 @@ impl Binding {
 /// Parses the HTTP response of [`Binding::create_core_v1_namespaced_binding`](./struct.Binding.html#method.create_core_v1_namespaced_binding)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedBindingResponse {
-    Ok(::v1_8::api::core::v1::Binding),
+    Ok(::v1_9::api::core::v1::Binding),
+    Created(::v1_9::api::core::v1::Binding),
+    Accepted(::v1_9::api::core::v1::Binding),
     Unauthorized,
     Other,
 }
@@ -66,6 +68,22 @@ impl ::Response for CreateCoreV1NamespacedBindingResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedBindingResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedBindingResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedBindingResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedBindingResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedBindingResponse::Other, 0)),
@@ -98,7 +116,7 @@ impl Binding {
     pub fn create_core_v1_namespaced_pod_binding(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::Binding,
+        body: &::v1_9::api::core::v1::Binding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}/binding?", name = name, namespace = namespace);
@@ -117,7 +135,9 @@ impl Binding {
 /// Parses the HTTP response of [`Binding::create_core_v1_namespaced_pod_binding`](./struct.Binding.html#method.create_core_v1_namespaced_pod_binding)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedPodBindingResponse {
-    Ok(::v1_8::api::core::v1::Binding),
+    Ok(::v1_9::api::core::v1::Binding),
+    Created(::v1_9::api::core::v1::Binding),
+    Accepted(::v1_9::api::core::v1::Binding),
     Unauthorized,
     Other,
 }
@@ -132,6 +152,22 @@ impl ::Response for CreateCoreV1NamespacedPodBindingResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedPodBindingResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPodBindingResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPodBindingResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedPodBindingResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedPodBindingResponse::Other, 0)),
@@ -206,8 +242,8 @@ impl<'de> ::serde::Deserialize<'de> for Binding {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_target: Option<::v1_8::api::core::v1::ObjectReference> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_target: Option<::v1_9::api::core::v1::ObjectReference> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -8,6 +8,9 @@ pub use self::controller_revision_list::*;
 mod daemon_set;
 pub use self::daemon_set::*;
 
+mod daemon_set_condition;
+pub use self::daemon_set_condition::*;
+
 mod daemon_set_list;
 pub use self::daemon_set_list::*;
 
@@ -73,6 +76,9 @@ pub use self::scale_status::*;
 
 mod stateful_set;
 pub use self::stateful_set::*;
+
+mod stateful_set_condition;
+pub use self::stateful_set_condition::*;
 
 mod stateful_set_list;
 pub use self::stateful_set_list::*;

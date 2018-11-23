@@ -9,17 +9,20 @@ pub struct PodSecurityPolicySpec {
     /// AllowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both AllowedCapabilities and RequiredDropCapabilities.
     pub allowed_capabilities: Option<Vec<String>>,
 
-    /// is a white list of allowed host paths. Empty indicates that all host paths may be used.
-    pub allowed_host_paths: Option<Vec<::v1_8::api::extensions::v1beta1::AllowedHostPath>>,
+    /// AllowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "Volumes" field.
+    pub allowed_flex_volumes: Option<Vec<::v1_9::api::extensions::v1beta1::AllowedFlexVolume>>,
 
-    /// DefaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capabiility in both DefaultAddCapabilities and RequiredDropCapabilities.
+    /// is a white list of allowed host paths. Empty indicates that all host paths may be used.
+    pub allowed_host_paths: Option<Vec<::v1_9::api::extensions::v1beta1::AllowedHostPath>>,
+
+    /// DefaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both DefaultAddCapabilities and RequiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the AllowedCapabilities list.
     pub default_add_capabilities: Option<Vec<String>>,
 
     /// DefaultAllowPrivilegeEscalation controls the default setting for whether a process can gain more privileges than its parent process.
     pub default_allow_privilege_escalation: Option<bool>,
 
     /// FSGroup is the strategy that will dictate what fs group is used by the SecurityContext.
-    pub fs_group: ::v1_8::api::extensions::v1beta1::FSGroupStrategyOptions,
+    pub fs_group: ::v1_9::api::extensions::v1beta1::FSGroupStrategyOptions,
 
     /// hostIPC determines if the policy allows the use of HostIPC in the pod spec.
     pub host_ipc: Option<bool>,
@@ -31,7 +34,7 @@ pub struct PodSecurityPolicySpec {
     pub host_pid: Option<bool>,
 
     /// hostPorts determines which host port ranges are allowed to be exposed.
-    pub host_ports: Option<Vec<::v1_8::api::extensions::v1beta1::HostPortRange>>,
+    pub host_ports: Option<Vec<::v1_9::api::extensions::v1beta1::HostPortRange>>,
 
     /// privileged determines if a pod can request to be run as privileged.
     pub privileged: Option<bool>,
@@ -43,13 +46,13 @@ pub struct PodSecurityPolicySpec {
     pub required_drop_capabilities: Option<Vec<String>>,
 
     /// runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
-    pub run_as_user: ::v1_8::api::extensions::v1beta1::RunAsUserStrategyOptions,
+    pub run_as_user: ::v1_9::api::extensions::v1beta1::RunAsUserStrategyOptions,
 
     /// seLinux is the strategy that will dictate the allowable labels that may be set.
-    pub se_linux: ::v1_8::api::extensions::v1beta1::SELinuxStrategyOptions,
+    pub se_linux: ::v1_9::api::extensions::v1beta1::SELinuxStrategyOptions,
 
     /// SupplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-    pub supplemental_groups: ::v1_8::api::extensions::v1beta1::SupplementalGroupsStrategyOptions,
+    pub supplemental_groups: ::v1_9::api::extensions::v1beta1::SupplementalGroupsStrategyOptions,
 
     /// volumes is a white list of allowed volume plugins.  Empty indicates that all plugins may be used.
     pub volumes: Option<Vec<String>>,
@@ -61,6 +64,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityPolicySpec {
         enum Field {
             Key_allow_privilege_escalation,
             Key_allowed_capabilities,
+            Key_allowed_flex_volumes,
             Key_allowed_host_paths,
             Key_default_add_capabilities,
             Key_default_allow_privilege_escalation,
@@ -94,6 +98,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityPolicySpec {
                         Ok(match v {
                             "allowPrivilegeEscalation" => Field::Key_allow_privilege_escalation,
                             "allowedCapabilities" => Field::Key_allowed_capabilities,
+                            "allowedFlexVolumes" => Field::Key_allowed_flex_volumes,
                             "allowedHostPaths" => Field::Key_allowed_host_paths,
                             "defaultAddCapabilities" => Field::Key_default_add_capabilities,
                             "defaultAllowPrivilegeEscalation" => Field::Key_default_allow_privilege_escalation,
@@ -130,26 +135,28 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityPolicySpec {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_allow_privilege_escalation: Option<bool> = None;
                 let mut value_allowed_capabilities: Option<Vec<String>> = None;
-                let mut value_allowed_host_paths: Option<Vec<::v1_8::api::extensions::v1beta1::AllowedHostPath>> = None;
+                let mut value_allowed_flex_volumes: Option<Vec<::v1_9::api::extensions::v1beta1::AllowedFlexVolume>> = None;
+                let mut value_allowed_host_paths: Option<Vec<::v1_9::api::extensions::v1beta1::AllowedHostPath>> = None;
                 let mut value_default_add_capabilities: Option<Vec<String>> = None;
                 let mut value_default_allow_privilege_escalation: Option<bool> = None;
-                let mut value_fs_group: Option<::v1_8::api::extensions::v1beta1::FSGroupStrategyOptions> = None;
+                let mut value_fs_group: Option<::v1_9::api::extensions::v1beta1::FSGroupStrategyOptions> = None;
                 let mut value_host_ipc: Option<bool> = None;
                 let mut value_host_network: Option<bool> = None;
                 let mut value_host_pid: Option<bool> = None;
-                let mut value_host_ports: Option<Vec<::v1_8::api::extensions::v1beta1::HostPortRange>> = None;
+                let mut value_host_ports: Option<Vec<::v1_9::api::extensions::v1beta1::HostPortRange>> = None;
                 let mut value_privileged: Option<bool> = None;
                 let mut value_read_only_root_filesystem: Option<bool> = None;
                 let mut value_required_drop_capabilities: Option<Vec<String>> = None;
-                let mut value_run_as_user: Option<::v1_8::api::extensions::v1beta1::RunAsUserStrategyOptions> = None;
-                let mut value_se_linux: Option<::v1_8::api::extensions::v1beta1::SELinuxStrategyOptions> = None;
-                let mut value_supplemental_groups: Option<::v1_8::api::extensions::v1beta1::SupplementalGroupsStrategyOptions> = None;
+                let mut value_run_as_user: Option<::v1_9::api::extensions::v1beta1::RunAsUserStrategyOptions> = None;
+                let mut value_se_linux: Option<::v1_9::api::extensions::v1beta1::SELinuxStrategyOptions> = None;
+                let mut value_supplemental_groups: Option<::v1_9::api::extensions::v1beta1::SupplementalGroupsStrategyOptions> = None;
                 let mut value_volumes: Option<Vec<String>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
                         Field::Key_allow_privilege_escalation => value_allow_privilege_escalation = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_allowed_capabilities => value_allowed_capabilities = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_allowed_flex_volumes => value_allowed_flex_volumes = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_allowed_host_paths => value_allowed_host_paths = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_default_add_capabilities => value_default_add_capabilities = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_default_allow_privilege_escalation => value_default_allow_privilege_escalation = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -172,6 +179,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityPolicySpec {
                 Ok(PodSecurityPolicySpec {
                     allow_privilege_escalation: value_allow_privilege_escalation,
                     allowed_capabilities: value_allowed_capabilities,
+                    allowed_flex_volumes: value_allowed_flex_volumes,
                     allowed_host_paths: value_allowed_host_paths,
                     default_add_capabilities: value_default_add_capabilities,
                     default_allow_privilege_escalation: value_default_allow_privilege_escalation,
@@ -196,6 +204,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityPolicySpec {
             &[
                 "allowPrivilegeEscalation",
                 "allowedCapabilities",
+                "allowedFlexVolumes",
                 "allowedHostPaths",
                 "defaultAddCapabilities",
                 "defaultAllowPrivilegeEscalation",
@@ -224,6 +233,7 @@ impl ::serde::Serialize for PodSecurityPolicySpec {
             0 +
             self.allow_privilege_escalation.as_ref().map_or(0, |_| 1) +
             self.allowed_capabilities.as_ref().map_or(0, |_| 1) +
+            self.allowed_flex_volumes.as_ref().map_or(0, |_| 1) +
             self.allowed_host_paths.as_ref().map_or(0, |_| 1) +
             self.default_add_capabilities.as_ref().map_or(0, |_| 1) +
             self.default_allow_privilege_escalation.as_ref().map_or(0, |_| 1) +
@@ -245,6 +255,9 @@ impl ::serde::Serialize for PodSecurityPolicySpec {
         }
         if let Some(value) = &self.allowed_capabilities {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "allowedCapabilities", value)?;
+        }
+        if let Some(value) = &self.allowed_flex_volumes {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "allowedFlexVolumes", value)?;
         }
         if let Some(value) = &self.allowed_host_paths {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "allowedHostPaths", value)?;

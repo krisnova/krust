@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Role {
     /// Standard object's metadata.
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Rules holds all the PolicyRules for this Role
-    pub rules: Vec<::v1_8::api::rbac::v1::PolicyRule>,
+    pub rules: Vec<::v1_9::api::rbac::v1::PolicyRule>,
 }
 
 // Begin rbac.authorization.k8s.io/v1/Role
@@ -32,7 +32,7 @@ impl Role {
     ///     If 'true', then the output is pretty printed.
     pub fn create_rbac_authorization_v1_namespaced_role(
         namespace: &str,
-        body: &::v1_8::api::rbac::v1::Role,
+        body: &::v1_9::api::rbac::v1::Role,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles?", namespace = namespace);
@@ -51,7 +51,9 @@ impl Role {
 /// Parses the HTTP response of [`Role::create_rbac_authorization_v1_namespaced_role`](./struct.Role.html#method.create_rbac_authorization_v1_namespaced_role)
 #[derive(Debug)]
 pub enum CreateRbacAuthorizationV1NamespacedRoleResponse {
-    Ok(::v1_8::api::rbac::v1::Role),
+    Ok(::v1_9::api::rbac::v1::Role),
+    Created(::v1_9::api::rbac::v1::Role),
+    Accepted(::v1_9::api::rbac::v1::Role),
     Unauthorized,
     Other,
 }
@@ -66,6 +68,22 @@ impl ::Response for CreateRbacAuthorizationV1NamespacedRoleResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateRbacAuthorizationV1NamespacedRoleResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateRbacAuthorizationV1NamespacedRoleResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateRbacAuthorizationV1NamespacedRoleResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateRbacAuthorizationV1NamespacedRoleResponse::Unauthorized, 0)),
             _ => Ok((CreateRbacAuthorizationV1NamespacedRoleResponse::Other, 0)),
@@ -175,8 +193,8 @@ impl Role {
 /// Parses the HTTP response of [`Role::delete_rbac_authorization_v1_collection_namespaced_role`](./struct.Role.html#method.delete_rbac_authorization_v1_collection_namespaced_role)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1CollectionNamespacedRoleResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::rbac::v1::Role),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::rbac::v1::Role),
     Unauthorized,
     Other,
 }
@@ -244,7 +262,7 @@ impl Role {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_rbac_authorization_v1_namespaced_role(
         name: &str,
         namespace: &str,
@@ -278,8 +296,8 @@ impl Role {
 /// Parses the HTTP response of [`Role::delete_rbac_authorization_v1_namespaced_role`](./struct.Role.html#method.delete_rbac_authorization_v1_namespaced_role)
 #[derive(Debug)]
 pub enum DeleteRbacAuthorizationV1NamespacedRoleResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::rbac::v1::Role),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::rbac::v1::Role),
     Unauthorized,
     Other,
 }
@@ -416,7 +434,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::list_rbac_authorization_v1_namespaced_role`](./struct.Role.html#method.list_rbac_authorization_v1_namespaced_role)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1NamespacedRoleResponse {
-    Ok(::v1_8::api::rbac::v1::RoleList),
+    Ok(::v1_9::api::rbac::v1::RoleList),
     Unauthorized,
     Other,
 }
@@ -535,7 +553,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::list_rbac_authorization_v1_role_for_all_namespaces`](./struct.Role.html#method.list_rbac_authorization_v1_role_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListRbacAuthorizationV1RoleForAllNamespacesResponse {
-    Ok(::v1_8::api::rbac::v1::RoleList),
+    Ok(::v1_9::api::rbac::v1::RoleList),
     Unauthorized,
     Other,
 }
@@ -582,7 +600,7 @@ impl Role {
     pub fn patch_rbac_authorization_v1_namespaced_role(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}?", name = name, namespace = namespace);
@@ -601,7 +619,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::patch_rbac_authorization_v1_namespaced_role`](./struct.Role.html#method.patch_rbac_authorization_v1_namespaced_role)
 #[derive(Debug)]
 pub enum PatchRbacAuthorizationV1NamespacedRoleResponse {
-    Ok(::v1_8::api::rbac::v1::Role),
+    Ok(::v1_9::api::rbac::v1::Role),
     Unauthorized,
     Other,
 }
@@ -664,7 +682,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::read_rbac_authorization_v1_namespaced_role`](./struct.Role.html#method.read_rbac_authorization_v1_namespaced_role)
 #[derive(Debug)]
 pub enum ReadRbacAuthorizationV1NamespacedRoleResponse {
-    Ok(::v1_8::api::rbac::v1::Role),
+    Ok(::v1_9::api::rbac::v1::Role),
     Unauthorized,
     Other,
 }
@@ -711,7 +729,7 @@ impl Role {
     pub fn replace_rbac_authorization_v1_namespaced_role(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::rbac::v1::Role,
+        body: &::v1_9::api::rbac::v1::Role,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}?", name = name, namespace = namespace);
@@ -730,7 +748,8 @@ impl Role {
 /// Parses the HTTP response of [`Role::replace_rbac_authorization_v1_namespaced_role`](./struct.Role.html#method.replace_rbac_authorization_v1_namespaced_role)
 #[derive(Debug)]
 pub enum ReplaceRbacAuthorizationV1NamespacedRoleResponse {
-    Ok(::v1_8::api::rbac::v1::Role),
+    Ok(::v1_9::api::rbac::v1::Role),
+    Created(::v1_9::api::rbac::v1::Role),
     Unauthorized,
     Other,
 }
@@ -745,6 +764,14 @@ impl ::Response for ReplaceRbacAuthorizationV1NamespacedRoleResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceRbacAuthorizationV1NamespacedRoleResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceRbacAuthorizationV1NamespacedRoleResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceRbacAuthorizationV1NamespacedRoleResponse::Unauthorized, 0)),
             _ => Ok((ReplaceRbacAuthorizationV1NamespacedRoleResponse::Other, 0)),
@@ -859,7 +886,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::watch_rbac_authorization_v1_namespaced_role`](./struct.Role.html#method.watch_rbac_authorization_v1_namespaced_role)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1NamespacedRoleResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -985,7 +1012,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::watch_rbac_authorization_v1_namespaced_role_list`](./struct.Role.html#method.watch_rbac_authorization_v1_namespaced_role_list)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1NamespacedRoleListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1106,7 +1133,7 @@ impl Role {
 /// Parses the HTTP response of [`Role::watch_rbac_authorization_v1_role_list_for_all_namespaces`](./struct.Role.html#method.watch_rbac_authorization_v1_role_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchRbacAuthorizationV1RoleListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1197,8 +1224,8 @@ impl<'de> ::serde::Deserialize<'de> for Role {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_rules: Option<Vec<::v1_8::api::rbac::v1::PolicyRule>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_rules: Option<Vec<::v1_9::api::rbac::v1::PolicyRule>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

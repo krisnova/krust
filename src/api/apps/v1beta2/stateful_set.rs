@@ -1,18 +1,18 @@
 // Generated from definition io.k8s.api.apps.v1beta2.StatefulSet
 
-/// StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+/// DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for more information. StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 ///  - Network: A single stable DNS and hostname.
 ///  - Storage: As many VolumeClaims as requested.
 /// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct StatefulSet {
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the desired identities of pods in this set.
-    pub spec: Option<::v1_8::api::apps::v1beta2::StatefulSetSpec>,
+    pub spec: Option<::v1_9::api::apps::v1beta2::StatefulSetSpec>,
 
     /// Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
-    pub status: Option<::v1_8::api::apps::v1beta2::StatefulSetStatus>,
+    pub status: Option<::v1_9::api::apps::v1beta2::StatefulSetStatus>,
 }
 
 // Begin apps/v1beta2/StatefulSet
@@ -37,7 +37,7 @@ impl StatefulSet {
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1beta2_namespaced_stateful_set(
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::StatefulSet,
+        body: &::v1_9::api::apps::v1beta2::StatefulSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/statefulsets?", namespace = namespace);
@@ -56,7 +56,9 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::create_apps_v1beta2_namespaced_stateful_set`](./struct.StatefulSet.html#method.create_apps_v1beta2_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum CreateAppsV1beta2NamespacedStatefulSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSet),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSet),
+    Created(::v1_9::api::apps::v1beta2::StatefulSet),
+    Accepted(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -71,6 +73,22 @@ impl ::Response for CreateAppsV1beta2NamespacedStatefulSetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateAppsV1beta2NamespacedStatefulSetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta2NamespacedStatefulSetResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta2NamespacedStatefulSetResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateAppsV1beta2NamespacedStatefulSetResponse::Unauthorized, 0)),
             _ => Ok((CreateAppsV1beta2NamespacedStatefulSetResponse::Other, 0)),
@@ -180,8 +198,8 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::delete_apps_v1beta2_collection_namespaced_stateful_set`](./struct.StatefulSet.html#method.delete_apps_v1beta2_collection_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta2CollectionNamespacedStatefulSetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::apps::v1beta2::StatefulSet),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -249,7 +267,7 @@ impl StatefulSet {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_apps_v1beta2_namespaced_stateful_set(
         name: &str,
         namespace: &str,
@@ -283,8 +301,8 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::delete_apps_v1beta2_namespaced_stateful_set`](./struct.StatefulSet.html#method.delete_apps_v1beta2_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta2NamespacedStatefulSetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::apps::v1beta2::StatefulSet),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -421,7 +439,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::list_apps_v1beta2_namespaced_stateful_set`](./struct.StatefulSet.html#method.list_apps_v1beta2_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum ListAppsV1beta2NamespacedStatefulSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSetList),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSetList),
     Unauthorized,
     Other,
 }
@@ -540,7 +558,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::list_apps_v1beta2_stateful_set_for_all_namespaces`](./struct.StatefulSet.html#method.list_apps_v1beta2_stateful_set_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1beta2StatefulSetForAllNamespacesResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSetList),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSetList),
     Unauthorized,
     Other,
 }
@@ -587,7 +605,7 @@ impl StatefulSet {
     pub fn patch_apps_v1beta2_namespaced_stateful_set(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/statefulsets/{name}?", name = name, namespace = namespace);
@@ -606,7 +624,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::patch_apps_v1beta2_namespaced_stateful_set`](./struct.StatefulSet.html#method.patch_apps_v1beta2_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedStatefulSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSet),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -653,7 +671,7 @@ impl StatefulSet {
     pub fn patch_apps_v1beta2_namespaced_stateful_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/statefulsets/{name}/status?", name = name, namespace = namespace);
@@ -672,7 +690,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::patch_apps_v1beta2_namespaced_stateful_set_status`](./struct.StatefulSet.html#method.patch_apps_v1beta2_namespaced_stateful_set_status)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedStatefulSetStatusResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSet),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -751,7 +769,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::read_apps_v1beta2_namespaced_stateful_set`](./struct.StatefulSet.html#method.read_apps_v1beta2_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedStatefulSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSet),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -814,7 +832,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::read_apps_v1beta2_namespaced_stateful_set_status`](./struct.StatefulSet.html#method.read_apps_v1beta2_namespaced_stateful_set_status)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedStatefulSetStatusResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSet),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -861,7 +879,7 @@ impl StatefulSet {
     pub fn replace_apps_v1beta2_namespaced_stateful_set(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::StatefulSet,
+        body: &::v1_9::api::apps::v1beta2::StatefulSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/statefulsets/{name}?", name = name, namespace = namespace);
@@ -880,7 +898,8 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::replace_apps_v1beta2_namespaced_stateful_set`](./struct.StatefulSet.html#method.replace_apps_v1beta2_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedStatefulSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSet),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSet),
+    Created(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -895,6 +914,14 @@ impl ::Response for ReplaceAppsV1beta2NamespacedStatefulSetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta2NamespacedStatefulSetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta2NamespacedStatefulSetResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta2NamespacedStatefulSetResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta2NamespacedStatefulSetResponse::Other, 0)),
@@ -927,7 +954,7 @@ impl StatefulSet {
     pub fn replace_apps_v1beta2_namespaced_stateful_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::StatefulSet,
+        body: &::v1_9::api::apps::v1beta2::StatefulSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/statefulsets/{name}/status?", name = name, namespace = namespace);
@@ -946,7 +973,8 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::replace_apps_v1beta2_namespaced_stateful_set_status`](./struct.StatefulSet.html#method.replace_apps_v1beta2_namespaced_stateful_set_status)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedStatefulSetStatusResponse {
-    Ok(::v1_8::api::apps::v1beta2::StatefulSet),
+    Ok(::v1_9::api::apps::v1beta2::StatefulSet),
+    Created(::v1_9::api::apps::v1beta2::StatefulSet),
     Unauthorized,
     Other,
 }
@@ -961,6 +989,14 @@ impl ::Response for ReplaceAppsV1beta2NamespacedStatefulSetStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta2NamespacedStatefulSetStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta2NamespacedStatefulSetStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta2NamespacedStatefulSetStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta2NamespacedStatefulSetStatusResponse::Other, 0)),
@@ -1075,7 +1111,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::watch_apps_v1beta2_namespaced_stateful_set`](./struct.StatefulSet.html#method.watch_apps_v1beta2_namespaced_stateful_set)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2NamespacedStatefulSetResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1201,7 +1237,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::watch_apps_v1beta2_namespaced_stateful_set_list`](./struct.StatefulSet.html#method.watch_apps_v1beta2_namespaced_stateful_set_list)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2NamespacedStatefulSetListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1322,7 +1358,7 @@ impl StatefulSet {
 /// Parses the HTTP response of [`StatefulSet::watch_apps_v1beta2_stateful_set_list_for_all_namespaces`](./struct.StatefulSet.html#method.watch_apps_v1beta2_stateful_set_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2StatefulSetListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1415,9 +1451,9 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSet {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::apps::v1beta2::StatefulSetSpec> = None;
-                let mut value_status: Option<::v1_8::api::apps::v1beta2::StatefulSetStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::apps::v1beta2::StatefulSetSpec> = None;
+                let mut value_status: Option<::v1_9::api::apps::v1beta2::StatefulSetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

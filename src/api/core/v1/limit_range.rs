@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct LimitRange {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_8::api::core::v1::LimitRangeSpec>,
+    pub spec: Option<::v1_9::api::core::v1::LimitRangeSpec>,
 }
 
 // Begin /v1/LimitRange
@@ -32,7 +32,7 @@ impl LimitRange {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_limit_range(
         namespace: &str,
-        body: &::v1_8::api::core::v1::LimitRange,
+        body: &::v1_9::api::core::v1::LimitRange,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/limitranges?", namespace = namespace);
@@ -51,7 +51,9 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::create_core_v1_namespaced_limit_range`](./struct.LimitRange.html#method.create_core_v1_namespaced_limit_range)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedLimitRangeResponse {
-    Ok(::v1_8::api::core::v1::LimitRange),
+    Ok(::v1_9::api::core::v1::LimitRange),
+    Created(::v1_9::api::core::v1::LimitRange),
+    Accepted(::v1_9::api::core::v1::LimitRange),
     Unauthorized,
     Other,
 }
@@ -66,6 +68,22 @@ impl ::Response for CreateCoreV1NamespacedLimitRangeResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedLimitRangeResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedLimitRangeResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedLimitRangeResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedLimitRangeResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedLimitRangeResponse::Other, 0)),
@@ -175,8 +193,8 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::delete_core_v1_collection_namespaced_limit_range`](./struct.LimitRange.html#method.delete_core_v1_collection_namespaced_limit_range)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedLimitRangeResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::LimitRange),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::LimitRange),
     Unauthorized,
     Other,
 }
@@ -244,7 +262,7 @@ impl LimitRange {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespaced_limit_range(
         name: &str,
         namespace: &str,
@@ -278,8 +296,8 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::delete_core_v1_namespaced_limit_range`](./struct.LimitRange.html#method.delete_core_v1_namespaced_limit_range)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedLimitRangeResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::LimitRange),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::LimitRange),
     Unauthorized,
     Other,
 }
@@ -411,7 +429,7 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::list_core_v1_limit_range_for_all_namespaces`](./struct.LimitRange.html#method.list_core_v1_limit_range_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1LimitRangeForAllNamespacesResponse {
-    Ok(::v1_8::api::core::v1::LimitRangeList),
+    Ok(::v1_9::api::core::v1::LimitRangeList),
     Unauthorized,
     Other,
 }
@@ -535,7 +553,7 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::list_core_v1_namespaced_limit_range`](./struct.LimitRange.html#method.list_core_v1_namespaced_limit_range)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedLimitRangeResponse {
-    Ok(::v1_8::api::core::v1::LimitRangeList),
+    Ok(::v1_9::api::core::v1::LimitRangeList),
     Unauthorized,
     Other,
 }
@@ -582,7 +600,7 @@ impl LimitRange {
     pub fn patch_core_v1_namespaced_limit_range(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/limitranges/{name}?", name = name, namespace = namespace);
@@ -601,7 +619,7 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::patch_core_v1_namespaced_limit_range`](./struct.LimitRange.html#method.patch_core_v1_namespaced_limit_range)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedLimitRangeResponse {
-    Ok(::v1_8::api::core::v1::LimitRange),
+    Ok(::v1_9::api::core::v1::LimitRange),
     Unauthorized,
     Other,
 }
@@ -680,7 +698,7 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::read_core_v1_namespaced_limit_range`](./struct.LimitRange.html#method.read_core_v1_namespaced_limit_range)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedLimitRangeResponse {
-    Ok(::v1_8::api::core::v1::LimitRange),
+    Ok(::v1_9::api::core::v1::LimitRange),
     Unauthorized,
     Other,
 }
@@ -727,7 +745,7 @@ impl LimitRange {
     pub fn replace_core_v1_namespaced_limit_range(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::LimitRange,
+        body: &::v1_9::api::core::v1::LimitRange,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/limitranges/{name}?", name = name, namespace = namespace);
@@ -746,7 +764,8 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::replace_core_v1_namespaced_limit_range`](./struct.LimitRange.html#method.replace_core_v1_namespaced_limit_range)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedLimitRangeResponse {
-    Ok(::v1_8::api::core::v1::LimitRange),
+    Ok(::v1_9::api::core::v1::LimitRange),
+    Created(::v1_9::api::core::v1::LimitRange),
     Unauthorized,
     Other,
 }
@@ -761,6 +780,14 @@ impl ::Response for ReplaceCoreV1NamespacedLimitRangeResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedLimitRangeResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedLimitRangeResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedLimitRangeResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedLimitRangeResponse::Other, 0)),
@@ -865,7 +892,7 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::watch_core_v1_limit_range_list_for_all_namespaces`](./struct.LimitRange.html#method.watch_core_v1_limit_range_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1LimitRangeListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -996,7 +1023,7 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::watch_core_v1_namespaced_limit_range`](./struct.LimitRange.html#method.watch_core_v1_namespaced_limit_range)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedLimitRangeResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1122,7 +1149,7 @@ impl LimitRange {
 /// Parses the HTTP response of [`LimitRange::watch_core_v1_namespaced_limit_range_list`](./struct.LimitRange.html#method.watch_core_v1_namespaced_limit_range_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedLimitRangeListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1213,8 +1240,8 @@ impl<'de> ::serde::Deserialize<'de> for LimitRange {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::core::v1::LimitRangeSpec> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::core::v1::LimitRangeSpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

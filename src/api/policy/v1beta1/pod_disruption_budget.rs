@@ -3,13 +3,13 @@
 /// PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PodDisruptionBudget {
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of the PodDisruptionBudget.
-    pub spec: Option<::v1_8::api::policy::v1beta1::PodDisruptionBudgetSpec>,
+    pub spec: Option<::v1_9::api::policy::v1beta1::PodDisruptionBudgetSpec>,
 
     /// Most recently observed status of the PodDisruptionBudget.
-    pub status: Option<::v1_8::api::policy::v1beta1::PodDisruptionBudgetStatus>,
+    pub status: Option<::v1_9::api::policy::v1beta1::PodDisruptionBudgetStatus>,
 }
 
 // Begin policy/v1beta1/PodDisruptionBudget
@@ -34,7 +34,7 @@ impl PodDisruptionBudget {
     ///     If 'true', then the output is pretty printed.
     pub fn create_policy_v1beta1_namespaced_pod_disruption_budget(
         namespace: &str,
-        body: &::v1_8::api::policy::v1beta1::PodDisruptionBudget,
+        body: &::v1_9::api::policy::v1beta1::PodDisruptionBudget,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets?", namespace = namespace);
@@ -53,7 +53,9 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::create_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.create_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
+    Created(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
+    Accepted(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -68,6 +70,22 @@ impl ::Response for CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Unauthorized, 0)),
             _ => Ok((CreatePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Other, 0)),
@@ -177,8 +195,8 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::delete_policy_v1beta1_collection_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.delete_policy_v1beta1_collection_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum DeletePolicyV1beta1CollectionNamespacedPodDisruptionBudgetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -246,7 +264,7 @@ impl PodDisruptionBudget {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_policy_v1beta1_namespaced_pod_disruption_budget(
         name: &str,
         namespace: &str,
@@ -280,8 +298,8 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::delete_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.delete_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum DeletePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -418,7 +436,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::list_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.list_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum ListPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudgetList),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudgetList),
     Unauthorized,
     Other,
 }
@@ -537,7 +555,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::list_policy_v1beta1_pod_disruption_budget_for_all_namespaces`](./struct.PodDisruptionBudget.html#method.list_policy_v1beta1_pod_disruption_budget_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListPolicyV1beta1PodDisruptionBudgetForAllNamespacesResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudgetList),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudgetList),
     Unauthorized,
     Other,
 }
@@ -584,7 +602,7 @@ impl PodDisruptionBudget {
     pub fn patch_policy_v1beta1_namespaced_pod_disruption_budget(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}?", name = name, namespace = namespace);
@@ -603,7 +621,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::patch_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.patch_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum PatchPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -650,7 +668,7 @@ impl PodDisruptionBudget {
     pub fn patch_policy_v1beta1_namespaced_pod_disruption_budget_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status?", name = name, namespace = namespace);
@@ -669,7 +687,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::patch_policy_v1beta1_namespaced_pod_disruption_budget_status`](./struct.PodDisruptionBudget.html#method.patch_policy_v1beta1_namespaced_pod_disruption_budget_status)
 #[derive(Debug)]
 pub enum PatchPolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -748,7 +766,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::read_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.read_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum ReadPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -811,7 +829,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::read_policy_v1beta1_namespaced_pod_disruption_budget_status`](./struct.PodDisruptionBudget.html#method.read_policy_v1beta1_namespaced_pod_disruption_budget_status)
 #[derive(Debug)]
 pub enum ReadPolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -858,7 +876,7 @@ impl PodDisruptionBudget {
     pub fn replace_policy_v1beta1_namespaced_pod_disruption_budget(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::policy::v1beta1::PodDisruptionBudget,
+        body: &::v1_9::api::policy::v1beta1::PodDisruptionBudget,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}?", name = name, namespace = namespace);
@@ -877,7 +895,8 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::replace_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.replace_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum ReplacePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
+    Created(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -892,6 +911,14 @@ impl ::Response for ReplacePolicyV1beta1NamespacedPodDisruptionBudgetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Unauthorized, 0)),
             _ => Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetResponse::Other, 0)),
@@ -924,7 +951,7 @@ impl PodDisruptionBudget {
     pub fn replace_policy_v1beta1_namespaced_pod_disruption_budget_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::policy::v1beta1::PodDisruptionBudget,
+        body: &::v1_9::api::policy::v1beta1::PodDisruptionBudget,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status?", name = name, namespace = namespace);
@@ -943,7 +970,8 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::replace_policy_v1beta1_namespaced_pod_disruption_budget_status`](./struct.PodDisruptionBudget.html#method.replace_policy_v1beta1_namespaced_pod_disruption_budget_status)
 #[derive(Debug)]
 pub enum ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse {
-    Ok(::v1_8::api::policy::v1beta1::PodDisruptionBudget),
+    Ok(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
+    Created(::v1_9::api::policy::v1beta1::PodDisruptionBudget),
     Unauthorized,
     Other,
 }
@@ -958,6 +986,14 @@ impl ::Response for ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusRespo
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplacePolicyV1beta1NamespacedPodDisruptionBudgetStatusResponse::Other, 0)),
@@ -1072,7 +1108,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::watch_policy_v1beta1_namespaced_pod_disruption_budget`](./struct.PodDisruptionBudget.html#method.watch_policy_v1beta1_namespaced_pod_disruption_budget)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1NamespacedPodDisruptionBudgetResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1198,7 +1234,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::watch_policy_v1beta1_namespaced_pod_disruption_budget_list`](./struct.PodDisruptionBudget.html#method.watch_policy_v1beta1_namespaced_pod_disruption_budget_list)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1NamespacedPodDisruptionBudgetListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1319,7 +1355,7 @@ impl PodDisruptionBudget {
 /// Parses the HTTP response of [`PodDisruptionBudget::watch_policy_v1beta1_pod_disruption_budget_list_for_all_namespaces`](./struct.PodDisruptionBudget.html#method.watch_policy_v1beta1_pod_disruption_budget_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1PodDisruptionBudgetListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1412,9 +1448,9 @@ impl<'de> ::serde::Deserialize<'de> for PodDisruptionBudget {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::policy::v1beta1::PodDisruptionBudgetSpec> = None;
-                let mut value_status: Option<::v1_8::api::policy::v1beta1::PodDisruptionBudgetStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::policy::v1beta1::PodDisruptionBudgetSpec> = None;
+                let mut value_status: Option<::v1_9::api::policy::v1beta1::PodDisruptionBudgetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

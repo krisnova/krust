@@ -20,6 +20,9 @@ pub use self::azure_file_volume_source::*;
 mod binding;
 pub use self::binding::*;
 
+mod csi_persistent_volume_source;
+pub use self::csi_persistent_volume_source::*;
+
 mod capabilities;
 pub use self::capabilities::*;
 
@@ -131,6 +134,9 @@ pub use self::event::*;
 mod event_list;
 pub use self::event_list::*;
 
+mod event_series;
+pub use self::event_series::*;
+
 mod event_source;
 pub use self::event_source::*;
 
@@ -169,6 +175,9 @@ pub use self::host_alias::*;
 
 mod host_path_volume_source;
 pub use self::host_path_volume_source::*;
+
+mod iscsi_persistent_volume_source;
+pub use self::iscsi_persistent_volume_source::*;
 
 mod iscsi_volume_source;
 pub use self::iscsi_volume_source::*;
@@ -311,6 +320,12 @@ pub use self::pod_anti_affinity::*;
 mod pod_condition;
 pub use self::pod_condition::*;
 
+mod pod_dns_config;
+pub use self::pod_dns_config::*;
+
+mod pod_dns_config_option;
+pub use self::pod_dns_config_option::*;
+
 mod pod_list;
 pub use self::pod_list::*;
 
@@ -346,6 +361,9 @@ pub use self::projected_volume_source::*;
 
 mod quobyte_volume_source;
 pub use self::quobyte_volume_source::*;
+
+mod rbd_persistent_volume_source;
+pub use self::rbd_persistent_volume_source::*;
 
 mod rbd_volume_source;
 pub use self::rbd_volume_source::*;
@@ -457,6 +475,9 @@ pub use self::toleration::*;
 
 mod volume;
 pub use self::volume::*;
+
+mod volume_device;
+pub use self::volume_device::*;
 
 mod volume_mount;
 pub use self::volume_mount::*;

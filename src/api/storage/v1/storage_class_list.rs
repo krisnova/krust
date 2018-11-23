@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct StorageClassList {
     /// Items is the list of StorageClasses
-    pub items: Vec<::v1_8::api::storage::v1::StorageClass>,
+    pub items: Vec<::v1_9::api::storage::v1::StorageClass>,
 
     /// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for StorageClassList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for StorageClassList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_8::api::storage::v1::StorageClass>> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_9::api::storage::v1::StorageClass>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Eviction {
     /// DeleteOptions may be provided
-    pub delete_options: Option<::v1_8::apimachinery::pkg::apis::meta::v1::DeleteOptions>,
+    pub delete_options: Option<::v1_9::apimachinery::pkg::apis::meta::v1::DeleteOptions>,
 
     /// ObjectMeta describes the pod that is being evicted.
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 }
 
 // Begin policy/v1beta1/Eviction
@@ -37,7 +37,7 @@ impl Eviction {
     pub fn create_core_v1_namespaced_pod_eviction(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::policy::v1beta1::Eviction,
+        body: &::v1_9::api::policy::v1beta1::Eviction,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}/eviction?", name = name, namespace = namespace);
@@ -56,7 +56,9 @@ impl Eviction {
 /// Parses the HTTP response of [`Eviction::create_core_v1_namespaced_pod_eviction`](./struct.Eviction.html#method.create_core_v1_namespaced_pod_eviction)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedPodEvictionResponse {
-    Ok(::v1_8::api::policy::v1beta1::Eviction),
+    Ok(::v1_9::api::policy::v1beta1::Eviction),
+    Created(::v1_9::api::policy::v1beta1::Eviction),
+    Accepted(::v1_9::api::policy::v1beta1::Eviction),
     Unauthorized,
     Other,
 }
@@ -71,6 +73,22 @@ impl ::Response for CreateCoreV1NamespacedPodEvictionResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedPodEvictionResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPodEvictionResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPodEvictionResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedPodEvictionResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedPodEvictionResponse::Other, 0)),
@@ -145,8 +163,8 @@ impl<'de> ::serde::Deserialize<'de> for Eviction {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_delete_options: Option<::v1_8::apimachinery::pkg::apis::meta::v1::DeleteOptions> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_delete_options: Option<::v1_9::apimachinery::pkg::apis::meta::v1::DeleteOptions> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

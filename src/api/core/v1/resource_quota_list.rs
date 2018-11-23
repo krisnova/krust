@@ -3,11 +3,11 @@
 /// ResourceQuotaList is a list of ResourceQuota items.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ResourceQuotaList {
-    /// Items is a list of ResourceQuota objects. More info: https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md
-    pub items: Vec<::v1_8::api::core::v1::ResourceQuota>,
+    /// Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+    pub items: Vec<::v1_9::api::core::v1::ResourceQuota>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for ResourceQuotaList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for ResourceQuotaList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_8::api::core::v1::ResourceQuota>> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_9::api::core::v1::ResourceQuota>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

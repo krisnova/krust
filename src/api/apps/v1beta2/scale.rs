@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Scale {
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-    pub spec: Option<::v1_8::api::apps::v1beta2::ScaleSpec>,
+    pub spec: Option<::v1_9::api::apps::v1beta2::ScaleSpec>,
 
     /// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
-    pub status: Option<::v1_8::api::apps::v1beta2::ScaleStatus>,
+    pub status: Option<::v1_9::api::apps::v1beta2::ScaleStatus>,
 }
 
 // Begin apps/v1beta2/Scale
@@ -40,7 +40,7 @@ impl Scale {
     pub fn patch_apps_v1beta2_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
@@ -59,7 +59,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1beta2_namespaced_deployment_scale`](./struct.Scale.html#method.patch_apps_v1beta2_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedDeploymentScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -106,7 +106,7 @@ impl Scale {
     pub fn patch_apps_v1beta2_namespaced_replica_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/replicasets/{name}/scale?", name = name, namespace = namespace);
@@ -125,7 +125,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1beta2_namespaced_replica_set_scale`](./struct.Scale.html#method.patch_apps_v1beta2_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedReplicaSetScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -172,7 +172,7 @@ impl Scale {
     pub fn patch_apps_v1beta2_namespaced_stateful_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/statefulsets/{name}/scale?", name = name, namespace = namespace);
@@ -191,7 +191,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_apps_v1beta2_namespaced_stateful_set_scale`](./struct.Scale.html#method.patch_apps_v1beta2_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedStatefulSetScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -254,7 +254,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1beta2_namespaced_deployment_scale`](./struct.Scale.html#method.read_apps_v1beta2_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedDeploymentScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -317,7 +317,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1beta2_namespaced_replica_set_scale`](./struct.Scale.html#method.read_apps_v1beta2_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedReplicaSetScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -380,7 +380,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_apps_v1beta2_namespaced_stateful_set_scale`](./struct.Scale.html#method.read_apps_v1beta2_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedStatefulSetScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -427,7 +427,7 @@ impl Scale {
     pub fn replace_apps_v1beta2_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::Scale,
+        body: &::v1_9::api::apps::v1beta2::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
@@ -446,7 +446,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1beta2_namespaced_deployment_scale`](./struct.Scale.html#method.replace_apps_v1beta2_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedDeploymentScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
+    Created(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -461,6 +462,14 @@ impl ::Response for ReplaceAppsV1beta2NamespacedDeploymentScaleResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta2NamespacedDeploymentScaleResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta2NamespacedDeploymentScaleResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta2NamespacedDeploymentScaleResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta2NamespacedDeploymentScaleResponse::Other, 0)),
@@ -493,7 +502,7 @@ impl Scale {
     pub fn replace_apps_v1beta2_namespaced_replica_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::Scale,
+        body: &::v1_9::api::apps::v1beta2::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/replicasets/{name}/scale?", name = name, namespace = namespace);
@@ -512,7 +521,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1beta2_namespaced_replica_set_scale`](./struct.Scale.html#method.replace_apps_v1beta2_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedReplicaSetScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
+    Created(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -527,6 +537,14 @@ impl ::Response for ReplaceAppsV1beta2NamespacedReplicaSetScaleResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta2NamespacedReplicaSetScaleResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta2NamespacedReplicaSetScaleResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta2NamespacedReplicaSetScaleResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta2NamespacedReplicaSetScaleResponse::Other, 0)),
@@ -559,7 +577,7 @@ impl Scale {
     pub fn replace_apps_v1beta2_namespaced_stateful_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::Scale,
+        body: &::v1_9::api::apps::v1beta2::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/statefulsets/{name}/scale?", name = name, namespace = namespace);
@@ -578,7 +596,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_apps_v1beta2_namespaced_stateful_set_scale`](./struct.Scale.html#method.replace_apps_v1beta2_namespaced_stateful_set_scale)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedStatefulSetScaleResponse {
-    Ok(::v1_8::api::apps::v1beta2::Scale),
+    Ok(::v1_9::api::apps::v1beta2::Scale),
+    Created(::v1_9::api::apps::v1beta2::Scale),
     Unauthorized,
     Other,
 }
@@ -593,6 +612,14 @@ impl ::Response for ReplaceAppsV1beta2NamespacedStatefulSetScaleResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta2NamespacedStatefulSetScaleResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta2NamespacedStatefulSetScaleResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta2NamespacedStatefulSetScaleResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta2NamespacedStatefulSetScaleResponse::Other, 0)),
@@ -669,9 +696,9 @@ impl<'de> ::serde::Deserialize<'de> for Scale {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::apps::v1beta2::ScaleSpec> = None;
-                let mut value_status: Option<::v1_8::api::apps::v1beta2::ScaleStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::apps::v1beta2::ScaleSpec> = None;
+                let mut value_status: Option<::v1_9::api::apps::v1beta2::ScaleStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

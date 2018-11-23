@@ -47,6 +47,9 @@ pub use self::scale_status::*;
 mod stateful_set;
 pub use self::stateful_set::*;
 
+mod stateful_set_condition;
+pub use self::stateful_set_condition::*;
+
 mod stateful_set_list;
 pub use self::stateful_set_list::*;
 

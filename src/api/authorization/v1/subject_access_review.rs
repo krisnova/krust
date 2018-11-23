@@ -3,13 +3,13 @@
 /// SubjectAccessReview checks whether or not a user or group can perform an action.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SubjectAccessReview {
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec holds information about the request being evaluated
-    pub spec: ::v1_8::api::authorization::v1::SubjectAccessReviewSpec,
+    pub spec: ::v1_9::api::authorization::v1::SubjectAccessReviewSpec,
 
     /// Status is filled in by the server and indicates whether the request is allowed or not
-    pub status: Option<::v1_8::api::authorization::v1::SubjectAccessReviewStatus>,
+    pub status: Option<::v1_9::api::authorization::v1::SubjectAccessReviewStatus>,
 }
 
 // Begin authorization.k8s.io/v1/SubjectAccessReview
@@ -29,7 +29,7 @@ impl SubjectAccessReview {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_authorization_v1_subject_access_review(
-        body: &::v1_8::api::authorization::v1::SubjectAccessReview,
+        body: &::v1_9::api::authorization::v1::SubjectAccessReview,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/authorization.k8s.io/v1/subjectaccessreviews?");
@@ -48,7 +48,9 @@ impl SubjectAccessReview {
 /// Parses the HTTP response of [`SubjectAccessReview::create_authorization_v1_subject_access_review`](./struct.SubjectAccessReview.html#method.create_authorization_v1_subject_access_review)
 #[derive(Debug)]
 pub enum CreateAuthorizationV1SubjectAccessReviewResponse {
-    Ok(::v1_8::api::authorization::v1::SubjectAccessReview),
+    Ok(::v1_9::api::authorization::v1::SubjectAccessReview),
+    Created(::v1_9::api::authorization::v1::SubjectAccessReview),
+    Accepted(::v1_9::api::authorization::v1::SubjectAccessReview),
     Unauthorized,
     Other,
 }
@@ -63,6 +65,22 @@ impl ::Response for CreateAuthorizationV1SubjectAccessReviewResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateAuthorizationV1SubjectAccessReviewResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAuthorizationV1SubjectAccessReviewResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAuthorizationV1SubjectAccessReviewResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateAuthorizationV1SubjectAccessReviewResponse::Unauthorized, 0)),
             _ => Ok((CreateAuthorizationV1SubjectAccessReviewResponse::Other, 0)),
@@ -139,9 +157,9 @@ impl<'de> ::serde::Deserialize<'de> for SubjectAccessReview {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::authorization::v1::SubjectAccessReviewSpec> = None;
-                let mut value_status: Option<::v1_8::api::authorization::v1::SubjectAccessReviewStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::authorization::v1::SubjectAccessReviewSpec> = None;
+                let mut value_status: Option<::v1_9::api::authorization::v1::SubjectAccessReviewStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

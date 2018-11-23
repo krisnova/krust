@@ -3,14 +3,14 @@
 /// CronJobSpec describes how the job execution will look like and when it will actually run.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CronJobSpec {
-    /// Specifies how to treat concurrent executions of a Job. Defaults to Allow.
+    /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
     pub concurrency_policy: Option<String>,
 
     /// The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
     pub failed_jobs_history_limit: Option<i32>,
 
     /// Specifies the job that will be created when executing a CronJob.
-    pub job_template: ::v1_8::api::batch::v1beta1::JobTemplateSpec,
+    pub job_template: ::v1_9::api::batch::v1beta1::JobTemplateSpec,
 
     /// The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
     pub schedule: String,
@@ -80,7 +80,7 @@ impl<'de> ::serde::Deserialize<'de> for CronJobSpec {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_concurrency_policy: Option<String> = None;
                 let mut value_failed_jobs_history_limit: Option<i32> = None;
-                let mut value_job_template: Option<::v1_8::api::batch::v1beta1::JobTemplateSpec> = None;
+                let mut value_job_template: Option<::v1_9::api::batch::v1beta1::JobTemplateSpec> = None;
                 let mut value_schedule: Option<String> = None;
                 let mut value_starting_deadline_seconds: Option<i64> = None;
                 let mut value_successful_jobs_history_limit: Option<i32> = None;

@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct RoleList {
     /// Items is a list of Roles
-    pub items: Vec<::v1_8::api::rbac::v1alpha1::Role>,
+    pub items: Vec<::v1_9::api::rbac::v1alpha1::Role>,
 
     /// Standard object's metadata.
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for RoleList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for RoleList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_8::api::rbac::v1alpha1::Role>> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_9::api::rbac::v1alpha1::Role>> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -9,7 +9,7 @@ pub struct ServiceSpec {
     /// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
     pub external_ips: Option<Vec<String>>,
 
-    /// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid DNS name and requires Type to be ExternalName.
+    /// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
     pub external_name: Option<String>,
 
     /// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
@@ -25,7 +25,7 @@ pub struct ServiceSpec {
     pub load_balancer_source_ranges: Option<Vec<String>>,
 
     /// The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    pub ports: Option<Vec<::v1_8::api::core::v1::ServicePort>>,
+    pub ports: Option<Vec<::v1_9::api::core::v1::ServicePort>>,
 
     /// publishNotReadyAddresses, when set to true, indicates that DNS implementations must publish the notReadyAddresses of subsets for the Endpoints associated with the Service. The default value is false. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate SRV records for its Pods without respect to their readiness for purpose of peer discovery. This field will replace the service.alpha.kubernetes.io/tolerate-unready-endpoints when that annotation is deprecated and all clients have been converted to use this field.
     pub publish_not_ready_addresses: Option<bool>,
@@ -37,7 +37,7 @@ pub struct ServiceSpec {
     pub session_affinity: Option<String>,
 
     /// sessionAffinityConfig contains the configurations of session affinity.
-    pub session_affinity_config: Option<::v1_8::api::core::v1::SessionAffinityConfig>,
+    pub session_affinity_config: Option<::v1_9::api::core::v1::SessionAffinityConfig>,
 
     /// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types
     pub type_: Option<String>,
@@ -115,11 +115,11 @@ impl<'de> ::serde::Deserialize<'de> for ServiceSpec {
                 let mut value_health_check_node_port: Option<i32> = None;
                 let mut value_load_balancer_ip: Option<String> = None;
                 let mut value_load_balancer_source_ranges: Option<Vec<String>> = None;
-                let mut value_ports: Option<Vec<::v1_8::api::core::v1::ServicePort>> = None;
+                let mut value_ports: Option<Vec<::v1_9::api::core::v1::ServicePort>> = None;
                 let mut value_publish_not_ready_addresses: Option<bool> = None;
                 let mut value_selector: Option<::std::collections::BTreeMap<String, String>> = None;
                 let mut value_session_affinity: Option<String> = None;
-                let mut value_session_affinity_config: Option<::v1_8::api::core::v1::SessionAffinityConfig> = None;
+                let mut value_session_affinity_config: Option<::v1_9::api::core::v1::SessionAffinityConfig> = None;
                 let mut value_type_: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

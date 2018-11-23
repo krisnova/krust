@@ -9,14 +9,14 @@ pub struct APIServiceSpec {
     /// Group is the API group name this server hosts
     pub group: Option<String>,
 
-    /// GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is prefered by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
+    /// GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
     pub group_priority_minimum: i32,
 
     /// InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
     pub insecure_skip_tls_verify: Option<bool>,
 
     /// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-    pub service: ::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference,
+    pub service: ::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference,
 
     /// Version is the API version this server hosts.  For example, "v1"
     pub version: Option<String>,
@@ -82,7 +82,7 @@ impl<'de> ::serde::Deserialize<'de> for APIServiceSpec {
                 let mut value_group: Option<String> = None;
                 let mut value_group_priority_minimum: Option<i32> = None;
                 let mut value_insecure_skip_tls_verify: Option<bool> = None;
-                let mut value_service: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference> = None;
+                let mut value_service: Option<::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference> = None;
                 let mut value_version: Option<String> = None;
                 let mut value_version_priority: Option<i32> = None;
 

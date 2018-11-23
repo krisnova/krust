@@ -9,7 +9,7 @@ pub struct StorageClass {
     pub allow_volume_expansion: Option<bool>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. \["ro", "soft"\]. Not validated - mount of the PVs will simply fail if one is invalid.
     pub mount_options: Option<Vec<String>>,
@@ -22,6 +22,9 @@ pub struct StorageClass {
 
     /// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
     pub reclaim_policy: Option<String>,
+
+    /// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is alpha-level and is only honored by servers that enable the VolumeScheduling feature.
+    pub volume_binding_mode: Option<String>,
 }
 
 // Begin storage.k8s.io/v1/StorageClass
@@ -41,7 +44,7 @@ impl StorageClass {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_storage_v1_storage_class(
-        body: &::v1_8::api::storage::v1::StorageClass,
+        body: &::v1_9::api::storage::v1::StorageClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1/storageclasses?");
@@ -60,7 +63,9 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::create_storage_v1_storage_class`](./struct.StorageClass.html#method.create_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum CreateStorageV1StorageClassResponse {
-    Ok(::v1_8::api::storage::v1::StorageClass),
+    Ok(::v1_9::api::storage::v1::StorageClass),
+    Created(::v1_9::api::storage::v1::StorageClass),
+    Accepted(::v1_9::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -75,6 +80,22 @@ impl ::Response for CreateStorageV1StorageClassResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateStorageV1StorageClassResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateStorageV1StorageClassResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateStorageV1StorageClassResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateStorageV1StorageClassResponse::Unauthorized, 0)),
             _ => Ok((CreateStorageV1StorageClassResponse::Other, 0)),
@@ -179,8 +200,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::delete_storage_v1_collection_storage_class`](./struct.StorageClass.html#method.delete_storage_v1_collection_storage_class)
 #[derive(Debug)]
 pub enum DeleteStorageV1CollectionStorageClassResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::storage::v1::StorageClass),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -244,7 +265,7 @@ impl StorageClass {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_storage_v1_storage_class(
         name: &str,
         grace_period_seconds: Option<i64>,
@@ -277,8 +298,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::delete_storage_v1_storage_class`](./struct.StorageClass.html#method.delete_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum DeleteStorageV1StorageClassResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::storage::v1::StorageClass),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -410,7 +431,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::list_storage_v1_storage_class`](./struct.StorageClass.html#method.list_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum ListStorageV1StorageClassResponse {
-    Ok(::v1_8::api::storage::v1::StorageClassList),
+    Ok(::v1_9::api::storage::v1::StorageClassList),
     Unauthorized,
     Other,
 }
@@ -452,7 +473,7 @@ impl StorageClass {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_storage_v1_storage_class(
         name: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1/storageclasses/{name}?", name = name);
@@ -471,7 +492,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::patch_storage_v1_storage_class`](./struct.StorageClass.html#method.patch_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum PatchStorageV1StorageClassResponse {
-    Ok(::v1_8::api::storage::v1::StorageClass),
+    Ok(::v1_9::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -545,7 +566,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::read_storage_v1_storage_class`](./struct.StorageClass.html#method.read_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum ReadStorageV1StorageClassResponse {
-    Ok(::v1_8::api::storage::v1::StorageClass),
+    Ok(::v1_9::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -587,7 +608,7 @@ impl StorageClass {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_storage_v1_storage_class(
         name: &str,
-        body: &::v1_8::api::storage::v1::StorageClass,
+        body: &::v1_9::api::storage::v1::StorageClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1/storageclasses/{name}?", name = name);
@@ -606,7 +627,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::replace_storage_v1_storage_class`](./struct.StorageClass.html#method.replace_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum ReplaceStorageV1StorageClassResponse {
-    Ok(::v1_8::api::storage::v1::StorageClass),
+    Ok(::v1_9::api::storage::v1::StorageClass),
+    Created(::v1_9::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -621,6 +643,14 @@ impl ::Response for ReplaceStorageV1StorageClassResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceStorageV1StorageClassResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceStorageV1StorageClassResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceStorageV1StorageClassResponse::Unauthorized, 0)),
             _ => Ok((ReplaceStorageV1StorageClassResponse::Other, 0)),
@@ -730,7 +760,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::watch_storage_v1_storage_class`](./struct.StorageClass.html#method.watch_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum WatchStorageV1StorageClassResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -851,7 +881,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::watch_storage_v1_storage_class_list`](./struct.StorageClass.html#method.watch_storage_v1_storage_class_list)
 #[derive(Debug)]
 pub enum WatchStorageV1StorageClassListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -907,6 +937,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
             Key_parameters,
             Key_provisioner,
             Key_reclaim_policy,
+            Key_volume_binding_mode,
             Other,
         }
 
@@ -931,6 +962,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
                             "parameters" => Field::Key_parameters,
                             "provisioner" => Field::Key_provisioner,
                             "reclaimPolicy" => Field::Key_reclaim_policy,
+                            "volumeBindingMode" => Field::Key_volume_binding_mode,
                             _ => Field::Other,
                         })
                     }
@@ -951,11 +983,12 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_allow_volume_expansion: Option<bool> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_mount_options: Option<Vec<String>> = None;
                 let mut value_parameters: Option<::std::collections::BTreeMap<String, String>> = None;
                 let mut value_provisioner: Option<String> = None;
                 let mut value_reclaim_policy: Option<String> = None;
+                let mut value_volume_binding_mode: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -977,6 +1010,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
                         Field::Key_parameters => value_parameters = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_provisioner => value_provisioner = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_reclaim_policy => value_reclaim_policy = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_volume_binding_mode => value_volume_binding_mode = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
                 }
@@ -988,6 +1022,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
                     parameters: value_parameters,
                     provisioner: value_provisioner.ok_or_else(|| ::serde::de::Error::missing_field("provisioner"))?,
                     reclaim_policy: value_reclaim_policy,
+                    volume_binding_mode: value_volume_binding_mode,
                 })
             }
         }
@@ -1003,6 +1038,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
                 "parameters",
                 "provisioner",
                 "reclaimPolicy",
+                "volumeBindingMode",
             ],
             Visitor,
         )
@@ -1020,7 +1056,8 @@ impl ::serde::Serialize for StorageClass {
             self.mount_options.as_ref().map_or(0, |_| 1) +
             self.parameters.as_ref().map_or(0, |_| 1) +
             1 +
-            self.reclaim_policy.as_ref().map_or(0, |_| 1),
+            self.reclaim_policy.as_ref().map_or(0, |_| 1) +
+            self.volume_binding_mode.as_ref().map_or(0, |_| 1),
         )?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "apiVersion", <Self as ::Resource>::api_version())?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "kind", <Self as ::Resource>::kind())?;
@@ -1039,6 +1076,9 @@ impl ::serde::Serialize for StorageClass {
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "provisioner", &self.provisioner)?;
         if let Some(value) = &self.reclaim_policy {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "reclaimPolicy", value)?;
+        }
+        if let Some(value) = &self.volume_binding_mode {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "volumeBindingMode", value)?;
         }
         ::serde::ser::SerializeStruct::end(state)
     }

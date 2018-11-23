@@ -10,10 +10,10 @@ pub struct Container {
     pub command: Option<Vec<String>>,
 
     /// List of environment variables to set in the container. Cannot be updated.
-    pub env: Option<Vec<::v1_8::api::core::v1::EnvVar>>,
+    pub env: Option<Vec<::v1_9::api::core::v1::EnvVar>>,
 
     /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-    pub env_from: Option<Vec<::v1_8::api::core::v1::EnvFromSource>>,
+    pub env_from: Option<Vec<::v1_9::api::core::v1::EnvFromSource>>,
 
     /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
     pub image: Option<String>,
@@ -22,25 +22,25 @@ pub struct Container {
     pub image_pull_policy: Option<String>,
 
     /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-    pub lifecycle: Option<::v1_8::api::core::v1::Lifecycle>,
+    pub lifecycle: Option<::v1_9::api::core::v1::Lifecycle>,
 
     /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-    pub liveness_probe: Option<::v1_8::api::core::v1::Probe>,
+    pub liveness_probe: Option<::v1_9::api::core::v1::Probe>,
 
     /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
     pub name: String,
 
     /// List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
-    pub ports: Option<Vec<::v1_8::api::core::v1::ContainerPort>>,
+    pub ports: Option<Vec<::v1_9::api::core::v1::ContainerPort>>,
 
     /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-    pub readiness_probe: Option<::v1_8::api::core::v1::Probe>,
+    pub readiness_probe: Option<::v1_9::api::core::v1::Probe>,
 
     /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-    pub resources: Option<::v1_8::api::core::v1::ResourceRequirements>,
+    pub resources: Option<::v1_9::api::core::v1::ResourceRequirements>,
 
-    /// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://git.k8s.io/community/contributors/design-proposals/security_context.md
-    pub security_context: Option<::v1_8::api::core::v1::SecurityContext>,
+    /// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    pub security_context: Option<::v1_9::api::core::v1::SecurityContext>,
 
     /// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
     pub stdin: Option<bool>,
@@ -57,8 +57,11 @@ pub struct Container {
     /// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
     pub tty: Option<bool>,
 
+    /// volumeDevices is the list of block devices to be used by the container. This is an alpha feature and may change in the future.
+    pub volume_devices: Option<Vec<::v1_9::api::core::v1::VolumeDevice>>,
+
     /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-    pub volume_mounts: Option<Vec<::v1_8::api::core::v1::VolumeMount>>,
+    pub volume_mounts: Option<Vec<::v1_9::api::core::v1::VolumeMount>>,
 
     /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
     pub working_dir: Option<String>,
@@ -86,6 +89,7 @@ impl<'de> ::serde::Deserialize<'de> for Container {
             Key_termination_message_path,
             Key_termination_message_policy,
             Key_tty,
+            Key_volume_devices,
             Key_volume_mounts,
             Key_working_dir,
             Other,
@@ -122,6 +126,7 @@ impl<'de> ::serde::Deserialize<'de> for Container {
                             "terminationMessagePath" => Field::Key_termination_message_path,
                             "terminationMessagePolicy" => Field::Key_termination_message_policy,
                             "tty" => Field::Key_tty,
+                            "volumeDevices" => Field::Key_volume_devices,
                             "volumeMounts" => Field::Key_volume_mounts,
                             "workingDir" => Field::Key_working_dir,
                             _ => Field::Other,
@@ -145,23 +150,24 @@ impl<'de> ::serde::Deserialize<'de> for Container {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_args: Option<Vec<String>> = None;
                 let mut value_command: Option<Vec<String>> = None;
-                let mut value_env: Option<Vec<::v1_8::api::core::v1::EnvVar>> = None;
-                let mut value_env_from: Option<Vec<::v1_8::api::core::v1::EnvFromSource>> = None;
+                let mut value_env: Option<Vec<::v1_9::api::core::v1::EnvVar>> = None;
+                let mut value_env_from: Option<Vec<::v1_9::api::core::v1::EnvFromSource>> = None;
                 let mut value_image: Option<String> = None;
                 let mut value_image_pull_policy: Option<String> = None;
-                let mut value_lifecycle: Option<::v1_8::api::core::v1::Lifecycle> = None;
-                let mut value_liveness_probe: Option<::v1_8::api::core::v1::Probe> = None;
+                let mut value_lifecycle: Option<::v1_9::api::core::v1::Lifecycle> = None;
+                let mut value_liveness_probe: Option<::v1_9::api::core::v1::Probe> = None;
                 let mut value_name: Option<String> = None;
-                let mut value_ports: Option<Vec<::v1_8::api::core::v1::ContainerPort>> = None;
-                let mut value_readiness_probe: Option<::v1_8::api::core::v1::Probe> = None;
-                let mut value_resources: Option<::v1_8::api::core::v1::ResourceRequirements> = None;
-                let mut value_security_context: Option<::v1_8::api::core::v1::SecurityContext> = None;
+                let mut value_ports: Option<Vec<::v1_9::api::core::v1::ContainerPort>> = None;
+                let mut value_readiness_probe: Option<::v1_9::api::core::v1::Probe> = None;
+                let mut value_resources: Option<::v1_9::api::core::v1::ResourceRequirements> = None;
+                let mut value_security_context: Option<::v1_9::api::core::v1::SecurityContext> = None;
                 let mut value_stdin: Option<bool> = None;
                 let mut value_stdin_once: Option<bool> = None;
                 let mut value_termination_message_path: Option<String> = None;
                 let mut value_termination_message_policy: Option<String> = None;
                 let mut value_tty: Option<bool> = None;
-                let mut value_volume_mounts: Option<Vec<::v1_8::api::core::v1::VolumeMount>> = None;
+                let mut value_volume_devices: Option<Vec<::v1_9::api::core::v1::VolumeDevice>> = None;
+                let mut value_volume_mounts: Option<Vec<::v1_9::api::core::v1::VolumeMount>> = None;
                 let mut value_working_dir: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
@@ -184,6 +190,7 @@ impl<'de> ::serde::Deserialize<'de> for Container {
                         Field::Key_termination_message_path => value_termination_message_path = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_termination_message_policy => value_termination_message_policy = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_tty => value_tty = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_volume_devices => value_volume_devices = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_volume_mounts => value_volume_mounts = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_working_dir => value_working_dir = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
@@ -209,6 +216,7 @@ impl<'de> ::serde::Deserialize<'de> for Container {
                     termination_message_path: value_termination_message_path,
                     termination_message_policy: value_termination_message_policy,
                     tty: value_tty,
+                    volume_devices: value_volume_devices,
                     volume_mounts: value_volume_mounts,
                     working_dir: value_working_dir,
                 })
@@ -236,6 +244,7 @@ impl<'de> ::serde::Deserialize<'de> for Container {
                 "terminationMessagePath",
                 "terminationMessagePolicy",
                 "tty",
+                "volumeDevices",
                 "volumeMounts",
                 "workingDir",
             ],
@@ -267,6 +276,7 @@ impl ::serde::Serialize for Container {
             self.termination_message_path.as_ref().map_or(0, |_| 1) +
             self.termination_message_policy.as_ref().map_or(0, |_| 1) +
             self.tty.as_ref().map_or(0, |_| 1) +
+            self.volume_devices.as_ref().map_or(0, |_| 1) +
             self.volume_mounts.as_ref().map_or(0, |_| 1) +
             self.working_dir.as_ref().map_or(0, |_| 1),
         )?;
@@ -321,6 +331,9 @@ impl ::serde::Serialize for Container {
         }
         if let Some(value) = &self.tty {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "tty", value)?;
+        }
+        if let Some(value) = &self.volume_devices {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "volumeDevices", value)?;
         }
         if let Some(value) = &self.volume_mounts {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "volumeMounts", value)?;

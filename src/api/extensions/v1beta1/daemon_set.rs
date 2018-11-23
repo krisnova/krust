@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct DaemonSet {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_8::api::extensions::v1beta1::DaemonSetSpec>,
+    pub spec: Option<::v1_9::api::extensions::v1beta1::DaemonSetSpec>,
 
     /// The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_8::api::extensions::v1beta1::DaemonSetStatus>,
+    pub status: Option<::v1_9::api::extensions::v1beta1::DaemonSetStatus>,
 }
 
 // Begin extensions/v1beta1/DaemonSet
@@ -35,7 +35,7 @@ impl DaemonSet {
     ///     If 'true', then the output is pretty printed.
     pub fn create_extensions_v1beta1_namespaced_daemon_set(
         namespace: &str,
-        body: &::v1_8::api::extensions::v1beta1::DaemonSet,
+        body: &::v1_9::api::extensions::v1beta1::DaemonSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets?", namespace = namespace);
@@ -54,7 +54,9 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::create_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.create_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum CreateExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSet),
+    Created(::v1_9::api::extensions::v1beta1::DaemonSet),
+    Accepted(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -69,6 +71,22 @@ impl ::Response for CreateExtensionsV1beta1NamespacedDaemonSetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateExtensionsV1beta1NamespacedDaemonSetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateExtensionsV1beta1NamespacedDaemonSetResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateExtensionsV1beta1NamespacedDaemonSetResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateExtensionsV1beta1NamespacedDaemonSetResponse::Unauthorized, 0)),
             _ => Ok((CreateExtensionsV1beta1NamespacedDaemonSetResponse::Other, 0)),
@@ -178,8 +196,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::delete_extensions_v1beta1_collection_namespaced_daemon_set`](./struct.DaemonSet.html#method.delete_extensions_v1beta1_collection_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1CollectionNamespacedDaemonSetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::extensions::v1beta1::DaemonSet),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -247,7 +265,7 @@ impl DaemonSet {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_extensions_v1beta1_namespaced_daemon_set(
         name: &str,
         namespace: &str,
@@ -281,8 +299,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::delete_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.delete_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1NamespacedDaemonSetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::extensions::v1beta1::DaemonSet),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -414,7 +432,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::list_extensions_v1beta1_daemon_set_for_all_namespaces`](./struct.DaemonSet.html#method.list_extensions_v1beta1_daemon_set_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1DaemonSetForAllNamespacesResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSetList),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSetList),
     Unauthorized,
     Other,
 }
@@ -538,7 +556,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::list_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.list_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSetList),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSetList),
     Unauthorized,
     Other,
 }
@@ -585,7 +603,7 @@ impl DaemonSet {
     pub fn patch_extensions_v1beta1_namespaced_daemon_set(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}?", name = name, namespace = namespace);
@@ -604,7 +622,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::patch_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.patch_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -651,7 +669,7 @@ impl DaemonSet {
     pub fn patch_extensions_v1beta1_namespaced_daemon_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}/status?", name = name, namespace = namespace);
@@ -670,7 +688,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::patch_extensions_v1beta1_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.patch_extensions_v1beta1_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedDaemonSetStatusResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -749,7 +767,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::read_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.read_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -812,7 +830,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::read_extensions_v1beta1_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.read_extensions_v1beta1_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedDaemonSetStatusResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -859,7 +877,7 @@ impl DaemonSet {
     pub fn replace_extensions_v1beta1_namespaced_daemon_set(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::extensions::v1beta1::DaemonSet,
+        body: &::v1_9::api::extensions::v1beta1::DaemonSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}?", name = name, namespace = namespace);
@@ -878,7 +896,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::replace_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.replace_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSet),
+    Created(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -893,6 +912,14 @@ impl ::Response for ReplaceExtensionsV1beta1NamespacedDaemonSetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetResponse::Unauthorized, 0)),
             _ => Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetResponse::Other, 0)),
@@ -925,7 +952,7 @@ impl DaemonSet {
     pub fn replace_extensions_v1beta1_namespaced_daemon_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::extensions::v1beta1::DaemonSet,
+        body: &::v1_9::api::extensions::v1beta1::DaemonSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}/status?", name = name, namespace = namespace);
@@ -944,7 +971,8 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::replace_extensions_v1beta1_namespaced_daemon_set_status`](./struct.DaemonSet.html#method.replace_extensions_v1beta1_namespaced_daemon_set_status)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DaemonSet),
+    Ok(::v1_9::api::extensions::v1beta1::DaemonSet),
+    Created(::v1_9::api::extensions::v1beta1::DaemonSet),
     Unauthorized,
     Other,
 }
@@ -959,6 +987,14 @@ impl ::Response for ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceExtensionsV1beta1NamespacedDaemonSetStatusResponse::Other, 0)),
@@ -1063,7 +1099,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_extensions_v1beta1_daemon_set_list_for_all_namespaces`](./struct.DaemonSet.html#method.watch_extensions_v1beta1_daemon_set_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1DaemonSetListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1194,7 +1230,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_extensions_v1beta1_namespaced_daemon_set`](./struct.DaemonSet.html#method.watch_extensions_v1beta1_namespaced_daemon_set)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedDaemonSetResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1320,7 +1356,7 @@ impl DaemonSet {
 /// Parses the HTTP response of [`DaemonSet::watch_extensions_v1beta1_namespaced_daemon_set_list`](./struct.DaemonSet.html#method.watch_extensions_v1beta1_namespaced_daemon_set_list)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedDaemonSetListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1413,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for DaemonSet {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::extensions::v1beta1::DaemonSetSpec> = None;
-                let mut value_status: Option<::v1_8::api::extensions::v1beta1::DaemonSetStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::extensions::v1beta1::DaemonSetSpec> = None;
+                let mut value_status: Option<::v1_9::api::extensions::v1beta1::DaemonSetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

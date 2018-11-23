@@ -7,7 +7,7 @@ pub struct Secret {
     pub data: Option<::std::collections::BTreeMap<String, ::ByteString>>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.
     pub string_data: Option<::std::collections::BTreeMap<String, String>>,
@@ -38,7 +38,7 @@ impl Secret {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_secret(
         namespace: &str,
-        body: &::v1_8::api::core::v1::Secret,
+        body: &::v1_9::api::core::v1::Secret,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/secrets?", namespace = namespace);
@@ -57,7 +57,9 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::create_core_v1_namespaced_secret`](./struct.Secret.html#method.create_core_v1_namespaced_secret)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedSecretResponse {
-    Ok(::v1_8::api::core::v1::Secret),
+    Ok(::v1_9::api::core::v1::Secret),
+    Created(::v1_9::api::core::v1::Secret),
+    Accepted(::v1_9::api::core::v1::Secret),
     Unauthorized,
     Other,
 }
@@ -72,6 +74,22 @@ impl ::Response for CreateCoreV1NamespacedSecretResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedSecretResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedSecretResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedSecretResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedSecretResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedSecretResponse::Other, 0)),
@@ -181,8 +199,8 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::delete_core_v1_collection_namespaced_secret`](./struct.Secret.html#method.delete_core_v1_collection_namespaced_secret)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedSecretResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Secret),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Secret),
     Unauthorized,
     Other,
 }
@@ -250,7 +268,7 @@ impl Secret {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespaced_secret(
         name: &str,
         namespace: &str,
@@ -284,8 +302,8 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::delete_core_v1_namespaced_secret`](./struct.Secret.html#method.delete_core_v1_namespaced_secret)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedSecretResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Secret),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Secret),
     Unauthorized,
     Other,
 }
@@ -422,7 +440,7 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::list_core_v1_namespaced_secret`](./struct.Secret.html#method.list_core_v1_namespaced_secret)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedSecretResponse {
-    Ok(::v1_8::api::core::v1::SecretList),
+    Ok(::v1_9::api::core::v1::SecretList),
     Unauthorized,
     Other,
 }
@@ -541,7 +559,7 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::list_core_v1_secret_for_all_namespaces`](./struct.Secret.html#method.list_core_v1_secret_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1SecretForAllNamespacesResponse {
-    Ok(::v1_8::api::core::v1::SecretList),
+    Ok(::v1_9::api::core::v1::SecretList),
     Unauthorized,
     Other,
 }
@@ -588,7 +606,7 @@ impl Secret {
     pub fn patch_core_v1_namespaced_secret(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/secrets/{name}?", name = name, namespace = namespace);
@@ -607,7 +625,7 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::patch_core_v1_namespaced_secret`](./struct.Secret.html#method.patch_core_v1_namespaced_secret)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedSecretResponse {
-    Ok(::v1_8::api::core::v1::Secret),
+    Ok(::v1_9::api::core::v1::Secret),
     Unauthorized,
     Other,
 }
@@ -686,7 +704,7 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::read_core_v1_namespaced_secret`](./struct.Secret.html#method.read_core_v1_namespaced_secret)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedSecretResponse {
-    Ok(::v1_8::api::core::v1::Secret),
+    Ok(::v1_9::api::core::v1::Secret),
     Unauthorized,
     Other,
 }
@@ -733,7 +751,7 @@ impl Secret {
     pub fn replace_core_v1_namespaced_secret(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::Secret,
+        body: &::v1_9::api::core::v1::Secret,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/secrets/{name}?", name = name, namespace = namespace);
@@ -752,7 +770,8 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::replace_core_v1_namespaced_secret`](./struct.Secret.html#method.replace_core_v1_namespaced_secret)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedSecretResponse {
-    Ok(::v1_8::api::core::v1::Secret),
+    Ok(::v1_9::api::core::v1::Secret),
+    Created(::v1_9::api::core::v1::Secret),
     Unauthorized,
     Other,
 }
@@ -767,6 +786,14 @@ impl ::Response for ReplaceCoreV1NamespacedSecretResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedSecretResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedSecretResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedSecretResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedSecretResponse::Other, 0)),
@@ -881,7 +908,7 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::watch_core_v1_namespaced_secret`](./struct.Secret.html#method.watch_core_v1_namespaced_secret)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedSecretResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1007,7 +1034,7 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::watch_core_v1_namespaced_secret_list`](./struct.Secret.html#method.watch_core_v1_namespaced_secret_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedSecretListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1128,7 +1155,7 @@ impl Secret {
 /// Parses the HTTP response of [`Secret::watch_core_v1_secret_list_for_all_namespaces`](./struct.Secret.html#method.watch_core_v1_secret_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1SecretListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1224,7 +1251,7 @@ impl<'de> ::serde::Deserialize<'de> for Secret {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_data: Option<::std::collections::BTreeMap<String, ::ByteString>> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_string_data: Option<::std::collections::BTreeMap<String, String>> = None;
                 let mut value_type_: Option<String> = None;
 

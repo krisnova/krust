@@ -1,9 +1,15 @@
 
+mod allowed_flex_volume;
+pub use self::allowed_flex_volume::*;
+
 mod allowed_host_path;
 pub use self::allowed_host_path::*;
 
 mod daemon_set;
 pub use self::daemon_set::*;
+
+mod daemon_set_condition;
+pub use self::daemon_set_condition::*;
 
 mod daemon_set_list;
 pub use self::daemon_set_list::*;

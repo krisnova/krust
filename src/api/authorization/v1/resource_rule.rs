@@ -9,7 +9,8 @@ pub struct ResourceRule {
     /// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
     pub resource_names: Option<Vec<String>>,
 
-    /// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.  "*" means all.
+    /// Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
+    ///  "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
     pub resources: Option<Vec<String>>,
 
     /// Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all.

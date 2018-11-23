@@ -35,6 +35,9 @@ pub use self::label_selector_requirement::*;
 mod list_meta;
 pub use self::list_meta::*;
 
+mod micro_time;
+pub use self::micro_time::*;
+
 mod object_meta;
 pub use self::object_meta::*;
 

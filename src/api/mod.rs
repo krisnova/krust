@@ -14,6 +14,8 @@ pub mod certificates;
 
 pub mod core;
 
+pub mod events;
+
 pub mod extensions;
 
 pub mod networking;

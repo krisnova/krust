@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Pod {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_8::api::core::v1::PodSpec>,
+    pub spec: Option<::v1_9::api::core::v1::PodSpec>,
 
     /// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_8::api::core::v1::PodStatus>,
+    pub status: Option<::v1_9::api::core::v1::PodStatus>,
 }
 
 // Begin /v1/Pod
@@ -1292,7 +1292,7 @@ impl Pod {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_pod(
         namespace: &str,
-        body: &::v1_8::api::core::v1::Pod,
+        body: &::v1_9::api::core::v1::Pod,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods?", namespace = namespace);
@@ -1311,7 +1311,9 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::create_core_v1_namespaced_pod`](./struct.Pod.html#method.create_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedPodResponse {
-    Ok(::v1_8::api::core::v1::Pod),
+    Ok(::v1_9::api::core::v1::Pod),
+    Created(::v1_9::api::core::v1::Pod),
+    Accepted(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1326,6 +1328,22 @@ impl ::Response for CreateCoreV1NamespacedPodResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedPodResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPodResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPodResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedPodResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedPodResponse::Other, 0)),
@@ -1435,8 +1453,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::delete_core_v1_collection_namespaced_pod`](./struct.Pod.html#method.delete_core_v1_collection_namespaced_pod)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedPodResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Pod),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1504,7 +1522,7 @@ impl Pod {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespaced_pod(
         name: &str,
         namespace: &str,
@@ -1538,8 +1556,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::delete_core_v1_namespaced_pod`](./struct.Pod.html#method.delete_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedPodResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Pod),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1676,7 +1694,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::list_core_v1_namespaced_pod`](./struct.Pod.html#method.list_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedPodResponse {
-    Ok(::v1_8::api::core::v1::PodList),
+    Ok(::v1_9::api::core::v1::PodList),
     Unauthorized,
     Other,
 }
@@ -1795,7 +1813,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::list_core_v1_pod_for_all_namespaces`](./struct.Pod.html#method.list_core_v1_pod_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1PodForAllNamespacesResponse {
-    Ok(::v1_8::api::core::v1::PodList),
+    Ok(::v1_9::api::core::v1::PodList),
     Unauthorized,
     Other,
 }
@@ -1842,7 +1860,7 @@ impl Pod {
     pub fn patch_core_v1_namespaced_pod(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}?", name = name, namespace = namespace);
@@ -1861,7 +1879,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::patch_core_v1_namespaced_pod`](./struct.Pod.html#method.patch_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPodResponse {
-    Ok(::v1_8::api::core::v1::Pod),
+    Ok(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -1908,7 +1926,7 @@ impl Pod {
     pub fn patch_core_v1_namespaced_pod_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}/status?", name = name, namespace = namespace);
@@ -1927,7 +1945,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::patch_core_v1_namespaced_pod_status`](./struct.Pod.html#method.patch_core_v1_namespaced_pod_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPodStatusResponse {
-    Ok(::v1_8::api::core::v1::Pod),
+    Ok(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2611,7 +2629,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::read_core_v1_namespaced_pod`](./struct.Pod.html#method.read_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPodResponse {
-    Ok(::v1_8::api::core::v1::Pod),
+    Ok(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2798,7 +2816,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::read_core_v1_namespaced_pod_status`](./struct.Pod.html#method.read_core_v1_namespaced_pod_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPodStatusResponse {
-    Ok(::v1_8::api::core::v1::Pod),
+    Ok(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2845,7 +2863,7 @@ impl Pod {
     pub fn replace_core_v1_namespaced_pod(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::Pod,
+        body: &::v1_9::api::core::v1::Pod,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}?", name = name, namespace = namespace);
@@ -2864,7 +2882,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::replace_core_v1_namespaced_pod`](./struct.Pod.html#method.replace_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPodResponse {
-    Ok(::v1_8::api::core::v1::Pod),
+    Ok(::v1_9::api::core::v1::Pod),
+    Created(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2879,6 +2898,14 @@ impl ::Response for ReplaceCoreV1NamespacedPodResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedPodResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedPodResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedPodResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedPodResponse::Other, 0)),
@@ -2911,7 +2938,7 @@ impl Pod {
     pub fn replace_core_v1_namespaced_pod_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::Pod,
+        body: &::v1_9::api::core::v1::Pod,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}/status?", name = name, namespace = namespace);
@@ -2930,7 +2957,8 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::replace_core_v1_namespaced_pod_status`](./struct.Pod.html#method.replace_core_v1_namespaced_pod_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPodStatusResponse {
-    Ok(::v1_8::api::core::v1::Pod),
+    Ok(::v1_9::api::core::v1::Pod),
+    Created(::v1_9::api::core::v1::Pod),
     Unauthorized,
     Other,
 }
@@ -2945,6 +2973,14 @@ impl ::Response for ReplaceCoreV1NamespacedPodStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedPodStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedPodStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedPodStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedPodStatusResponse::Other, 0)),
@@ -3059,7 +3095,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::watch_core_v1_namespaced_pod`](./struct.Pod.html#method.watch_core_v1_namespaced_pod)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPodResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -3185,7 +3221,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::watch_core_v1_namespaced_pod_list`](./struct.Pod.html#method.watch_core_v1_namespaced_pod_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPodListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -3306,7 +3342,7 @@ impl Pod {
 /// Parses the HTTP response of [`Pod::watch_core_v1_pod_list_for_all_namespaces`](./struct.Pod.html#method.watch_core_v1_pod_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1PodListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -3399,9 +3435,9 @@ impl<'de> ::serde::Deserialize<'de> for Pod {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::core::v1::PodSpec> = None;
-                let mut value_status: Option<::v1_8::api::core::v1::PodStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::core::v1::PodSpec> = None;
+                let mut value_status: Option<::v1_9::api::core::v1::PodStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

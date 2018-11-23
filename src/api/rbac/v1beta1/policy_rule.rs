@@ -12,7 +12,7 @@ pub struct PolicyRule {
     /// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
     pub resource_names: Option<Vec<String>>,
 
-    /// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+    /// Resources is a list of resources this rule applies to.  '*' represents all resources in the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in the specified apiGroups.
     pub resources: Option<Vec<String>>,
 
     /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.

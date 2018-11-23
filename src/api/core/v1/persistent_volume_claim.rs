@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PersistentVolumeClaim {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-    pub spec: Option<::v1_8::api::core::v1::PersistentVolumeClaimSpec>,
+    pub spec: Option<::v1_9::api::core::v1::PersistentVolumeClaimSpec>,
 
     /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-    pub status: Option<::v1_8::api::core::v1::PersistentVolumeClaimStatus>,
+    pub status: Option<::v1_9::api::core::v1::PersistentVolumeClaimStatus>,
 }
 
 // Begin /v1/PersistentVolumeClaim
@@ -35,7 +35,7 @@ impl PersistentVolumeClaim {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_persistent_volume_claim(
         namespace: &str,
-        body: &::v1_8::api::core::v1::PersistentVolumeClaim,
+        body: &::v1_9::api::core::v1::PersistentVolumeClaim,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims?", namespace = namespace);
@@ -54,7 +54,9 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::create_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.create_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Created(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Accepted(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -69,6 +71,22 @@ impl ::Response for CreateCoreV1NamespacedPersistentVolumeClaimResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedPersistentVolumeClaimResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPersistentVolumeClaimResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedPersistentVolumeClaimResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedPersistentVolumeClaimResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedPersistentVolumeClaimResponse::Other, 0)),
@@ -178,8 +196,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::delete_core_v1_collection_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.delete_core_v1_collection_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedPersistentVolumeClaimResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::PersistentVolumeClaim),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -247,7 +265,7 @@ impl PersistentVolumeClaim {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespaced_persistent_volume_claim(
         name: &str,
         namespace: &str,
@@ -281,8 +299,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::delete_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.delete_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedPersistentVolumeClaimResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::PersistentVolumeClaim),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -419,7 +437,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::list_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.list_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaimList),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaimList),
     Unauthorized,
     Other,
 }
@@ -538,7 +556,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::list_core_v1_persistent_volume_claim_for_all_namespaces`](./struct.PersistentVolumeClaim.html#method.list_core_v1_persistent_volume_claim_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1PersistentVolumeClaimForAllNamespacesResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaimList),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaimList),
     Unauthorized,
     Other,
 }
@@ -585,7 +603,7 @@ impl PersistentVolumeClaim {
     pub fn patch_core_v1_namespaced_persistent_volume_claim(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}?", name = name, namespace = namespace);
@@ -604,7 +622,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::patch_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.patch_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -651,7 +669,7 @@ impl PersistentVolumeClaim {
     pub fn patch_core_v1_namespaced_persistent_volume_claim_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status?", name = name, namespace = namespace);
@@ -670,7 +688,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::patch_core_v1_namespaced_persistent_volume_claim_status`](./struct.PersistentVolumeClaim.html#method.patch_core_v1_namespaced_persistent_volume_claim_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedPersistentVolumeClaimStatusResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -749,7 +767,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::read_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.read_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -812,7 +830,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::read_core_v1_namespaced_persistent_volume_claim_status`](./struct.PersistentVolumeClaim.html#method.read_core_v1_namespaced_persistent_volume_claim_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedPersistentVolumeClaimStatusResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -859,7 +877,7 @@ impl PersistentVolumeClaim {
     pub fn replace_core_v1_namespaced_persistent_volume_claim(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::PersistentVolumeClaim,
+        body: &::v1_9::api::core::v1::PersistentVolumeClaim,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}?", name = name, namespace = namespace);
@@ -878,7 +896,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::replace_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.replace_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Created(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -893,6 +912,14 @@ impl ::Response for ReplaceCoreV1NamespacedPersistentVolumeClaimResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimResponse::Other, 0)),
@@ -925,7 +952,7 @@ impl PersistentVolumeClaim {
     pub fn replace_core_v1_namespaced_persistent_volume_claim_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::PersistentVolumeClaim,
+        body: &::v1_9::api::core::v1::PersistentVolumeClaim,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status?", name = name, namespace = namespace);
@@ -944,7 +971,8 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::replace_core_v1_namespaced_persistent_volume_claim_status`](./struct.PersistentVolumeClaim.html#method.replace_core_v1_namespaced_persistent_volume_claim_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedPersistentVolumeClaimStatusResponse {
-    Ok(::v1_8::api::core::v1::PersistentVolumeClaim),
+    Ok(::v1_9::api::core::v1::PersistentVolumeClaim),
+    Created(::v1_9::api::core::v1::PersistentVolumeClaim),
     Unauthorized,
     Other,
 }
@@ -959,6 +987,14 @@ impl ::Response for ReplaceCoreV1NamespacedPersistentVolumeClaimStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedPersistentVolumeClaimStatusResponse::Other, 0)),
@@ -1073,7 +1109,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::watch_core_v1_namespaced_persistent_volume_claim`](./struct.PersistentVolumeClaim.html#method.watch_core_v1_namespaced_persistent_volume_claim)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPersistentVolumeClaimResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1199,7 +1235,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::watch_core_v1_namespaced_persistent_volume_claim_list`](./struct.PersistentVolumeClaim.html#method.watch_core_v1_namespaced_persistent_volume_claim_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedPersistentVolumeClaimListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1320,7 +1356,7 @@ impl PersistentVolumeClaim {
 /// Parses the HTTP response of [`PersistentVolumeClaim::watch_core_v1_persistent_volume_claim_list_for_all_namespaces`](./struct.PersistentVolumeClaim.html#method.watch_core_v1_persistent_volume_claim_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1PersistentVolumeClaimListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1413,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaim {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::core::v1::PersistentVolumeClaimSpec> = None;
-                let mut value_status: Option<::v1_8::api::core::v1::PersistentVolumeClaimStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::core::v1::PersistentVolumeClaimSpec> = None;
+                let mut value_status: Option<::v1_9::api::core::v1::PersistentVolumeClaimStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

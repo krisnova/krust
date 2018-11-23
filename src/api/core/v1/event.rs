@@ -3,29 +3,47 @@
 /// Event is a report of an event somewhere in the cluster.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Event {
+    /// What action was taken/failed regarding to the Regarding object.
+    pub action: Option<String>,
+
     /// The number of times this event has occurred.
     pub count: Option<i32>,
 
+    /// Time when this Event was first observed.
+    pub event_time: Option<::v1_9::apimachinery::pkg::apis::meta::v1::MicroTime>,
+
     /// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
-    pub first_timestamp: Option<::v1_8::apimachinery::pkg::apis::meta::v1::Time>,
+    pub first_timestamp: Option<::v1_9::apimachinery::pkg::apis::meta::v1::Time>,
 
     /// The object that this event is about.
-    pub involved_object: ::v1_8::api::core::v1::ObjectReference,
+    pub involved_object: ::v1_9::api::core::v1::ObjectReference,
 
     /// The time at which the most recent occurrence of this event was recorded.
-    pub last_timestamp: Option<::v1_8::apimachinery::pkg::apis::meta::v1::Time>,
+    pub last_timestamp: Option<::v1_9::apimachinery::pkg::apis::meta::v1::Time>,
 
     /// A human-readable description of the status of this operation.
     pub message: Option<String>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: ::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    pub metadata: ::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 
     /// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
     pub reason: Option<String>,
 
+    /// Optional secondary object for more complex actions.
+    pub related: Option<::v1_9::api::core::v1::ObjectReference>,
+
+    /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+    pub reporting_component: Option<String>,
+
+    /// ID of the controller instance, e.g. `kubelet-xyzf`.
+    pub reporting_instance: Option<String>,
+
+    /// Data about the Event series this event represents or nil if it's a singleton Event.
+    pub series: Option<::v1_9::api::core::v1::EventSeries>,
+
     /// The component reporting this event. Should be a short machine understandable string.
-    pub source: Option<::v1_8::api::core::v1::EventSource>,
+    pub source: Option<::v1_9::api::core::v1::EventSource>,
 
     /// Type of this event (Normal, Warning), new types could be added in the future
     pub type_: Option<String>,
@@ -53,7 +71,7 @@ impl Event {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_event(
         namespace: &str,
-        body: &::v1_8::api::core::v1::Event,
+        body: &::v1_9::api::core::v1::Event,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/events?", namespace = namespace);
@@ -72,7 +90,9 @@ impl Event {
 /// Parses the HTTP response of [`Event::create_core_v1_namespaced_event`](./struct.Event.html#method.create_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedEventResponse {
-    Ok(::v1_8::api::core::v1::Event),
+    Ok(::v1_9::api::core::v1::Event),
+    Created(::v1_9::api::core::v1::Event),
+    Accepted(::v1_9::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -87,6 +107,22 @@ impl ::Response for CreateCoreV1NamespacedEventResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateCoreV1NamespacedEventResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedEventResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateCoreV1NamespacedEventResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateCoreV1NamespacedEventResponse::Unauthorized, 0)),
             _ => Ok((CreateCoreV1NamespacedEventResponse::Other, 0)),
@@ -196,8 +232,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::delete_core_v1_collection_namespaced_event`](./struct.Event.html#method.delete_core_v1_collection_namespaced_event)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedEventResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Event),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -265,7 +301,7 @@ impl Event {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_core_v1_namespaced_event(
         name: &str,
         namespace: &str,
@@ -299,8 +335,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::delete_core_v1_namespaced_event`](./struct.Event.html#method.delete_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedEventResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::core::v1::Event),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -432,7 +468,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::list_core_v1_event_for_all_namespaces`](./struct.Event.html#method.list_core_v1_event_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1EventForAllNamespacesResponse {
-    Ok(::v1_8::api::core::v1::EventList),
+    Ok(::v1_9::api::core::v1::EventList),
     Unauthorized,
     Other,
 }
@@ -556,7 +592,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::list_core_v1_namespaced_event`](./struct.Event.html#method.list_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedEventResponse {
-    Ok(::v1_8::api::core::v1::EventList),
+    Ok(::v1_9::api::core::v1::EventList),
     Unauthorized,
     Other,
 }
@@ -603,7 +639,7 @@ impl Event {
     pub fn patch_core_v1_namespaced_event(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/events/{name}?", name = name, namespace = namespace);
@@ -622,7 +658,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::patch_core_v1_namespaced_event`](./struct.Event.html#method.patch_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedEventResponse {
-    Ok(::v1_8::api::core::v1::Event),
+    Ok(::v1_9::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -701,7 +737,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::read_core_v1_namespaced_event`](./struct.Event.html#method.read_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedEventResponse {
-    Ok(::v1_8::api::core::v1::Event),
+    Ok(::v1_9::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -748,7 +784,7 @@ impl Event {
     pub fn replace_core_v1_namespaced_event(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::core::v1::Event,
+        body: &::v1_9::api::core::v1::Event,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/events/{name}?", name = name, namespace = namespace);
@@ -767,7 +803,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::replace_core_v1_namespaced_event`](./struct.Event.html#method.replace_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedEventResponse {
-    Ok(::v1_8::api::core::v1::Event),
+    Ok(::v1_9::api::core::v1::Event),
+    Created(::v1_9::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -782,6 +819,14 @@ impl ::Response for ReplaceCoreV1NamespacedEventResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceCoreV1NamespacedEventResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceCoreV1NamespacedEventResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceCoreV1NamespacedEventResponse::Unauthorized, 0)),
             _ => Ok((ReplaceCoreV1NamespacedEventResponse::Other, 0)),
@@ -886,7 +931,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_core_v1_event_list_for_all_namespaces`](./struct.Event.html#method.watch_core_v1_event_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1EventListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1017,7 +1062,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_core_v1_namespaced_event`](./struct.Event.html#method.watch_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEventResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1143,7 +1188,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_core_v1_namespaced_event_list`](./struct.Event.html#method.watch_core_v1_namespaced_event_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEventListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1193,13 +1238,19 @@ impl<'de> ::serde::Deserialize<'de> for Event {
         enum Field {
             Key_api_version,
             Key_kind,
+            Key_action,
             Key_count,
+            Key_event_time,
             Key_first_timestamp,
             Key_involved_object,
             Key_last_timestamp,
             Key_message,
             Key_metadata,
             Key_reason,
+            Key_related,
+            Key_reporting_component,
+            Key_reporting_instance,
+            Key_series,
             Key_source,
             Key_type_,
             Other,
@@ -1220,13 +1271,19 @@ impl<'de> ::serde::Deserialize<'de> for Event {
                         Ok(match v {
                             "apiVersion" => Field::Key_api_version,
                             "kind" => Field::Key_kind,
+                            "action" => Field::Key_action,
                             "count" => Field::Key_count,
+                            "eventTime" => Field::Key_event_time,
                             "firstTimestamp" => Field::Key_first_timestamp,
                             "involvedObject" => Field::Key_involved_object,
                             "lastTimestamp" => Field::Key_last_timestamp,
                             "message" => Field::Key_message,
                             "metadata" => Field::Key_metadata,
                             "reason" => Field::Key_reason,
+                            "related" => Field::Key_related,
+                            "reportingComponent" => Field::Key_reporting_component,
+                            "reportingInstance" => Field::Key_reporting_instance,
+                            "series" => Field::Key_series,
                             "source" => Field::Key_source,
                             "type" => Field::Key_type_,
                             _ => Field::Other,
@@ -1248,14 +1305,20 @@ impl<'de> ::serde::Deserialize<'de> for Event {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
+                let mut value_action: Option<String> = None;
                 let mut value_count: Option<i32> = None;
-                let mut value_first_timestamp: Option<::v1_8::apimachinery::pkg::apis::meta::v1::Time> = None;
-                let mut value_involved_object: Option<::v1_8::api::core::v1::ObjectReference> = None;
-                let mut value_last_timestamp: Option<::v1_8::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_event_time: Option<::v1_9::apimachinery::pkg::apis::meta::v1::MicroTime> = None;
+                let mut value_first_timestamp: Option<::v1_9::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_involved_object: Option<::v1_9::api::core::v1::ObjectReference> = None;
+                let mut value_last_timestamp: Option<::v1_9::apimachinery::pkg::apis::meta::v1::Time> = None;
                 let mut value_message: Option<String> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_reason: Option<String> = None;
-                let mut value_source: Option<::v1_8::api::core::v1::EventSource> = None;
+                let mut value_related: Option<::v1_9::api::core::v1::ObjectReference> = None;
+                let mut value_reporting_component: Option<String> = None;
+                let mut value_reporting_instance: Option<String> = None;
+                let mut value_series: Option<::v1_9::api::core::v1::EventSeries> = None;
+                let mut value_source: Option<::v1_9::api::core::v1::EventSource> = None;
                 let mut value_type_: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
@@ -1272,13 +1335,19 @@ impl<'de> ::serde::Deserialize<'de> for Event {
                                 return Err(::serde::de::Error::invalid_value(::serde::de::Unexpected::Str(&value_kind), &<Self::Value as ::Resource>::kind()));
                             }
                         },
+                        Field::Key_action => value_action = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_count => value_count = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_event_time => value_event_time = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_first_timestamp => value_first_timestamp = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_involved_object => value_involved_object = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_last_timestamp => value_last_timestamp = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_message => value_message = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_metadata => value_metadata = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_reason => value_reason = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_related => value_related = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_reporting_component => value_reporting_component = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_reporting_instance => value_reporting_instance = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_series => value_series = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_source => value_source = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_type_ => value_type_ = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
@@ -1286,13 +1355,19 @@ impl<'de> ::serde::Deserialize<'de> for Event {
                 }
 
                 Ok(Event {
+                    action: value_action,
                     count: value_count,
+                    event_time: value_event_time,
                     first_timestamp: value_first_timestamp,
                     involved_object: value_involved_object.ok_or_else(|| ::serde::de::Error::missing_field("involvedObject"))?,
                     last_timestamp: value_last_timestamp,
                     message: value_message,
                     metadata: value_metadata.ok_or_else(|| ::serde::de::Error::missing_field("metadata"))?,
                     reason: value_reason,
+                    related: value_related,
+                    reporting_component: value_reporting_component,
+                    reporting_instance: value_reporting_instance,
+                    series: value_series,
                     source: value_source,
                     type_: value_type_,
                 })
@@ -1304,13 +1379,19 @@ impl<'de> ::serde::Deserialize<'de> for Event {
             &[
                 "apiVersion",
                 "kind",
+                "action",
                 "count",
+                "eventTime",
                 "firstTimestamp",
                 "involvedObject",
                 "lastTimestamp",
                 "message",
                 "metadata",
                 "reason",
+                "related",
+                "reportingComponent",
+                "reportingInstance",
+                "series",
                 "source",
                 "type",
             ],
@@ -1325,20 +1406,32 @@ impl ::serde::Serialize for Event {
             "Event",
             0 +
             2 +
+            self.action.as_ref().map_or(0, |_| 1) +
             self.count.as_ref().map_or(0, |_| 1) +
+            self.event_time.as_ref().map_or(0, |_| 1) +
             self.first_timestamp.as_ref().map_or(0, |_| 1) +
             1 +
             self.last_timestamp.as_ref().map_or(0, |_| 1) +
             self.message.as_ref().map_or(0, |_| 1) +
             1 +
             self.reason.as_ref().map_or(0, |_| 1) +
+            self.related.as_ref().map_or(0, |_| 1) +
+            self.reporting_component.as_ref().map_or(0, |_| 1) +
+            self.reporting_instance.as_ref().map_or(0, |_| 1) +
+            self.series.as_ref().map_or(0, |_| 1) +
             self.source.as_ref().map_or(0, |_| 1) +
             self.type_.as_ref().map_or(0, |_| 1),
         )?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "apiVersion", <Self as ::Resource>::api_version())?;
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "kind", <Self as ::Resource>::kind())?;
+        if let Some(value) = &self.action {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "action", value)?;
+        }
         if let Some(value) = &self.count {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "count", value)?;
+        }
+        if let Some(value) = &self.event_time {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "eventTime", value)?;
         }
         if let Some(value) = &self.first_timestamp {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "firstTimestamp", value)?;
@@ -1353,6 +1446,18 @@ impl ::serde::Serialize for Event {
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "metadata", &self.metadata)?;
         if let Some(value) = &self.reason {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "reason", value)?;
+        }
+        if let Some(value) = &self.related {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "related", value)?;
+        }
+        if let Some(value) = &self.reporting_component {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "reportingComponent", value)?;
+        }
+        if let Some(value) = &self.reporting_instance {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "reportingInstance", value)?;
+        }
+        if let Some(value) = &self.series {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "series", value)?;
         }
         if let Some(value) = &self.source {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "source", value)?;

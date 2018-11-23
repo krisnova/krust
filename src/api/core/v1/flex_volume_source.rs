@@ -1,6 +1,6 @@
 // Generated from definition io.k8s.api.core.v1.FlexVolumeSource
 
-/// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future.
+/// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct FlexVolumeSource {
     /// Driver is the name of the driver to use for this volume.
@@ -16,7 +16,7 @@ pub struct FlexVolumeSource {
     pub read_only: Option<bool>,
 
     /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-    pub secret_ref: Option<::v1_8::api::core::v1::LocalObjectReference>,
+    pub secret_ref: Option<::v1_9::api::core::v1::LocalObjectReference>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for FlexVolumeSource {
@@ -72,7 +72,7 @@ impl<'de> ::serde::Deserialize<'de> for FlexVolumeSource {
                 let mut value_fs_type: Option<String> = None;
                 let mut value_options: Option<::std::collections::BTreeMap<String, String>> = None;
                 let mut value_read_only: Option<bool> = None;
-                let mut value_secret_ref: Option<::v1_8::api::core::v1::LocalObjectReference> = None;
+                let mut value_secret_ref: Option<::v1_9::api::core::v1::LocalObjectReference> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

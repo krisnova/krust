@@ -3,13 +3,13 @@
 /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct APIService {
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec contains information for locating and communicating with a server
-    pub spec: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec>,
+    pub spec: Option<::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec>,
 
     /// Status contains derived information about an API server
-    pub status: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus>,
+    pub status: Option<::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus>,
 }
 
 // Begin apiregistration.k8s.io/v1beta1/APIService
@@ -29,7 +29,7 @@ impl APIService {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_apiregistration_v1beta1_api_service(
-        body: &::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
+        body: &::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices?");
@@ -48,7 +48,9 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::create_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.create_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum CreateApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Created(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Accepted(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -63,6 +65,22 @@ impl ::Response for CreateApiregistrationV1beta1APIServiceResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateApiregistrationV1beta1APIServiceResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateApiregistrationV1beta1APIServiceResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateApiregistrationV1beta1APIServiceResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateApiregistrationV1beta1APIServiceResponse::Unauthorized, 0)),
             _ => Ok((CreateApiregistrationV1beta1APIServiceResponse::Other, 0)),
@@ -99,7 +117,7 @@ impl APIService {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_apiregistration_v1beta1_api_service(
         name: &str,
         grace_period_seconds: Option<i64>,
@@ -132,8 +150,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::delete_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.delete_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum DeleteApiregistrationV1beta1APIServiceResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -265,8 +283,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::delete_apiregistration_v1beta1_collection_api_service`](./struct.APIService.html#method.delete_apiregistration_v1beta1_collection_api_service)
 #[derive(Debug)]
 pub enum DeleteApiregistrationV1beta1CollectionAPIServiceResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -398,7 +416,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::list_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.list_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum ListApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceList),
+    Ok(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceList),
     Unauthorized,
     Other,
 }
@@ -440,7 +458,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apiregistration_v1beta1_api_service(
         name: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}?", name = name);
@@ -459,7 +477,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::patch_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.patch_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum PatchApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -533,7 +551,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::read_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.read_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum ReadApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -575,7 +593,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiregistration_v1beta1_api_service(
         name: &str,
-        body: &::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
+        body: &::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}?", name = name);
@@ -594,7 +612,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::replace_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.replace_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum ReplaceApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Created(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -609,6 +628,14 @@ impl ::Response for ReplaceApiregistrationV1beta1APIServiceResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceApiregistrationV1beta1APIServiceResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceApiregistrationV1beta1APIServiceResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceApiregistrationV1beta1APIServiceResponse::Unauthorized, 0)),
             _ => Ok((ReplaceApiregistrationV1beta1APIServiceResponse::Other, 0)),
@@ -636,7 +663,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiregistration_v1beta1_api_service_status(
         name: &str,
-        body: &::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
+        body: &::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}/status?", name = name);
@@ -655,7 +682,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::replace_apiregistration_v1beta1_api_service_status`](./struct.APIService.html#method.replace_apiregistration_v1beta1_api_service_status)
 #[derive(Debug)]
 pub enum ReplaceApiregistrationV1beta1APIServiceStatusResponse {
-    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Created(::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -670,6 +698,14 @@ impl ::Response for ReplaceApiregistrationV1beta1APIServiceStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceApiregistrationV1beta1APIServiceStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceApiregistrationV1beta1APIServiceStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceApiregistrationV1beta1APIServiceStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceApiregistrationV1beta1APIServiceStatusResponse::Other, 0)),
@@ -779,7 +815,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::watch_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.watch_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum WatchApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -900,7 +936,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::watch_apiregistration_v1beta1_api_service_list`](./struct.APIService.html#method.watch_apiregistration_v1beta1_api_service_list)
 #[derive(Debug)]
 pub enum WatchApiregistrationV1beta1APIServiceListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -993,9 +1029,9 @@ impl<'de> ::serde::Deserialize<'de> for APIService {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec> = None;
-                let mut value_status: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec> = None;
+                let mut value_status: Option<::v1_9::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

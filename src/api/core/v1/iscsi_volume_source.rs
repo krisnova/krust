@@ -12,28 +12,28 @@ pub struct ISCSIVolumeSource {
     /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
     pub fs_type: Option<String>,
 
-    /// Custom iSCSI initiator name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+    /// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
     pub initiator_name: Option<String>,
 
     /// Target iSCSI Qualified Name.
     pub iqn: String,
 
-    /// Optional: Defaults to 'default' (tcp). iSCSI interface name that uses an iSCSI transport.
+    /// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
     pub iscsi_interface: Option<String>,
 
-    /// iSCSI target lun number.
+    /// iSCSI Target Lun number.
     pub lun: i32,
 
-    /// iSCSI target portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+    /// iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
     pub portals: Option<Vec<String>>,
 
     /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
     pub read_only: Option<bool>,
 
-    /// CHAP secret for iSCSI target and initiator authentication
-    pub secret_ref: Option<::v1_8::api::core::v1::LocalObjectReference>,
+    /// CHAP Secret for iSCSI target and initiator authentication
+    pub secret_ref: Option<::v1_9::api::core::v1::LocalObjectReference>,
 
-    /// iSCSI target portal. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+    /// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
     pub target_portal: String,
 }
 
@@ -107,7 +107,7 @@ impl<'de> ::serde::Deserialize<'de> for ISCSIVolumeSource {
                 let mut value_lun: Option<i32> = None;
                 let mut value_portals: Option<Vec<String>> = None;
                 let mut value_read_only: Option<bool> = None;
-                let mut value_secret_ref: Option<::v1_8::api::core::v1::LocalObjectReference> = None;
+                let mut value_secret_ref: Option<::v1_9::api::core::v1::LocalObjectReference> = None;
                 let mut value_target_portal: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

@@ -1,21 +1,17 @@
-// Generated from definition io.k8s.api.admissionregistration.v1alpha1.ServiceReference
+// Generated from definition io.k8s.api.storage.v1alpha1.VolumeAttachmentSource
 
-/// ServiceReference holds a reference to Service.legacy.k8s.io
+/// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
 #[derive(Clone, Debug, Default, PartialEq)]
-pub struct ServiceReference {
-    /// Name is the name of the service Required
-    pub name: String,
-
-    /// Namespace is the namespace of the service Required
-    pub namespace: String,
+pub struct VolumeAttachmentSource {
+    /// Name of the persistent volume to attach.
+    pub persistent_volume_name: Option<String>,
 }
 
-impl<'de> ::serde::Deserialize<'de> for ServiceReference {
+impl<'de> ::serde::Deserialize<'de> for VolumeAttachmentSource {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: ::serde::Deserializer<'de> {
         #[allow(non_camel_case_types)]
         enum Field {
-            Key_name,
-            Key_namespace,
+            Key_persistent_volume_name,
             Other,
         }
 
@@ -32,8 +28,7 @@ impl<'de> ::serde::Deserialize<'de> for ServiceReference {
 
                     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> where E: ::serde::de::Error {
                         Ok(match v {
-                            "name" => Field::Key_name,
-                            "namespace" => Field::Key_namespace,
+                            "persistentVolumeName" => Field::Key_persistent_volume_name,
                             _ => Field::Other,
                         })
                     }
@@ -46,52 +41,48 @@ impl<'de> ::serde::Deserialize<'de> for ServiceReference {
         struct Visitor;
 
         impl<'de> ::serde::de::Visitor<'de> for Visitor {
-            type Value = ServiceReference;
+            type Value = VolumeAttachmentSource;
 
             fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                write!(f, "struct ServiceReference")
+                write!(f, "struct VolumeAttachmentSource")
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_name: Option<String> = None;
-                let mut value_namespace: Option<String> = None;
+                let mut value_persistent_volume_name: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
-                        Field::Key_name => value_name = Some(::serde::de::MapAccess::next_value(&mut map)?),
-                        Field::Key_namespace => value_namespace = Some(::serde::de::MapAccess::next_value(&mut map)?),
+                        Field::Key_persistent_volume_name => value_persistent_volume_name = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
                 }
 
-                Ok(ServiceReference {
-                    name: value_name.ok_or_else(|| ::serde::de::Error::missing_field("name"))?,
-                    namespace: value_namespace.ok_or_else(|| ::serde::de::Error::missing_field("namespace"))?,
+                Ok(VolumeAttachmentSource {
+                    persistent_volume_name: value_persistent_volume_name,
                 })
             }
         }
 
         deserializer.deserialize_struct(
-            "ServiceReference",
+            "VolumeAttachmentSource",
             &[
-                "name",
-                "namespace",
+                "persistentVolumeName",
             ],
             Visitor,
         )
     }
 }
 
-impl ::serde::Serialize for ServiceReference {
+impl ::serde::Serialize for VolumeAttachmentSource {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: ::serde::Serializer {
         let mut state = serializer.serialize_struct(
-            "ServiceReference",
+            "VolumeAttachmentSource",
             0 +
-            1 +
-            1,
+            self.persistent_volume_name.as_ref().map_or(0, |_| 1),
         )?;
-        ::serde::ser::SerializeStruct::serialize_field(&mut state, "name", &self.name)?;
-        ::serde::ser::SerializeStruct::serialize_field(&mut state, "namespace", &self.namespace)?;
+        if let Some(value) = &self.persistent_volume_name {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "persistentVolumeName", value)?;
+        }
         ::serde::ser::SerializeStruct::end(state)
     }
 }

@@ -1,16 +1,16 @@
 // Generated from definition io.k8s.api.apps.v1beta2.ReplicaSet
 
-/// ReplicaSet represents the configuration of a ReplicaSet.
+/// DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for more information. ReplicaSet ensures that a specified number of pod replicas are running at any given time.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ReplicaSet {
     /// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_8::api::apps::v1beta2::ReplicaSetSpec>,
+    pub spec: Option<::v1_9::api::apps::v1beta2::ReplicaSetSpec>,
 
     /// Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_8::api::apps::v1beta2::ReplicaSetStatus>,
+    pub status: Option<::v1_9::api::apps::v1beta2::ReplicaSetStatus>,
 }
 
 // Begin apps/v1beta2/ReplicaSet
@@ -35,7 +35,7 @@ impl ReplicaSet {
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1beta2_namespaced_replica_set(
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::ReplicaSet,
+        body: &::v1_9::api::apps::v1beta2::ReplicaSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/replicasets?", namespace = namespace);
@@ -54,7 +54,9 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::create_apps_v1beta2_namespaced_replica_set`](./struct.ReplicaSet.html#method.create_apps_v1beta2_namespaced_replica_set)
 #[derive(Debug)]
 pub enum CreateAppsV1beta2NamespacedReplicaSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSet),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSet),
+    Created(::v1_9::api::apps::v1beta2::ReplicaSet),
+    Accepted(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -69,6 +71,22 @@ impl ::Response for CreateAppsV1beta2NamespacedReplicaSetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateAppsV1beta2NamespacedReplicaSetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta2NamespacedReplicaSetResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta2NamespacedReplicaSetResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateAppsV1beta2NamespacedReplicaSetResponse::Unauthorized, 0)),
             _ => Ok((CreateAppsV1beta2NamespacedReplicaSetResponse::Other, 0)),
@@ -178,8 +196,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::delete_apps_v1beta2_collection_namespaced_replica_set`](./struct.ReplicaSet.html#method.delete_apps_v1beta2_collection_namespaced_replica_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta2CollectionNamespacedReplicaSetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::apps::v1beta2::ReplicaSet),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -247,7 +265,7 @@ impl ReplicaSet {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_apps_v1beta2_namespaced_replica_set(
         name: &str,
         namespace: &str,
@@ -281,8 +299,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::delete_apps_v1beta2_namespaced_replica_set`](./struct.ReplicaSet.html#method.delete_apps_v1beta2_namespaced_replica_set)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta2NamespacedReplicaSetResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::apps::v1beta2::ReplicaSet),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -419,7 +437,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::list_apps_v1beta2_namespaced_replica_set`](./struct.ReplicaSet.html#method.list_apps_v1beta2_namespaced_replica_set)
 #[derive(Debug)]
 pub enum ListAppsV1beta2NamespacedReplicaSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSetList),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSetList),
     Unauthorized,
     Other,
 }
@@ -538,7 +556,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::list_apps_v1beta2_replica_set_for_all_namespaces`](./struct.ReplicaSet.html#method.list_apps_v1beta2_replica_set_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1beta2ReplicaSetForAllNamespacesResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSetList),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSetList),
     Unauthorized,
     Other,
 }
@@ -585,7 +603,7 @@ impl ReplicaSet {
     pub fn patch_apps_v1beta2_namespaced_replica_set(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/replicasets/{name}?", name = name, namespace = namespace);
@@ -604,7 +622,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::patch_apps_v1beta2_namespaced_replica_set`](./struct.ReplicaSet.html#method.patch_apps_v1beta2_namespaced_replica_set)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedReplicaSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSet),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -651,7 +669,7 @@ impl ReplicaSet {
     pub fn patch_apps_v1beta2_namespaced_replica_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/replicasets/{name}/status?", name = name, namespace = namespace);
@@ -670,7 +688,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::patch_apps_v1beta2_namespaced_replica_set_status`](./struct.ReplicaSet.html#method.patch_apps_v1beta2_namespaced_replica_set_status)
 #[derive(Debug)]
 pub enum PatchAppsV1beta2NamespacedReplicaSetStatusResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSet),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -749,7 +767,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::read_apps_v1beta2_namespaced_replica_set`](./struct.ReplicaSet.html#method.read_apps_v1beta2_namespaced_replica_set)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedReplicaSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSet),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -812,7 +830,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::read_apps_v1beta2_namespaced_replica_set_status`](./struct.ReplicaSet.html#method.read_apps_v1beta2_namespaced_replica_set_status)
 #[derive(Debug)]
 pub enum ReadAppsV1beta2NamespacedReplicaSetStatusResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSet),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -859,7 +877,7 @@ impl ReplicaSet {
     pub fn replace_apps_v1beta2_namespaced_replica_set(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::ReplicaSet,
+        body: &::v1_9::api::apps::v1beta2::ReplicaSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/replicasets/{name}?", name = name, namespace = namespace);
@@ -878,7 +896,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::replace_apps_v1beta2_namespaced_replica_set`](./struct.ReplicaSet.html#method.replace_apps_v1beta2_namespaced_replica_set)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedReplicaSetResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSet),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSet),
+    Created(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -893,6 +912,14 @@ impl ::Response for ReplaceAppsV1beta2NamespacedReplicaSetResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta2NamespacedReplicaSetResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta2NamespacedReplicaSetResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta2NamespacedReplicaSetResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta2NamespacedReplicaSetResponse::Other, 0)),
@@ -925,7 +952,7 @@ impl ReplicaSet {
     pub fn replace_apps_v1beta2_namespaced_replica_set_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta2::ReplicaSet,
+        body: &::v1_9::api::apps::v1beta2::ReplicaSet,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta2/namespaces/{namespace}/replicasets/{name}/status?", name = name, namespace = namespace);
@@ -944,7 +971,8 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::replace_apps_v1beta2_namespaced_replica_set_status`](./struct.ReplicaSet.html#method.replace_apps_v1beta2_namespaced_replica_set_status)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta2NamespacedReplicaSetStatusResponse {
-    Ok(::v1_8::api::apps::v1beta2::ReplicaSet),
+    Ok(::v1_9::api::apps::v1beta2::ReplicaSet),
+    Created(::v1_9::api::apps::v1beta2::ReplicaSet),
     Unauthorized,
     Other,
 }
@@ -959,6 +987,14 @@ impl ::Response for ReplaceAppsV1beta2NamespacedReplicaSetStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta2NamespacedReplicaSetStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta2NamespacedReplicaSetStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta2NamespacedReplicaSetStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta2NamespacedReplicaSetStatusResponse::Other, 0)),
@@ -1073,7 +1109,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::watch_apps_v1beta2_namespaced_replica_set`](./struct.ReplicaSet.html#method.watch_apps_v1beta2_namespaced_replica_set)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2NamespacedReplicaSetResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1199,7 +1235,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::watch_apps_v1beta2_namespaced_replica_set_list`](./struct.ReplicaSet.html#method.watch_apps_v1beta2_namespaced_replica_set_list)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2NamespacedReplicaSetListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1320,7 +1356,7 @@ impl ReplicaSet {
 /// Parses the HTTP response of [`ReplicaSet::watch_apps_v1beta2_replica_set_list_for_all_namespaces`](./struct.ReplicaSet.html#method.watch_apps_v1beta2_replica_set_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1beta2ReplicaSetListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1413,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for ReplicaSet {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::apps::v1beta2::ReplicaSetSpec> = None;
-                let mut value_status: Option<::v1_8::api::apps::v1beta2::ReplicaSetStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::apps::v1beta2::ReplicaSetSpec> = None;
+                let mut value_status: Option<::v1_9::api::apps::v1beta2::ReplicaSetStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Deployment {
     /// Standard object metadata.
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of the Deployment.
-    pub spec: Option<::v1_8::api::extensions::v1beta1::DeploymentSpec>,
+    pub spec: Option<::v1_9::api::extensions::v1beta1::DeploymentSpec>,
 
     /// Most recently observed status of the Deployment.
-    pub status: Option<::v1_8::api::extensions::v1beta1::DeploymentStatus>,
+    pub status: Option<::v1_9::api::extensions::v1beta1::DeploymentStatus>,
 }
 
 // Begin extensions/v1beta1/Deployment
@@ -35,7 +35,7 @@ impl Deployment {
     ///     If 'true', then the output is pretty printed.
     pub fn create_extensions_v1beta1_namespaced_deployment(
         namespace: &str,
-        body: &::v1_8::api::extensions::v1beta1::Deployment,
+        body: &::v1_9::api::extensions::v1beta1::Deployment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments?", namespace = namespace);
@@ -54,7 +54,9 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::create_extensions_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.create_extensions_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum CreateExtensionsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_8::api::extensions::v1beta1::Deployment),
+    Ok(::v1_9::api::extensions::v1beta1::Deployment),
+    Created(::v1_9::api::extensions::v1beta1::Deployment),
+    Accepted(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -69,6 +71,22 @@ impl ::Response for CreateExtensionsV1beta1NamespacedDeploymentResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateExtensionsV1beta1NamespacedDeploymentResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateExtensionsV1beta1NamespacedDeploymentResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateExtensionsV1beta1NamespacedDeploymentResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateExtensionsV1beta1NamespacedDeploymentResponse::Unauthorized, 0)),
             _ => Ok((CreateExtensionsV1beta1NamespacedDeploymentResponse::Other, 0)),
@@ -178,8 +196,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::delete_extensions_v1beta1_collection_namespaced_deployment`](./struct.Deployment.html#method.delete_extensions_v1beta1_collection_namespaced_deployment)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1CollectionNamespacedDeploymentResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::extensions::v1beta1::Deployment),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -247,7 +265,7 @@ impl Deployment {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_extensions_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
@@ -281,8 +299,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::delete_extensions_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.delete_extensions_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1NamespacedDeploymentResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::extensions::v1beta1::Deployment),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -414,7 +432,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::list_extensions_v1beta1_deployment_for_all_namespaces`](./struct.Deployment.html#method.list_extensions_v1beta1_deployment_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1DeploymentForAllNamespacesResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DeploymentList),
+    Ok(::v1_9::api::extensions::v1beta1::DeploymentList),
     Unauthorized,
     Other,
 }
@@ -538,7 +556,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::list_extensions_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.list_extensions_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_8::api::extensions::v1beta1::DeploymentList),
+    Ok(::v1_9::api::extensions::v1beta1::DeploymentList),
     Unauthorized,
     Other,
 }
@@ -585,7 +603,7 @@ impl Deployment {
     pub fn patch_extensions_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}?", name = name, namespace = namespace);
@@ -604,7 +622,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::patch_extensions_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.patch_extensions_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_8::api::extensions::v1beta1::Deployment),
+    Ok(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -651,7 +669,7 @@ impl Deployment {
     pub fn patch_extensions_v1beta1_namespaced_deployment_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/status?", name = name, namespace = namespace);
@@ -670,7 +688,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::patch_extensions_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.patch_extensions_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_8::api::extensions::v1beta1::Deployment),
+    Ok(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -749,7 +767,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::read_extensions_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.read_extensions_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_8::api::extensions::v1beta1::Deployment),
+    Ok(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -812,7 +830,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::read_extensions_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.read_extensions_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_8::api::extensions::v1beta1::Deployment),
+    Ok(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -859,7 +877,7 @@ impl Deployment {
     pub fn replace_extensions_v1beta1_namespaced_deployment(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::extensions::v1beta1::Deployment,
+        body: &::v1_9::api::extensions::v1beta1::Deployment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}?", name = name, namespace = namespace);
@@ -878,7 +896,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::replace_extensions_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.replace_extensions_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_8::api::extensions::v1beta1::Deployment),
+    Ok(::v1_9::api::extensions::v1beta1::Deployment),
+    Created(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -893,6 +912,14 @@ impl ::Response for ReplaceExtensionsV1beta1NamespacedDeploymentResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceExtensionsV1beta1NamespacedDeploymentResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceExtensionsV1beta1NamespacedDeploymentResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceExtensionsV1beta1NamespacedDeploymentResponse::Unauthorized, 0)),
             _ => Ok((ReplaceExtensionsV1beta1NamespacedDeploymentResponse::Other, 0)),
@@ -925,7 +952,7 @@ impl Deployment {
     pub fn replace_extensions_v1beta1_namespaced_deployment_status(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::extensions::v1beta1::Deployment,
+        body: &::v1_9::api::extensions::v1beta1::Deployment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/status?", name = name, namespace = namespace);
@@ -944,7 +971,8 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::replace_extensions_v1beta1_namespaced_deployment_status`](./struct.Deployment.html#method.replace_extensions_v1beta1_namespaced_deployment_status)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedDeploymentStatusResponse {
-    Ok(::v1_8::api::extensions::v1beta1::Deployment),
+    Ok(::v1_9::api::extensions::v1beta1::Deployment),
+    Created(::v1_9::api::extensions::v1beta1::Deployment),
     Unauthorized,
     Other,
 }
@@ -959,6 +987,14 @@ impl ::Response for ReplaceExtensionsV1beta1NamespacedDeploymentStatusResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceExtensionsV1beta1NamespacedDeploymentStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceExtensionsV1beta1NamespacedDeploymentStatusResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceExtensionsV1beta1NamespacedDeploymentStatusResponse::Unauthorized, 0)),
             _ => Ok((ReplaceExtensionsV1beta1NamespacedDeploymentStatusResponse::Other, 0)),
@@ -1063,7 +1099,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_extensions_v1beta1_deployment_list_for_all_namespaces`](./struct.Deployment.html#method.watch_extensions_v1beta1_deployment_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1DeploymentListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1194,7 +1230,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_extensions_v1beta1_namespaced_deployment`](./struct.Deployment.html#method.watch_extensions_v1beta1_namespaced_deployment)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedDeploymentResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1320,7 +1356,7 @@ impl Deployment {
 /// Parses the HTTP response of [`Deployment::watch_extensions_v1beta1_namespaced_deployment_list`](./struct.Deployment.html#method.watch_extensions_v1beta1_namespaced_deployment_list)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedDeploymentListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1413,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for Deployment {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_8::api::extensions::v1beta1::DeploymentSpec> = None;
-                let mut value_status: Option<::v1_8::api::extensions::v1beta1::DeploymentStatus> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_9::api::extensions::v1beta1::DeploymentSpec> = None;
+                let mut value_status: Option<::v1_9::api::extensions::v1beta1::DeploymentStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

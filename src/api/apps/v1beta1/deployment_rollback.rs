@@ -7,7 +7,7 @@ pub struct DeploymentRollback {
     pub name: String,
 
     /// The config of this deployment rollback.
-    pub rollback_to: ::v1_8::api::apps::v1beta1::RollbackConfig,
+    pub rollback_to: ::v1_9::api::apps::v1beta1::RollbackConfig,
 
     /// The annotations to be updated to a deployment
     pub updated_annotations: Option<::std::collections::BTreeMap<String, String>>,
@@ -40,7 +40,7 @@ impl DeploymentRollback {
     pub fn create_apps_v1beta1_namespaced_deployment_rollback(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta1::DeploymentRollback,
+        body: &::v1_9::api::apps::v1beta1::DeploymentRollback,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/rollback?", name = name, namespace = namespace);
@@ -59,7 +59,9 @@ impl DeploymentRollback {
 /// Parses the HTTP response of [`DeploymentRollback::create_apps_v1beta1_namespaced_deployment_rollback`](./struct.DeploymentRollback.html#method.create_apps_v1beta1_namespaced_deployment_rollback)
 #[derive(Debug)]
 pub enum CreateAppsV1beta1NamespacedDeploymentRollbackResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    Created(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    Accepted(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
     Unauthorized,
     Other,
 }
@@ -74,6 +76,22 @@ impl ::Response for CreateAppsV1beta1NamespacedDeploymentRollbackResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateAppsV1beta1NamespacedDeploymentRollbackResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta1NamespacedDeploymentRollbackResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta1NamespacedDeploymentRollbackResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateAppsV1beta1NamespacedDeploymentRollbackResponse::Unauthorized, 0)),
             _ => Ok((CreateAppsV1beta1NamespacedDeploymentRollbackResponse::Other, 0)),
@@ -151,7 +169,7 @@ impl<'de> ::serde::Deserialize<'de> for DeploymentRollback {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_name: Option<String> = None;
-                let mut value_rollback_to: Option<::v1_8::api::apps::v1beta1::RollbackConfig> = None;
+                let mut value_rollback_to: Option<::v1_9::api::apps::v1beta1::RollbackConfig> = None;
                 let mut value_updated_annotations: Option<::std::collections::BTreeMap<String, String>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

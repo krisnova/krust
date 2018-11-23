@@ -6,6 +6,9 @@ pub struct StatefulSetStatus {
     /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
     pub collision_count: Option<i32>,
 
+    /// Represents the latest available observations of a statefulset's current state.
+    pub conditions: Option<Vec<::v1_9::api::apps::v1beta1::StatefulSetCondition>>,
+
     /// currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
     pub current_replicas: Option<i32>,
 
@@ -33,6 +36,7 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSetStatus {
         #[allow(non_camel_case_types)]
         enum Field {
             Key_collision_count,
+            Key_conditions,
             Key_current_replicas,
             Key_current_revision,
             Key_observed_generation,
@@ -57,6 +61,7 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSetStatus {
                     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> where E: ::serde::de::Error {
                         Ok(match v {
                             "collisionCount" => Field::Key_collision_count,
+                            "conditions" => Field::Key_conditions,
                             "currentReplicas" => Field::Key_current_replicas,
                             "currentRevision" => Field::Key_current_revision,
                             "observedGeneration" => Field::Key_observed_generation,
@@ -84,6 +89,7 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSetStatus {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_collision_count: Option<i32> = None;
+                let mut value_conditions: Option<Vec<::v1_9::api::apps::v1beta1::StatefulSetCondition>> = None;
                 let mut value_current_replicas: Option<i32> = None;
                 let mut value_current_revision: Option<String> = None;
                 let mut value_observed_generation: Option<i64> = None;
@@ -95,6 +101,7 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSetStatus {
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
                         Field::Key_collision_count => value_collision_count = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_conditions => value_conditions = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_current_replicas => value_current_replicas = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_current_revision => value_current_revision = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_observed_generation => value_observed_generation = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -108,6 +115,7 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSetStatus {
 
                 Ok(StatefulSetStatus {
                     collision_count: value_collision_count,
+                    conditions: value_conditions,
                     current_replicas: value_current_replicas,
                     current_revision: value_current_revision,
                     observed_generation: value_observed_generation,
@@ -123,6 +131,7 @@ impl<'de> ::serde::Deserialize<'de> for StatefulSetStatus {
             "StatefulSetStatus",
             &[
                 "collisionCount",
+                "conditions",
                 "currentReplicas",
                 "currentRevision",
                 "observedGeneration",
@@ -142,6 +151,7 @@ impl ::serde::Serialize for StatefulSetStatus {
             "StatefulSetStatus",
             0 +
             self.collision_count.as_ref().map_or(0, |_| 1) +
+            self.conditions.as_ref().map_or(0, |_| 1) +
             self.current_replicas.as_ref().map_or(0, |_| 1) +
             self.current_revision.as_ref().map_or(0, |_| 1) +
             self.observed_generation.as_ref().map_or(0, |_| 1) +
@@ -152,6 +162,9 @@ impl ::serde::Serialize for StatefulSetStatus {
         )?;
         if let Some(value) = &self.collision_count {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "collisionCount", value)?;
+        }
+        if let Some(value) = &self.conditions {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "conditions", value)?;
         }
         if let Some(value) = &self.current_replicas {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "currentReplicas", value)?;

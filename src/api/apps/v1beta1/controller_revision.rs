@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ControllerRevision {
     /// Data is the serialized representation of the state.
-    pub data: Option<::v1_8::apimachinery::pkg::runtime::RawExtension>,
+    pub data: Option<::v1_9::apimachinery::pkg::runtime::RawExtension>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Revision indicates the revision of the state represented by Data.
     pub revision: i64,
@@ -35,7 +35,7 @@ impl ControllerRevision {
     ///     If 'true', then the output is pretty printed.
     pub fn create_apps_v1beta1_namespaced_controller_revision(
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta1::ControllerRevision,
+        body: &::v1_9::api::apps::v1beta1::ControllerRevision,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions?", namespace = namespace);
@@ -54,7 +54,9 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::create_apps_v1beta1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.create_apps_v1beta1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum CreateAppsV1beta1NamespacedControllerRevisionResponse {
-    Ok(::v1_8::api::apps::v1beta1::ControllerRevision),
+    Ok(::v1_9::api::apps::v1beta1::ControllerRevision),
+    Created(::v1_9::api::apps::v1beta1::ControllerRevision),
+    Accepted(::v1_9::api::apps::v1beta1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -69,6 +71,22 @@ impl ::Response for CreateAppsV1beta1NamespacedControllerRevisionResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((CreateAppsV1beta1NamespacedControllerRevisionResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta1NamespacedControllerRevisionResponse::Created(result), buf.len()))
+            },
+            ::http::StatusCode::ACCEPTED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((CreateAppsV1beta1NamespacedControllerRevisionResponse::Accepted(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((CreateAppsV1beta1NamespacedControllerRevisionResponse::Unauthorized, 0)),
             _ => Ok((CreateAppsV1beta1NamespacedControllerRevisionResponse::Other, 0)),
@@ -178,8 +196,8 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::delete_apps_v1beta1_collection_namespaced_controller_revision`](./struct.ControllerRevision.html#method.delete_apps_v1beta1_collection_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1CollectionNamespacedControllerRevisionResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::apps::v1beta1::ControllerRevision),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::apps::v1beta1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -247,7 +265,7 @@ impl ControllerRevision {
     ///
     /// * `propagation_policy`
     ///
-    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy.
+    ///     Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
     pub fn delete_apps_v1beta1_namespaced_controller_revision(
         name: &str,
         namespace: &str,
@@ -281,8 +299,8 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::delete_apps_v1beta1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.delete_apps_v1beta1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum DeleteAppsV1beta1NamespacedControllerRevisionResponse {
-    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_8::api::apps::v1beta1::ControllerRevision),
+    OkStatus(::v1_9::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_9::api::apps::v1beta1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -414,7 +432,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::list_apps_v1beta1_controller_revision_for_all_namespaces`](./struct.ControllerRevision.html#method.list_apps_v1beta1_controller_revision_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListAppsV1beta1ControllerRevisionForAllNamespacesResponse {
-    Ok(::v1_8::api::apps::v1beta1::ControllerRevisionList),
+    Ok(::v1_9::api::apps::v1beta1::ControllerRevisionList),
     Unauthorized,
     Other,
 }
@@ -538,7 +556,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::list_apps_v1beta1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.list_apps_v1beta1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum ListAppsV1beta1NamespacedControllerRevisionResponse {
-    Ok(::v1_8::api::apps::v1beta1::ControllerRevisionList),
+    Ok(::v1_9::api::apps::v1beta1::ControllerRevisionList),
     Unauthorized,
     Other,
 }
@@ -585,7 +603,7 @@ impl ControllerRevision {
     pub fn patch_apps_v1beta1_namespaced_controller_revision(
         name: &str,
         namespace: &str,
-        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_9::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}?", name = name, namespace = namespace);
@@ -604,7 +622,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::patch_apps_v1beta1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.patch_apps_v1beta1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum PatchAppsV1beta1NamespacedControllerRevisionResponse {
-    Ok(::v1_8::api::apps::v1beta1::ControllerRevision),
+    Ok(::v1_9::api::apps::v1beta1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -683,7 +701,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::read_apps_v1beta1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.read_apps_v1beta1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum ReadAppsV1beta1NamespacedControllerRevisionResponse {
-    Ok(::v1_8::api::apps::v1beta1::ControllerRevision),
+    Ok(::v1_9::api::apps::v1beta1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -730,7 +748,7 @@ impl ControllerRevision {
     pub fn replace_apps_v1beta1_namespaced_controller_revision(
         name: &str,
         namespace: &str,
-        body: &::v1_8::api::apps::v1beta1::ControllerRevision,
+        body: &::v1_9::api::apps::v1beta1::ControllerRevision,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}?", name = name, namespace = namespace);
@@ -749,7 +767,8 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::replace_apps_v1beta1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.replace_apps_v1beta1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum ReplaceAppsV1beta1NamespacedControllerRevisionResponse {
-    Ok(::v1_8::api::apps::v1beta1::ControllerRevision),
+    Ok(::v1_9::api::apps::v1beta1::ControllerRevision),
+    Created(::v1_9::api::apps::v1beta1::ControllerRevision),
     Unauthorized,
     Other,
 }
@@ -764,6 +783,14 @@ impl ::Response for ReplaceAppsV1beta1NamespacedControllerRevisionResponse {
                     Err(err) => return Err(::ResponseError::Json(err)),
                 };
                 Ok((ReplaceAppsV1beta1NamespacedControllerRevisionResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::CREATED => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReplaceAppsV1beta1NamespacedControllerRevisionResponse::Created(result), buf.len()))
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReplaceAppsV1beta1NamespacedControllerRevisionResponse::Unauthorized, 0)),
             _ => Ok((ReplaceAppsV1beta1NamespacedControllerRevisionResponse::Other, 0)),
@@ -868,7 +895,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::watch_apps_v1beta1_controller_revision_list_for_all_namespaces`](./struct.ControllerRevision.html#method.watch_apps_v1beta1_controller_revision_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1ControllerRevisionListForAllNamespacesResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -999,7 +1026,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::watch_apps_v1beta1_namespaced_controller_revision`](./struct.ControllerRevision.html#method.watch_apps_v1beta1_namespaced_controller_revision)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedControllerRevisionResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1125,7 +1152,7 @@ impl ControllerRevision {
 /// Parses the HTTP response of [`ControllerRevision::watch_apps_v1beta1_namespaced_controller_revision_list`](./struct.ControllerRevision.html#method.watch_apps_v1beta1_namespaced_controller_revision_list)
 #[derive(Debug)]
 pub enum WatchAppsV1beta1NamespacedControllerRevisionListResponse {
-    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_9::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1218,8 +1245,8 @@ impl<'de> ::serde::Deserialize<'de> for ControllerRevision {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_data: Option<::v1_8::apimachinery::pkg::runtime::RawExtension> = None;
-                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_data: Option<::v1_9::apimachinery::pkg::runtime::RawExtension> = None;
+                let mut value_metadata: Option<::v1_9::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_revision: Option<i64> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

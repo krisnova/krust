@@ -7,13 +7,16 @@ pub struct PersistentVolumeClaimSpec {
     pub access_modes: Option<Vec<String>>,
 
     /// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-    pub resources: Option<::v1_8::api::core::v1::ResourceRequirements>,
+    pub resources: Option<::v1_9::api::core::v1::ResourceRequirements>,
 
     /// A label query over volumes to consider for binding.
-    pub selector: Option<::v1_8::apimachinery::pkg::apis::meta::v1::LabelSelector>,
+    pub selector: Option<::v1_9::apimachinery::pkg::apis::meta::v1::LabelSelector>,
 
     /// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
     pub storage_class_name: Option<String>,
+
+    /// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec. This is an alpha feature and may change in the future.
+    pub volume_mode: Option<String>,
 
     /// VolumeName is the binding reference to the PersistentVolume backing this claim.
     pub volume_name: Option<String>,
@@ -27,6 +30,7 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaimSpec {
             Key_resources,
             Key_selector,
             Key_storage_class_name,
+            Key_volume_mode,
             Key_volume_name,
             Other,
         }
@@ -48,6 +52,7 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaimSpec {
                             "resources" => Field::Key_resources,
                             "selector" => Field::Key_selector,
                             "storageClassName" => Field::Key_storage_class_name,
+                            "volumeMode" => Field::Key_volume_mode,
                             "volumeName" => Field::Key_volume_name,
                             _ => Field::Other,
                         })
@@ -69,9 +74,10 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaimSpec {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_access_modes: Option<Vec<String>> = None;
-                let mut value_resources: Option<::v1_8::api::core::v1::ResourceRequirements> = None;
-                let mut value_selector: Option<::v1_8::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
+                let mut value_resources: Option<::v1_9::api::core::v1::ResourceRequirements> = None;
+                let mut value_selector: Option<::v1_9::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
                 let mut value_storage_class_name: Option<String> = None;
+                let mut value_volume_mode: Option<String> = None;
                 let mut value_volume_name: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
@@ -80,6 +86,7 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaimSpec {
                         Field::Key_resources => value_resources = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_selector => value_selector = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_storage_class_name => value_storage_class_name = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_volume_mode => value_volume_mode = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_volume_name => value_volume_name = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
@@ -90,6 +97,7 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaimSpec {
                     resources: value_resources,
                     selector: value_selector,
                     storage_class_name: value_storage_class_name,
+                    volume_mode: value_volume_mode,
                     volume_name: value_volume_name,
                 })
             }
@@ -102,6 +110,7 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolumeClaimSpec {
                 "resources",
                 "selector",
                 "storageClassName",
+                "volumeMode",
                 "volumeName",
             ],
             Visitor,
@@ -118,6 +127,7 @@ impl ::serde::Serialize for PersistentVolumeClaimSpec {
             self.resources.as_ref().map_or(0, |_| 1) +
             self.selector.as_ref().map_or(0, |_| 1) +
             self.storage_class_name.as_ref().map_or(0, |_| 1) +
+            self.volume_mode.as_ref().map_or(0, |_| 1) +
             self.volume_name.as_ref().map_or(0, |_| 1),
         )?;
         if let Some(value) = &self.access_modes {
@@ -131,6 +141,9 @@ impl ::serde::Serialize for PersistentVolumeClaimSpec {
         }
         if let Some(value) = &self.storage_class_name {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "storageClassName", value)?;
+        }
+        if let Some(value) = &self.volume_mode {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "volumeMode", value)?;
         }
         if let Some(value) = &self.volume_name {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "volumeName", value)?;
