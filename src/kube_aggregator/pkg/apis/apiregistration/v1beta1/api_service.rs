@@ -3,13 +3,13 @@
 /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct APIService {
-    pub metadata: Option<::v1_7::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec contains information for locating and communicating with a server
-    pub spec: Option<::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec>,
+    pub spec: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec>,
 
     /// Status contains derived information about an API server
-    pub status: Option<::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus>,
+    pub status: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus>,
 }
 
 // Begin apiregistration.k8s.io/v1beta1/APIService
@@ -29,7 +29,7 @@ impl APIService {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_apiregistration_v1beta1_api_service(
-        body: &::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
+        body: &::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices?");
@@ -48,7 +48,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::create_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.create_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum CreateApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -132,8 +132,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::delete_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.delete_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum DeleteApiregistrationV1beta1APIServiceResponse {
-    OkStatus(::v1_7::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -177,6 +177,10 @@ impl APIService {
     ///
     /// # Arguments
     ///
+    /// * `continue_`
+    ///
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///
     /// * `field_selector`
     ///
     ///     A selector to restrict the list of returned objects by their fields. Defaults to everything.
@@ -188,6 +192,12 @@ impl APIService {
     /// * `label_selector`
     ///
     ///     A selector to restrict the list of returned objects by their labels. Defaults to everything.
+    ///
+    /// * `limit`
+    ///
+    ///     limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.
+    ///
+    ///     The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
     ///
     /// * `pretty`
     ///
@@ -205,9 +215,11 @@ impl APIService {
     ///
     ///     Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
     pub fn delete_apiregistration_v1beta1_collection_api_service(
+        continue_: Option<&str>,
         field_selector: Option<&str>,
         include_uninitialized: Option<bool>,
         label_selector: Option<&str>,
+        limit: Option<i64>,
         pretty: Option<&str>,
         resource_version: Option<&str>,
         timeout_seconds: Option<i64>,
@@ -215,6 +227,9 @@ impl APIService {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(continue_) = continue_ {
+            __query_pairs.append_pair("continue", continue_);
+        }
         if let Some(field_selector) = field_selector {
             __query_pairs.append_pair("fieldSelector", field_selector);
         }
@@ -223,6 +238,9 @@ impl APIService {
         }
         if let Some(label_selector) = label_selector {
             __query_pairs.append_pair("labelSelector", label_selector);
+        }
+        if let Some(limit) = limit {
+            __query_pairs.append_pair("limit", &limit.to_string());
         }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
@@ -247,8 +265,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::delete_apiregistration_v1beta1_collection_api_service`](./struct.APIService.html#method.delete_apiregistration_v1beta1_collection_api_service)
 #[derive(Debug)]
 pub enum DeleteApiregistrationV1beta1CollectionAPIServiceResponse {
-    OkStatus(::v1_7::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    OkStatus(::v1_8::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -292,6 +310,10 @@ impl APIService {
     ///
     /// # Arguments
     ///
+    /// * `continue_`
+    ///
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///
     /// * `field_selector`
     ///
     ///     A selector to restrict the list of returned objects by their fields. Defaults to everything.
@@ -303,6 +325,12 @@ impl APIService {
     /// * `label_selector`
     ///
     ///     A selector to restrict the list of returned objects by their labels. Defaults to everything.
+    ///
+    /// * `limit`
+    ///
+    ///     limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.
+    ///
+    ///     The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
     ///
     /// * `pretty`
     ///
@@ -320,9 +348,11 @@ impl APIService {
     ///
     ///     Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
     pub fn list_apiregistration_v1beta1_api_service(
+        continue_: Option<&str>,
         field_selector: Option<&str>,
         include_uninitialized: Option<bool>,
         label_selector: Option<&str>,
+        limit: Option<i64>,
         pretty: Option<&str>,
         resource_version: Option<&str>,
         timeout_seconds: Option<i64>,
@@ -330,6 +360,9 @@ impl APIService {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(continue_) = continue_ {
+            __query_pairs.append_pair("continue", continue_);
+        }
         if let Some(field_selector) = field_selector {
             __query_pairs.append_pair("fieldSelector", field_selector);
         }
@@ -338,6 +371,9 @@ impl APIService {
         }
         if let Some(label_selector) = label_selector {
             __query_pairs.append_pair("labelSelector", label_selector);
+        }
+        if let Some(limit) = limit {
+            __query_pairs.append_pair("limit", &limit.to_string());
         }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
@@ -362,7 +398,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::list_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.list_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum ListApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceList),
+    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceList),
     Unauthorized,
     Other,
 }
@@ -404,7 +440,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apiregistration_v1beta1_api_service(
         name: &str,
-        body: &::v1_7::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_8::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}?", name = name);
@@ -423,7 +459,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::patch_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.patch_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum PatchApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -497,7 +533,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::read_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.read_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum ReadApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -539,7 +575,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiregistration_v1beta1_api_service(
         name: &str,
-        body: &::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
+        body: &::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}?", name = name);
@@ -558,7 +594,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::replace_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.replace_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum ReplaceApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -600,7 +636,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiregistration_v1beta1_api_service_status(
         name: &str,
-        body: &::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
+        body: &::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}/status?", name = name);
@@ -619,7 +655,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::replace_apiregistration_v1beta1_api_service_status`](./struct.APIService.html#method.replace_apiregistration_v1beta1_api_service_status)
 #[derive(Debug)]
 pub enum ReplaceApiregistrationV1beta1APIServiceStatusResponse {
-    Ok(::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
+    Ok(::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService),
     Unauthorized,
     Other,
 }
@@ -654,6 +690,10 @@ impl APIService {
     ///
     ///     name of the APIService
     ///
+    /// * `continue_`
+    ///
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///
     /// * `field_selector`
     ///
     ///     A selector to restrict the list of returned objects by their fields. Defaults to everything.
@@ -665,6 +705,12 @@ impl APIService {
     /// * `label_selector`
     ///
     ///     A selector to restrict the list of returned objects by their labels. Defaults to everything.
+    ///
+    /// * `limit`
+    ///
+    ///     limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.
+    ///
+    ///     The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
     ///
     /// * `pretty`
     ///
@@ -683,9 +729,11 @@ impl APIService {
     ///     Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
     pub fn watch_apiregistration_v1beta1_api_service(
         name: &str,
+        continue_: Option<&str>,
         field_selector: Option<&str>,
         include_uninitialized: Option<bool>,
         label_selector: Option<&str>,
+        limit: Option<i64>,
         pretty: Option<&str>,
         resource_version: Option<&str>,
         timeout_seconds: Option<i64>,
@@ -693,6 +741,9 @@ impl APIService {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/watch/apiservices/{name}?", name = name);
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(continue_) = continue_ {
+            __query_pairs.append_pair("continue", continue_);
+        }
         if let Some(field_selector) = field_selector {
             __query_pairs.append_pair("fieldSelector", field_selector);
         }
@@ -701,6 +752,9 @@ impl APIService {
         }
         if let Some(label_selector) = label_selector {
             __query_pairs.append_pair("labelSelector", label_selector);
+        }
+        if let Some(limit) = limit {
+            __query_pairs.append_pair("limit", &limit.to_string());
         }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
@@ -725,7 +779,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::watch_apiregistration_v1beta1_api_service`](./struct.APIService.html#method.watch_apiregistration_v1beta1_api_service)
 #[derive(Debug)]
 pub enum WatchApiregistrationV1beta1APIServiceResponse {
-    Ok(::v1_7::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -758,6 +812,10 @@ impl APIService {
     ///
     /// # Arguments
     ///
+    /// * `continue_`
+    ///
+    ///     The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server the server will respond with a 410 ResourceExpired error indicating the client must restart their list without the continue field. This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+    ///
     /// * `field_selector`
     ///
     ///     A selector to restrict the list of returned objects by their fields. Defaults to everything.
@@ -769,6 +827,12 @@ impl APIService {
     /// * `label_selector`
     ///
     ///     A selector to restrict the list of returned objects by their labels. Defaults to everything.
+    ///
+    /// * `limit`
+    ///
+    ///     limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.
+    ///
+    ///     The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
     ///
     /// * `pretty`
     ///
@@ -786,9 +850,11 @@ impl APIService {
     ///
     ///     Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
     pub fn watch_apiregistration_v1beta1_api_service_list(
+        continue_: Option<&str>,
         field_selector: Option<&str>,
         include_uninitialized: Option<bool>,
         label_selector: Option<&str>,
+        limit: Option<i64>,
         pretty: Option<&str>,
         resource_version: Option<&str>,
         timeout_seconds: Option<i64>,
@@ -796,6 +862,9 @@ impl APIService {
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1beta1/watch/apiservices?");
         let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(continue_) = continue_ {
+            __query_pairs.append_pair("continue", continue_);
+        }
         if let Some(field_selector) = field_selector {
             __query_pairs.append_pair("fieldSelector", field_selector);
         }
@@ -804,6 +873,9 @@ impl APIService {
         }
         if let Some(label_selector) = label_selector {
             __query_pairs.append_pair("labelSelector", label_selector);
+        }
+        if let Some(limit) = limit {
+            __query_pairs.append_pair("limit", &limit.to_string());
         }
         if let Some(pretty) = pretty {
             __query_pairs.append_pair("pretty", pretty);
@@ -828,7 +900,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::watch_apiregistration_v1beta1_api_service_list`](./struct.APIService.html#method.watch_apiregistration_v1beta1_api_service_list)
 #[derive(Debug)]
 pub enum WatchApiregistrationV1beta1APIServiceListResponse {
-    Ok(::v1_7::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_8::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -921,9 +993,9 @@ impl<'de> ::serde::Deserialize<'de> for APIService {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_7::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec> = None;
-                let mut value_status: Option<::v1_7::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus> = None;
+                let mut value_metadata: Option<::v1_8::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceSpec> = None;
+                let mut value_status: Option<::v1_8::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIServiceStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

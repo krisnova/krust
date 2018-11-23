@@ -4,7 +4,7 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct StatusDetails {
     /// The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
-    pub causes: Option<Vec<::v1_7::apimachinery::pkg::apis::meta::v1::StatusCause>>,
+    pub causes: Option<Vec<::v1_8::apimachinery::pkg::apis::meta::v1::StatusCause>>,
 
     /// The group attribute of the resource associated with the status StatusReason.
     pub group: Option<String>,
@@ -15,7 +15,7 @@ pub struct StatusDetails {
     /// The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
     pub name: Option<String>,
 
-    /// If specified, the time in seconds before the operation should be retried.
+    /// If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
     pub retry_after_seconds: Option<i32>,
 
     /// UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
@@ -73,7 +73,7 @@ impl<'de> ::serde::Deserialize<'de> for StatusDetails {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_causes: Option<Vec<::v1_7::apimachinery::pkg::apis::meta::v1::StatusCause>> = None;
+                let mut value_causes: Option<Vec<::v1_8::apimachinery::pkg::apis::meta::v1::StatusCause>> = None;
                 let mut value_group: Option<String> = None;
                 let mut value_kind: Option<String> = None;
                 let mut value_name: Option<String> = None;
