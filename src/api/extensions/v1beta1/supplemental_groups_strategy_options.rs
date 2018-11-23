@@ -1,12 +1,12 @@
 // Generated from definition io.k8s.api.extensions.v1beta1.SupplementalGroupsStrategyOptions
 
-/// SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+/// SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SupplementalGroupsStrategyOptions {
-    /// Ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end.
-    pub ranges: Option<Vec<::v1_10::api::extensions::v1beta1::IDRange>>,
+    /// ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
+    pub ranges: Option<Vec<::v1_11::api::extensions::v1beta1::IDRange>>,
 
-    /// Rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
+    /// rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
     pub rule: Option<String>,
 }
 
@@ -53,7 +53,7 @@ impl<'de> ::serde::Deserialize<'de> for SupplementalGroupsStrategyOptions {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_ranges: Option<Vec<::v1_10::api::extensions::v1beta1::IDRange>> = None;
+                let mut value_ranges: Option<Vec<::v1_11::api::extensions::v1beta1::IDRange>> = None;
                 let mut value_rule: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

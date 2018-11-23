@@ -1,12 +1,12 @@
 // Generated from definition io.k8s.api.extensions.v1beta1.RunAsUserStrategyOptions
 
-/// Run A sUser Strategy Options defines the strategy type and any options used to create the strategy.
+/// RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct RunAsUserStrategyOptions {
-    /// Ranges are the allowed ranges of uids that may be used.
-    pub ranges: Option<Vec<::v1_10::api::extensions::v1beta1::IDRange>>,
+    /// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
+    pub ranges: Option<Vec<::v1_11::api::extensions::v1beta1::IDRange>>,
 
-    /// Rule is the strategy that will dictate the allowable RunAsUser values that may be set.
+    /// rule is the strategy that will dictate the allowable RunAsUser values that may be set.
     pub rule: String,
 }
 
@@ -53,7 +53,7 @@ impl<'de> ::serde::Deserialize<'de> for RunAsUserStrategyOptions {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_ranges: Option<Vec<::v1_10::api::extensions::v1beta1::IDRange>> = None;
+                let mut value_ranges: Option<Vec<::v1_11::api::extensions::v1beta1::IDRange>> = None;
                 let mut value_rule: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

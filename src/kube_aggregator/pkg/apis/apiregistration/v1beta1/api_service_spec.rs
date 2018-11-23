@@ -4,7 +4,7 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct APIServiceSpec {
     /// CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate.
-    pub ca_bundle: ::ByteString,
+    pub ca_bundle: Option<::ByteString>,
 
     /// Group is the API group name this server hosts
     pub group: Option<String>,
@@ -16,12 +16,12 @@ pub struct APIServiceSpec {
     pub insecure_skip_tls_verify: Option<bool>,
 
     /// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-    pub service: ::v1_10::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference,
+    pub service: ::v1_11::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference,
 
     /// Version is the API version this server hosts.  For example, "v1"
     pub version: Option<String>,
 
-    /// VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) Since it's inside of a group, the number can be small, probably in the 10s.
+    /// VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
     pub version_priority: i32,
 }
 
@@ -82,13 +82,13 @@ impl<'de> ::serde::Deserialize<'de> for APIServiceSpec {
                 let mut value_group: Option<String> = None;
                 let mut value_group_priority_minimum: Option<i32> = None;
                 let mut value_insecure_skip_tls_verify: Option<bool> = None;
-                let mut value_service: Option<::v1_10::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference> = None;
+                let mut value_service: Option<::v1_11::kube_aggregator::pkg::apis::apiregistration::v1beta1::ServiceReference> = None;
                 let mut value_version: Option<String> = None;
                 let mut value_version_priority: Option<i32> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
-                        Field::Key_ca_bundle => value_ca_bundle = Some(::serde::de::MapAccess::next_value(&mut map)?),
+                        Field::Key_ca_bundle => value_ca_bundle = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_group => value_group = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_group_priority_minimum => value_group_priority_minimum = Some(::serde::de::MapAccess::next_value(&mut map)?),
                         Field::Key_insecure_skip_tls_verify => value_insecure_skip_tls_verify = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -100,7 +100,7 @@ impl<'de> ::serde::Deserialize<'de> for APIServiceSpec {
                 }
 
                 Ok(APIServiceSpec {
-                    ca_bundle: value_ca_bundle.ok_or_else(|| ::serde::de::Error::missing_field("caBundle"))?,
+                    ca_bundle: value_ca_bundle,
                     group: value_group,
                     group_priority_minimum: value_group_priority_minimum.ok_or_else(|| ::serde::de::Error::missing_field("groupPriorityMinimum"))?,
                     insecure_skip_tls_verify: value_insecure_skip_tls_verify,
@@ -132,7 +132,7 @@ impl ::serde::Serialize for APIServiceSpec {
         let mut state = serializer.serialize_struct(
             "APIServiceSpec",
             0 +
-            1 +
+            self.ca_bundle.as_ref().map_or(0, |_| 1) +
             self.group.as_ref().map_or(0, |_| 1) +
             1 +
             self.insecure_skip_tls_verify.as_ref().map_or(0, |_| 1) +
@@ -140,7 +140,9 @@ impl ::serde::Serialize for APIServiceSpec {
             self.version.as_ref().map_or(0, |_| 1) +
             1,
         )?;
-        ::serde::ser::SerializeStruct::serialize_field(&mut state, "caBundle", &self.ca_bundle)?;
+        if let Some(value) = &self.ca_bundle {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "caBundle", value)?;
+        }
         if let Some(value) = &self.group {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "group", value)?;
         }

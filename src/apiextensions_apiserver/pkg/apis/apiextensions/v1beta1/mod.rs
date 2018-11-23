@@ -1,4 +1,7 @@
 
+mod custom_resource_column_definition;
+pub use self::custom_resource_column_definition::*;
+
 mod custom_resource_definition;
 pub use self::custom_resource_definition::*;
 
@@ -16,6 +19,9 @@ pub use self::custom_resource_definition_spec::*;
 
 mod custom_resource_definition_status;
 pub use self::custom_resource_definition_status::*;
+
+mod custom_resource_definition_version;
+pub use self::custom_resource_definition_version::*;
 
 mod custom_resource_subresource_scale;
 pub use self::custom_resource_subresource_scale::*;

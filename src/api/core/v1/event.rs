@@ -10,28 +10,28 @@ pub struct Event {
     pub count: Option<i32>,
 
     /// Time when this Event was first observed.
-    pub event_time: Option<::v1_10::apimachinery::pkg::apis::meta::v1::MicroTime>,
+    pub event_time: Option<::v1_11::apimachinery::pkg::apis::meta::v1::MicroTime>,
 
     /// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
-    pub first_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time>,
+    pub first_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time>,
 
     /// The object that this event is about.
-    pub involved_object: ::v1_10::api::core::v1::ObjectReference,
+    pub involved_object: ::v1_11::api::core::v1::ObjectReference,
 
     /// The time at which the most recent occurrence of this event was recorded.
-    pub last_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time>,
+    pub last_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time>,
 
     /// A human-readable description of the status of this operation.
     pub message: Option<String>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: ::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+    pub metadata: ::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta,
 
     /// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
     pub reason: Option<String>,
 
     /// Optional secondary object for more complex actions.
-    pub related: Option<::v1_10::api::core::v1::ObjectReference>,
+    pub related: Option<::v1_11::api::core::v1::ObjectReference>,
 
     /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
     pub reporting_component: Option<String>,
@@ -40,10 +40,10 @@ pub struct Event {
     pub reporting_instance: Option<String>,
 
     /// Data about the Event series this event represents or nil if it's a singleton Event.
-    pub series: Option<::v1_10::api::core::v1::EventSeries>,
+    pub series: Option<::v1_11::api::core::v1::EventSeries>,
 
     /// The component reporting this event. Should be a short machine understandable string.
-    pub source: Option<::v1_10::api::core::v1::EventSource>,
+    pub source: Option<::v1_11::api::core::v1::EventSource>,
 
     /// Type of this event (Normal, Warning), new types could be added in the future
     pub type_: Option<String>,
@@ -71,7 +71,7 @@ impl Event {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_event(
         namespace: &str,
-        body: &::v1_10::api::core::v1::Event,
+        body: &::v1_11::api::core::v1::Event,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/events?", namespace = namespace);
@@ -90,9 +90,9 @@ impl Event {
 /// Parses the HTTP response of [`Event::create_core_v1_namespaced_event`](./struct.Event.html#method.create_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedEventResponse {
-    Ok(::v1_10::api::core::v1::Event),
-    Created(::v1_10::api::core::v1::Event),
-    Accepted(::v1_10::api::core::v1::Event),
+    Ok(::v1_11::api::core::v1::Event),
+    Created(::v1_11::api::core::v1::Event),
+    Accepted(::v1_11::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -232,8 +232,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::delete_core_v1_collection_namespaced_event`](./struct.Event.html#method.delete_core_v1_collection_namespaced_event)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedEventResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::Event),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -335,8 +335,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::delete_core_v1_namespaced_event`](./struct.Event.html#method.delete_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedEventResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::Event),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -468,7 +468,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::list_core_v1_event_for_all_namespaces`](./struct.Event.html#method.list_core_v1_event_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1EventForAllNamespacesResponse {
-    Ok(::v1_10::api::core::v1::EventList),
+    Ok(::v1_11::api::core::v1::EventList),
     Unauthorized,
     Other,
 }
@@ -592,7 +592,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::list_core_v1_namespaced_event`](./struct.Event.html#method.list_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedEventResponse {
-    Ok(::v1_10::api::core::v1::EventList),
+    Ok(::v1_11::api::core::v1::EventList),
     Unauthorized,
     Other,
 }
@@ -639,7 +639,7 @@ impl Event {
     pub fn patch_core_v1_namespaced_event(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/events/{name}?", name = name, namespace = namespace);
@@ -658,7 +658,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::patch_core_v1_namespaced_event`](./struct.Event.html#method.patch_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedEventResponse {
-    Ok(::v1_10::api::core::v1::Event),
+    Ok(::v1_11::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -737,7 +737,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::read_core_v1_namespaced_event`](./struct.Event.html#method.read_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedEventResponse {
-    Ok(::v1_10::api::core::v1::Event),
+    Ok(::v1_11::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -784,7 +784,7 @@ impl Event {
     pub fn replace_core_v1_namespaced_event(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::Event,
+        body: &::v1_11::api::core::v1::Event,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/events/{name}?", name = name, namespace = namespace);
@@ -803,8 +803,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::replace_core_v1_namespaced_event`](./struct.Event.html#method.replace_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedEventResponse {
-    Ok(::v1_10::api::core::v1::Event),
-    Created(::v1_10::api::core::v1::Event),
+    Ok(::v1_11::api::core::v1::Event),
+    Created(::v1_11::api::core::v1::Event),
     Unauthorized,
     Other,
 }
@@ -931,7 +931,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_core_v1_event_list_for_all_namespaces`](./struct.Event.html#method.watch_core_v1_event_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1EventListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1062,7 +1062,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_core_v1_namespaced_event`](./struct.Event.html#method.watch_core_v1_namespaced_event)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEventResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1188,7 +1188,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_core_v1_namespaced_event_list`](./struct.Event.html#method.watch_core_v1_namespaced_event_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedEventListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1307,18 +1307,18 @@ impl<'de> ::serde::Deserialize<'de> for Event {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_action: Option<String> = None;
                 let mut value_count: Option<i32> = None;
-                let mut value_event_time: Option<::v1_10::apimachinery::pkg::apis::meta::v1::MicroTime> = None;
-                let mut value_first_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time> = None;
-                let mut value_involved_object: Option<::v1_10::api::core::v1::ObjectReference> = None;
-                let mut value_last_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_event_time: Option<::v1_11::apimachinery::pkg::apis::meta::v1::MicroTime> = None;
+                let mut value_first_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_involved_object: Option<::v1_11::api::core::v1::ObjectReference> = None;
+                let mut value_last_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time> = None;
                 let mut value_message: Option<String> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_reason: Option<String> = None;
-                let mut value_related: Option<::v1_10::api::core::v1::ObjectReference> = None;
+                let mut value_related: Option<::v1_11::api::core::v1::ObjectReference> = None;
                 let mut value_reporting_component: Option<String> = None;
                 let mut value_reporting_instance: Option<String> = None;
-                let mut value_series: Option<::v1_10::api::core::v1::EventSeries> = None;
-                let mut value_source: Option<::v1_10::api::core::v1::EventSource> = None;
+                let mut value_series: Option<::v1_11::api::core::v1::EventSeries> = None;
+                let mut value_source: Option<::v1_11::api::core::v1::EventSource> = None;
                 let mut value_type_: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

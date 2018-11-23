@@ -3,13 +3,13 @@
 /// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct TokenReview {
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec holds information about the request being evaluated
-    pub spec: ::v1_10::api::authentication::v1::TokenReviewSpec,
+    pub spec: ::v1_11::api::authentication::v1::TokenReviewSpec,
 
     /// Status is filled in by the server and indicates whether the request can be authenticated.
-    pub status: Option<::v1_10::api::authentication::v1::TokenReviewStatus>,
+    pub status: Option<::v1_11::api::authentication::v1::TokenReviewStatus>,
 }
 
 // Begin authentication.k8s.io/v1/TokenReview
@@ -29,7 +29,7 @@ impl TokenReview {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_authentication_v1_token_review(
-        body: &::v1_10::api::authentication::v1::TokenReview,
+        body: &::v1_11::api::authentication::v1::TokenReview,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/authentication.k8s.io/v1/tokenreviews?");
@@ -48,9 +48,9 @@ impl TokenReview {
 /// Parses the HTTP response of [`TokenReview::create_authentication_v1_token_review`](./struct.TokenReview.html#method.create_authentication_v1_token_review)
 #[derive(Debug)]
 pub enum CreateAuthenticationV1TokenReviewResponse {
-    Ok(::v1_10::api::authentication::v1::TokenReview),
-    Created(::v1_10::api::authentication::v1::TokenReview),
-    Accepted(::v1_10::api::authentication::v1::TokenReview),
+    Ok(::v1_11::api::authentication::v1::TokenReview),
+    Created(::v1_11::api::authentication::v1::TokenReview),
+    Accepted(::v1_11::api::authentication::v1::TokenReview),
     Unauthorized,
     Other,
 }
@@ -157,9 +157,9 @@ impl<'de> ::serde::Deserialize<'de> for TokenReview {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::authentication::v1::TokenReviewSpec> = None;
-                let mut value_status: Option<::v1_10::api::authentication::v1::TokenReviewStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::authentication::v1::TokenReviewSpec> = None;
+                let mut value_status: Option<::v1_11::api::authentication::v1::TokenReviewStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

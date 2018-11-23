@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Scale {
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-    pub spec: Option<::v1_10::api::extensions::v1beta1::ScaleSpec>,
+    pub spec: Option<::v1_11::api::extensions::v1beta1::ScaleSpec>,
 
     /// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
-    pub status: Option<::v1_10::api::extensions::v1beta1::ScaleStatus>,
+    pub status: Option<::v1_11::api::extensions::v1beta1::ScaleStatus>,
 }
 
 // Begin extensions/v1beta1/Scale
@@ -40,7 +40,7 @@ impl Scale {
     pub fn patch_extensions_v1beta1_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
@@ -59,7 +59,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_extensions_v1beta1_namespaced_deployment_scale`](./struct.Scale.html#method.patch_extensions_v1beta1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedDeploymentScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -106,7 +106,7 @@ impl Scale {
     pub fn patch_extensions_v1beta1_namespaced_replica_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/replicasets/{name}/scale?", name = name, namespace = namespace);
@@ -125,7 +125,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_extensions_v1beta1_namespaced_replica_set_scale`](./struct.Scale.html#method.patch_extensions_v1beta1_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedReplicaSetScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -172,7 +172,7 @@ impl Scale {
     pub fn patch_extensions_v1beta1_namespaced_replication_controller_dummy_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/replicationcontrollers/{name}/scale?", name = name, namespace = namespace);
@@ -191,7 +191,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::patch_extensions_v1beta1_namespaced_replication_controller_dummy_scale`](./struct.Scale.html#method.patch_extensions_v1beta1_namespaced_replication_controller_dummy_scale)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedReplicationControllerDummyScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -254,7 +254,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_extensions_v1beta1_namespaced_deployment_scale`](./struct.Scale.html#method.read_extensions_v1beta1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedDeploymentScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -317,7 +317,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_extensions_v1beta1_namespaced_replica_set_scale`](./struct.Scale.html#method.read_extensions_v1beta1_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedReplicaSetScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -380,7 +380,7 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::read_extensions_v1beta1_namespaced_replication_controller_dummy_scale`](./struct.Scale.html#method.read_extensions_v1beta1_namespaced_replication_controller_dummy_scale)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedReplicationControllerDummyScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -427,7 +427,7 @@ impl Scale {
     pub fn replace_extensions_v1beta1_namespaced_deployment_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::extensions::v1beta1::Scale,
+        body: &::v1_11::api::extensions::v1beta1::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/scale?", name = name, namespace = namespace);
@@ -446,8 +446,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_extensions_v1beta1_namespaced_deployment_scale`](./struct.Scale.html#method.replace_extensions_v1beta1_namespaced_deployment_scale)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedDeploymentScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
-    Created(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
+    Created(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -502,7 +502,7 @@ impl Scale {
     pub fn replace_extensions_v1beta1_namespaced_replica_set_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::extensions::v1beta1::Scale,
+        body: &::v1_11::api::extensions::v1beta1::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/replicasets/{name}/scale?", name = name, namespace = namespace);
@@ -521,8 +521,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_extensions_v1beta1_namespaced_replica_set_scale`](./struct.Scale.html#method.replace_extensions_v1beta1_namespaced_replica_set_scale)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedReplicaSetScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
-    Created(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
+    Created(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -577,7 +577,7 @@ impl Scale {
     pub fn replace_extensions_v1beta1_namespaced_replication_controller_dummy_scale(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::extensions::v1beta1::Scale,
+        body: &::v1_11::api::extensions::v1beta1::Scale,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/replicationcontrollers/{name}/scale?", name = name, namespace = namespace);
@@ -596,8 +596,8 @@ impl Scale {
 /// Parses the HTTP response of [`Scale::replace_extensions_v1beta1_namespaced_replication_controller_dummy_scale`](./struct.Scale.html#method.replace_extensions_v1beta1_namespaced_replication_controller_dummy_scale)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedReplicationControllerDummyScaleResponse {
-    Ok(::v1_10::api::extensions::v1beta1::Scale),
-    Created(::v1_10::api::extensions::v1beta1::Scale),
+    Ok(::v1_11::api::extensions::v1beta1::Scale),
+    Created(::v1_11::api::extensions::v1beta1::Scale),
     Unauthorized,
     Other,
 }
@@ -696,9 +696,9 @@ impl<'de> ::serde::Deserialize<'de> for Scale {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::extensions::v1beta1::ScaleSpec> = None;
-                let mut value_status: Option<::v1_10::api::extensions::v1beta1::ScaleStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::extensions::v1beta1::ScaleSpec> = None;
+                let mut value_status: Option<::v1_11::api::extensions::v1beta1::ScaleStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

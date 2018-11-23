@@ -20,10 +20,13 @@ pub struct PodSecurityContext {
     pub run_as_user: Option<i64>,
 
     /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
-    pub se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions>,
+    pub se_linux_options: Option<::v1_11::api::core::v1::SELinuxOptions>,
 
     /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
     pub supplemental_groups: Option<Vec<i64>>,
+
+    /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
+    pub sysctls: Option<Vec<::v1_11::api::core::v1::Sysctl>>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
@@ -36,6 +39,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
             Key_run_as_user,
             Key_se_linux_options,
             Key_supplemental_groups,
+            Key_sysctls,
             Other,
         }
 
@@ -58,6 +62,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
                             "runAsUser" => Field::Key_run_as_user,
                             "seLinuxOptions" => Field::Key_se_linux_options,
                             "supplementalGroups" => Field::Key_supplemental_groups,
+                            "sysctls" => Field::Key_sysctls,
                             _ => Field::Other,
                         })
                     }
@@ -81,8 +86,9 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
                 let mut value_run_as_group: Option<i64> = None;
                 let mut value_run_as_non_root: Option<bool> = None;
                 let mut value_run_as_user: Option<i64> = None;
-                let mut value_se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions> = None;
+                let mut value_se_linux_options: Option<::v1_11::api::core::v1::SELinuxOptions> = None;
                 let mut value_supplemental_groups: Option<Vec<i64>> = None;
+                let mut value_sysctls: Option<Vec<::v1_11::api::core::v1::Sysctl>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -92,6 +98,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
                         Field::Key_run_as_user => value_run_as_user = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_se_linux_options => value_se_linux_options = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_supplemental_groups => value_supplemental_groups = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_sysctls => value_sysctls = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
                 }
@@ -103,6 +110,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
                     run_as_user: value_run_as_user,
                     se_linux_options: value_se_linux_options,
                     supplemental_groups: value_supplemental_groups,
+                    sysctls: value_sysctls,
                 })
             }
         }
@@ -116,6 +124,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityContext {
                 "runAsUser",
                 "seLinuxOptions",
                 "supplementalGroups",
+                "sysctls",
             ],
             Visitor,
         )
@@ -132,7 +141,8 @@ impl ::serde::Serialize for PodSecurityContext {
             self.run_as_non_root.as_ref().map_or(0, |_| 1) +
             self.run_as_user.as_ref().map_or(0, |_| 1) +
             self.se_linux_options.as_ref().map_or(0, |_| 1) +
-            self.supplemental_groups.as_ref().map_or(0, |_| 1),
+            self.supplemental_groups.as_ref().map_or(0, |_| 1) +
+            self.sysctls.as_ref().map_or(0, |_| 1),
         )?;
         if let Some(value) = &self.fs_group {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "fsGroup", value)?;
@@ -151,6 +161,9 @@ impl ::serde::Serialize for PodSecurityContext {
         }
         if let Some(value) = &self.supplemental_groups {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "supplementalGroups", value)?;
+        }
+        if let Some(value) = &self.sysctls {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "sysctls", value)?;
         }
         ::serde::ser::SerializeStruct::end(state)
     }

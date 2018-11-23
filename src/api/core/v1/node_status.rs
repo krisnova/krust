@@ -4,31 +4,34 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NodeStatus {
     /// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses
-    pub addresses: Option<Vec<::v1_10::api::core::v1::NodeAddress>>,
+    pub addresses: Option<Vec<::v1_11::api::core::v1::NodeAddress>>,
 
     /// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
-    pub allocatable: Option<::std::collections::BTreeMap<String, ::v1_10::apimachinery::pkg::api::resource::Quantity>>,
+    pub allocatable: Option<::std::collections::BTreeMap<String, ::v1_11::apimachinery::pkg::api::resource::Quantity>>,
 
     /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
-    pub capacity: Option<::std::collections::BTreeMap<String, ::v1_10::apimachinery::pkg::api::resource::Quantity>>,
+    pub capacity: Option<::std::collections::BTreeMap<String, ::v1_11::apimachinery::pkg::api::resource::Quantity>>,
 
     /// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
-    pub conditions: Option<Vec<::v1_10::api::core::v1::NodeCondition>>,
+    pub conditions: Option<Vec<::v1_11::api::core::v1::NodeCondition>>,
+
+    /// Status of the config assigned to the node via the dynamic Kubelet config feature.
+    pub config: Option<::v1_11::api::core::v1::NodeConfigStatus>,
 
     /// Endpoints of daemons running on the Node.
-    pub daemon_endpoints: Option<::v1_10::api::core::v1::NodeDaemonEndpoints>,
+    pub daemon_endpoints: Option<::v1_11::api::core::v1::NodeDaemonEndpoints>,
 
     /// List of container images on this node
-    pub images: Option<Vec<::v1_10::api::core::v1::ContainerImage>>,
+    pub images: Option<Vec<::v1_11::api::core::v1::ContainerImage>>,
 
     /// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
-    pub node_info: Option<::v1_10::api::core::v1::NodeSystemInfo>,
+    pub node_info: Option<::v1_11::api::core::v1::NodeSystemInfo>,
 
     /// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
     pub phase: Option<String>,
 
     /// List of volumes that are attached to the node.
-    pub volumes_attached: Option<Vec<::v1_10::api::core::v1::AttachedVolume>>,
+    pub volumes_attached: Option<Vec<::v1_11::api::core::v1::AttachedVolume>>,
 
     /// List of attachable volumes in use (mounted) by the node.
     pub volumes_in_use: Option<Vec<String>>,
@@ -42,6 +45,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeStatus {
             Key_allocatable,
             Key_capacity,
             Key_conditions,
+            Key_config,
             Key_daemon_endpoints,
             Key_images,
             Key_node_info,
@@ -68,6 +72,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeStatus {
                             "allocatable" => Field::Key_allocatable,
                             "capacity" => Field::Key_capacity,
                             "conditions" => Field::Key_conditions,
+                            "config" => Field::Key_config,
                             "daemonEndpoints" => Field::Key_daemon_endpoints,
                             "images" => Field::Key_images,
                             "nodeInfo" => Field::Key_node_info,
@@ -93,15 +98,16 @@ impl<'de> ::serde::Deserialize<'de> for NodeStatus {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_addresses: Option<Vec<::v1_10::api::core::v1::NodeAddress>> = None;
-                let mut value_allocatable: Option<::std::collections::BTreeMap<String, ::v1_10::apimachinery::pkg::api::resource::Quantity>> = None;
-                let mut value_capacity: Option<::std::collections::BTreeMap<String, ::v1_10::apimachinery::pkg::api::resource::Quantity>> = None;
-                let mut value_conditions: Option<Vec<::v1_10::api::core::v1::NodeCondition>> = None;
-                let mut value_daemon_endpoints: Option<::v1_10::api::core::v1::NodeDaemonEndpoints> = None;
-                let mut value_images: Option<Vec<::v1_10::api::core::v1::ContainerImage>> = None;
-                let mut value_node_info: Option<::v1_10::api::core::v1::NodeSystemInfo> = None;
+                let mut value_addresses: Option<Vec<::v1_11::api::core::v1::NodeAddress>> = None;
+                let mut value_allocatable: Option<::std::collections::BTreeMap<String, ::v1_11::apimachinery::pkg::api::resource::Quantity>> = None;
+                let mut value_capacity: Option<::std::collections::BTreeMap<String, ::v1_11::apimachinery::pkg::api::resource::Quantity>> = None;
+                let mut value_conditions: Option<Vec<::v1_11::api::core::v1::NodeCondition>> = None;
+                let mut value_config: Option<::v1_11::api::core::v1::NodeConfigStatus> = None;
+                let mut value_daemon_endpoints: Option<::v1_11::api::core::v1::NodeDaemonEndpoints> = None;
+                let mut value_images: Option<Vec<::v1_11::api::core::v1::ContainerImage>> = None;
+                let mut value_node_info: Option<::v1_11::api::core::v1::NodeSystemInfo> = None;
                 let mut value_phase: Option<String> = None;
-                let mut value_volumes_attached: Option<Vec<::v1_10::api::core::v1::AttachedVolume>> = None;
+                let mut value_volumes_attached: Option<Vec<::v1_11::api::core::v1::AttachedVolume>> = None;
                 let mut value_volumes_in_use: Option<Vec<String>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
@@ -110,6 +116,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeStatus {
                         Field::Key_allocatable => value_allocatable = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_capacity => value_capacity = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_conditions => value_conditions = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_config => value_config = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_daemon_endpoints => value_daemon_endpoints = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_images => value_images = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_node_info => value_node_info = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -125,6 +132,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeStatus {
                     allocatable: value_allocatable,
                     capacity: value_capacity,
                     conditions: value_conditions,
+                    config: value_config,
                     daemon_endpoints: value_daemon_endpoints,
                     images: value_images,
                     node_info: value_node_info,
@@ -142,6 +150,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeStatus {
                 "allocatable",
                 "capacity",
                 "conditions",
+                "config",
                 "daemonEndpoints",
                 "images",
                 "nodeInfo",
@@ -163,6 +172,7 @@ impl ::serde::Serialize for NodeStatus {
             self.allocatable.as_ref().map_or(0, |_| 1) +
             self.capacity.as_ref().map_or(0, |_| 1) +
             self.conditions.as_ref().map_or(0, |_| 1) +
+            self.config.as_ref().map_or(0, |_| 1) +
             self.daemon_endpoints.as_ref().map_or(0, |_| 1) +
             self.images.as_ref().map_or(0, |_| 1) +
             self.node_info.as_ref().map_or(0, |_| 1) +
@@ -181,6 +191,9 @@ impl ::serde::Serialize for NodeStatus {
         }
         if let Some(value) = &self.conditions {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "conditions", value)?;
+        }
+        if let Some(value) = &self.config {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "config", value)?;
         }
         if let Some(value) = &self.daemon_endpoints {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "daemonEndpoints", value)?;

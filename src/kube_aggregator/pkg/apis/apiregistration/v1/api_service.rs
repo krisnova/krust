@@ -3,13 +3,13 @@
 /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct APIService {
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec contains information for locating and communicating with a server
-    pub spec: Option<::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec>,
+    pub spec: Option<::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec>,
 
     /// Status contains derived information about an API server
-    pub status: Option<::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceStatus>,
+    pub status: Option<::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceStatus>,
 }
 
 // Begin apiregistration.k8s.io/v1/APIService
@@ -29,7 +29,7 @@ impl APIService {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_apiregistration_v1_api_service(
-        body: &::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+        body: &::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1/apiservices?");
@@ -48,9 +48,9 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::create_apiregistration_v1_api_service`](./struct.APIService.html#method.create_apiregistration_v1_api_service)
 #[derive(Debug)]
 pub enum CreateApiregistrationV1APIServiceResponse {
-    Ok(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
-    Created(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
-    Accepted(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Created(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Accepted(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
     Unauthorized,
     Other,
 }
@@ -150,8 +150,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::delete_apiregistration_v1_api_service`](./struct.APIService.html#method.delete_apiregistration_v1_api_service)
 #[derive(Debug)]
 pub enum DeleteApiregistrationV1APIServiceResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
     Unauthorized,
     Other,
 }
@@ -283,8 +283,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::delete_apiregistration_v1_collection_api_service`](./struct.APIService.html#method.delete_apiregistration_v1_collection_api_service)
 #[derive(Debug)]
 pub enum DeleteApiregistrationV1CollectionAPIServiceResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
     Unauthorized,
     Other,
 }
@@ -416,7 +416,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::list_apiregistration_v1_api_service`](./struct.APIService.html#method.list_apiregistration_v1_api_service)
 #[derive(Debug)]
 pub enum ListApiregistrationV1APIServiceResponse {
-    Ok(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceList),
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceList),
     Unauthorized,
     Other,
 }
@@ -458,7 +458,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apiregistration_v1_api_service(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1/apiservices/{name}?", name = name);
@@ -477,7 +477,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::patch_apiregistration_v1_api_service`](./struct.APIService.html#method.patch_apiregistration_v1_api_service)
 #[derive(Debug)]
 pub enum PatchApiregistrationV1APIServiceResponse {
-    Ok(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
     Unauthorized,
     Other,
 }
@@ -495,6 +495,67 @@ impl ::Response for PatchApiregistrationV1APIServiceResponse {
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((PatchApiregistrationV1APIServiceResponse::Unauthorized, 0)),
             _ => Ok((PatchApiregistrationV1APIServiceResponse::Other, 0)),
+        }
+    }
+}
+
+// Generated from operation patchApiregistrationV1APIServiceStatus
+
+impl APIService {
+    /// partially update status of the specified APIService
+    ///
+    /// Use [`PatchApiregistrationV1APIServiceStatusResponse`](./enum.PatchApiregistrationV1APIServiceStatusResponse.html) to parse the HTTP response.
+    ///
+    /// # Arguments
+    ///
+    /// * `name`
+    ///
+    ///     name of the APIService
+    ///
+    /// * `body`
+    ///
+    /// * `pretty`
+    ///
+    ///     If 'true', then the output is pretty printed.
+    pub fn patch_apiregistration_v1_api_service_status(
+        name: &str,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        pretty: Option<&str>,
+    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
+        let __url = format!("/apis/apiregistration.k8s.io/v1/apiservices/{name}/status?", name = name);
+        let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(pretty) = pretty {
+            __query_pairs.append_pair("pretty", pretty);
+        }
+        let __url = __query_pairs.finish();
+
+        let mut __request = ::http::Request::patch(__url);
+        let __body = ::serde_json::to_vec(&body).map_err(::RequestError::Json)?;
+        __request.body(__body).map_err(::RequestError::Http)
+    }
+}
+
+/// Parses the HTTP response of [`APIService::patch_apiregistration_v1_api_service_status`](./struct.APIService.html#method.patch_apiregistration_v1_api_service_status)
+#[derive(Debug)]
+pub enum PatchApiregistrationV1APIServiceStatusResponse {
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Unauthorized,
+    Other,
+}
+
+impl ::Response for PatchApiregistrationV1APIServiceStatusResponse {
+    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
+        match status_code {
+            ::http::StatusCode::OK => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((PatchApiregistrationV1APIServiceStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::UNAUTHORIZED => Ok((PatchApiregistrationV1APIServiceStatusResponse::Unauthorized, 0)),
+            _ => Ok((PatchApiregistrationV1APIServiceStatusResponse::Other, 0)),
         }
     }
 }
@@ -551,7 +612,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::read_apiregistration_v1_api_service`](./struct.APIService.html#method.read_apiregistration_v1_api_service)
 #[derive(Debug)]
 pub enum ReadApiregistrationV1APIServiceResponse {
-    Ok(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
     Unauthorized,
     Other,
 }
@@ -569,6 +630,64 @@ impl ::Response for ReadApiregistrationV1APIServiceResponse {
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReadApiregistrationV1APIServiceResponse::Unauthorized, 0)),
             _ => Ok((ReadApiregistrationV1APIServiceResponse::Other, 0)),
+        }
+    }
+}
+
+// Generated from operation readApiregistrationV1APIServiceStatus
+
+impl APIService {
+    /// read status of the specified APIService
+    ///
+    /// Use [`ReadApiregistrationV1APIServiceStatusResponse`](./enum.ReadApiregistrationV1APIServiceStatusResponse.html) to parse the HTTP response.
+    ///
+    /// # Arguments
+    ///
+    /// * `name`
+    ///
+    ///     name of the APIService
+    ///
+    /// * `pretty`
+    ///
+    ///     If 'true', then the output is pretty printed.
+    pub fn read_apiregistration_v1_api_service_status(
+        name: &str,
+        pretty: Option<&str>,
+    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
+        let __url = format!("/apis/apiregistration.k8s.io/v1/apiservices/{name}/status?", name = name);
+        let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(pretty) = pretty {
+            __query_pairs.append_pair("pretty", pretty);
+        }
+        let __url = __query_pairs.finish();
+
+        let mut __request = ::http::Request::get(__url);
+        let __body = vec![];
+        __request.body(__body).map_err(::RequestError::Http)
+    }
+}
+
+/// Parses the HTTP response of [`APIService::read_apiregistration_v1_api_service_status`](./struct.APIService.html#method.read_apiregistration_v1_api_service_status)
+#[derive(Debug)]
+pub enum ReadApiregistrationV1APIServiceStatusResponse {
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Unauthorized,
+    Other,
+}
+
+impl ::Response for ReadApiregistrationV1APIServiceStatusResponse {
+    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
+        match status_code {
+            ::http::StatusCode::OK => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReadApiregistrationV1APIServiceStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::UNAUTHORIZED => Ok((ReadApiregistrationV1APIServiceStatusResponse::Unauthorized, 0)),
+            _ => Ok((ReadApiregistrationV1APIServiceStatusResponse::Other, 0)),
         }
     }
 }
@@ -593,7 +712,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiregistration_v1_api_service(
         name: &str,
-        body: &::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+        body: &::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1/apiservices/{name}?", name = name);
@@ -612,8 +731,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::replace_apiregistration_v1_api_service`](./struct.APIService.html#method.replace_apiregistration_v1_api_service)
 #[derive(Debug)]
 pub enum ReplaceApiregistrationV1APIServiceResponse {
-    Ok(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
-    Created(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Created(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
     Unauthorized,
     Other,
 }
@@ -663,7 +782,7 @@ impl APIService {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiregistration_v1_api_service_status(
         name: &str,
-        body: &::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
+        body: &::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiregistration.k8s.io/v1/apiservices/{name}/status?", name = name);
@@ -682,8 +801,8 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::replace_apiregistration_v1_api_service_status`](./struct.APIService.html#method.replace_apiregistration_v1_api_service_status)
 #[derive(Debug)]
 pub enum ReplaceApiregistrationV1APIServiceStatusResponse {
-    Ok(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
-    Created(::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Ok(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
+    Created(::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIService),
     Unauthorized,
     Other,
 }
@@ -815,7 +934,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::watch_apiregistration_v1_api_service`](./struct.APIService.html#method.watch_apiregistration_v1_api_service)
 #[derive(Debug)]
 pub enum WatchApiregistrationV1APIServiceResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -936,7 +1055,7 @@ impl APIService {
 /// Parses the HTTP response of [`APIService::watch_apiregistration_v1_api_service_list`](./struct.APIService.html#method.watch_apiregistration_v1_api_service_list)
 #[derive(Debug)]
 pub enum WatchApiregistrationV1APIServiceListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1029,9 +1148,9 @@ impl<'de> ::serde::Deserialize<'de> for APIService {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec> = None;
-                let mut value_status: Option<::v1_10::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceSpec> = None;
+                let mut value_status: Option<::v1_11::kube_aggregator::pkg::apis::apiregistration::v1::APIServiceStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

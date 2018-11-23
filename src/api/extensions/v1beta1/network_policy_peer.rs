@@ -3,14 +3,18 @@
 /// DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NetworkPolicyPeer {
-    /// IPBlock defines policy on a particular IPBlock
-    pub ip_block: Option<::v1_10::api::extensions::v1beta1::IPBlock>,
+    /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+    pub ip_block: Option<::v1_11::api::extensions::v1beta1::IPBlock>,
 
-    /// Selects Namespaces using cluster scoped-labels.  This matches all pods in all namespaces selected by this label selector. This field follows standard label selector semantics. If present but empty, this selector selects all namespaces.
-    pub namespace_selector: Option<::v1_10::apimachinery::pkg::apis::meta::v1::LabelSelector>,
+    /// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+    ///
+    /// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+    pub namespace_selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector>,
 
-    /// This is a label selector which selects Pods in this namespace. This field follows standard label selector semantics. If present but empty, this selector selects all pods in this namespace.
-    pub pod_selector: Option<::v1_10::apimachinery::pkg::apis::meta::v1::LabelSelector>,
+    /// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+    ///
+    /// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+    pub pod_selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for NetworkPolicyPeer {
@@ -58,9 +62,9 @@ impl<'de> ::serde::Deserialize<'de> for NetworkPolicyPeer {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_ip_block: Option<::v1_10::api::extensions::v1beta1::IPBlock> = None;
-                let mut value_namespace_selector: Option<::v1_10::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
-                let mut value_pod_selector: Option<::v1_10::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
+                let mut value_ip_block: Option<::v1_11::api::extensions::v1beta1::IPBlock> = None;
+                let mut value_namespace_selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
+                let mut value_pod_selector: Option<::v1_11::apimachinery::pkg::apis::meta::v1::LabelSelector> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

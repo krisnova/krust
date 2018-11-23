@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Binding {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// The target object that you want to bind to the standard object.
-    pub target: ::v1_10::api::core::v1::ObjectReference,
+    pub target: ::v1_11::api::core::v1::ObjectReference,
 }
 
 // Begin /v1/Binding
@@ -32,7 +32,7 @@ impl Binding {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_binding(
         namespace: &str,
-        body: &::v1_10::api::core::v1::Binding,
+        body: &::v1_11::api::core::v1::Binding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/bindings?", namespace = namespace);
@@ -51,9 +51,9 @@ impl Binding {
 /// Parses the HTTP response of [`Binding::create_core_v1_namespaced_binding`](./struct.Binding.html#method.create_core_v1_namespaced_binding)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedBindingResponse {
-    Ok(::v1_10::api::core::v1::Binding),
-    Created(::v1_10::api::core::v1::Binding),
-    Accepted(::v1_10::api::core::v1::Binding),
+    Ok(::v1_11::api::core::v1::Binding),
+    Created(::v1_11::api::core::v1::Binding),
+    Accepted(::v1_11::api::core::v1::Binding),
     Unauthorized,
     Other,
 }
@@ -116,7 +116,7 @@ impl Binding {
     pub fn create_core_v1_namespaced_pod_binding(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::Binding,
+        body: &::v1_11::api::core::v1::Binding,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/pods/{name}/binding?", name = name, namespace = namespace);
@@ -135,9 +135,9 @@ impl Binding {
 /// Parses the HTTP response of [`Binding::create_core_v1_namespaced_pod_binding`](./struct.Binding.html#method.create_core_v1_namespaced_pod_binding)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedPodBindingResponse {
-    Ok(::v1_10::api::core::v1::Binding),
-    Created(::v1_10::api::core::v1::Binding),
-    Accepted(::v1_10::api::core::v1::Binding),
+    Ok(::v1_11::api::core::v1::Binding),
+    Created(::v1_11::api::core::v1::Binding),
+    Accepted(::v1_11::api::core::v1::Binding),
     Unauthorized,
     Other,
 }
@@ -242,8 +242,8 @@ impl<'de> ::serde::Deserialize<'de> for Binding {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_target: Option<::v1_10::api::core::v1::ObjectReference> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_target: Option<::v1_11::api::core::v1::ObjectReference> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

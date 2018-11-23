@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NetworkPolicy {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior for this NetworkPolicy.
-    pub spec: Option<::v1_10::api::extensions::v1beta1::NetworkPolicySpec>,
+    pub spec: Option<::v1_11::api::extensions::v1beta1::NetworkPolicySpec>,
 }
 
 // Begin extensions/v1beta1/NetworkPolicy
@@ -32,7 +32,7 @@ impl NetworkPolicy {
     ///     If 'true', then the output is pretty printed.
     pub fn create_extensions_v1beta1_namespaced_network_policy(
         namespace: &str,
-        body: &::v1_10::api::extensions::v1beta1::NetworkPolicy,
+        body: &::v1_11::api::extensions::v1beta1::NetworkPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/networkpolicies?", namespace = namespace);
@@ -51,9 +51,9 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::create_extensions_v1beta1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.create_extensions_v1beta1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum CreateExtensionsV1beta1NamespacedNetworkPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::NetworkPolicy),
-    Created(::v1_10::api::extensions::v1beta1::NetworkPolicy),
-    Accepted(::v1_10::api::extensions::v1beta1::NetworkPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::NetworkPolicy),
+    Created(::v1_11::api::extensions::v1beta1::NetworkPolicy),
+    Accepted(::v1_11::api::extensions::v1beta1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -193,8 +193,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::delete_extensions_v1beta1_collection_namespaced_network_policy`](./struct.NetworkPolicy.html#method.delete_extensions_v1beta1_collection_namespaced_network_policy)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1CollectionNamespacedNetworkPolicyResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::extensions::v1beta1::NetworkPolicy),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::extensions::v1beta1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -296,8 +296,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::delete_extensions_v1beta1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.delete_extensions_v1beta1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1NamespacedNetworkPolicyResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::extensions::v1beta1::NetworkPolicy),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::extensions::v1beta1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -434,7 +434,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::list_extensions_v1beta1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.list_extensions_v1beta1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1NamespacedNetworkPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::NetworkPolicyList),
+    Ok(::v1_11::api::extensions::v1beta1::NetworkPolicyList),
     Unauthorized,
     Other,
 }
@@ -553,7 +553,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::list_extensions_v1beta1_network_policy_for_all_namespaces`](./struct.NetworkPolicy.html#method.list_extensions_v1beta1_network_policy_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1NetworkPolicyForAllNamespacesResponse {
-    Ok(::v1_10::api::extensions::v1beta1::NetworkPolicyList),
+    Ok(::v1_11::api::extensions::v1beta1::NetworkPolicyList),
     Unauthorized,
     Other,
 }
@@ -600,7 +600,7 @@ impl NetworkPolicy {
     pub fn patch_extensions_v1beta1_namespaced_network_policy(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/networkpolicies/{name}?", name = name, namespace = namespace);
@@ -619,7 +619,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::patch_extensions_v1beta1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.patch_extensions_v1beta1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1NamespacedNetworkPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::NetworkPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -698,7 +698,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::read_extensions_v1beta1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.read_extensions_v1beta1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1NamespacedNetworkPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::NetworkPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -745,7 +745,7 @@ impl NetworkPolicy {
     pub fn replace_extensions_v1beta1_namespaced_network_policy(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::extensions::v1beta1::NetworkPolicy,
+        body: &::v1_11::api::extensions::v1beta1::NetworkPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/namespaces/{namespace}/networkpolicies/{name}?", name = name, namespace = namespace);
@@ -764,8 +764,8 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::replace_extensions_v1beta1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.replace_extensions_v1beta1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1NamespacedNetworkPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::NetworkPolicy),
-    Created(::v1_10::api::extensions::v1beta1::NetworkPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::NetworkPolicy),
+    Created(::v1_11::api::extensions::v1beta1::NetworkPolicy),
     Unauthorized,
     Other,
 }
@@ -902,7 +902,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_extensions_v1beta1_namespaced_network_policy`](./struct.NetworkPolicy.html#method.watch_extensions_v1beta1_namespaced_network_policy)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedNetworkPolicyResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1028,7 +1028,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_extensions_v1beta1_namespaced_network_policy_list`](./struct.NetworkPolicy.html#method.watch_extensions_v1beta1_namespaced_network_policy_list)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NamespacedNetworkPolicyListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1149,7 +1149,7 @@ impl NetworkPolicy {
 /// Parses the HTTP response of [`NetworkPolicy::watch_extensions_v1beta1_network_policy_list_for_all_namespaces`](./struct.NetworkPolicy.html#method.watch_extensions_v1beta1_network_policy_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1NetworkPolicyListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1240,8 +1240,8 @@ impl<'de> ::serde::Deserialize<'de> for NetworkPolicy {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::extensions::v1beta1::NetworkPolicySpec> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::extensions::v1beta1::NetworkPolicySpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

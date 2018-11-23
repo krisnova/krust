@@ -3,13 +3,13 @@
 /// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SelfSubjectAccessReview {
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec holds information about the request being evaluated.  user and groups must be empty
-    pub spec: ::v1_10::api::authorization::v1::SelfSubjectAccessReviewSpec,
+    pub spec: ::v1_11::api::authorization::v1::SelfSubjectAccessReviewSpec,
 
     /// Status is filled in by the server and indicates whether the request is allowed or not
-    pub status: Option<::v1_10::api::authorization::v1::SubjectAccessReviewStatus>,
+    pub status: Option<::v1_11::api::authorization::v1::SubjectAccessReviewStatus>,
 }
 
 // Begin authorization.k8s.io/v1/SelfSubjectAccessReview
@@ -29,7 +29,7 @@ impl SelfSubjectAccessReview {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_authorization_v1_self_subject_access_review(
-        body: &::v1_10::api::authorization::v1::SelfSubjectAccessReview,
+        body: &::v1_11::api::authorization::v1::SelfSubjectAccessReview,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/authorization.k8s.io/v1/selfsubjectaccessreviews?");
@@ -48,9 +48,9 @@ impl SelfSubjectAccessReview {
 /// Parses the HTTP response of [`SelfSubjectAccessReview::create_authorization_v1_self_subject_access_review`](./struct.SelfSubjectAccessReview.html#method.create_authorization_v1_self_subject_access_review)
 #[derive(Debug)]
 pub enum CreateAuthorizationV1SelfSubjectAccessReviewResponse {
-    Ok(::v1_10::api::authorization::v1::SelfSubjectAccessReview),
-    Created(::v1_10::api::authorization::v1::SelfSubjectAccessReview),
-    Accepted(::v1_10::api::authorization::v1::SelfSubjectAccessReview),
+    Ok(::v1_11::api::authorization::v1::SelfSubjectAccessReview),
+    Created(::v1_11::api::authorization::v1::SelfSubjectAccessReview),
+    Accepted(::v1_11::api::authorization::v1::SelfSubjectAccessReview),
     Unauthorized,
     Other,
 }
@@ -157,9 +157,9 @@ impl<'de> ::serde::Deserialize<'de> for SelfSubjectAccessReview {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::authorization::v1::SelfSubjectAccessReviewSpec> = None;
-                let mut value_status: Option<::v1_10::api::authorization::v1::SubjectAccessReviewStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::authorization::v1::SelfSubjectAccessReviewSpec> = None;
+                let mut value_status: Option<::v1_11::api::authorization::v1::SubjectAccessReviewStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

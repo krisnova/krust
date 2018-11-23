@@ -8,8 +8,11 @@ pub struct StorageClass {
     /// AllowVolumeExpansion shows whether the storage class allow volume expand
     pub allow_volume_expansion: Option<bool>,
 
+    /// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is alpha-level and is only honored by servers that enable the DynamicProvisioningScheduling feature.
+    pub allowed_topologies: Option<Vec<::v1_11::api::core::v1::TopologySelectorTerm>>,
+
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. \["ro", "soft"\]. Not validated - mount of the PVs will simply fail if one is invalid.
     pub mount_options: Option<Vec<String>>,
@@ -44,7 +47,7 @@ impl StorageClass {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_storage_v1_storage_class(
-        body: &::v1_10::api::storage::v1::StorageClass,
+        body: &::v1_11::api::storage::v1::StorageClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1/storageclasses?");
@@ -63,9 +66,9 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::create_storage_v1_storage_class`](./struct.StorageClass.html#method.create_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum CreateStorageV1StorageClassResponse {
-    Ok(::v1_10::api::storage::v1::StorageClass),
-    Created(::v1_10::api::storage::v1::StorageClass),
-    Accepted(::v1_10::api::storage::v1::StorageClass),
+    Ok(::v1_11::api::storage::v1::StorageClass),
+    Created(::v1_11::api::storage::v1::StorageClass),
+    Accepted(::v1_11::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -200,8 +203,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::delete_storage_v1_collection_storage_class`](./struct.StorageClass.html#method.delete_storage_v1_collection_storage_class)
 #[derive(Debug)]
 pub enum DeleteStorageV1CollectionStorageClassResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::storage::v1::StorageClass),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -298,8 +301,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::delete_storage_v1_storage_class`](./struct.StorageClass.html#method.delete_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum DeleteStorageV1StorageClassResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::storage::v1::StorageClass),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -431,7 +434,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::list_storage_v1_storage_class`](./struct.StorageClass.html#method.list_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum ListStorageV1StorageClassResponse {
-    Ok(::v1_10::api::storage::v1::StorageClassList),
+    Ok(::v1_11::api::storage::v1::StorageClassList),
     Unauthorized,
     Other,
 }
@@ -473,7 +476,7 @@ impl StorageClass {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_storage_v1_storage_class(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1/storageclasses/{name}?", name = name);
@@ -492,7 +495,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::patch_storage_v1_storage_class`](./struct.StorageClass.html#method.patch_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum PatchStorageV1StorageClassResponse {
-    Ok(::v1_10::api::storage::v1::StorageClass),
+    Ok(::v1_11::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -566,7 +569,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::read_storage_v1_storage_class`](./struct.StorageClass.html#method.read_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum ReadStorageV1StorageClassResponse {
-    Ok(::v1_10::api::storage::v1::StorageClass),
+    Ok(::v1_11::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -608,7 +611,7 @@ impl StorageClass {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_storage_v1_storage_class(
         name: &str,
-        body: &::v1_10::api::storage::v1::StorageClass,
+        body: &::v1_11::api::storage::v1::StorageClass,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1/storageclasses/{name}?", name = name);
@@ -627,8 +630,8 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::replace_storage_v1_storage_class`](./struct.StorageClass.html#method.replace_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum ReplaceStorageV1StorageClassResponse {
-    Ok(::v1_10::api::storage::v1::StorageClass),
-    Created(::v1_10::api::storage::v1::StorageClass),
+    Ok(::v1_11::api::storage::v1::StorageClass),
+    Created(::v1_11::api::storage::v1::StorageClass),
     Unauthorized,
     Other,
 }
@@ -760,7 +763,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::watch_storage_v1_storage_class`](./struct.StorageClass.html#method.watch_storage_v1_storage_class)
 #[derive(Debug)]
 pub enum WatchStorageV1StorageClassResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -881,7 +884,7 @@ impl StorageClass {
 /// Parses the HTTP response of [`StorageClass::watch_storage_v1_storage_class_list`](./struct.StorageClass.html#method.watch_storage_v1_storage_class_list)
 #[derive(Debug)]
 pub enum WatchStorageV1StorageClassListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -932,6 +935,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
             Key_api_version,
             Key_kind,
             Key_allow_volume_expansion,
+            Key_allowed_topologies,
             Key_metadata,
             Key_mount_options,
             Key_parameters,
@@ -957,6 +961,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
                             "apiVersion" => Field::Key_api_version,
                             "kind" => Field::Key_kind,
                             "allowVolumeExpansion" => Field::Key_allow_volume_expansion,
+                            "allowedTopologies" => Field::Key_allowed_topologies,
                             "metadata" => Field::Key_metadata,
                             "mountOptions" => Field::Key_mount_options,
                             "parameters" => Field::Key_parameters,
@@ -983,7 +988,8 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_allow_volume_expansion: Option<bool> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_allowed_topologies: Option<Vec<::v1_11::api::core::v1::TopologySelectorTerm>> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_mount_options: Option<Vec<String>> = None;
                 let mut value_parameters: Option<::std::collections::BTreeMap<String, String>> = None;
                 let mut value_provisioner: Option<String> = None;
@@ -1005,6 +1011,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
                             }
                         },
                         Field::Key_allow_volume_expansion => value_allow_volume_expansion = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_allowed_topologies => value_allowed_topologies = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_metadata => value_metadata = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_mount_options => value_mount_options = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_parameters => value_parameters = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -1017,6 +1024,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
 
                 Ok(StorageClass {
                     allow_volume_expansion: value_allow_volume_expansion,
+                    allowed_topologies: value_allowed_topologies,
                     metadata: value_metadata,
                     mount_options: value_mount_options,
                     parameters: value_parameters,
@@ -1033,6 +1041,7 @@ impl<'de> ::serde::Deserialize<'de> for StorageClass {
                 "apiVersion",
                 "kind",
                 "allowVolumeExpansion",
+                "allowedTopologies",
                 "metadata",
                 "mountOptions",
                 "parameters",
@@ -1052,6 +1061,7 @@ impl ::serde::Serialize for StorageClass {
             0 +
             2 +
             self.allow_volume_expansion.as_ref().map_or(0, |_| 1) +
+            self.allowed_topologies.as_ref().map_or(0, |_| 1) +
             self.metadata.as_ref().map_or(0, |_| 1) +
             self.mount_options.as_ref().map_or(0, |_| 1) +
             self.parameters.as_ref().map_or(0, |_| 1) +
@@ -1063,6 +1073,9 @@ impl ::serde::Serialize for StorageClass {
         ::serde::ser::SerializeStruct::serialize_field(&mut state, "kind", <Self as ::Resource>::kind())?;
         if let Some(value) = &self.allow_volume_expansion {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "allowVolumeExpansion", value)?;
+        }
+        if let Some(value) = &self.allowed_topologies {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "allowedTopologies", value)?;
         }
         if let Some(value) = &self.metadata {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "metadata", value)?;

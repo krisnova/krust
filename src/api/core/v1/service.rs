@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Service {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_10::api::core::v1::ServiceSpec>,
+    pub spec: Option<::v1_11::api::core::v1::ServiceSpec>,
 
     /// Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_10::api::core::v1::ServiceStatus>,
+    pub status: Option<::v1_11::api::core::v1::ServiceStatus>,
 }
 
 // Begin /v1/Service
@@ -740,7 +740,7 @@ impl Service {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_service(
         namespace: &str,
-        body: &::v1_10::api::core::v1::Service,
+        body: &::v1_11::api::core::v1::Service,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services?", namespace = namespace);
@@ -759,9 +759,9 @@ impl Service {
 /// Parses the HTTP response of [`Service::create_core_v1_namespaced_service`](./struct.Service.html#method.create_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedServiceResponse {
-    Ok(::v1_10::api::core::v1::Service),
-    Created(::v1_10::api::core::v1::Service),
-    Accepted(::v1_10::api::core::v1::Service),
+    Ok(::v1_11::api::core::v1::Service),
+    Created(::v1_11::api::core::v1::Service),
+    Accepted(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -866,8 +866,8 @@ impl Service {
 /// Parses the HTTP response of [`Service::delete_core_v1_namespaced_service`](./struct.Service.html#method.delete_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedServiceResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::Service),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1004,7 +1004,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::list_core_v1_namespaced_service`](./struct.Service.html#method.list_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedServiceResponse {
-    Ok(::v1_10::api::core::v1::ServiceList),
+    Ok(::v1_11::api::core::v1::ServiceList),
     Unauthorized,
     Other,
 }
@@ -1123,7 +1123,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::list_core_v1_service_for_all_namespaces`](./struct.Service.html#method.list_core_v1_service_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ServiceForAllNamespacesResponse {
-    Ok(::v1_10::api::core::v1::ServiceList),
+    Ok(::v1_11::api::core::v1::ServiceList),
     Unauthorized,
     Other,
 }
@@ -1170,7 +1170,7 @@ impl Service {
     pub fn patch_core_v1_namespaced_service(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}?", name = name, namespace = namespace);
@@ -1189,7 +1189,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::patch_core_v1_namespaced_service`](./struct.Service.html#method.patch_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedServiceResponse {
-    Ok(::v1_10::api::core::v1::Service),
+    Ok(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1236,7 +1236,7 @@ impl Service {
     pub fn patch_core_v1_namespaced_service_status(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}/status?", name = name, namespace = namespace);
@@ -1255,7 +1255,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::patch_core_v1_namespaced_service_status`](./struct.Service.html#method.patch_core_v1_namespaced_service_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedServiceStatusResponse {
-    Ok(::v1_10::api::core::v1::Service),
+    Ok(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1334,7 +1334,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::read_core_v1_namespaced_service`](./struct.Service.html#method.read_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedServiceResponse {
-    Ok(::v1_10::api::core::v1::Service),
+    Ok(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1397,7 +1397,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::read_core_v1_namespaced_service_status`](./struct.Service.html#method.read_core_v1_namespaced_service_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedServiceStatusResponse {
-    Ok(::v1_10::api::core::v1::Service),
+    Ok(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1444,7 +1444,7 @@ impl Service {
     pub fn replace_core_v1_namespaced_service(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::Service,
+        body: &::v1_11::api::core::v1::Service,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}?", name = name, namespace = namespace);
@@ -1463,8 +1463,8 @@ impl Service {
 /// Parses the HTTP response of [`Service::replace_core_v1_namespaced_service`](./struct.Service.html#method.replace_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedServiceResponse {
-    Ok(::v1_10::api::core::v1::Service),
-    Created(::v1_10::api::core::v1::Service),
+    Ok(::v1_11::api::core::v1::Service),
+    Created(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1519,7 +1519,7 @@ impl Service {
     pub fn replace_core_v1_namespaced_service_status(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::Service,
+        body: &::v1_11::api::core::v1::Service,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/services/{name}/status?", name = name, namespace = namespace);
@@ -1538,8 +1538,8 @@ impl Service {
 /// Parses the HTTP response of [`Service::replace_core_v1_namespaced_service_status`](./struct.Service.html#method.replace_core_v1_namespaced_service_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedServiceStatusResponse {
-    Ok(::v1_10::api::core::v1::Service),
-    Created(::v1_10::api::core::v1::Service),
+    Ok(::v1_11::api::core::v1::Service),
+    Created(::v1_11::api::core::v1::Service),
     Unauthorized,
     Other,
 }
@@ -1676,7 +1676,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::watch_core_v1_namespaced_service`](./struct.Service.html#method.watch_core_v1_namespaced_service)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1802,7 +1802,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::watch_core_v1_namespaced_service_list`](./struct.Service.html#method.watch_core_v1_namespaced_service_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1923,7 +1923,7 @@ impl Service {
 /// Parses the HTTP response of [`Service::watch_core_v1_service_list_for_all_namespaces`](./struct.Service.html#method.watch_core_v1_service_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ServiceListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -2016,9 +2016,9 @@ impl<'de> ::serde::Deserialize<'de> for Service {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::core::v1::ServiceSpec> = None;
-                let mut value_status: Option<::v1_10::api::core::v1::ServiceStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::core::v1::ServiceSpec> = None;
+                let mut value_status: Option<::v1_11::api::core::v1::ServiceStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

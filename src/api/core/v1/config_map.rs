@@ -10,7 +10,7 @@ pub struct ConfigMap {
     pub data: Option<::std::collections::BTreeMap<String, String>>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 }
 
 // Begin /v1/ConfigMap
@@ -35,7 +35,7 @@ impl ConfigMap {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_config_map(
         namespace: &str,
-        body: &::v1_10::api::core::v1::ConfigMap,
+        body: &::v1_11::api::core::v1::ConfigMap,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/configmaps?", namespace = namespace);
@@ -54,9 +54,9 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::create_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.create_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_10::api::core::v1::ConfigMap),
-    Created(::v1_10::api::core::v1::ConfigMap),
-    Accepted(::v1_10::api::core::v1::ConfigMap),
+    Ok(::v1_11::api::core::v1::ConfigMap),
+    Created(::v1_11::api::core::v1::ConfigMap),
+    Accepted(::v1_11::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -196,8 +196,8 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::delete_core_v1_collection_namespaced_config_map`](./struct.ConfigMap.html#method.delete_core_v1_collection_namespaced_config_map)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedConfigMapResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::ConfigMap),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::delete_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.delete_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedConfigMapResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::ConfigMap),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -432,7 +432,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::list_core_v1_config_map_for_all_namespaces`](./struct.ConfigMap.html#method.list_core_v1_config_map_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ConfigMapForAllNamespacesResponse {
-    Ok(::v1_10::api::core::v1::ConfigMapList),
+    Ok(::v1_11::api::core::v1::ConfigMapList),
     Unauthorized,
     Other,
 }
@@ -556,7 +556,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::list_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.list_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_10::api::core::v1::ConfigMapList),
+    Ok(::v1_11::api::core::v1::ConfigMapList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl ConfigMap {
     pub fn patch_core_v1_namespaced_config_map(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/configmaps/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::patch_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.patch_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_10::api::core::v1::ConfigMap),
+    Ok(::v1_11::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -701,7 +701,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::read_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.read_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_10::api::core::v1::ConfigMap),
+    Ok(::v1_11::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -748,7 +748,7 @@ impl ConfigMap {
     pub fn replace_core_v1_namespaced_config_map(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::ConfigMap,
+        body: &::v1_11::api::core::v1::ConfigMap,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/configmaps/{name}?", name = name, namespace = namespace);
@@ -767,8 +767,8 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::replace_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.replace_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_10::api::core::v1::ConfigMap),
-    Created(::v1_10::api::core::v1::ConfigMap),
+    Ok(::v1_11::api::core::v1::ConfigMap),
+    Created(::v1_11::api::core::v1::ConfigMap),
     Unauthorized,
     Other,
 }
@@ -895,7 +895,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::watch_core_v1_config_map_list_for_all_namespaces`](./struct.ConfigMap.html#method.watch_core_v1_config_map_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ConfigMapListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1026,7 +1026,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::watch_core_v1_namespaced_config_map`](./struct.ConfigMap.html#method.watch_core_v1_namespaced_config_map)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedConfigMapResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1152,7 +1152,7 @@ impl ConfigMap {
 /// Parses the HTTP response of [`ConfigMap::watch_core_v1_namespaced_config_map_list`](./struct.ConfigMap.html#method.watch_core_v1_namespaced_config_map_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedConfigMapListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1247,7 +1247,7 @@ impl<'de> ::serde::Deserialize<'de> for ConfigMap {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_binary_data: Option<::std::collections::BTreeMap<String, ::ByteString>> = None;
                 let mut value_data: Option<::std::collections::BTreeMap<String, String>> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

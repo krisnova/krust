@@ -1,10 +1,13 @@
 // Generated from definition io.k8s.api.core.v1.NodeSelectorTerm
 
-/// A null or empty node selector term matches no objects.
+/// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NodeSelectorTerm {
-    /// Required. A list of node selector requirements. The requirements are ANDed.
-    pub match_expressions: Vec<::v1_10::api::core::v1::NodeSelectorRequirement>,
+    /// A list of node selector requirements by node's labels.
+    pub match_expressions: Option<Vec<::v1_11::api::core::v1::NodeSelectorRequirement>>,
+
+    /// A list of node selector requirements by node's fields.
+    pub match_fields: Option<Vec<::v1_11::api::core::v1::NodeSelectorRequirement>>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for NodeSelectorTerm {
@@ -12,6 +15,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeSelectorTerm {
         #[allow(non_camel_case_types)]
         enum Field {
             Key_match_expressions,
+            Key_match_fields,
             Other,
         }
 
@@ -29,6 +33,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeSelectorTerm {
                     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> where E: ::serde::de::Error {
                         Ok(match v {
                             "matchExpressions" => Field::Key_match_expressions,
+                            "matchFields" => Field::Key_match_fields,
                             _ => Field::Other,
                         })
                     }
@@ -48,17 +53,20 @@ impl<'de> ::serde::Deserialize<'de> for NodeSelectorTerm {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_match_expressions: Option<Vec<::v1_10::api::core::v1::NodeSelectorRequirement>> = None;
+                let mut value_match_expressions: Option<Vec<::v1_11::api::core::v1::NodeSelectorRequirement>> = None;
+                let mut value_match_fields: Option<Vec<::v1_11::api::core::v1::NodeSelectorRequirement>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
-                        Field::Key_match_expressions => value_match_expressions = Some(::serde::de::MapAccess::next_value(&mut map)?),
+                        Field::Key_match_expressions => value_match_expressions = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_match_fields => value_match_fields = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
                 }
 
                 Ok(NodeSelectorTerm {
-                    match_expressions: value_match_expressions.ok_or_else(|| ::serde::de::Error::missing_field("matchExpressions"))?,
+                    match_expressions: value_match_expressions,
+                    match_fields: value_match_fields,
                 })
             }
         }
@@ -67,6 +75,7 @@ impl<'de> ::serde::Deserialize<'de> for NodeSelectorTerm {
             "NodeSelectorTerm",
             &[
                 "matchExpressions",
+                "matchFields",
             ],
             Visitor,
         )
@@ -78,9 +87,15 @@ impl ::serde::Serialize for NodeSelectorTerm {
         let mut state = serializer.serialize_struct(
             "NodeSelectorTerm",
             0 +
-            1,
+            self.match_expressions.as_ref().map_or(0, |_| 1) +
+            self.match_fields.as_ref().map_or(0, |_| 1),
         )?;
-        ::serde::ser::SerializeStruct::serialize_field(&mut state, "matchExpressions", &self.match_expressions)?;
+        if let Some(value) = &self.match_expressions {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "matchExpressions", value)?;
+        }
+        if let Some(value) = &self.match_fields {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "matchFields", value)?;
+        }
         ::serde::ser::SerializeStruct::end(state)
     }
 }

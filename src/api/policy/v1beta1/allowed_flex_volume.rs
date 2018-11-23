@@ -3,7 +3,7 @@
 /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct AllowedFlexVolume {
-    /// Driver is the name of the Flexvolume driver.
+    /// driver is the name of the Flexvolume driver.
     pub driver: String,
 }
 

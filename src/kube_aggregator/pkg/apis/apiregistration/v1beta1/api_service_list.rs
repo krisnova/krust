@@ -3,9 +3,9 @@
 /// APIServiceList is a list of APIService objects.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct APIServiceList {
-    pub items: Vec<::v1_10::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService>,
+    pub items: Vec<::v1_11::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService>,
 
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for APIServiceList {
@@ -73,8 +73,8 @@ impl<'de> ::serde::Deserialize<'de> for APIServiceList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_10::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService>> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_11::kube_aggregator::pkg::apis::apiregistration::v1beta1::APIService>> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Node {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_10::api::core::v1::NodeSpec>,
+    pub spec: Option<::v1_11::api::core::v1::NodeSpec>,
 
     /// Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_10::api::core::v1::NodeStatus>,
+    pub status: Option<::v1_11::api::core::v1::NodeStatus>,
 }
 
 // Begin /v1/Node
@@ -685,7 +685,7 @@ impl Node {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_node(
-        body: &::v1_10::api::core::v1::Node,
+        body: &::v1_11::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes?");
@@ -704,9 +704,9 @@ impl Node {
 /// Parses the HTTP response of [`Node::create_core_v1_node`](./struct.Node.html#method.create_core_v1_node)
 #[derive(Debug)]
 pub enum CreateCoreV1NodeResponse {
-    Ok(::v1_10::api::core::v1::Node),
-    Created(::v1_10::api::core::v1::Node),
-    Accepted(::v1_10::api::core::v1::Node),
+    Ok(::v1_11::api::core::v1::Node),
+    Created(::v1_11::api::core::v1::Node),
+    Accepted(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -841,8 +841,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::delete_core_v1_collection_node`](./struct.Node.html#method.delete_core_v1_collection_node)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNodeResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::Node),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -939,8 +939,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::delete_core_v1_node`](./struct.Node.html#method.delete_core_v1_node)
 #[derive(Debug)]
 pub enum DeleteCoreV1NodeResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::Node),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1072,7 +1072,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::list_core_v1_node`](./struct.Node.html#method.list_core_v1_node)
 #[derive(Debug)]
 pub enum ListCoreV1NodeResponse {
-    Ok(::v1_10::api::core::v1::NodeList),
+    Ok(::v1_11::api::core::v1::NodeList),
     Unauthorized,
     Other,
 }
@@ -1114,7 +1114,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_node(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}?", name = name);
@@ -1133,7 +1133,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::patch_core_v1_node`](./struct.Node.html#method.patch_core_v1_node)
 #[derive(Debug)]
 pub enum PatchCoreV1NodeResponse {
-    Ok(::v1_10::api::core::v1::Node),
+    Ok(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1175,7 +1175,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_node_status(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}/status?", name = name);
@@ -1194,7 +1194,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::patch_core_v1_node_status`](./struct.Node.html#method.patch_core_v1_node_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NodeStatusResponse {
-    Ok(::v1_10::api::core::v1::Node),
+    Ok(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1268,7 +1268,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::read_core_v1_node`](./struct.Node.html#method.read_core_v1_node)
 #[derive(Debug)]
 pub enum ReadCoreV1NodeResponse {
-    Ok(::v1_10::api::core::v1::Node),
+    Ok(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1326,7 +1326,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::read_core_v1_node_status`](./struct.Node.html#method.read_core_v1_node_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NodeStatusResponse {
-    Ok(::v1_10::api::core::v1::Node),
+    Ok(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1368,7 +1368,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_node(
         name: &str,
-        body: &::v1_10::api::core::v1::Node,
+        body: &::v1_11::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}?", name = name);
@@ -1387,8 +1387,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::replace_core_v1_node`](./struct.Node.html#method.replace_core_v1_node)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NodeResponse {
-    Ok(::v1_10::api::core::v1::Node),
-    Created(::v1_10::api::core::v1::Node),
+    Ok(::v1_11::api::core::v1::Node),
+    Created(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1438,7 +1438,7 @@ impl Node {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_node_status(
         name: &str,
-        body: &::v1_10::api::core::v1::Node,
+        body: &::v1_11::api::core::v1::Node,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/nodes/{name}/status?", name = name);
@@ -1457,8 +1457,8 @@ impl Node {
 /// Parses the HTTP response of [`Node::replace_core_v1_node_status`](./struct.Node.html#method.replace_core_v1_node_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NodeStatusResponse {
-    Ok(::v1_10::api::core::v1::Node),
-    Created(::v1_10::api::core::v1::Node),
+    Ok(::v1_11::api::core::v1::Node),
+    Created(::v1_11::api::core::v1::Node),
     Unauthorized,
     Other,
 }
@@ -1590,7 +1590,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::watch_core_v1_node`](./struct.Node.html#method.watch_core_v1_node)
 #[derive(Debug)]
 pub enum WatchCoreV1NodeResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1711,7 +1711,7 @@ impl Node {
 /// Parses the HTTP response of [`Node::watch_core_v1_node_list`](./struct.Node.html#method.watch_core_v1_node_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NodeListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1804,9 +1804,9 @@ impl<'de> ::serde::Deserialize<'de> for Node {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::core::v1::NodeSpec> = None;
-                let mut value_status: Option<::v1_10::api::core::v1::NodeStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::core::v1::NodeSpec> = None;
+                let mut value_status: Option<::v1_11::api::core::v1::NodeStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

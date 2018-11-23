@@ -3,9 +3,9 @@
 /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PodPreset {
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
-    pub spec: Option<::v1_10::api::settings::v1alpha1::PodPresetSpec>,
+    pub spec: Option<::v1_11::api::settings::v1alpha1::PodPresetSpec>,
 }
 
 // Begin settings.k8s.io/v1alpha1/PodPreset
@@ -30,7 +30,7 @@ impl PodPreset {
     ///     If 'true', then the output is pretty printed.
     pub fn create_settings_v1alpha1_namespaced_pod_preset(
         namespace: &str,
-        body: &::v1_10::api::settings::v1alpha1::PodPreset,
+        body: &::v1_11::api::settings::v1alpha1::PodPreset,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets?", namespace = namespace);
@@ -49,9 +49,9 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::create_settings_v1alpha1_namespaced_pod_preset`](./struct.PodPreset.html#method.create_settings_v1alpha1_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum CreateSettingsV1alpha1NamespacedPodPresetResponse {
-    Ok(::v1_10::api::settings::v1alpha1::PodPreset),
-    Created(::v1_10::api::settings::v1alpha1::PodPreset),
-    Accepted(::v1_10::api::settings::v1alpha1::PodPreset),
+    Ok(::v1_11::api::settings::v1alpha1::PodPreset),
+    Created(::v1_11::api::settings::v1alpha1::PodPreset),
+    Accepted(::v1_11::api::settings::v1alpha1::PodPreset),
     Unauthorized,
     Other,
 }
@@ -191,8 +191,8 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::delete_settings_v1alpha1_collection_namespaced_pod_preset`](./struct.PodPreset.html#method.delete_settings_v1alpha1_collection_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum DeleteSettingsV1alpha1CollectionNamespacedPodPresetResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::settings::v1alpha1::PodPreset),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::settings::v1alpha1::PodPreset),
     Unauthorized,
     Other,
 }
@@ -294,8 +294,8 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::delete_settings_v1alpha1_namespaced_pod_preset`](./struct.PodPreset.html#method.delete_settings_v1alpha1_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum DeleteSettingsV1alpha1NamespacedPodPresetResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::settings::v1alpha1::PodPreset),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::settings::v1alpha1::PodPreset),
     Unauthorized,
     Other,
 }
@@ -432,7 +432,7 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::list_settings_v1alpha1_namespaced_pod_preset`](./struct.PodPreset.html#method.list_settings_v1alpha1_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum ListSettingsV1alpha1NamespacedPodPresetResponse {
-    Ok(::v1_10::api::settings::v1alpha1::PodPresetList),
+    Ok(::v1_11::api::settings::v1alpha1::PodPresetList),
     Unauthorized,
     Other,
 }
@@ -551,7 +551,7 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::list_settings_v1alpha1_pod_preset_for_all_namespaces`](./struct.PodPreset.html#method.list_settings_v1alpha1_pod_preset_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListSettingsV1alpha1PodPresetForAllNamespacesResponse {
-    Ok(::v1_10::api::settings::v1alpha1::PodPresetList),
+    Ok(::v1_11::api::settings::v1alpha1::PodPresetList),
     Unauthorized,
     Other,
 }
@@ -598,7 +598,7 @@ impl PodPreset {
     pub fn patch_settings_v1alpha1_namespaced_pod_preset(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets/{name}?", name = name, namespace = namespace);
@@ -617,7 +617,7 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::patch_settings_v1alpha1_namespaced_pod_preset`](./struct.PodPreset.html#method.patch_settings_v1alpha1_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum PatchSettingsV1alpha1NamespacedPodPresetResponse {
-    Ok(::v1_10::api::settings::v1alpha1::PodPreset),
+    Ok(::v1_11::api::settings::v1alpha1::PodPreset),
     Unauthorized,
     Other,
 }
@@ -696,7 +696,7 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::read_settings_v1alpha1_namespaced_pod_preset`](./struct.PodPreset.html#method.read_settings_v1alpha1_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum ReadSettingsV1alpha1NamespacedPodPresetResponse {
-    Ok(::v1_10::api::settings::v1alpha1::PodPreset),
+    Ok(::v1_11::api::settings::v1alpha1::PodPreset),
     Unauthorized,
     Other,
 }
@@ -743,7 +743,7 @@ impl PodPreset {
     pub fn replace_settings_v1alpha1_namespaced_pod_preset(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::settings::v1alpha1::PodPreset,
+        body: &::v1_11::api::settings::v1alpha1::PodPreset,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets/{name}?", name = name, namespace = namespace);
@@ -762,8 +762,8 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::replace_settings_v1alpha1_namespaced_pod_preset`](./struct.PodPreset.html#method.replace_settings_v1alpha1_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum ReplaceSettingsV1alpha1NamespacedPodPresetResponse {
-    Ok(::v1_10::api::settings::v1alpha1::PodPreset),
-    Created(::v1_10::api::settings::v1alpha1::PodPreset),
+    Ok(::v1_11::api::settings::v1alpha1::PodPreset),
+    Created(::v1_11::api::settings::v1alpha1::PodPreset),
     Unauthorized,
     Other,
 }
@@ -900,7 +900,7 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::watch_settings_v1alpha1_namespaced_pod_preset`](./struct.PodPreset.html#method.watch_settings_v1alpha1_namespaced_pod_preset)
 #[derive(Debug)]
 pub enum WatchSettingsV1alpha1NamespacedPodPresetResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1026,7 +1026,7 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::watch_settings_v1alpha1_namespaced_pod_preset_list`](./struct.PodPreset.html#method.watch_settings_v1alpha1_namespaced_pod_preset_list)
 #[derive(Debug)]
 pub enum WatchSettingsV1alpha1NamespacedPodPresetListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1147,7 +1147,7 @@ impl PodPreset {
 /// Parses the HTTP response of [`PodPreset::watch_settings_v1alpha1_pod_preset_list_for_all_namespaces`](./struct.PodPreset.html#method.watch_settings_v1alpha1_pod_preset_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchSettingsV1alpha1PodPresetListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1238,8 +1238,8 @@ impl<'de> ::serde::Deserialize<'de> for PodPreset {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::settings::v1alpha1::PodPresetSpec> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::settings::v1alpha1::PodPresetSpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

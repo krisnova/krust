@@ -1,13 +1,13 @@
 // Generated from definition io.k8s.api.extensions.v1beta1.PodSecurityPolicy
 
-/// Pod Security Policy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+/// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group instead.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PodSecurityPolicy {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// spec defines the policy enforced.
-    pub spec: Option<::v1_10::api::extensions::v1beta1::PodSecurityPolicySpec>,
+    pub spec: Option<::v1_11::api::extensions::v1beta1::PodSecurityPolicySpec>,
 }
 
 // Begin extensions/v1beta1/PodSecurityPolicy
@@ -27,7 +27,7 @@ impl PodSecurityPolicy {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_extensions_v1beta1_pod_security_policy(
-        body: &::v1_10::api::extensions::v1beta1::PodSecurityPolicy,
+        body: &::v1_11::api::extensions::v1beta1::PodSecurityPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/podsecuritypolicies?");
@@ -46,9 +46,9 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::create_extensions_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.create_extensions_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum CreateExtensionsV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
-    Created(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
-    Accepted(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
+    Created(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
+    Accepted(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -183,8 +183,8 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::delete_extensions_v1beta1_collection_pod_security_policy`](./struct.PodSecurityPolicy.html#method.delete_extensions_v1beta1_collection_pod_security_policy)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1CollectionPodSecurityPolicyResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -281,8 +281,8 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::delete_extensions_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.delete_extensions_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum DeleteExtensionsV1beta1PodSecurityPolicyResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -414,7 +414,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::list_extensions_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.list_extensions_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum ListExtensionsV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::PodSecurityPolicyList),
+    Ok(::v1_11::api::extensions::v1beta1::PodSecurityPolicyList),
     Unauthorized,
     Other,
 }
@@ -456,7 +456,7 @@ impl PodSecurityPolicy {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_extensions_v1beta1_pod_security_policy(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/podsecuritypolicies/{name}?", name = name);
@@ -475,7 +475,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::patch_extensions_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.patch_extensions_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum PatchExtensionsV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -549,7 +549,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::read_extensions_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.read_extensions_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum ReadExtensionsV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -591,7 +591,7 @@ impl PodSecurityPolicy {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_extensions_v1beta1_pod_security_policy(
         name: &str,
-        body: &::v1_10::api::extensions::v1beta1::PodSecurityPolicy,
+        body: &::v1_11::api::extensions::v1beta1::PodSecurityPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/extensions/v1beta1/podsecuritypolicies/{name}?", name = name);
@@ -610,8 +610,8 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::replace_extensions_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.replace_extensions_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum ReplaceExtensionsV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
-    Created(::v1_10::api::extensions::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
+    Created(::v1_11::api::extensions::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -743,7 +743,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::watch_extensions_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.watch_extensions_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -864,7 +864,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::watch_extensions_v1beta1_pod_security_policy_list`](./struct.PodSecurityPolicy.html#method.watch_extensions_v1beta1_pod_security_policy_list)
 #[derive(Debug)]
 pub enum WatchExtensionsV1beta1PodSecurityPolicyListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -955,8 +955,8 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityPolicy {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::extensions::v1beta1::PodSecurityPolicySpec> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::extensions::v1beta1::PodSecurityPolicySpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

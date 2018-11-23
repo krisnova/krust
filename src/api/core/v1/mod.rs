@@ -32,6 +32,9 @@ pub use self::ceph_fs_persistent_volume_source::*;
 mod ceph_fs_volume_source;
 pub use self::ceph_fs_volume_source::*;
 
+mod cinder_persistent_volume_source;
+pub use self::cinder_persistent_volume_source::*;
+
 mod cinder_volume_source;
 pub use self::cinder_volume_source::*;
 
@@ -58,6 +61,9 @@ pub use self::config_map_key_selector::*;
 
 mod config_map_list;
 pub use self::config_map_list::*;
+
+mod config_map_node_config_source;
+pub use self::config_map_node_config_source::*;
 
 mod config_map_projection;
 pub use self::config_map_projection::*;
@@ -245,6 +251,9 @@ pub use self::node_condition::*;
 mod node_config_source;
 pub use self::node_config_source::*;
 
+mod node_config_status;
+pub use self::node_config_status::*;
+
 mod node_daemon_endpoints;
 pub use self::node_daemon_endpoints::*;
 
@@ -332,6 +341,9 @@ pub use self::pod_dns_config_option::*;
 mod pod_list;
 pub use self::pod_list::*;
 
+mod pod_readiness_gate;
+pub use self::pod_readiness_gate::*;
+
 mod pod_security_context;
 pub use self::pod_security_context::*;
 
@@ -413,6 +425,12 @@ pub use self::scale_io_persistent_volume_source::*;
 mod scale_io_volume_source;
 pub use self::scale_io_volume_source::*;
 
+mod scope_selector;
+pub use self::scope_selector::*;
+
+mod scoped_resource_selector_requirement;
+pub use self::scoped_resource_selector_requirement::*;
+
 mod secret;
 pub use self::secret::*;
 
@@ -446,6 +464,9 @@ pub use self::service_account::*;
 mod service_account_list;
 pub use self::service_account_list::*;
 
+mod service_account_token_projection;
+pub use self::service_account_token_projection::*;
+
 mod service_list;
 pub use self::service_list::*;
 
@@ -467,6 +488,9 @@ pub use self::storage_os_persistent_volume_source::*;
 mod storage_os_volume_source;
 pub use self::storage_os_volume_source::*;
 
+mod sysctl;
+pub use self::sysctl::*;
+
 mod tcp_socket_action;
 pub use self::tcp_socket_action::*;
 
@@ -475,6 +499,12 @@ pub use self::taint::*;
 
 mod toleration;
 pub use self::toleration::*;
+
+mod topology_selector_label_requirement;
+pub use self::topology_selector_label_requirement::*;
+
+mod topology_selector_term;
+pub use self::topology_selector_term::*;
 
 mod volume;
 pub use self::volume::*;

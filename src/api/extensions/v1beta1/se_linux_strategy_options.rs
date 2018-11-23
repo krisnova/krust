@@ -1,13 +1,13 @@
 // Generated from definition io.k8s.api.extensions.v1beta1.SELinuxStrategyOptions
 
-/// SELinux  Strategy Options defines the strategy type and any options used to create the strategy.
+/// SELinuxStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SELinuxStrategyOptions {
-    /// type is the strategy that will dictate the allowable labels that may be set.
+    /// rule is the strategy that will dictate the allowable labels that may be set.
     pub rule: String,
 
     /// seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    pub se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions>,
+    pub se_linux_options: Option<::v1_11::api::core::v1::SELinuxOptions>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for SELinuxStrategyOptions {
@@ -54,7 +54,7 @@ impl<'de> ::serde::Deserialize<'de> for SELinuxStrategyOptions {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_rule: Option<String> = None;
-                let mut value_se_linux_options: Option<::v1_10::api::core::v1::SELinuxOptions> = None;
+                let mut value_se_linux_options: Option<::v1_11::api::core::v1::SELinuxOptions> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

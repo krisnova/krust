@@ -3,13 +3,13 @@
 /// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CustomResourceDefinition {
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec describes how the user wants the resources to appear
-    pub spec: Option<::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec>,
+    pub spec: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec>,
 
     /// Status indicates the actual state of the CustomResourceDefinition
-    pub status: Option<::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus>,
+    pub status: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus>,
 }
 
 // Begin apiextensions.k8s.io/v1beta1/CustomResourceDefinition
@@ -29,7 +29,7 @@ impl CustomResourceDefinition {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_apiextensions_v1beta1_custom_resource_definition(
-        body: &::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        body: &::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions?");
@@ -48,9 +48,9 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::create_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.create_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum CreateApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Created(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Accepted(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Created(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Accepted(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -185,8 +185,8 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::delete_apiextensions_v1beta1_collection_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.delete_apiextensions_v1beta1_collection_custom_resource_definition)
 #[derive(Debug)]
 pub enum DeleteApiextensionsV1beta1CollectionCustomResourceDefinitionResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -283,8 +283,8 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::delete_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.delete_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum DeleteApiextensionsV1beta1CustomResourceDefinitionResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -416,7 +416,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::list_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.list_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum ListApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionList),
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionList),
     Unauthorized,
     Other,
 }
@@ -458,7 +458,7 @@ impl CustomResourceDefinition {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_apiextensions_v1beta1_custom_resource_definition(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}?", name = name);
@@ -477,7 +477,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::patch_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.patch_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum PatchApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -495,6 +495,67 @@ impl ::Response for PatchApiextensionsV1beta1CustomResourceDefinitionResponse {
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((PatchApiextensionsV1beta1CustomResourceDefinitionResponse::Unauthorized, 0)),
             _ => Ok((PatchApiextensionsV1beta1CustomResourceDefinitionResponse::Other, 0)),
+        }
+    }
+}
+
+// Generated from operation patchApiextensionsV1beta1CustomResourceDefinitionStatus
+
+impl CustomResourceDefinition {
+    /// partially update status of the specified CustomResourceDefinition
+    ///
+    /// Use [`PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse`](./enum.PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse.html) to parse the HTTP response.
+    ///
+    /// # Arguments
+    ///
+    /// * `name`
+    ///
+    ///     name of the CustomResourceDefinition
+    ///
+    /// * `body`
+    ///
+    /// * `pretty`
+    ///
+    ///     If 'true', then the output is pretty printed.
+    pub fn patch_apiextensions_v1beta1_custom_resource_definition_status(
+        name: &str,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
+        pretty: Option<&str>,
+    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
+        let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status?", name = name);
+        let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(pretty) = pretty {
+            __query_pairs.append_pair("pretty", pretty);
+        }
+        let __url = __query_pairs.finish();
+
+        let mut __request = ::http::Request::patch(__url);
+        let __body = ::serde_json::to_vec(&body).map_err(::RequestError::Json)?;
+        __request.body(__body).map_err(::RequestError::Http)
+    }
+}
+
+/// Parses the HTTP response of [`CustomResourceDefinition::patch_apiextensions_v1beta1_custom_resource_definition_status`](./struct.CustomResourceDefinition.html#method.patch_apiextensions_v1beta1_custom_resource_definition_status)
+#[derive(Debug)]
+pub enum PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Unauthorized,
+    Other,
+}
+
+impl ::Response for PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
+    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
+        match status_code {
+            ::http::StatusCode::OK => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::UNAUTHORIZED => Ok((PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse::Unauthorized, 0)),
+            _ => Ok((PatchApiextensionsV1beta1CustomResourceDefinitionStatusResponse::Other, 0)),
         }
     }
 }
@@ -551,7 +612,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::read_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.read_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum ReadApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -569,6 +630,64 @@ impl ::Response for ReadApiextensionsV1beta1CustomResourceDefinitionResponse {
             },
             ::http::StatusCode::UNAUTHORIZED => Ok((ReadApiextensionsV1beta1CustomResourceDefinitionResponse::Unauthorized, 0)),
             _ => Ok((ReadApiextensionsV1beta1CustomResourceDefinitionResponse::Other, 0)),
+        }
+    }
+}
+
+// Generated from operation readApiextensionsV1beta1CustomResourceDefinitionStatus
+
+impl CustomResourceDefinition {
+    /// read status of the specified CustomResourceDefinition
+    ///
+    /// Use [`ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse`](./enum.ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse.html) to parse the HTTP response.
+    ///
+    /// # Arguments
+    ///
+    /// * `name`
+    ///
+    ///     name of the CustomResourceDefinition
+    ///
+    /// * `pretty`
+    ///
+    ///     If 'true', then the output is pretty printed.
+    pub fn read_apiextensions_v1beta1_custom_resource_definition_status(
+        name: &str,
+        pretty: Option<&str>,
+    ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
+        let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status?", name = name);
+        let mut __query_pairs = ::url::form_urlencoded::Serializer::new(__url);
+        if let Some(pretty) = pretty {
+            __query_pairs.append_pair("pretty", pretty);
+        }
+        let __url = __query_pairs.finish();
+
+        let mut __request = ::http::Request::get(__url);
+        let __body = vec![];
+        __request.body(__body).map_err(::RequestError::Http)
+    }
+}
+
+/// Parses the HTTP response of [`CustomResourceDefinition::read_apiextensions_v1beta1_custom_resource_definition_status`](./struct.CustomResourceDefinition.html#method.read_apiextensions_v1beta1_custom_resource_definition_status)
+#[derive(Debug)]
+pub enum ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Unauthorized,
+    Other,
+}
+
+impl ::Response for ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
+    fn try_from_parts(status_code: ::http::StatusCode, buf: &[u8]) -> Result<(Self, usize), ::ResponseError> {
+        match status_code {
+            ::http::StatusCode::OK => {
+                let result = match ::serde_json::from_slice(buf) {
+                    Ok(value) => value,
+                    Err(ref err) if err.is_eof() => return Err(::ResponseError::NeedMoreData),
+                    Err(err) => return Err(::ResponseError::Json(err)),
+                };
+                Ok((ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse::Ok(result), buf.len()))
+            },
+            ::http::StatusCode::UNAUTHORIZED => Ok((ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse::Unauthorized, 0)),
+            _ => Ok((ReadApiextensionsV1beta1CustomResourceDefinitionStatusResponse::Other, 0)),
         }
     }
 }
@@ -593,7 +712,7 @@ impl CustomResourceDefinition {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiextensions_v1beta1_custom_resource_definition(
         name: &str,
-        body: &::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        body: &::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}?", name = name);
@@ -612,8 +731,8 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::replace_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.replace_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum ReplaceApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Created(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Created(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -663,7 +782,7 @@ impl CustomResourceDefinition {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_apiextensions_v1beta1_custom_resource_definition_status(
         name: &str,
-        body: &::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
+        body: &::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status?", name = name);
@@ -682,8 +801,8 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::replace_apiextensions_v1beta1_custom_resource_definition_status`](./struct.CustomResourceDefinition.html#method.replace_apiextensions_v1beta1_custom_resource_definition_status)
 #[derive(Debug)]
 pub enum ReplaceApiextensionsV1beta1CustomResourceDefinitionStatusResponse {
-    Ok(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
-    Created(::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Ok(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
+    Created(::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinition),
     Unauthorized,
     Other,
 }
@@ -815,7 +934,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::watch_apiextensions_v1beta1_custom_resource_definition`](./struct.CustomResourceDefinition.html#method.watch_apiextensions_v1beta1_custom_resource_definition)
 #[derive(Debug)]
 pub enum WatchApiextensionsV1beta1CustomResourceDefinitionResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -936,7 +1055,7 @@ impl CustomResourceDefinition {
 /// Parses the HTTP response of [`CustomResourceDefinition::watch_apiextensions_v1beta1_custom_resource_definition_list`](./struct.CustomResourceDefinition.html#method.watch_apiextensions_v1beta1_custom_resource_definition_list)
 #[derive(Debug)]
 pub enum WatchApiextensionsV1beta1CustomResourceDefinitionListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1029,9 +1148,9 @@ impl<'de> ::serde::Deserialize<'de> for CustomResourceDefinition {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec> = None;
-                let mut value_status: Option<::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionSpec> = None;
+                let mut value_status: Option<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::CustomResourceDefinitionStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

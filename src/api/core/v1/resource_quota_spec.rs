@@ -3,8 +3,11 @@
 /// ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ResourceQuotaSpec {
-    /// Hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
-    pub hard: Option<::std::collections::BTreeMap<String, ::v1_10::apimachinery::pkg::api::resource::Quantity>>,
+    /// hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+    pub hard: Option<::std::collections::BTreeMap<String, ::v1_11::apimachinery::pkg::api::resource::Quantity>>,
+
+    /// scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
+    pub scope_selector: Option<::v1_11::api::core::v1::ScopeSelector>,
 
     /// A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
     pub scopes: Option<Vec<String>>,
@@ -15,6 +18,7 @@ impl<'de> ::serde::Deserialize<'de> for ResourceQuotaSpec {
         #[allow(non_camel_case_types)]
         enum Field {
             Key_hard,
+            Key_scope_selector,
             Key_scopes,
             Other,
         }
@@ -33,6 +37,7 @@ impl<'de> ::serde::Deserialize<'de> for ResourceQuotaSpec {
                     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> where E: ::serde::de::Error {
                         Ok(match v {
                             "hard" => Field::Key_hard,
+                            "scopeSelector" => Field::Key_scope_selector,
                             "scopes" => Field::Key_scopes,
                             _ => Field::Other,
                         })
@@ -53,12 +58,14 @@ impl<'de> ::serde::Deserialize<'de> for ResourceQuotaSpec {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_hard: Option<::std::collections::BTreeMap<String, ::v1_10::apimachinery::pkg::api::resource::Quantity>> = None;
+                let mut value_hard: Option<::std::collections::BTreeMap<String, ::v1_11::apimachinery::pkg::api::resource::Quantity>> = None;
+                let mut value_scope_selector: Option<::v1_11::api::core::v1::ScopeSelector> = None;
                 let mut value_scopes: Option<Vec<String>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
                         Field::Key_hard => value_hard = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_scope_selector => value_scope_selector = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_scopes => value_scopes = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Other => { let _: ::serde::de::IgnoredAny = ::serde::de::MapAccess::next_value(&mut map)?; },
                     }
@@ -66,6 +73,7 @@ impl<'de> ::serde::Deserialize<'de> for ResourceQuotaSpec {
 
                 Ok(ResourceQuotaSpec {
                     hard: value_hard,
+                    scope_selector: value_scope_selector,
                     scopes: value_scopes,
                 })
             }
@@ -75,6 +83,7 @@ impl<'de> ::serde::Deserialize<'de> for ResourceQuotaSpec {
             "ResourceQuotaSpec",
             &[
                 "hard",
+                "scopeSelector",
                 "scopes",
             ],
             Visitor,
@@ -88,10 +97,14 @@ impl ::serde::Serialize for ResourceQuotaSpec {
             "ResourceQuotaSpec",
             0 +
             self.hard.as_ref().map_or(0, |_| 1) +
+            self.scope_selector.as_ref().map_or(0, |_| 1) +
             self.scopes.as_ref().map_or(0, |_| 1),
         )?;
         if let Some(value) = &self.hard {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "hard", value)?;
+        }
+        if let Some(value) = &self.scope_selector {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "scopeSelector", value)?;
         }
         if let Some(value) = &self.scopes {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "scopes", value)?;

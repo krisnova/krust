@@ -7,13 +7,13 @@ pub struct ServiceAccount {
     pub automount_service_account_token: Option<bool>,
 
     /// ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
-    pub image_pull_secrets: Option<Vec<::v1_10::api::core::v1::LocalObjectReference>>,
+    pub image_pull_secrets: Option<Vec<::v1_11::api::core::v1::LocalObjectReference>>,
 
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
-    pub secrets: Option<Vec<::v1_10::api::core::v1::ObjectReference>>,
+    pub secrets: Option<Vec<::v1_11::api::core::v1::ObjectReference>>,
 }
 
 // Begin /v1/ServiceAccount
@@ -38,7 +38,7 @@ impl ServiceAccount {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_service_account(
         namespace: &str,
-        body: &::v1_10::api::core::v1::ServiceAccount,
+        body: &::v1_11::api::core::v1::ServiceAccount,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/serviceaccounts?", namespace = namespace);
@@ -57,9 +57,9 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::create_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.create_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_10::api::core::v1::ServiceAccount),
-    Created(::v1_10::api::core::v1::ServiceAccount),
-    Accepted(::v1_10::api::core::v1::ServiceAccount),
+    Ok(::v1_11::api::core::v1::ServiceAccount),
+    Created(::v1_11::api::core::v1::ServiceAccount),
+    Accepted(::v1_11::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -199,8 +199,8 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::delete_core_v1_collection_namespaced_service_account`](./struct.ServiceAccount.html#method.delete_core_v1_collection_namespaced_service_account)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedServiceAccountResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::ServiceAccount),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -302,8 +302,8 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::delete_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.delete_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedServiceAccountResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::ServiceAccount),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -440,7 +440,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::list_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.list_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_10::api::core::v1::ServiceAccountList),
+    Ok(::v1_11::api::core::v1::ServiceAccountList),
     Unauthorized,
     Other,
 }
@@ -559,7 +559,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::list_core_v1_service_account_for_all_namespaces`](./struct.ServiceAccount.html#method.list_core_v1_service_account_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ServiceAccountForAllNamespacesResponse {
-    Ok(::v1_10::api::core::v1::ServiceAccountList),
+    Ok(::v1_11::api::core::v1::ServiceAccountList),
     Unauthorized,
     Other,
 }
@@ -606,7 +606,7 @@ impl ServiceAccount {
     pub fn patch_core_v1_namespaced_service_account(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/serviceaccounts/{name}?", name = name, namespace = namespace);
@@ -625,7 +625,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::patch_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.patch_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_10::api::core::v1::ServiceAccount),
+    Ok(::v1_11::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -704,7 +704,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::read_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.read_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_10::api::core::v1::ServiceAccount),
+    Ok(::v1_11::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -751,7 +751,7 @@ impl ServiceAccount {
     pub fn replace_core_v1_namespaced_service_account(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::ServiceAccount,
+        body: &::v1_11::api::core::v1::ServiceAccount,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/serviceaccounts/{name}?", name = name, namespace = namespace);
@@ -770,8 +770,8 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::replace_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.replace_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_10::api::core::v1::ServiceAccount),
-    Created(::v1_10::api::core::v1::ServiceAccount),
+    Ok(::v1_11::api::core::v1::ServiceAccount),
+    Created(::v1_11::api::core::v1::ServiceAccount),
     Unauthorized,
     Other,
 }
@@ -908,7 +908,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::watch_core_v1_namespaced_service_account`](./struct.ServiceAccount.html#method.watch_core_v1_namespaced_service_account)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceAccountResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1034,7 +1034,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::watch_core_v1_namespaced_service_account_list`](./struct.ServiceAccount.html#method.watch_core_v1_namespaced_service_account_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedServiceAccountListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1155,7 +1155,7 @@ impl ServiceAccount {
 /// Parses the HTTP response of [`ServiceAccount::watch_core_v1_service_account_list_for_all_namespaces`](./struct.ServiceAccount.html#method.watch_core_v1_service_account_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ServiceAccountListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1251,9 +1251,9 @@ impl<'de> ::serde::Deserialize<'de> for ServiceAccount {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_automount_service_account_token: Option<bool> = None;
-                let mut value_image_pull_secrets: Option<Vec<::v1_10::api::core::v1::LocalObjectReference>> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_secrets: Option<Vec<::v1_10::api::core::v1::ObjectReference>> = None;
+                let mut value_image_pull_secrets: Option<Vec<::v1_11::api::core::v1::LocalObjectReference>> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_secrets: Option<Vec<::v1_11::api::core::v1::ObjectReference>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

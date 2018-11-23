@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct VolumeAttachmentList {
     /// Items is the list of VolumeAttachments
-    pub items: Vec<::v1_10::api::storage::v1alpha1::VolumeAttachment>,
+    pub items: Vec<::v1_11::api::storage::v1alpha1::VolumeAttachment>,
 
     /// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for VolumeAttachmentList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for VolumeAttachmentList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_10::api::storage::v1alpha1::VolumeAttachment>> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_11::api::storage::v1alpha1::VolumeAttachment>> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

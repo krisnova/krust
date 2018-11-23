@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ReplicaSetList {
     /// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
-    pub items: Vec<::v1_10::api::extensions::v1beta1::ReplicaSet>,
+    pub items: Vec<::v1_11::api::extensions::v1beta1::ReplicaSet>,
 
     /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta>,
 }
 
 impl ::Resource for ReplicaSetList {
@@ -75,8 +75,8 @@ impl<'de> ::serde::Deserialize<'de> for ReplicaSetList {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_items: Option<Vec<::v1_10::api::extensions::v1beta1::ReplicaSet>> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
+                let mut value_items: Option<Vec<::v1_11::api::extensions::v1beta1::ReplicaSet>> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ListMeta> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

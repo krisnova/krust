@@ -1,13 +1,13 @@
 // Generated from definition io.k8s.api.policy.v1beta1.PodSecurityPolicy
 
-/// Pod Security Policy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+/// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PodSecurityPolicy {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// spec defines the policy enforced.
-    pub spec: Option<::v1_10::api::policy::v1beta1::PodSecurityPolicySpec>,
+    pub spec: Option<::v1_11::api::policy::v1beta1::PodSecurityPolicySpec>,
 }
 
 // Begin policy/v1beta1/PodSecurityPolicy
@@ -27,7 +27,7 @@ impl PodSecurityPolicy {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_policy_v1beta1_pod_security_policy(
-        body: &::v1_10::api::policy::v1beta1::PodSecurityPolicy,
+        body: &::v1_11::api::policy::v1beta1::PodSecurityPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/podsecuritypolicies?");
@@ -46,9 +46,9 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::create_policy_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.create_policy_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum CreatePolicyV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
-    Created(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
-    Accepted(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
+    Created(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
+    Accepted(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -183,8 +183,8 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::delete_policy_v1beta1_collection_pod_security_policy`](./struct.PodSecurityPolicy.html#method.delete_policy_v1beta1_collection_pod_security_policy)
 #[derive(Debug)]
 pub enum DeletePolicyV1beta1CollectionPodSecurityPolicyResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -281,8 +281,8 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::delete_policy_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.delete_policy_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum DeletePolicyV1beta1PodSecurityPolicyResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -414,7 +414,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::list_policy_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.list_policy_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum ListPolicyV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::policy::v1beta1::PodSecurityPolicyList),
+    Ok(::v1_11::api::policy::v1beta1::PodSecurityPolicyList),
     Unauthorized,
     Other,
 }
@@ -456,7 +456,7 @@ impl PodSecurityPolicy {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_policy_v1beta1_pod_security_policy(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/podsecuritypolicies/{name}?", name = name);
@@ -475,7 +475,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::patch_policy_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.patch_policy_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum PatchPolicyV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -549,7 +549,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::read_policy_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.read_policy_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum ReadPolicyV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -591,7 +591,7 @@ impl PodSecurityPolicy {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_policy_v1beta1_pod_security_policy(
         name: &str,
-        body: &::v1_10::api::policy::v1beta1::PodSecurityPolicy,
+        body: &::v1_11::api::policy::v1beta1::PodSecurityPolicy,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/policy/v1beta1/podsecuritypolicies/{name}?", name = name);
@@ -610,8 +610,8 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::replace_policy_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.replace_policy_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum ReplacePolicyV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
-    Created(::v1_10::api::policy::v1beta1::PodSecurityPolicy),
+    Ok(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
+    Created(::v1_11::api::policy::v1beta1::PodSecurityPolicy),
     Unauthorized,
     Other,
 }
@@ -743,7 +743,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::watch_policy_v1beta1_pod_security_policy`](./struct.PodSecurityPolicy.html#method.watch_policy_v1beta1_pod_security_policy)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1PodSecurityPolicyResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -864,7 +864,7 @@ impl PodSecurityPolicy {
 /// Parses the HTTP response of [`PodSecurityPolicy::watch_policy_v1beta1_pod_security_policy_list`](./struct.PodSecurityPolicy.html#method.watch_policy_v1beta1_pod_security_policy_list)
 #[derive(Debug)]
 pub enum WatchPolicyV1beta1PodSecurityPolicyListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -955,8 +955,8 @@ impl<'de> ::serde::Deserialize<'de> for PodSecurityPolicy {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::policy::v1beta1::PodSecurityPolicySpec> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::policy::v1beta1::PodSecurityPolicySpec> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

@@ -3,8 +3,8 @@
 /// JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.
 #[derive(Clone, Debug, PartialEq)]
 pub enum JSONSchemaPropsOrArray {
-    Schema(Box<::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::JSONSchemaProps>),
-    Schemas(Vec<::v1_10::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::JSONSchemaProps>),
+    Schema(Box<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::JSONSchemaProps>),
+    Schemas(Vec<::v1_11::apiextensions_apiserver::pkg::apis::apiextensions::v1beta1::JSONSchemaProps>),
 }
 
 impl<'de> ::serde::Deserialize<'de> for JSONSchemaPropsOrArray {

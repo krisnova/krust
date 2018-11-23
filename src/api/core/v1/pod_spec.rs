@@ -7,22 +7,22 @@ pub struct PodSpec {
     pub active_deadline_seconds: Option<i64>,
 
     /// If specified, the pod's scheduling constraints
-    pub affinity: Option<::v1_10::api::core::v1::Affinity>,
+    pub affinity: Option<::v1_11::api::core::v1::Affinity>,
 
     /// AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
     pub automount_service_account_token: Option<bool>,
 
     /// List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
-    pub containers: Vec<::v1_10::api::core::v1::Container>,
+    pub containers: Vec<::v1_11::api::core::v1::Container>,
 
     /// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
-    pub dns_config: Option<::v1_10::api::core::v1::PodDNSConfig>,
+    pub dns_config: Option<::v1_11::api::core::v1::PodDNSConfig>,
 
     /// Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
     pub dns_policy: Option<String>,
 
     /// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
-    pub host_aliases: Option<Vec<::v1_10::api::core::v1::HostAlias>>,
+    pub host_aliases: Option<Vec<::v1_11::api::core::v1::HostAlias>>,
 
     /// Use the host's ipc namespace. Optional: Default to false.
     pub host_ipc: Option<bool>,
@@ -37,10 +37,10 @@ pub struct PodSpec {
     pub hostname: Option<String>,
 
     /// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
-    pub image_pull_secrets: Option<Vec<::v1_10::api::core::v1::LocalObjectReference>>,
+    pub image_pull_secrets: Option<Vec<::v1_11::api::core::v1::LocalObjectReference>>,
 
     /// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, or Liveness probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
-    pub init_containers: Option<Vec<::v1_10::api::core::v1::Container>>,
+    pub init_containers: Option<Vec<::v1_11::api::core::v1::Container>>,
 
     /// NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.
     pub node_name: Option<String>,
@@ -54,6 +54,9 @@ pub struct PodSpec {
     /// If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
     pub priority_class_name: Option<String>,
 
+    /// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md
+    pub readiness_gates: Option<Vec<::v1_11::api::core::v1::PodReadinessGate>>,
+
     /// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
     pub restart_policy: Option<String>,
 
@@ -61,7 +64,7 @@ pub struct PodSpec {
     pub scheduler_name: Option<String>,
 
     /// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
-    pub security_context: Option<::v1_10::api::core::v1::PodSecurityContext>,
+    pub security_context: Option<::v1_11::api::core::v1::PodSecurityContext>,
 
     /// DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
     pub service_account: Option<String>,
@@ -79,10 +82,10 @@ pub struct PodSpec {
     pub termination_grace_period_seconds: Option<i64>,
 
     /// If specified, the pod's tolerations.
-    pub tolerations: Option<Vec<::v1_10::api::core::v1::Toleration>>,
+    pub tolerations: Option<Vec<::v1_11::api::core::v1::Toleration>>,
 
     /// List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
-    pub volumes: Option<Vec<::v1_10::api::core::v1::Volume>>,
+    pub volumes: Option<Vec<::v1_11::api::core::v1::Volume>>,
 }
 
 impl<'de> ::serde::Deserialize<'de> for PodSpec {
@@ -106,6 +109,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSpec {
             Key_node_selector,
             Key_priority,
             Key_priority_class_name,
+            Key_readiness_gates,
             Key_restart_policy,
             Key_scheduler_name,
             Key_security_context,
@@ -149,6 +153,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSpec {
                             "nodeSelector" => Field::Key_node_selector,
                             "priority" => Field::Key_priority,
                             "priorityClassName" => Field::Key_priority_class_name,
+                            "readinessGates" => Field::Key_readiness_gates,
                             "restartPolicy" => Field::Key_restart_policy,
                             "schedulerName" => Field::Key_scheduler_name,
                             "securityContext" => Field::Key_security_context,
@@ -179,32 +184,33 @@ impl<'de> ::serde::Deserialize<'de> for PodSpec {
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_active_deadline_seconds: Option<i64> = None;
-                let mut value_affinity: Option<::v1_10::api::core::v1::Affinity> = None;
+                let mut value_affinity: Option<::v1_11::api::core::v1::Affinity> = None;
                 let mut value_automount_service_account_token: Option<bool> = None;
-                let mut value_containers: Option<Vec<::v1_10::api::core::v1::Container>> = None;
-                let mut value_dns_config: Option<::v1_10::api::core::v1::PodDNSConfig> = None;
+                let mut value_containers: Option<Vec<::v1_11::api::core::v1::Container>> = None;
+                let mut value_dns_config: Option<::v1_11::api::core::v1::PodDNSConfig> = None;
                 let mut value_dns_policy: Option<String> = None;
-                let mut value_host_aliases: Option<Vec<::v1_10::api::core::v1::HostAlias>> = None;
+                let mut value_host_aliases: Option<Vec<::v1_11::api::core::v1::HostAlias>> = None;
                 let mut value_host_ipc: Option<bool> = None;
                 let mut value_host_network: Option<bool> = None;
                 let mut value_host_pid: Option<bool> = None;
                 let mut value_hostname: Option<String> = None;
-                let mut value_image_pull_secrets: Option<Vec<::v1_10::api::core::v1::LocalObjectReference>> = None;
-                let mut value_init_containers: Option<Vec<::v1_10::api::core::v1::Container>> = None;
+                let mut value_image_pull_secrets: Option<Vec<::v1_11::api::core::v1::LocalObjectReference>> = None;
+                let mut value_init_containers: Option<Vec<::v1_11::api::core::v1::Container>> = None;
                 let mut value_node_name: Option<String> = None;
                 let mut value_node_selector: Option<::std::collections::BTreeMap<String, String>> = None;
                 let mut value_priority: Option<i32> = None;
                 let mut value_priority_class_name: Option<String> = None;
+                let mut value_readiness_gates: Option<Vec<::v1_11::api::core::v1::PodReadinessGate>> = None;
                 let mut value_restart_policy: Option<String> = None;
                 let mut value_scheduler_name: Option<String> = None;
-                let mut value_security_context: Option<::v1_10::api::core::v1::PodSecurityContext> = None;
+                let mut value_security_context: Option<::v1_11::api::core::v1::PodSecurityContext> = None;
                 let mut value_service_account: Option<String> = None;
                 let mut value_service_account_name: Option<String> = None;
                 let mut value_share_process_namespace: Option<bool> = None;
                 let mut value_subdomain: Option<String> = None;
                 let mut value_termination_grace_period_seconds: Option<i64> = None;
-                let mut value_tolerations: Option<Vec<::v1_10::api::core::v1::Toleration>> = None;
-                let mut value_volumes: Option<Vec<::v1_10::api::core::v1::Volume>> = None;
+                let mut value_tolerations: Option<Vec<::v1_11::api::core::v1::Toleration>> = None;
+                let mut value_volumes: Option<Vec<::v1_11::api::core::v1::Volume>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
@@ -225,6 +231,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSpec {
                         Field::Key_node_selector => value_node_selector = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_priority => value_priority = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_priority_class_name => value_priority_class_name = ::serde::de::MapAccess::next_value(&mut map)?,
+                        Field::Key_readiness_gates => value_readiness_gates = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_restart_policy => value_restart_policy = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_scheduler_name => value_scheduler_name = ::serde::de::MapAccess::next_value(&mut map)?,
                         Field::Key_security_context => value_security_context = ::serde::de::MapAccess::next_value(&mut map)?,
@@ -257,6 +264,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSpec {
                     node_selector: value_node_selector,
                     priority: value_priority,
                     priority_class_name: value_priority_class_name,
+                    readiness_gates: value_readiness_gates,
                     restart_policy: value_restart_policy,
                     scheduler_name: value_scheduler_name,
                     security_context: value_security_context,
@@ -291,6 +299,7 @@ impl<'de> ::serde::Deserialize<'de> for PodSpec {
                 "nodeSelector",
                 "priority",
                 "priorityClassName",
+                "readinessGates",
                 "restartPolicy",
                 "schedulerName",
                 "securityContext",
@@ -329,6 +338,7 @@ impl ::serde::Serialize for PodSpec {
             self.node_selector.as_ref().map_or(0, |_| 1) +
             self.priority.as_ref().map_or(0, |_| 1) +
             self.priority_class_name.as_ref().map_or(0, |_| 1) +
+            self.readiness_gates.as_ref().map_or(0, |_| 1) +
             self.restart_policy.as_ref().map_or(0, |_| 1) +
             self.scheduler_name.as_ref().map_or(0, |_| 1) +
             self.security_context.as_ref().map_or(0, |_| 1) +
@@ -388,6 +398,9 @@ impl ::serde::Serialize for PodSpec {
         }
         if let Some(value) = &self.priority_class_name {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "priorityClassName", value)?;
+        }
+        if let Some(value) = &self.readiness_gates {
+            ::serde::ser::SerializeStruct::serialize_field(&mut state, "readinessGates", value)?;
         }
         if let Some(value) = &self.restart_policy {
             ::serde::ser::SerializeStruct::serialize_field(&mut state, "restartPolicy", value)?;

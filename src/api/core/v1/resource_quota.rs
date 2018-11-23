@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ResourceQuota {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_10::api::core::v1::ResourceQuotaSpec>,
+    pub spec: Option<::v1_11::api::core::v1::ResourceQuotaSpec>,
 
     /// Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_10::api::core::v1::ResourceQuotaStatus>,
+    pub status: Option<::v1_11::api::core::v1::ResourceQuotaStatus>,
 }
 
 // Begin /v1/ResourceQuota
@@ -35,7 +35,7 @@ impl ResourceQuota {
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_namespaced_resource_quota(
         namespace: &str,
-        body: &::v1_10::api::core::v1::ResourceQuota,
+        body: &::v1_11::api::core::v1::ResourceQuota,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/resourcequotas?", namespace = namespace);
@@ -54,9 +54,9 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::create_core_v1_namespaced_resource_quota`](./struct.ResourceQuota.html#method.create_core_v1_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum CreateCoreV1NamespacedResourceQuotaResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuota),
-    Created(::v1_10::api::core::v1::ResourceQuota),
-    Accepted(::v1_10::api::core::v1::ResourceQuota),
+    Ok(::v1_11::api::core::v1::ResourceQuota),
+    Created(::v1_11::api::core::v1::ResourceQuota),
+    Accepted(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -196,8 +196,8 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::delete_core_v1_collection_namespaced_resource_quota`](./struct.ResourceQuota.html#method.delete_core_v1_collection_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionNamespacedResourceQuotaResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::ResourceQuota),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::delete_core_v1_namespaced_resource_quota`](./struct.ResourceQuota.html#method.delete_core_v1_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum DeleteCoreV1NamespacedResourceQuotaResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::ResourceQuota),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -437,7 +437,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::list_core_v1_namespaced_resource_quota`](./struct.ResourceQuota.html#method.list_core_v1_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum ListCoreV1NamespacedResourceQuotaResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuotaList),
+    Ok(::v1_11::api::core::v1::ResourceQuotaList),
     Unauthorized,
     Other,
 }
@@ -556,7 +556,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::list_core_v1_resource_quota_for_all_namespaces`](./struct.ResourceQuota.html#method.list_core_v1_resource_quota_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListCoreV1ResourceQuotaForAllNamespacesResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuotaList),
+    Ok(::v1_11::api::core::v1::ResourceQuotaList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl ResourceQuota {
     pub fn patch_core_v1_namespaced_resource_quota(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/resourcequotas/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::patch_core_v1_namespaced_resource_quota`](./struct.ResourceQuota.html#method.patch_core_v1_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedResourceQuotaResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuota),
+    Ok(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl ResourceQuota {
     pub fn patch_core_v1_namespaced_resource_quota_status(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/resourcequotas/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::patch_core_v1_namespaced_resource_quota_status`](./struct.ResourceQuota.html#method.patch_core_v1_namespaced_resource_quota_status)
 #[derive(Debug)]
 pub enum PatchCoreV1NamespacedResourceQuotaStatusResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuota),
+    Ok(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::read_core_v1_namespaced_resource_quota`](./struct.ResourceQuota.html#method.read_core_v1_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedResourceQuotaResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuota),
+    Ok(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::read_core_v1_namespaced_resource_quota_status`](./struct.ResourceQuota.html#method.read_core_v1_namespaced_resource_quota_status)
 #[derive(Debug)]
 pub enum ReadCoreV1NamespacedResourceQuotaStatusResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuota),
+    Ok(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl ResourceQuota {
     pub fn replace_core_v1_namespaced_resource_quota(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::ResourceQuota,
+        body: &::v1_11::api::core::v1::ResourceQuota,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/resourcequotas/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::replace_core_v1_namespaced_resource_quota`](./struct.ResourceQuota.html#method.replace_core_v1_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedResourceQuotaResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuota),
-    Created(::v1_10::api::core::v1::ResourceQuota),
+    Ok(::v1_11::api::core::v1::ResourceQuota),
+    Created(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl ResourceQuota {
     pub fn replace_core_v1_namespaced_resource_quota_status(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::core::v1::ResourceQuota,
+        body: &::v1_11::api::core::v1::ResourceQuota,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/namespaces/{namespace}/resourcequotas/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::replace_core_v1_namespaced_resource_quota_status`](./struct.ResourceQuota.html#method.replace_core_v1_namespaced_resource_quota_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1NamespacedResourceQuotaStatusResponse {
-    Ok(::v1_10::api::core::v1::ResourceQuota),
-    Created(::v1_10::api::core::v1::ResourceQuota),
+    Ok(::v1_11::api::core::v1::ResourceQuota),
+    Created(::v1_11::api::core::v1::ResourceQuota),
     Unauthorized,
     Other,
 }
@@ -1109,7 +1109,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::watch_core_v1_namespaced_resource_quota`](./struct.ResourceQuota.html#method.watch_core_v1_namespaced_resource_quota)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedResourceQuotaResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1235,7 +1235,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::watch_core_v1_namespaced_resource_quota_list`](./struct.ResourceQuota.html#method.watch_core_v1_namespaced_resource_quota_list)
 #[derive(Debug)]
 pub enum WatchCoreV1NamespacedResourceQuotaListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1356,7 +1356,7 @@ impl ResourceQuota {
 /// Parses the HTTP response of [`ResourceQuota::watch_core_v1_resource_quota_list_for_all_namespaces`](./struct.ResourceQuota.html#method.watch_core_v1_resource_quota_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchCoreV1ResourceQuotaListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for ResourceQuota {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::core::v1::ResourceQuotaSpec> = None;
-                let mut value_status: Option<::v1_10::api::core::v1::ResourceQuotaStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::core::v1::ResourceQuotaSpec> = None;
+                let mut value_status: Option<::v1_11::api::core::v1::ResourceQuotaStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

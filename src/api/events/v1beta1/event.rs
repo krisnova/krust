@@ -10,18 +10,18 @@ pub struct Event {
     pub deprecated_count: Option<i32>,
 
     /// Deprecated field assuring backward compatibility with core.v1 Event type
-    pub deprecated_first_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time>,
+    pub deprecated_first_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time>,
 
     /// Deprecated field assuring backward compatibility with core.v1 Event type
-    pub deprecated_last_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time>,
+    pub deprecated_last_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time>,
 
     /// Deprecated field assuring backward compatibility with core.v1 Event type
-    pub deprecated_source: Option<::v1_10::api::core::v1::EventSource>,
+    pub deprecated_source: Option<::v1_11::api::core::v1::EventSource>,
 
     /// Required. Time when this Event was first observed.
-    pub event_time: ::v1_10::apimachinery::pkg::apis::meta::v1::MicroTime,
+    pub event_time: ::v1_11::apimachinery::pkg::apis::meta::v1::MicroTime,
 
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
     pub note: Option<String>,
@@ -30,10 +30,10 @@ pub struct Event {
     pub reason: Option<String>,
 
     /// The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-    pub regarding: Option<::v1_10::api::core::v1::ObjectReference>,
+    pub regarding: Option<::v1_11::api::core::v1::ObjectReference>,
 
     /// Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-    pub related: Option<::v1_10::api::core::v1::ObjectReference>,
+    pub related: Option<::v1_11::api::core::v1::ObjectReference>,
 
     /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
     pub reporting_controller: Option<String>,
@@ -42,7 +42,7 @@ pub struct Event {
     pub reporting_instance: Option<String>,
 
     /// Data about the Event series this event represents or nil if it's a singleton Event.
-    pub series: Option<::v1_10::api::events::v1beta1::EventSeries>,
+    pub series: Option<::v1_11::api::events::v1beta1::EventSeries>,
 
     /// Type of this event (Normal, Warning), new types could be added in the future.
     pub type_: Option<String>,
@@ -70,7 +70,7 @@ impl Event {
     ///     If 'true', then the output is pretty printed.
     pub fn create_events_v1beta1_namespaced_event(
         namespace: &str,
-        body: &::v1_10::api::events::v1beta1::Event,
+        body: &::v1_11::api::events::v1beta1::Event,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events?", namespace = namespace);
@@ -89,9 +89,9 @@ impl Event {
 /// Parses the HTTP response of [`Event::create_events_v1beta1_namespaced_event`](./struct.Event.html#method.create_events_v1beta1_namespaced_event)
 #[derive(Debug)]
 pub enum CreateEventsV1beta1NamespacedEventResponse {
-    Ok(::v1_10::api::events::v1beta1::Event),
-    Created(::v1_10::api::events::v1beta1::Event),
-    Accepted(::v1_10::api::events::v1beta1::Event),
+    Ok(::v1_11::api::events::v1beta1::Event),
+    Created(::v1_11::api::events::v1beta1::Event),
+    Accepted(::v1_11::api::events::v1beta1::Event),
     Unauthorized,
     Other,
 }
@@ -231,8 +231,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::delete_events_v1beta1_collection_namespaced_event`](./struct.Event.html#method.delete_events_v1beta1_collection_namespaced_event)
 #[derive(Debug)]
 pub enum DeleteEventsV1beta1CollectionNamespacedEventResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::events::v1beta1::Event),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::events::v1beta1::Event),
     Unauthorized,
     Other,
 }
@@ -334,8 +334,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::delete_events_v1beta1_namespaced_event`](./struct.Event.html#method.delete_events_v1beta1_namespaced_event)
 #[derive(Debug)]
 pub enum DeleteEventsV1beta1NamespacedEventResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::events::v1beta1::Event),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::events::v1beta1::Event),
     Unauthorized,
     Other,
 }
@@ -467,7 +467,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::list_events_v1beta1_event_for_all_namespaces`](./struct.Event.html#method.list_events_v1beta1_event_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListEventsV1beta1EventForAllNamespacesResponse {
-    Ok(::v1_10::api::events::v1beta1::EventList),
+    Ok(::v1_11::api::events::v1beta1::EventList),
     Unauthorized,
     Other,
 }
@@ -591,7 +591,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::list_events_v1beta1_namespaced_event`](./struct.Event.html#method.list_events_v1beta1_namespaced_event)
 #[derive(Debug)]
 pub enum ListEventsV1beta1NamespacedEventResponse {
-    Ok(::v1_10::api::events::v1beta1::EventList),
+    Ok(::v1_11::api::events::v1beta1::EventList),
     Unauthorized,
     Other,
 }
@@ -638,7 +638,7 @@ impl Event {
     pub fn patch_events_v1beta1_namespaced_event(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events/{name}?", name = name, namespace = namespace);
@@ -657,7 +657,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::patch_events_v1beta1_namespaced_event`](./struct.Event.html#method.patch_events_v1beta1_namespaced_event)
 #[derive(Debug)]
 pub enum PatchEventsV1beta1NamespacedEventResponse {
-    Ok(::v1_10::api::events::v1beta1::Event),
+    Ok(::v1_11::api::events::v1beta1::Event),
     Unauthorized,
     Other,
 }
@@ -736,7 +736,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::read_events_v1beta1_namespaced_event`](./struct.Event.html#method.read_events_v1beta1_namespaced_event)
 #[derive(Debug)]
 pub enum ReadEventsV1beta1NamespacedEventResponse {
-    Ok(::v1_10::api::events::v1beta1::Event),
+    Ok(::v1_11::api::events::v1beta1::Event),
     Unauthorized,
     Other,
 }
@@ -783,7 +783,7 @@ impl Event {
     pub fn replace_events_v1beta1_namespaced_event(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::events::v1beta1::Event,
+        body: &::v1_11::api::events::v1beta1::Event,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events/{name}?", name = name, namespace = namespace);
@@ -802,8 +802,8 @@ impl Event {
 /// Parses the HTTP response of [`Event::replace_events_v1beta1_namespaced_event`](./struct.Event.html#method.replace_events_v1beta1_namespaced_event)
 #[derive(Debug)]
 pub enum ReplaceEventsV1beta1NamespacedEventResponse {
-    Ok(::v1_10::api::events::v1beta1::Event),
-    Created(::v1_10::api::events::v1beta1::Event),
+    Ok(::v1_11::api::events::v1beta1::Event),
+    Created(::v1_11::api::events::v1beta1::Event),
     Unauthorized,
     Other,
 }
@@ -930,7 +930,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_events_v1beta1_event_list_for_all_namespaces`](./struct.Event.html#method.watch_events_v1beta1_event_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchEventsV1beta1EventListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1061,7 +1061,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_events_v1beta1_namespaced_event`](./struct.Event.html#method.watch_events_v1beta1_namespaced_event)
 #[derive(Debug)]
 pub enum WatchEventsV1beta1NamespacedEventResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1187,7 +1187,7 @@ impl Event {
 /// Parses the HTTP response of [`Event::watch_events_v1beta1_namespaced_event_list`](./struct.Event.html#method.watch_events_v1beta1_namespaced_event_list)
 #[derive(Debug)]
 pub enum WatchEventsV1beta1NamespacedEventListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1306,18 +1306,18 @@ impl<'de> ::serde::Deserialize<'de> for Event {
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
                 let mut value_action: Option<String> = None;
                 let mut value_deprecated_count: Option<i32> = None;
-                let mut value_deprecated_first_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time> = None;
-                let mut value_deprecated_last_timestamp: Option<::v1_10::apimachinery::pkg::apis::meta::v1::Time> = None;
-                let mut value_deprecated_source: Option<::v1_10::api::core::v1::EventSource> = None;
-                let mut value_event_time: Option<::v1_10::apimachinery::pkg::apis::meta::v1::MicroTime> = None;
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_deprecated_first_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_deprecated_last_timestamp: Option<::v1_11::apimachinery::pkg::apis::meta::v1::Time> = None;
+                let mut value_deprecated_source: Option<::v1_11::api::core::v1::EventSource> = None;
+                let mut value_event_time: Option<::v1_11::apimachinery::pkg::apis::meta::v1::MicroTime> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
                 let mut value_note: Option<String> = None;
                 let mut value_reason: Option<String> = None;
-                let mut value_regarding: Option<::v1_10::api::core::v1::ObjectReference> = None;
-                let mut value_related: Option<::v1_10::api::core::v1::ObjectReference> = None;
+                let mut value_regarding: Option<::v1_11::api::core::v1::ObjectReference> = None;
+                let mut value_related: Option<::v1_11::api::core::v1::ObjectReference> = None;
                 let mut value_reporting_controller: Option<String> = None;
                 let mut value_reporting_instance: Option<String> = None;
-                let mut value_series: Option<::v1_10::api::events::v1beta1::EventSeries> = None;
+                let mut value_series: Option<::v1_11::api::events::v1beta1::EventSeries> = None;
                 let mut value_type_: Option<String> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {

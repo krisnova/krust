@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CronJob {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub spec: Option<::v1_10::api::batch::v1beta1::CronJobSpec>,
+    pub spec: Option<::v1_11::api::batch::v1beta1::CronJobSpec>,
 
     /// Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-    pub status: Option<::v1_10::api::batch::v1beta1::CronJobStatus>,
+    pub status: Option<::v1_11::api::batch::v1beta1::CronJobStatus>,
 }
 
 // Begin batch/v1beta1/CronJob
@@ -35,7 +35,7 @@ impl CronJob {
     ///     If 'true', then the output is pretty printed.
     pub fn create_batch_v1beta1_namespaced_cron_job(
         namespace: &str,
-        body: &::v1_10::api::batch::v1beta1::CronJob,
+        body: &::v1_11::api::batch::v1beta1::CronJob,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1beta1/namespaces/{namespace}/cronjobs?", namespace = namespace);
@@ -54,9 +54,9 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::create_batch_v1beta1_namespaced_cron_job`](./struct.CronJob.html#method.create_batch_v1beta1_namespaced_cron_job)
 #[derive(Debug)]
 pub enum CreateBatchV1beta1NamespacedCronJobResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJob),
-    Created(::v1_10::api::batch::v1beta1::CronJob),
-    Accepted(::v1_10::api::batch::v1beta1::CronJob),
+    Ok(::v1_11::api::batch::v1beta1::CronJob),
+    Created(::v1_11::api::batch::v1beta1::CronJob),
+    Accepted(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -196,8 +196,8 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::delete_batch_v1beta1_collection_namespaced_cron_job`](./struct.CronJob.html#method.delete_batch_v1beta1_collection_namespaced_cron_job)
 #[derive(Debug)]
 pub enum DeleteBatchV1beta1CollectionNamespacedCronJobResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::batch::v1beta1::CronJob),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -299,8 +299,8 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::delete_batch_v1beta1_namespaced_cron_job`](./struct.CronJob.html#method.delete_batch_v1beta1_namespaced_cron_job)
 #[derive(Debug)]
 pub enum DeleteBatchV1beta1NamespacedCronJobResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::batch::v1beta1::CronJob),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -432,7 +432,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::list_batch_v1beta1_cron_job_for_all_namespaces`](./struct.CronJob.html#method.list_batch_v1beta1_cron_job_for_all_namespaces)
 #[derive(Debug)]
 pub enum ListBatchV1beta1CronJobForAllNamespacesResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJobList),
+    Ok(::v1_11::api::batch::v1beta1::CronJobList),
     Unauthorized,
     Other,
 }
@@ -556,7 +556,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::list_batch_v1beta1_namespaced_cron_job`](./struct.CronJob.html#method.list_batch_v1beta1_namespaced_cron_job)
 #[derive(Debug)]
 pub enum ListBatchV1beta1NamespacedCronJobResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJobList),
+    Ok(::v1_11::api::batch::v1beta1::CronJobList),
     Unauthorized,
     Other,
 }
@@ -603,7 +603,7 @@ impl CronJob {
     pub fn patch_batch_v1beta1_namespaced_cron_job(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}?", name = name, namespace = namespace);
@@ -622,7 +622,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::patch_batch_v1beta1_namespaced_cron_job`](./struct.CronJob.html#method.patch_batch_v1beta1_namespaced_cron_job)
 #[derive(Debug)]
 pub enum PatchBatchV1beta1NamespacedCronJobResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJob),
+    Ok(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -669,7 +669,7 @@ impl CronJob {
     pub fn patch_batch_v1beta1_namespaced_cron_job_status(
         name: &str,
         namespace: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}/status?", name = name, namespace = namespace);
@@ -688,7 +688,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::patch_batch_v1beta1_namespaced_cron_job_status`](./struct.CronJob.html#method.patch_batch_v1beta1_namespaced_cron_job_status)
 #[derive(Debug)]
 pub enum PatchBatchV1beta1NamespacedCronJobStatusResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJob),
+    Ok(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -767,7 +767,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::read_batch_v1beta1_namespaced_cron_job`](./struct.CronJob.html#method.read_batch_v1beta1_namespaced_cron_job)
 #[derive(Debug)]
 pub enum ReadBatchV1beta1NamespacedCronJobResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJob),
+    Ok(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -830,7 +830,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::read_batch_v1beta1_namespaced_cron_job_status`](./struct.CronJob.html#method.read_batch_v1beta1_namespaced_cron_job_status)
 #[derive(Debug)]
 pub enum ReadBatchV1beta1NamespacedCronJobStatusResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJob),
+    Ok(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -877,7 +877,7 @@ impl CronJob {
     pub fn replace_batch_v1beta1_namespaced_cron_job(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::batch::v1beta1::CronJob,
+        body: &::v1_11::api::batch::v1beta1::CronJob,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}?", name = name, namespace = namespace);
@@ -896,8 +896,8 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::replace_batch_v1beta1_namespaced_cron_job`](./struct.CronJob.html#method.replace_batch_v1beta1_namespaced_cron_job)
 #[derive(Debug)]
 pub enum ReplaceBatchV1beta1NamespacedCronJobResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJob),
-    Created(::v1_10::api::batch::v1beta1::CronJob),
+    Ok(::v1_11::api::batch::v1beta1::CronJob),
+    Created(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -952,7 +952,7 @@ impl CronJob {
     pub fn replace_batch_v1beta1_namespaced_cron_job_status(
         name: &str,
         namespace: &str,
-        body: &::v1_10::api::batch::v1beta1::CronJob,
+        body: &::v1_11::api::batch::v1beta1::CronJob,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}/status?", name = name, namespace = namespace);
@@ -971,8 +971,8 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::replace_batch_v1beta1_namespaced_cron_job_status`](./struct.CronJob.html#method.replace_batch_v1beta1_namespaced_cron_job_status)
 #[derive(Debug)]
 pub enum ReplaceBatchV1beta1NamespacedCronJobStatusResponse {
-    Ok(::v1_10::api::batch::v1beta1::CronJob),
-    Created(::v1_10::api::batch::v1beta1::CronJob),
+    Ok(::v1_11::api::batch::v1beta1::CronJob),
+    Created(::v1_11::api::batch::v1beta1::CronJob),
     Unauthorized,
     Other,
 }
@@ -1099,7 +1099,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::watch_batch_v1beta1_cron_job_list_for_all_namespaces`](./struct.CronJob.html#method.watch_batch_v1beta1_cron_job_list_for_all_namespaces)
 #[derive(Debug)]
 pub enum WatchBatchV1beta1CronJobListForAllNamespacesResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1230,7 +1230,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::watch_batch_v1beta1_namespaced_cron_job`](./struct.CronJob.html#method.watch_batch_v1beta1_namespaced_cron_job)
 #[derive(Debug)]
 pub enum WatchBatchV1beta1NamespacedCronJobResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1356,7 +1356,7 @@ impl CronJob {
 /// Parses the HTTP response of [`CronJob::watch_batch_v1beta1_namespaced_cron_job_list`](./struct.CronJob.html#method.watch_batch_v1beta1_namespaced_cron_job_list)
 #[derive(Debug)]
 pub enum WatchBatchV1beta1NamespacedCronJobListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1449,9 +1449,9 @@ impl<'de> ::serde::Deserialize<'de> for CronJob {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::batch::v1beta1::CronJobSpec> = None;
-                let mut value_status: Option<::v1_10::api::batch::v1beta1::CronJobStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::batch::v1beta1::CronJobSpec> = None;
+                let mut value_status: Option<::v1_11::api::batch::v1beta1::CronJobStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

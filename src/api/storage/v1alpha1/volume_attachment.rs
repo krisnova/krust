@@ -6,13 +6,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct VolumeAttachment {
     /// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-    pub spec: ::v1_10::api::storage::v1alpha1::VolumeAttachmentSpec,
+    pub spec: ::v1_11::api::storage::v1alpha1::VolumeAttachmentSpec,
 
     /// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-    pub status: Option<::v1_10::api::storage::v1alpha1::VolumeAttachmentStatus>,
+    pub status: Option<::v1_11::api::storage::v1alpha1::VolumeAttachmentStatus>,
 }
 
 // Begin storage.k8s.io/v1alpha1/VolumeAttachment
@@ -32,7 +32,7 @@ impl VolumeAttachment {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_storage_v1alpha1_volume_attachment(
-        body: &::v1_10::api::storage::v1alpha1::VolumeAttachment,
+        body: &::v1_11::api::storage::v1alpha1::VolumeAttachment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1alpha1/volumeattachments?");
@@ -51,9 +51,9 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::create_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.create_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum CreateStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_10::api::storage::v1alpha1::VolumeAttachment),
-    Created(::v1_10::api::storage::v1alpha1::VolumeAttachment),
-    Accepted(::v1_10::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    Created(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    Accepted(::v1_11::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -188,8 +188,8 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::delete_storage_v1alpha1_collection_volume_attachment`](./struct.VolumeAttachment.html#method.delete_storage_v1alpha1_collection_volume_attachment)
 #[derive(Debug)]
 pub enum DeleteStorageV1alpha1CollectionVolumeAttachmentResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::storage::v1alpha1::VolumeAttachment),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -286,8 +286,8 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::delete_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.delete_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum DeleteStorageV1alpha1VolumeAttachmentResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::storage::v1alpha1::VolumeAttachment),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -419,7 +419,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::list_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.list_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum ListStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_10::api::storage::v1alpha1::VolumeAttachmentList),
+    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachmentList),
     Unauthorized,
     Other,
 }
@@ -461,7 +461,7 @@ impl VolumeAttachment {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_storage_v1alpha1_volume_attachment(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1alpha1/volumeattachments/{name}?", name = name);
@@ -480,7 +480,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::patch_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.patch_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum PatchStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_10::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -554,7 +554,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::read_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.read_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum ReadStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_10::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -596,7 +596,7 @@ impl VolumeAttachment {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_storage_v1alpha1_volume_attachment(
         name: &str,
-        body: &::v1_10::api::storage::v1alpha1::VolumeAttachment,
+        body: &::v1_11::api::storage::v1alpha1::VolumeAttachment,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/storage.k8s.io/v1alpha1/volumeattachments/{name}?", name = name);
@@ -615,8 +615,8 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::replace_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.replace_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum ReplaceStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_10::api::storage::v1alpha1::VolumeAttachment),
-    Created(::v1_10::api::storage::v1alpha1::VolumeAttachment),
+    Ok(::v1_11::api::storage::v1alpha1::VolumeAttachment),
+    Created(::v1_11::api::storage::v1alpha1::VolumeAttachment),
     Unauthorized,
     Other,
 }
@@ -748,7 +748,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::watch_storage_v1alpha1_volume_attachment`](./struct.VolumeAttachment.html#method.watch_storage_v1alpha1_volume_attachment)
 #[derive(Debug)]
 pub enum WatchStorageV1alpha1VolumeAttachmentResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -869,7 +869,7 @@ impl VolumeAttachment {
 /// Parses the HTTP response of [`VolumeAttachment::watch_storage_v1alpha1_volume_attachment_list`](./struct.VolumeAttachment.html#method.watch_storage_v1alpha1_volume_attachment_list)
 #[derive(Debug)]
 pub enum WatchStorageV1alpha1VolumeAttachmentListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -962,9 +962,9 @@ impl<'de> ::serde::Deserialize<'de> for VolumeAttachment {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::storage::v1alpha1::VolumeAttachmentSpec> = None;
-                let mut value_status: Option<::v1_10::api::storage::v1alpha1::VolumeAttachmentStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::storage::v1alpha1::VolumeAttachmentSpec> = None;
+                let mut value_status: Option<::v1_11::api::storage::v1alpha1::VolumeAttachmentStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

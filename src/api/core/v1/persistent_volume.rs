@@ -4,13 +4,13 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PersistentVolume {
     /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-    pub spec: Option<::v1_10::api::core::v1::PersistentVolumeSpec>,
+    pub spec: Option<::v1_11::api::core::v1::PersistentVolumeSpec>,
 
     /// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-    pub status: Option<::v1_10::api::core::v1::PersistentVolumeStatus>,
+    pub status: Option<::v1_11::api::core::v1::PersistentVolumeStatus>,
 }
 
 // Begin /v1/PersistentVolume
@@ -30,7 +30,7 @@ impl PersistentVolume {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_core_v1_persistent_volume(
-        body: &::v1_10::api::core::v1::PersistentVolume,
+        body: &::v1_11::api::core::v1::PersistentVolume,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes?");
@@ -49,9 +49,9 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::create_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.create_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum CreateCoreV1PersistentVolumeResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolume),
-    Created(::v1_10::api::core::v1::PersistentVolume),
-    Accepted(::v1_10::api::core::v1::PersistentVolume),
+    Ok(::v1_11::api::core::v1::PersistentVolume),
+    Created(::v1_11::api::core::v1::PersistentVolume),
+    Accepted(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -186,8 +186,8 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::delete_core_v1_collection_persistent_volume`](./struct.PersistentVolume.html#method.delete_core_v1_collection_persistent_volume)
 #[derive(Debug)]
 pub enum DeleteCoreV1CollectionPersistentVolumeResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::PersistentVolume),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -284,8 +284,8 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::delete_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.delete_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum DeleteCoreV1PersistentVolumeResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::core::v1::PersistentVolume),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -417,7 +417,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::list_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.list_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum ListCoreV1PersistentVolumeResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolumeList),
+    Ok(::v1_11::api::core::v1::PersistentVolumeList),
     Unauthorized,
     Other,
 }
@@ -459,7 +459,7 @@ impl PersistentVolume {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_persistent_volume(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}?", name = name);
@@ -478,7 +478,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::patch_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.patch_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum PatchCoreV1PersistentVolumeResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolume),
+    Ok(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -520,7 +520,7 @@ impl PersistentVolume {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_core_v1_persistent_volume_status(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}/status?", name = name);
@@ -539,7 +539,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::patch_core_v1_persistent_volume_status`](./struct.PersistentVolume.html#method.patch_core_v1_persistent_volume_status)
 #[derive(Debug)]
 pub enum PatchCoreV1PersistentVolumeStatusResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolume),
+    Ok(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -613,7 +613,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::read_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.read_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum ReadCoreV1PersistentVolumeResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolume),
+    Ok(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -671,7 +671,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::read_core_v1_persistent_volume_status`](./struct.PersistentVolume.html#method.read_core_v1_persistent_volume_status)
 #[derive(Debug)]
 pub enum ReadCoreV1PersistentVolumeStatusResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolume),
+    Ok(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -713,7 +713,7 @@ impl PersistentVolume {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_persistent_volume(
         name: &str,
-        body: &::v1_10::api::core::v1::PersistentVolume,
+        body: &::v1_11::api::core::v1::PersistentVolume,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}?", name = name);
@@ -732,8 +732,8 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::replace_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.replace_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum ReplaceCoreV1PersistentVolumeResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolume),
-    Created(::v1_10::api::core::v1::PersistentVolume),
+    Ok(::v1_11::api::core::v1::PersistentVolume),
+    Created(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -783,7 +783,7 @@ impl PersistentVolume {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_core_v1_persistent_volume_status(
         name: &str,
-        body: &::v1_10::api::core::v1::PersistentVolume,
+        body: &::v1_11::api::core::v1::PersistentVolume,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/api/v1/persistentvolumes/{name}/status?", name = name);
@@ -802,8 +802,8 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::replace_core_v1_persistent_volume_status`](./struct.PersistentVolume.html#method.replace_core_v1_persistent_volume_status)
 #[derive(Debug)]
 pub enum ReplaceCoreV1PersistentVolumeStatusResponse {
-    Ok(::v1_10::api::core::v1::PersistentVolume),
-    Created(::v1_10::api::core::v1::PersistentVolume),
+    Ok(::v1_11::api::core::v1::PersistentVolume),
+    Created(::v1_11::api::core::v1::PersistentVolume),
     Unauthorized,
     Other,
 }
@@ -935,7 +935,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::watch_core_v1_persistent_volume`](./struct.PersistentVolume.html#method.watch_core_v1_persistent_volume)
 #[derive(Debug)]
 pub enum WatchCoreV1PersistentVolumeResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1056,7 +1056,7 @@ impl PersistentVolume {
 /// Parses the HTTP response of [`PersistentVolume::watch_core_v1_persistent_volume_list`](./struct.PersistentVolume.html#method.watch_core_v1_persistent_volume_list)
 #[derive(Debug)]
 pub enum WatchCoreV1PersistentVolumeListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -1149,9 +1149,9 @@ impl<'de> ::serde::Deserialize<'de> for PersistentVolume {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_spec: Option<::v1_10::api::core::v1::PersistentVolumeSpec> = None;
-                let mut value_status: Option<::v1_10::api::core::v1::PersistentVolumeStatus> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_spec: Option<::v1_11::api::core::v1::PersistentVolumeSpec> = None;
+                let mut value_status: Option<::v1_11::api::core::v1::PersistentVolumeStatus> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {

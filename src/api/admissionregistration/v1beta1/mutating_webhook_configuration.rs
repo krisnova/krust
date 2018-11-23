@@ -4,10 +4,10 @@
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct MutatingWebhookConfiguration {
     /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-    pub metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
+    pub metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta>,
 
     /// Webhooks is a list of webhooks and the affected resources and operations.
-    pub webhooks: Option<Vec<::v1_10::api::admissionregistration::v1beta1::Webhook>>,
+    pub webhooks: Option<Vec<::v1_11::api::admissionregistration::v1beta1::Webhook>>,
 }
 
 // Begin admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration
@@ -27,7 +27,7 @@ impl MutatingWebhookConfiguration {
     ///
     ///     If 'true', then the output is pretty printed.
     pub fn create_admissionregistration_v1beta1_mutating_webhook_configuration(
-        body: &::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration,
+        body: &::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations?");
@@ -46,9 +46,9 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::create_admissionregistration_v1beta1_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.create_admissionregistration_v1beta1_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum CreateAdmissionregistrationV1beta1MutatingWebhookConfigurationResponse {
-    Ok(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
-    Created(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
-    Accepted(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    Ok(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    Created(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    Accepted(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -183,8 +183,8 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::delete_admissionregistration_v1beta1_collection_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.delete_admissionregistration_v1beta1_collection_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum DeleteAdmissionregistrationV1beta1CollectionMutatingWebhookConfigurationResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -281,8 +281,8 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::delete_admissionregistration_v1beta1_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.delete_admissionregistration_v1beta1_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum DeleteAdmissionregistrationV1beta1MutatingWebhookConfigurationResponse {
-    OkStatus(::v1_10::apimachinery::pkg::apis::meta::v1::Status),
-    OkValue(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    OkStatus(::v1_11::apimachinery::pkg::apis::meta::v1::Status),
+    OkValue(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -414,7 +414,7 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::list_admissionregistration_v1beta1_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.list_admissionregistration_v1beta1_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum ListAdmissionregistrationV1beta1MutatingWebhookConfigurationResponse {
-    Ok(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfigurationList),
+    Ok(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfigurationList),
     Unauthorized,
     Other,
 }
@@ -456,7 +456,7 @@ impl MutatingWebhookConfiguration {
     ///     If 'true', then the output is pretty printed.
     pub fn patch_admissionregistration_v1beta1_mutating_webhook_configuration(
         name: &str,
-        body: &::v1_10::apimachinery::pkg::apis::meta::v1::Patch,
+        body: &::v1_11::apimachinery::pkg::apis::meta::v1::Patch,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations/{name}?", name = name);
@@ -475,7 +475,7 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::patch_admissionregistration_v1beta1_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.patch_admissionregistration_v1beta1_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum PatchAdmissionregistrationV1beta1MutatingWebhookConfigurationResponse {
-    Ok(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    Ok(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -549,7 +549,7 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::read_admissionregistration_v1beta1_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.read_admissionregistration_v1beta1_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum ReadAdmissionregistrationV1beta1MutatingWebhookConfigurationResponse {
-    Ok(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    Ok(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -591,7 +591,7 @@ impl MutatingWebhookConfiguration {
     ///     If 'true', then the output is pretty printed.
     pub fn replace_admissionregistration_v1beta1_mutating_webhook_configuration(
         name: &str,
-        body: &::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration,
+        body: &::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration,
         pretty: Option<&str>,
     ) -> Result<::http::Request<Vec<u8>>, ::RequestError> {
         let __url = format!("/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations/{name}?", name = name);
@@ -610,8 +610,8 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::replace_admissionregistration_v1beta1_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.replace_admissionregistration_v1beta1_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum ReplaceAdmissionregistrationV1beta1MutatingWebhookConfigurationResponse {
-    Ok(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
-    Created(::v1_10::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    Ok(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
+    Created(::v1_11::api::admissionregistration::v1beta1::MutatingWebhookConfiguration),
     Unauthorized,
     Other,
 }
@@ -743,7 +743,7 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::watch_admissionregistration_v1beta1_mutating_webhook_configuration`](./struct.MutatingWebhookConfiguration.html#method.watch_admissionregistration_v1beta1_mutating_webhook_configuration)
 #[derive(Debug)]
 pub enum WatchAdmissionregistrationV1beta1MutatingWebhookConfigurationResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -864,7 +864,7 @@ impl MutatingWebhookConfiguration {
 /// Parses the HTTP response of [`MutatingWebhookConfiguration::watch_admissionregistration_v1beta1_mutating_webhook_configuration_list`](./struct.MutatingWebhookConfiguration.html#method.watch_admissionregistration_v1beta1_mutating_webhook_configuration_list)
 #[derive(Debug)]
 pub enum WatchAdmissionregistrationV1beta1MutatingWebhookConfigurationListResponse {
-    Ok(::v1_10::apimachinery::pkg::apis::meta::v1::WatchEvent),
+    Ok(::v1_11::apimachinery::pkg::apis::meta::v1::WatchEvent),
     Unauthorized,
     Other,
 }
@@ -955,8 +955,8 @@ impl<'de> ::serde::Deserialize<'de> for MutatingWebhookConfiguration {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error> where A: ::serde::de::MapAccess<'de> {
-                let mut value_metadata: Option<::v1_10::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
-                let mut value_webhooks: Option<Vec<::v1_10::api::admissionregistration::v1beta1::Webhook>> = None;
+                let mut value_metadata: Option<::v1_11::apimachinery::pkg::apis::meta::v1::ObjectMeta> = None;
+                let mut value_webhooks: Option<Vec<::v1_11::api::admissionregistration::v1beta1::Webhook>> = None;
 
                 while let Some(key) = ::serde::de::MapAccess::next_key::<Field>(&mut map)? {
                     match key {
